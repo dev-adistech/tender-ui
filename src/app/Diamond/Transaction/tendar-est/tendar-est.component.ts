@@ -2406,9 +2406,9 @@ return template;
       };
       PerArr.push(SaveObj);
     }
-    this.spinner.show();
+    
     this.TendarEstServ.TendarPrdDetSave(PerArr).subscribe((SaveRes) => {
-      try {
+      try{
         if (SaveRes.success == true) {
           this.spinner.hide();
           this.toastr.success("Save successfully.");
@@ -3672,8 +3672,6 @@ return template;
             }
           }
       this.PKTPER = highestRate.toFixed(2)
-          this.gridApi1.refreshCells({ force: true });
-
         }
       } catch (err) {
         console.log(err);

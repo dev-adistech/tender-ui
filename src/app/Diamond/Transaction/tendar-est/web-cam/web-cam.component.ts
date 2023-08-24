@@ -229,6 +229,7 @@ export class WebCamComponent implements OnInit {
       }
     });
     this.spinner.show()
+    this.spinner.show()
     await this.TendarEstServ.TendarVidDelete(Obj).subscribe((Res) => {
       try {
         if (Res.success == true) {

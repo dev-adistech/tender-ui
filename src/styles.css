@@ -97,6 +97,11 @@ input.mat-input-element {
 	font-size: 12px !important;
 }
 
+.mat-dialog-container{
+	width: auto !important;
+	margin: 0 auto;
+}
+
 .mat-select-value-text {
 	font-size: 12px !important;
 	color: var(--color-accent);
@@ -957,6 +962,19 @@ span.ag-group-child-count {
 	justify-self: stretch;
 }
 
+@media(max-width:1180px){
+	.navigation{
+		overflow: auto !important;
+	}
+}
+
+.mat-dialog-container{
+	margin: 43 auto !important;
+
+}
+
+
+
 /* .mat-input-element:disabled,
 .mat-form-field-type-mat-native-select.mat-form-field-disabled
   .mat-form-field-infix::after {
@@ -1043,3 +1061,26 @@ input[type="number"] {
 		transform: translateX(-100%);
 	}
 }
+
+
+.sidbar_add_remov{
+	height: 80vh; width: 29rem;
+}
+
+.select-color{
+ position: relative;
+ z-index: -1;
+}
+@media(max-width:1180px){
+	.sidbar_add_remov{
+		height: 80vh; width: 0rem;
+	}
+
+}
+
+.ContainWidth{
+	width: 145% !important;
+
+}
+
+
