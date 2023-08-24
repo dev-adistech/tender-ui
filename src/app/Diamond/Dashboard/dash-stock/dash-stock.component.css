@@ -1,0 +1,73 @@
+.prc-view__container {
+	padding: 0.5rem;
+	height: 82vh;
+
+	display: grid;
+	grid-template-rows: max-content;
+	gap: 0.5rem;
+}
+p {
+	margin: 0;
+	font-size: 1rem;
+}
+
+.PNTlab {
+	display: inline-block;
+	position: relative;
+	text-align: left;
+	width: 50%;
+	margin-left: auto;
+}
+
+.dock__summary {
+	height: 87vh;
+	width: inherit;
+	position: absolute;
+	background: #0000008a;
+	display: grid;
+	place-items: center;
+}
+.row-1 {
+	display: grid;
+	grid-auto-flow: column;
+	justify-items: start;
+	grid-template-columns: 1fr auto auto;
+	align-content: center;
+	justify-content: center;
+	grid-gap: 0.5rem;
+	align-items: center;
+	margin-bottom: 0.5rem;
+}
+
+.radio-border {
+	padding: 5px;
+	border: 1px solid var(--color-black);
+	border-radius: 5px;
+
+	display: flex;
+	flex-flow: row nowrap;
+	gap: 5px;
+}
+
+.selected-row {
+	background-color: #e77474;
+}
+
+mat-icon {
+	font-size: 15px;
+	height: 17px !important;
+	width: 25px !important;
+}
+
+button {
+	padding: 0 !important;
+	margin: 0 !important;
+}
+.disabled-row {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.ag-cell ag-cell-not-inline-editing ag-cell-auto-height ag-cell-value {
+	font-weight: 700 !important;
+}

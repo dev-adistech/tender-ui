@@ -1,0 +1,49 @@
+<section class="login__container">
+
+  <div class="login__backdrop glass-light">
+    <div class="login__logo-wrapper">
+      <img class="login__logo-text" src="../../../../assets/img/logo.svg" alt="logo-text">
+      <img class="login__logo-round" src="../../../../assets/img/logo-1.svg" alt="">
+    </div>
+  </div>
+
+  <div class="login__form glass-dark">
+    <h1 class="heading-1"> Sign In</h1>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate autocomplete="off">
+      <fieldset class="login__fields">
+
+        <div class="login__field">
+          <input class="login__input" type="text" id="username" name="username" formControlName="UserId" required=""
+            appAutoFocus>
+          <label class="login__label" for="username">Username</label>
+        </div>
+
+        <div class="login__field">
+          <input class="login__input" type="password" id="password" name="password" formControlName="password"
+            required="">
+          <label class="login__label" for="password">Password</label>
+        </div>
+
+        <button class="login__button" [disabled]="!loginForm.valid">Login</button>
+      </fieldset>
+    </form>
+  </div>
+
+</section>
+
+<ul>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>

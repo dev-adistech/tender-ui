@@ -1,0 +1,300 @@
+<section class="home">
+  <nav class="navigation" role="navigation">
+    
+    <button class="navigation-btn master-btn" (click)="ShowMenu('.master-menu', '.master-btn')"
+      *ngIf="CheckMenuPermission('Master')">
+      <svg class="icon icon-master">
+        <use xlink:href="assets/symbol-defs.svg#icon-master"></use>
+      </svg>
+      <span>Master</span>
+    </button>
+    <menu class="navigation-menu master-menu" (mouseleave)="HideMenu()">
+      <ul>
+        <div class="sub-menu__wrapper" *ngIf="masterParameter">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('ShpMastComponent')" (click)="addiFrameTabs('Shape Master', '/ShpMast')">
+                <img src="../../../../assets/img/Master/shape.png" alt="" />
+                Shape
+              </li>
+              <li *ngIf="CheckFormPermission('ColMastComponent')" (click)="addiFrameTabs('Color Master', '/ColMast')">
+                <img src="../../../../assets/img/Master/color.png" alt="" />
+                Color
+              </li>
+              <li *ngIf="CheckFormPermission('QuaMastComponent')" (click)="addiFrameTabs('Clarity Master', '/QuaMast')">
+                <img src="../../../../assets/img/Master/clarity.png" alt="" />
+                Clarity
+              </li>
+            </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('CutMastComponent')" (click)="addiFrameTabs('Cut Master', '/CutMast')">
+                <img src="../../../../assets/img/Master/cut.png" alt="" />
+                Cut
+              </li>
+              <li *ngIf="CheckFormPermission('FloMastComponent')"
+                (click)="addiFrameTabs('Fluorescence Master', '/FloMast')">
+                <img src="../../../../assets/img/Master/flo.png" alt="" />
+                Fluorescence
+              </li>
+              <li *ngIf="CheckFormPermission('LabMastComponent')" (click)="addiFrameTabs('Lab Master', '/LabMast')">
+                <img src="../../../../assets/img/Master/Lab.png" alt="" />
+                Lab
+              </li>
+            </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('IncMastComponent')"
+                (click)="addiFrameTabs('Inclusion Master', '/IncMast')">
+                <img src="../../../../assets/img/Master/inc.png" alt="" />
+                Inclusion
+              </li>
+              <li *ngIf="CheckFormPermission('SizeMastComponent')" (click)="addiFrameTabs('Size Master', '/SizeMast')">
+                <img src="../../../../assets/img/Master/size.png" alt="" />
+                Size
+              </li>
+              <li *ngIf="CheckFormPermission('ViewParaMastComponent')"
+                (click)="addiFrameTabs('ViewPara Master', '/ViewParaMast')">
+                <img src="../../../../assets/img/Master/view-para.png" alt="" />
+                ViewPara
+              </li>
+            </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('TensionMastComponent')"
+                (click)="addiFrameTabs('Tension Master', '/TensionMast')">
+                <img src="../../../../assets/img/Master/tension.png" alt="" />
+                Tension
+              </li>
+              <li *ngIf="CheckFormPermission('FloNumMastComponent')"
+                (click)="addiFrameTabs('Fluorescence Number Master', '/FloNumMast')">
+                <img src="../../../../assets/img/Master/prc.png" alt="" />
+                Fluorescence Number
+              </li>
+              <li *ngIf="CheckFormPermission('MilkyMastComponent')"
+                (click)="addiFrameTabs('Milky Master', '/MilkyMast')">
+                <img src="../../../../assets/img/Master/inc-typ.png" alt="" />
+                Milky
+              </li>
+            </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('GridleMastComponent')"
+                (click)="addiFrameTabs('Gridle Master', '/GridleMast')">
+                <img src="../../../../assets/img/Master/rap-lab.png" alt="" />
+                Gridle
+              </li>
+              <li *ngIf="CheckFormPermission('DepthMastComponent')"
+                (click)="addiFrameTabs('Depth Master', '/DepthMast')">
+                <img src="../../../../assets/img/Master/depth.png" alt="" />
+                Depth
+              </li>
+              <li *ngIf="CheckFormPermission('RatioMastComponent')"
+                (click)="addiFrameTabs('Ratio Master', '/RatioMast')">
+                <img src="../../../../assets/img/Master/ratio.png" alt="" />
+                Ratio
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">Parameter</p>
+        </div>
+        <div class="sub-menu__wrapper" *ngIf="masterMachine">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('MachineColMastComponent')"
+                (click)="addiFrameTabs('Machine Color Master', '/MaccolMast')">
+                <img src="../../../../assets/img/Master/maccolor.png" alt="" />
+                Machine Color
+              </li>
+              <li *ngIf="CheckFormPermission('MachineFloMastComponent')"
+                (click)="addiFrameTabs('Machine Fluorescence Master', '/MacFloMast')">
+                <img src="../../../../assets/img/Master/facPrc.png" alt="" />
+                Machine Fluorescence
+              </li>
+              <li *ngIf="CheckFormPermission('MacComMastComponent')"
+                (click)="addiFrameTabs('Machine Comment Master', '/MacComMast')">
+                <img src="../../../../assets/img/Master/macchat.png" alt="" />
+                Machine Comment
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">Machine</p>
+        </div>
+      </ul>
+    </menu>
+
+    <button class="navigation-btn transaction-btn" (click)="ShowMenu('.transaction-menu', '.transaction-btn')"
+      *ngIf="CheckMenuPermission('Transaction')">
+      <svg class="icon icon-transaction">
+        <use xlink:href="assets/symbol-defs.svg#icon-transaction"></use>
+      </svg>
+      <span>Transaction</span>
+    </button>
+    <menu class="navigation-menu transaction-menu" (mouseleave)="HideMenu()">
+      <ul>
+        <div class="sub-menu__wrapper" *ngIf="transactionPointer">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('TendarComComponent')"
+                (click)="addiFrameTabs('Tendar Company', '/TenCom')">
+                <img src="../../../../assets/img/Transaction/company.png" alt="" />
+                Tendar Company
+              </li>
+              <li *ngIf="CheckFormPermission('TendarMastComponent')"
+                (click)="addiFrameTabs('Tendar Master', '/TenMast')">
+                <img src="../../../../assets/img/Transaction/tender-Mast.png" alt="" />
+                Tendar Master
+              </li>
+              <li *ngIf="CheckFormPermission('TendarEstComponent')" (click)="addiFrameTabs('Tendar Estimation', '/TendEst')">
+                <img src="../../../../assets/img/Pricing/tendar-est.png" alt="" />
+                Tendar Estimation
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">Pointer</p>
+        </div>
+      </ul>
+    </menu>
+
+    <button class="navigation-btn pricing-btn" (click)="ShowMenu('.pricing-menu', '.pricing-btn')"
+      *ngIf="CheckMenuPermission('Pricing')">
+      <svg class="icon icon-pricing">
+        <use xlink:href="assets/symbol-defs.svg#icon-pricing"></use>
+      </svg>
+      <span>Tendar Pricing</span>
+    </button>
+
+    <menu class="navigation-menu pricing-menu" (mouseleave)="HideMenu()">
+      <ul>
+        <div class="sub-menu__wrapper" *ngIf="pricing">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('RapOrgComponent')" (click)="addiFrameTabs('Rap Org', '/RapOrg')">
+                <img src="../../../../assets/img/Pricing/rap-org.png" alt="" />
+                Rap Org
+              </li>
+              <li *ngIf="CheckFormPermission('RapMastComponent')" (click)="addiFrameTabs('Rap Mast', '/RapMast')">
+                <img src="../../../../assets/img/Pricing/rap-mast.png" alt="" />
+                Rap Mast
+              </li>
+            </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('RapCutDiscComponent')"
+                (click)="addiFrameTabs('Cut Discount', '/RapCutDisc')">
+                <img src="../../../../assets/img/Pricing/cut-discount.png" alt="" />
+                Cut Discount
+              </li>
+              <li *ngIf="CheckFormPermission('RapFloDiscComponent')"
+                (click)="addiFrameTabs('Flo Discount', '/RapFloDisc')">
+                <img src="../../../../assets/img/Pricing/flo-discount.png" alt="" />
+                Flo Discount
+              </li>
+              <li *ngIf="CheckFormPermission('RapIncDiscComponent')"
+                (click)="addiFrameTabs('Inclusion Discount', '/RapIncDisc')">
+                <img src="../../../../assets/img/Pricing/inc-discount.png" alt="" />
+                Inclusion Discount
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">Pricing</p>
+        </div>
+      </ul>
+    </menu>
+
+    <button class="navigation-btn config-btn" (click)="ShowMenu('.config-menu', '.config-btn')"
+      *ngIf="CheckMenuPermission('Configuration')">
+      <svg class="icon icon-config">
+        <use xlink:href="assets/symbol-defs.svg#icon-config"></use>
+      </svg>
+      <span>Config</span>
+    </button>
+    <menu class="navigation-menu config-menu" (mouseleave)="HideMenu()">
+      <ul>
+        <div class="sub-menu__wrapper" *ngIf="configUser">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('UserCatComponent')"
+                (click)="addiFrameTabs('User Category Master', '/UserCat')">
+                <img src="../../../../assets/img/Config/user-cat.png" alt="" />
+                User Category
+              </li>
+              <li *ngIf="CheckFormPermission('UserMastComponent')" (click)="addiFrameTabs('User Master', '/UserMast')">
+                <img src="../../../../assets/img/Config/user.png" alt="" />
+                User
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">User</p>
+        </div>
+        <div class="sub-menu__wrapper" *ngIf="configPersmission">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('PerMastComponent')"
+                (click)="addiFrameTabs('Permission Master', '/PerMast')">
+                <img src="../../../../assets/img/Config/permission.png" alt="" />
+                Permission
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">Permission</p>
+        </div>
+      </ul>
+    </menu>
+
+    <div class="navigation-end">
+      <div class="version">{{ version }}</div>
+      <div class="navigation-btn__grp">
+        <button class="btn" matTooltip="Tendar Estimation" matTooltipClass="custom-tooltip"
+          *ngIf="CheckFormPermission('TendarEstComponent')" (click)="addiFrameTabs('Tendar Estimation', '/TendEst')">
+          <!-- <i class="icon-calc mat-icon"></i> -->
+          <svg class="icon icon-rap-calc icn-btn">
+            <use xlink:href="assets/symbol-defs.svg#icon-rap-calc"></use>
+          </svg>
+        </button>
+        <button class="btn" matTooltip="Refresh Master Values" matTooltipClass="custom-tooltip"
+          (click)="FillAllMaster()">
+          <svg class="icon icon-refresh icn-btn">
+            <use xlink:href="assets/symbol-defs.svg#icon-refresh"></use>
+          </svg>
+        </button>
+        <button class="btn" matTooltip="Logout" matTooltipClass="custom-tooltip" (click)="Logout()">
+          <svg class="icon icon-logout icn-btn">
+            <use xlink:href="assets/symbol-defs.svg#icon-logout"></use>
+          </svg>
+        </button>
+        <button class="navigation-user" style="margin-right: 10%;" (click)="BgImage(); OpenPasswordChange = true;">
+          <span> {{ USER_NAME }}</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="tab-bar"
+    style="width: 100vw; height: calc(100vh - 70px); z-index: 1; background-image: url('{{currentImage}}');background-size: contain; background-repeat: no-repeat; background-position: center 11px;">
+
+    <div id="dynamicTabs" class="easyui-tabs" style="width: 100%; height: 100%"></div>
+  </div>
+</section>
+
+<div class="dockChgPass" *ngIf="OpenPasswordChange" (mouseleave)="OpenPasswordChange = false">
+  <div class="container-chg">
+    <article class="password-wrapper">
+      <label style="margin-right: 59px">Password</label>
+      <mat-form-field appearance="outline">
+        <input type="password" matInput name="Password" (keyup.enter)="nextEnter($event, cnfPass)" autocomplete="off"
+          [(ngModel)]="NEWPASS" />
+      </mat-form-field>
+    </article>
+    <article class="password-wrapper">
+      <label style="margin-right: 6px">Confirm Password</label>
+      <mat-form-field appearance="outline">
+        <input type="password" matInput name="Confirm Password" autocomplete="off" [(ngModel)]="CNFPASS" id="cnf"
+          #cnfPass (keyup.enter)="nextEnter($event, btnChg)" />
+      </mat-form-field>
+    </article>
+    <button style="border-radius: 5px; padding: 7px" #btnChg (keyup.enter)="PASSWORDCHANGE()"
+      (click)="PASSWORDCHANGE()">
+      Change Password
+    </button>
+  </div>
+</div>
+
+<footer class="home--footer">
+  <p id="footer-text">{{ this.FOOTERMSG }}</p>
+</footer>

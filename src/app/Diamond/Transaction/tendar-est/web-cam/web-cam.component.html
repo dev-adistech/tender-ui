@@ -1,0 +1,23 @@
+<div style="text-align:center">
+    <h1>Welcome to WebRTC</h1>
+    <video class="video" #video autoplay controls></video>
+    <span class="m-1"></span>
+    <video class="video" style="width:360 !important;" controls #recordedVideo></video>
+    <br>
+    <button class="btn btn-primary btn-lg" *ngIf="!isRecording" (click)="startRecording()">Start Recording</button>
+    <button class="btn btn-warning btn-lg" *ngIf="isRecording" (click)="stopRecording()">Stop Recording</button>
+    <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip"
+          (click)="Save()">
+          <!-- <i class="icon-save mat-icon"></i> -->
+          <svg class="icon icon-save">
+            <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+          </svg>
+        </button>
+    <button class="btn theme-btn mr-2 ml-auto" matTooltip='Delete' matTooltipClass="custom-tooltip"
+          (click)="DELETE()">
+          <!-- <i class="icon-save mat-icon"></i> -->
+          <svg class="icon icon-delete">
+            <use xlink:href="assets/symbol-defs.svg#icon-delete"></use>
+          </svg>
+        </button>
+  </div>
