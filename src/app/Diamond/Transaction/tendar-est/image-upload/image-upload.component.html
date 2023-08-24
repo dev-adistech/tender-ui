@@ -1,0 +1,18 @@
+
+<canvas #canvas1 width="600" height="500" style="border: 1px solid;"></canvas>
+<div class="submenu2">
+<button class="btn theme-btn" matTooltip='Image Upload' tabindex="-1" matTooltipClass="custom-tooltip">
+    <img src="./../../../../assets/img/Pricing/uploadimg.png" style="width: 27.55px;height: 28.8px;" (click)="UPLOAD()">
+  </button>
+
+  <button class="btn theme-btn mr-2 ml-auto" matTooltip='Delete' matTooltipClass="custom-tooltip"
+          (click)="DELETE()">
+          <svg class="icon icon-delete">
+            <use xlink:href="assets/symbol-defs.svg#icon-delete"></use>
+          </svg>
+    </button>
+<input id="fileInput1" type="file" style="display: none;" (change)="onFileInputChange($event)">
+</div>
+<ngx-spinner>
+  <p style="color: white;"> Loading..</p>
+</ngx-spinner>

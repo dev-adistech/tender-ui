@@ -1,0 +1,18 @@
+<div class="dashboard__container">
+  <mat-chip-list class="dashboard__container--row" style="padding: 0.3rem">
+    <mat-chip  matTooltip='Stock' matTooltipClass="custom-tooltip" style="padding: '1.5%'; width: '5%'; justify-content: 'center'; height: 'auto'"
+      (click)="onPress('DashStockComponent');">Stock</mat-chip>
+   
+
+  </mat-chip-list>
+
+  <div
+    [ngClass]="{'view-1': viewCounter.length === 1, 'view-2': viewCounter.length === 2, 'view-3': viewCounter.length > 2}"
+    class="view">
+
+    <!-- <div class="comp-1of1"></div> -->
+    <div *ngIf="displayStk">
+      <app-dash-stock></app-dash-stock>
+    </div>
+  </div>
+</div>

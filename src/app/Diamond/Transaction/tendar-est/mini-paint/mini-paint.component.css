@@ -1,0 +1,34 @@
+p {
+    font-family: Lato;
+  }
+  
+  .controls{
+    display: -webkit-flex;
+    display: flex;
+    margin: 5px 0;
+    height: 20px;
+    flex-direction: row;
+    align-items: center;
+    gap:1rem
+  }
+  .controls input[type=color], button{
+    /* padding: 3px 10px; */
+    margin: 0px;
+    box-sizing: content-box;
+    /* height: 100%; */
+  }
+  .radio{
+    background: black;
+    border-radius: 100%;
+  }
+  p{
+    text-align: right;
+    border-top: 1px solid #dedede;
+    margin-top: 20px;
+  }
+  .canvas-container {
+    width: 400px; /* Set the desired width here */
+    height: 550px; /* Set the desired height here */
+    border: 1px solid;
+    overflow: hidden; /* Ensure the canvas doesn't overflow its container */
+  }

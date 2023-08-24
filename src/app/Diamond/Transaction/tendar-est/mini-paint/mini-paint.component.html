@@ -1,0 +1,31 @@
+<canvas width="10" height="550" style="border: 1px solid;" #lienzo id="lienzo"></canvas>
+<div class="controls">
+  <input type="color" (change)="cambiarColor()" [(ngModel)]="color"/>
+  <!-- <button class="mui-btn mui-btn--primary" (click)="borrar()">Clear</button> -->
+  <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="borrar()">
+    <!-- <i class="icon-clear mat-icon"></i> -->
+    <svg class="icon icon-clear">
+      <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
+    </svg>
+  </button>
+  <!-- <button class="mui-btn mui-btn--primary" (click)="download()">Save</button> -->
+  <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip"
+          (click)="download()">
+          <!-- <i class="icon-save mat-icon"></i> -->
+          <svg class="icon icon-save">
+            <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+          </svg>
+        </button>
+
+        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Delete' matTooltipClass="custom-tooltip"
+          (click)="DELETE()">
+          <svg class="icon icon-delete">
+            <use xlink:href="assets/symbol-defs.svg#icon-delete"></use>
+          </svg>
+    </button>
+  <input type="range" min="1" max="25" [(ngModel)]="radio" (change)="changeRadio()">
+  <div class="radio" [style.padding.px]="(radio/2)"></div>
+</div>
+<ngx-spinner>
+  <p style="color: white;"> Loading..</p>
+</ngx-spinner>
