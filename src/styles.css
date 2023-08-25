@@ -1067,10 +1067,6 @@ input[type="number"] {
 	height: 80vh; width: 29rem;
 }
 
-.select-color{
- position: relative;
- z-index: -1;
-}
 @media(max-width:1180px){
 	.sidbar_add_remov{
 		height: 80vh; width: 0rem;

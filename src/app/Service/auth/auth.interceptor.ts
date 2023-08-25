@@ -22,7 +22,7 @@ export class AuthInterceptor implements HttpInterceptor {
 
     if (APIURLTail.includes('notification')) {
       req = req.clone({
-        url: `https://${this.url}:${this.port}/${APIURLTail}`
+        url: `http://${this.url}:${this.port}/${APIURLTail}`
       })
       // } else if (APIURLTail.includes('api-view')) {
       //   req = req.clone({
@@ -38,7 +38,7 @@ export class AuthInterceptor implements HttpInterceptor {
       //   })
     } else if (APIURLTail == 'reload_program') {
       req = req.clone({
-        url: `https://${this.url}:${this.port1}/${APIURLTail}`
+        url: `http://${this.url}:${this.port1}/${APIURLTail}`
       })
     }
 
@@ -48,12 +48,12 @@ export class AuthInterceptor implements HttpInterceptor {
       })
     } else if (APIURLTail == 'send_mybasket') {
       req = req.clone({
-        url: `https://${this.url}:${this.port1}/${APIURLTail}`
+        url: `http://${this.url}:${this.port1}/${APIURLTail}`
       })
     }
     else {
       req = req.clone({
-        url: `https://${this.url}:${this.port}/api/${APIURLTail}`
+        url: `http://${this.url}:${this.port}/api/${APIURLTail}`
       })
     }
 

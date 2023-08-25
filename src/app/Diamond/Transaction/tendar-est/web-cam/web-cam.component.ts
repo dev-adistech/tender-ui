@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component,Inject, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -31,22 +31,28 @@ export class WebCamComponent implements OnInit {
   videoSrc: string = '';
   RecodedVideoNg:boolean= false
   NewStyle:any =`display:none`
+  DISPLAY:any =`display:none`
   uploadVideong:boolean = true
+  IGIHRDResult:boolean=false
   constructor(
     private http: HttpClient,
     private TendarEstServ: TendarEstService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
-    @Inject(MAT_DIALOG_DATA) public dataMain: any
+    @Inject(MAT_DIALOG_DATA) public dataMain: any,
+    private _mdr: MatDialogRef<WebCamComponent>
   ) { 
     this.data = dataMain
 
     this.videoSrc = this.data['VID'];
   }
 
-  
+  CLOSE(){
+    this._mdr.close()
+  }
 
   ngOnInit(): void {
+    this.uploadVideong = true
     navigator.mediaDevices
     .getUserMedia({
       video: {
@@ -65,6 +71,9 @@ export class WebCamComponent implements OnInit {
   }
 
   startRecording() {
+    this.uploadVideong = false
+    this.NewStyle = `display:none`
+    this.DISPLAY =`display:inline`
     this.recordedBlobs = [];
     let options: any = { mimeType: 'video/webm' };
 
@@ -81,9 +90,10 @@ export class WebCamComponent implements OnInit {
   }
 
   stopRecording() {
-    // this.RecodedVideoNg = true
-    this.NewStyle =`display:inline`
     this.uploadVideong = false
+    this.DISPLAY = `display:none`
+    this.NewStyle =`display:inline`
+    this.IGIHRDResult =false
     this.mediaRecorder.stop();
     this.isRecording = !this.isRecording;
     console.log('Recorded Blobs: ', this.recordedBlobs);
@@ -115,7 +125,7 @@ export class WebCamComponent implements OnInit {
         const videoBuffer = new Blob(this.recordedBlobs, {
           type: 'video/webm'
         });
-        this.downloadUrl = window.URL.createObjectURL(videoBuffer); // you can download with <a> tag
+        this.downloadUrl = window.URL.createObjectURL(videoBuffer);
         this.recordVideoElement.src = this.downloadUrl;
       };
     } catch (error) {

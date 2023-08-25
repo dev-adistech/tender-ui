@@ -102,6 +102,7 @@ export class TendarEstComponent implements OnInit {
   FLOCODE:any=''
 
   FLOCODEDIS:boolean = false
+  butDisabled:any = ''
   
   MacColControl: FormControl;
   MacColor:any=[]
@@ -3409,8 +3410,8 @@ return template;
           panelClass: "saw-mac-pro-det-dialog",
           autoFocus: false,
           minWidth: "30%",
-          width: "100%",
-          height: "98%",
+          width: "35%",
+          height: "55%",
           data:this.DOCKData
         })
     
@@ -3500,8 +3501,8 @@ return template;
       panelClass: "saw-mac-pro-det-dialog",
       autoFocus: false,
       minWidth: "30%",
-      width: "100%",
-      height: "98%",
+      width: "67%",
+      height: "81%",
       data:this.DOCKData
     })
 
@@ -3723,10 +3724,12 @@ return template;
     this.LS = false
     this.FINALBID = ''
     this.FLOCODE = ''
+    this.FLOCODEDIS = false
     this.gridApi1.setRowData()
   }
 
   onCellDoubleClicked(eve){
+    this.FLOCODEDIS = false
     this.TendarEstServ.TendarPrdDetDisp({
       COMP_CODE: this.COMP_CODE,
       DETID: eve.data.DETID,
@@ -3791,6 +3794,9 @@ return template;
           if(newdata[i].IUSER){
             if(newdata[i].IUSER === this.DOCKData['AUSER']){
               this.disabledata = true
+              if(this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
+              this.FLOCODEDIS =true
+              }
             }
           }
         }

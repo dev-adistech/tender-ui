@@ -8,7 +8,7 @@ export const environment = {
   BaseUrl: '192.168.1.150', //local - 192.168.1.102
 
   //live connections
-  // BaseUrl: 'tender.peacocktech.in', //domain name -  tender.peacocktech.in // 9928
+  // BaseUrl: 'api.tender.peacocktech.in', //domain name -  tender.peacocktech.in // 9928
   // BaseUrl: 'ncmp.predacon.in', //domain name -  ncmp.predacon.in
   // BaseUrl: 'nd.predacon.in', //domain name - nd.predacon.in // PORT = 4000 use this
   // BaseUrl: 'skd.predacon.in', // PORT -9920
