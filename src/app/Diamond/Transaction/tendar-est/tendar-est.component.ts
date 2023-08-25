@@ -1745,12 +1745,12 @@ return template;
               
             } else {
               this.spinner.hide();
-              Swal.fire({
-                icon: "error",
-                title: "Oops...",
-                text: JSON.stringify(SaveRes.data),
-              });
-              return;
+              // Swal.fire({
+              //   icon: "error",
+              //   title: "Oops...",
+              //   text: JSON.stringify(SaveRes.data),
+              // });
+              // return;
             }
           } catch (err) {
             this.spinner.hide();
@@ -3264,7 +3264,7 @@ return template;
                 cellRenderer: (params) => {
                   if (params.data && params.data[VPRes.data[i].FIELDNAME] == 1) {
                     if (params.node.rowPinned !== "bottom") {
-                      if (params.data['AUSER'] === this.decodedTkn.UserId) { 
+                      if (params.data['AUSER'] === this.decodedTkn.UserId && !this.disabledata) { 
                         return (
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
                         );
@@ -3663,7 +3663,7 @@ return template;
               PTAGROW.push(_GridRowData[i])
             }
           }
-         
+         this.gridApi1.refreshCells({force:true})
       let highestRate = 0;
       let highAmt = -Infinity
           for(let i=0;i<PTAGROW.length;i++){

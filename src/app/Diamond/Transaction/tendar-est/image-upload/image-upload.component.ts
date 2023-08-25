@@ -81,6 +81,11 @@ export class ImageUploadComponent implements OnInit {
               op.spinner.show()
               op.uploadVideo(FileObj).subscribe((response) => {
                 try {
+                  let NewObj = {
+                    COMP_CODE: this.data['COMP_CODE'],
+                    DETID:this.data['DETID'],
+                    SRNO: this.data['SRNO'],
+                  }
                   let Obj = {
                     COMP_CODE: this.data['COMP_CODE'],
                     DETID:this.data['DETID'],
@@ -96,6 +101,15 @@ export class ImageUploadComponent implements OnInit {
                       if (Res.success == true) {
                         op.spinner.hide();
                         op.toastr.success("File uploaded succesfully.");
+                        op.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+                          try{
+                            if(NewRes.success == true){
+                              console.log(NewRes)
+                            }
+                          } catch (error){
+                            op.spinner.hide()
+                          }
+                        })
                       } else {
                         op.spinner.hide();
                         Swal.fire({

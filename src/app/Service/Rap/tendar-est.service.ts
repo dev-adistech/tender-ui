@@ -45,4 +45,8 @@ export class TendarEstService {
   TendarPrdDetDock(Data: any): Observable<any> {
     return this.http.post<any>('TendarEst/TendarPrdDetDock', Data)
   }
+  
+  TendarVidUploadDisp(Data: any): Observable<any> {
+    return this.http.post<any>('TendarEst/TendarVidUploadDisp', Data)
+  }
 }
