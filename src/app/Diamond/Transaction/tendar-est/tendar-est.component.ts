@@ -176,6 +176,15 @@ export class TendarEstComponent implements OnInit {
   agGridStyles: string = `width: 1385px;height: 58vh; margin-bottom: 9%;`;
   DOCKON:boolean = false
 
+  dummay_variable:any='newdivadd_variable'
+
+  dummay1_variable:any='finalname_variable'
+  dummay2_variable:any='finalinput_variable'
+
+
+  dummay3_variable:any='finalfooter_variable'
+
+
   GRIDDATA:any[] =[]
 
   style = {
@@ -197,6 +206,8 @@ export class TendarEstComponent implements OnInit {
   ContainWidth:string=`width:103%`;
   BlankBoxStyle:string=`border:1px solid black;padding: 21px 0px; width: 417px; text-align: center;border-top:none;`;
   HearderBoxStyle:string=`border:1px solid black; width:417px; padding: 2px 3px; text-align: center;border-bottom:none`;
+
+  dummay_class:any="abhishek"
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -1890,10 +1901,10 @@ return template;
       this.DOCKON = true
       this.agGridStyles =`width: 1085px; height: 58vh ; margin-bottom: 9%;`
       this.TendarStyle=`width: 941px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-      this.AreaBoxStyle=`border:1px solid black;width: 167px;height: 100px;resize: none;margin-left:58%`;
-      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 167px; text-align: center;border-top:none;margin-left:58%`;
-      this.HearderBoxStyle=`border:1px solid black;width:167px;padding: 2px 3px; text-align: center;margin-left:58%;border-bottom:none`;
-      this.ContainWidth=`width:145%`;
+      this.AreaBoxStyle=`border:1px solid black;width: 167px;height: 100px;resize: none;`;
+      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 167px; text-align: center;border-top:none;`;
+      this.HearderBoxStyle=`border:1px solid black;width:167px;padding: 2px 3px; text-align: center;border-bottom:none`;
+      // this.ContainWidth=`width:145%`;
     }else{
       this.DOCKON = false
       this.agGridStyles =`width: 1385px; height: 58vh; margin-bottom: 9%;`

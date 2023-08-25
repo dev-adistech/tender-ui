@@ -91,8 +91,8 @@
             <!-- <div class="container-mainheader"> -->
             <!-- <div class="container-header" style="display: -webkit-box;"> -->
                 <div class="row" id="tys" >
-                    <div class="col-lg-7">
-            <div class="container-name" [style]="ContainWidth" >
+                    <div class="deskop_div" [ngClass]="{'my_class': DOCKON === true}" >
+            <div class="container-name" [style]="ContainWidth" [ngClass]="dummay_variable" >
                 <mat-label style="border:1px solid black;padding: 1px 16px; text-align: center;border-right:none;">User Id</mat-label>
                 <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">SRNO</mat-label>
                 <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">WEIGHT</mat-label>
@@ -468,21 +468,21 @@
             </div>
             </div>
         </div>
-        <div class="col-lg-5">
-            <div class="container-name_2" style="display: grid;">
-                <mat-label [style]="HearderBoxStyle">FINAL BID</mat-label>
-                <textarea type="text" [style]="AreaBoxStyle" name="Code" [disabled]="FLOCODEDIS" [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt  ws"></textarea>
-                <mat-label [style]="BlankBoxStyle">   </mat-label>
+        <div class="deskop_footer_bid" [ngClass]="{'my_class': DOCKON === true}">
+            <div class="container-name_2"  style="display: grid;">
+                <mat-label [style]="HearderBoxStyle" [ngClass]="dummay1_variable">FINAL BID</mat-label>
+                <textarea type="text" [style]="AreaBoxStyle" [ngClass]="dummay2_variable" name="Code" [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt  ws"></textarea>
+                <mat-label [style]="BlankBoxStyle" [ngClass]="dummay3_variable">   </mat-label>
             </div>
         </div>
             </div>
             <div class="container-name_1" style="display: flex;">
                 <mat-label style="width: 150px;border:1px solid black;border-bottom:none;border-right: none;">TENDER NAME:-</mat-label>
-                    <input type="text" [style]="TendarStyle" [disabled]="FLOCODEDIS" [(ngModel)]="TENDAR_NAME" disabled name="Code" autocomplete="off" class="tenderTxt"/>
+                    <input type="text" [style]="TendarStyle" [(ngModel)]="TENDAR_NAME" disabled name="Code" autocomplete="off" class="tenderTxt" id="resposiv_tredname" [ngClass]="{'my_class': DOCKON === true}">
                 <!-- </mat-form-field> -->
             </div>
                 <div class="row" id="ty" >
-                    <div class="col-8">
+                    <div class="col-8 resposiv_menu"  [ngClass]="{'my_class': DOCKON === true}">
             <div class="container-name" [style]="ContainWidth">
                 <mat-label style="border:1px solid black;padding: 1px 16px; text-align: center;border-right:none;">User Id</mat-label>
                 <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">SRNO</mat-label>
@@ -860,7 +860,7 @@
             </div>
         </div>
         <div class="col-4 p-0">
-            <div class="container-name" style="display: grid;">
+            <div class="container-name respoisv_grid" [ngClass]="{'my_class': DOCKON === true}" style="display: grid;">
                 <mat-label [style]="HearderBoxStyle" id="bid_from_width">FINAL BID</mat-label>
                 <textarea type="text" [style]="AreaBoxStyle" name="Code" [disabled]="FLOCODEDIS" [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt  ws" id="bid_from_width"></textarea>
                 <mat-label [style]="BlankBoxStyle" id="bid_from_width">   </mat-label>
@@ -868,7 +868,7 @@
         </div>
             </div>
             <ag-grid-angular [style]="agGridStyles" [getRowStyle]="getRowStyle" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef1"
-              [columnDefs]="columnDefs1" (rowClicked)="RowClicked($event)" (cellValueChanged)="FindRap($event)" (gridReady)="onGridReady1($event)" [animateRows]="true">
+              [columnDefs]="columnDefs1" (rowClicked)="RowClicked($event)" (cellValueChanged)="FindRap($event)" (gridReady)="onGridReady1($event)" [animateRows]="true" style="position: relative;">
             </ag-grid-angular>
         </article>
         
