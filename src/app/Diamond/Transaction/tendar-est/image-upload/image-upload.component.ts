@@ -28,19 +28,31 @@ export class ImageUploadComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.drawImage()
+    let NewObj = {
+      COMP_CODE: this.data['COMP_CODE'],
+      DETID:this.data['DETID'],
+      SRNO: this.data['SRNO'],
+    }
+    this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+      try{
+        if(NewRes.success == true){
+          this.drawImage(NewRes)    
+        }
+      } catch (error){
+        this.spinner.hide()
+      }
+    })
   }
   
-  drawImage(): void {
+  drawImage(NewRes): void {
     const ctx = this.canvas.nativeElement.getContext('2d');
     const img = new Image();
 
     img.onload = () => {
       ctx.drawImage(img, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
     };
-
-    if(this.data['IMG']){
-      img.src = this.data['IMG']
+    if(NewRes.data[0]['IMG']){
+      img.src = NewRes.data[0]['IMG']
     }
   }
 
@@ -99,12 +111,21 @@ export class ImageUploadComponent implements OnInit {
                   op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
                     try {
                       if (Res.success == true) {
-                        op.spinner.hide();
-                        op.toastr.success("File uploaded succesfully.");
                         op.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
                           try{
                             if(NewRes.success == true){
-                              console.log(NewRes)
+                              const ctx = this.canvas.nativeElement.getContext('2d');
+                              const img = new Image();
+                              img.onload = () => {
+                                ctx.drawImage(img, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+                              };
+                              if(NewRes.data[0]['IMG']){
+                                img.src = NewRes.data[0]['IMG']
+                              }  
+                              op.toastr.success("File uploaded succesfully.");
+                              op.spinner.hide();
+                            }else{
+                              op.spinner.hide();
                             }
                           } catch (error){
                             op.spinner.hide()
@@ -182,6 +203,14 @@ export class ImageUploadComponent implements OnInit {
     await this.TendarEstServ.TendarVidDelete(Obj).subscribe((Res) => {
       try {
         if (Res.success == true) {
+          const ctx = this.canvas.nativeElement.getContext('2d');
+          const img = new Image();
+
+          img.onload = () => {
+            ctx.drawImage(img, 0, 0, this.canvas.nativeElement.width, this.canvas.nativeElement.height);
+          };
+            img.src = ''
+            
           this.spinner.hide();
           this.toastr.success("Image deleted successfully.");
         } else {

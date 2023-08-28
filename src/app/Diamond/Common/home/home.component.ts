@@ -44,6 +44,8 @@ import { MilkyMastComponent } from '../../Master/milky-mast/milky-mast.component
 import { GridleMastComponent } from '../../Master/gridle-mast/gridle-mast.component';
 import { DepthMastComponent } from '../../Master/depth-mast/depth-mast.component';
 import { RatioMastComponent } from '../../Master/ratio-mast/ratio-mast.component';
+import { PricingWrkViewComponent } from '../../View/pricing-wrk-view/pricing-wrk-view.component';
+import { BVViewComponent } from '../../View/b-v-view/b-v-view.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -207,13 +209,13 @@ export class HomeComponent implements OnInit {
       this.masterMachine = false;
     }
 
-    if (this.CheckFormPermission('TendarComComponent') || this.CheckFormPermission('TendarMastComponent')) {
+    if (this.CheckFormPermission('TendarEstComponent') ||this.CheckFormPermission('TendarComComponent') || this.CheckFormPermission('TendarMastComponent')) {
       this.transactionPointer = true;
     } else {
       this.transactionPointer = false;
     }
 
-    if (this.CheckFormPermission('TendarEstComponent') || this.CheckFormPermission('RapOrgComponent') ||
+    if (this.CheckFormPermission('RapOrgComponent') ||
       this.CheckFormPermission('RapMastComponent') || this.CheckMenuPermission('RapCutDiscComponent') ||
       this.CheckFormPermission('RapFloDiscComponent') ||
       this.CheckFormPermission('RapIncDiscComponent') ||
@@ -233,6 +235,12 @@ export class HomeComponent implements OnInit {
       this.configPersmission = true;
     } else {
       this.configPersmission = false;
+    }
+
+    if (this.CheckFormPermission('PricingWrkViewComponent') ||this.CheckFormPermission('BVViewComponent') ) {
+      this.viewPointer = true;
+    } else {
+      this.viewPointer = false;
     }
 
   }
@@ -393,6 +401,12 @@ export class HomeComponent implements OnInit {
         break;
       case "Ratio Master":
         this.ComponentName = RatioMastComponent;
+        break;
+      case "Pricing Work":
+        this.ComponentName = PricingWrkViewComponent;
+        break;
+      case "B V ":
+        this.ComponentName = BVViewComponent;
         break;
     }
 

@@ -34,6 +34,7 @@ export class TendarMastComponent implements OnInit {
   DETID: any = "";
   T_NAME: any = "";
   T_DATE: any = null;
+  ISACTIVE: boolean = false;
 
   ALLOWINS: boolean = false;
   ALLOWDEL: boolean = false;
@@ -135,6 +136,20 @@ export class TendarMastComponent implements OnInit {
         headerClass: "text-center",
         width: 150,
         cellRenderer: this.DateFormat.bind(this),
+      },
+      {
+        headerName: "Active",
+        field: "ISACTIVE",
+        cellStyle: { "text-align": "center" },
+        headerClass: "text-center",
+        width: 65,
+        cellRenderer: (params)=>{
+          if (params.data.ISACTIVE == true) {
+            return '<input type="checkbox" data-action-type="COVER" checked  disabled>';
+          } else {
+            return '<input type="checkbox" data-action-type="COVER" disabled>';
+          }
+        }
       },
     ];
     this.defaultColDef = {
@@ -266,7 +281,8 @@ export class TendarMastComponent implements OnInit {
   Clear() {
     this.DETID = 0;
     this.T_DATE = null;
-    this.T_NAME=''
+    this.T_NAME='';
+    this.ISACTIVE =false
     this.Tendar.enable()
   }
 
@@ -486,9 +502,22 @@ export class TendarMastComponent implements OnInit {
           this.toastr.success("Save successfully.");
           this.SRNOForm.enable()
           this.LoadGridData1();
+          
+          let SubData =[]
+          this.gridApi1.forEachNode(function (rowNode, index) {
+            SubData.push(rowNode.data);
+          });
           this.SRNO +=1
           this.CRT =0
           this.COMMENT = ''
+
+          for(let i =0;i<SubData.length;i++){
+            if(SubData[i].SRNO === this.SRNO){
+              this.CRT = SubData[i].I_CARAT
+              this.COMMENT = SubData[i].COMMENT
+            }
+          }
+          setTimeout(() => { this.CRATE.nativeElement.focus() }, 0)
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -543,7 +572,8 @@ export class TendarMastComponent implements OnInit {
       T_DATE: this.T_DATE,
       DETID: this.DETID ? this.DETID : "",
       IUSER: this.decodedTkn.UserId,
-      T_NAME:this.T_NAME
+      T_NAME:this.T_NAME,
+      ISACTIVE:this.ISACTIVE ? this.ISACTIVE :false
     };
 
     this.spinner.show();
@@ -555,8 +585,23 @@ export class TendarMastComponent implements OnInit {
           this.Tendar.enable()
           this.LoadGridData();
           this.DETID +=1
+          let SubData =[]
+          this.gridApi.forEachNode(function (rowNode, index) {
+            SubData.push(rowNode.data);
+          });
+
+          this.T_DATE = null
+          this.ISACTIVE = false
           this.T_NAME = ''
-          this.T_DATE=null
+
+          for(let i =0;i<SubData.length;i++){
+            if(SubData[i].DETID === this.DETID){
+              this.T_DATE = SubData[i].T_DATE
+              this.ISACTIVE = SubData[i].ISACTIVE
+              this.T_NAME = SubData[i].T_NAME
+            }
+          }
+          setTimeout(() => { this.TName.nativeElement.focus() }, 0)
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -720,6 +765,7 @@ export class TendarMastComponent implements OnInit {
         (this.T_DATE = eve.data.T_DATE ? eve.data.T_DATE : null),
         (this.T_NAME = eve.data.T_NAME ? eve.data.T_NAME : ""),
         (this.DETID = eve.data.DETID ? eve.data.DETID : 0);
+        this.ISACTIVE = eve.data.ISACTIVE ? eve.data.ISACTIVE:false
         this.Tendar.disable()
         setTimeout(() => { this.TName.nativeElement.focus() }, 0)
       }

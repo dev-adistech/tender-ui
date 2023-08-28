@@ -44,12 +44,23 @@ export class WebCamComponent implements OnInit {
   ) { 
     this.data = dataMain
 
-    this.videoSrc = this.data['VID'];
+    let NewObj = {
+      COMP_CODE: this.data['COMP_CODE'],
+      DETID:this.data['DETID'],
+      SRNO: this.data['SRNO'],
+    }
+    this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+      try{
+        if(NewRes.success == true){  
+        this.videoSrc = NewRes.data[0]['VID'];
+        }
+      } catch (error){
+        this.spinner.hide()
+      }
+    })
   }
 
-  CLOSE(){
-    this._mdr.close()
-  }
+  
 
   ngOnInit(): void {
     this.uploadVideong = true
@@ -68,6 +79,14 @@ export class WebCamComponent implements OnInit {
     });
 
     
+  }
+
+  CLOSE(){
+    this.videoElement.pause();
+    this.videoElement.src =""
+    // this.videoElement.stop()
+    // this.videoElement.getTracks()[0].stop();
+    this._mdr.close()
   }
 
   startRecording() {

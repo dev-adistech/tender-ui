@@ -65,6 +65,7 @@ export class TendarEstComponent implements OnInit {
   PER = [];
 
   disabledata:boolean=false
+  disabledataArray:any=[]
 
   GridHeader = [];
   FooterKey = [];
@@ -3275,7 +3276,12 @@ return template;
                 cellRenderer: (params) => {
                   if (params.data && params.data[VPRes.data[i].FIELDNAME] == 1) {
                     if (params.node.rowPinned !== "bottom") {
-                      if (params.data['AUSER'] === this.decodedTkn.UserId && !this.disabledata) { 
+                      if(this.disabledataArray.SRNO){
+                      if (params.data['AUSER'] === this.decodedTkn.UserId && this.disabledataArray.SRNO == params.data.SRNO) { 
+                        return (
+                          '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
+                        );
+                      } else if(params.data['AUSER'] === this.decodedTkn.UserId){
                         return (
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
                         );
@@ -3283,11 +3289,16 @@ return template;
                         return (
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
                         );
-                      } else{
+                      } else {
                         return (
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
                         );
                       }
+                    }else{
+                      return (
+                        '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
+                      );
+                    }
                     }
                   } else {
                     return (
@@ -3462,7 +3473,7 @@ return template;
                 base64String = String.fromCharCode.apply(null, bytes);
                 op.uploadVideo(FileObj);
               }
-      
+              op.spinner.show()
               op.uploadVideo(FileObj).subscribe((response) => {
                 try {
                   let Obj = {
@@ -3559,11 +3570,13 @@ return template;
           if (FillRes.success == true) {
             this.spinner.hide();
             for (let i = 0; i < FillRes.data.length; i++) {
+              if(FillRes.data[i].ISACTIVE == true){
               this.DETIDarr.push({
                 code: FillRes.data[i].DETID,
                 date: FillRes.data[i].T_DATE,
                 name:FillRes.data[i].T_NAME
               });
+            }
             }
           } else {
             this.spinner.hide();
@@ -3740,6 +3753,8 @@ return template;
   }
 
   onCellDoubleClicked(eve){
+    console.log(eve)
+    if(eve.colDef.field !== "ISAPPROVE"){
     this.FLOCODEDIS = false
     this.TendarEstServ.TendarPrdDetDisp({
       COMP_CODE: this.COMP_CODE,
@@ -3804,7 +3819,9 @@ return template;
         for(let i = 0;i<newdata.length;i++){
           if(newdata[i].IUSER){
             if(newdata[i].IUSER === this.DOCKData['AUSER']){
+              this.disabledataArray = ''
               this.disabledata = true
+              this.disabledataArray = this.DOCKData
               if(this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
               this.FLOCODEDIS =true
               }
@@ -3830,6 +3847,7 @@ return template;
             const container = document.querySelector(".ag-body-viewport");
             ps.update();
           }
+          this.DOCKON=false
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -3844,5 +3862,6 @@ return template;
         this.toastr.error(error);
       }
     });
+  }
   }
 }

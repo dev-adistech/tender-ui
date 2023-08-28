@@ -310,7 +310,7 @@ export class ListboxComponent implements OnInit {
           checkboxSelection: true,
           resizable: false,
           sortable: false,
-          width: 35
+          width: 60
         },
         {
           headerName: "CODE",

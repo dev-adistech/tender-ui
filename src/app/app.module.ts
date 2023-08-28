@@ -67,7 +67,9 @@ import { DepthMastComponent } from './Diamond/Master/depth-mast/depth-mast.compo
 import { RatioMastComponent } from './Diamond/Master/ratio-mast/ratio-mast.component';
 import { MiniPaintComponent } from './Diamond/Transaction/tendar-est/mini-paint/mini-paint.component';
 import { WebCamComponent } from './Diamond/Transaction/tendar-est/web-cam/web-cam.component';
-import { ImageUploadComponent } from './Diamond/Transaction/tendar-est/image-upload/image-upload.component'
+import { ImageUploadComponent } from './Diamond/Transaction/tendar-est/image-upload/image-upload.component';
+import { PricingWrkViewComponent } from './Diamond/View/pricing-wrk-view/pricing-wrk-view.component';
+import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component'
 
 
 @NgModule({
@@ -121,6 +123,8 @@ import { ImageUploadComponent } from './Diamond/Transaction/tendar-est/image-upl
 		MiniPaintComponent,
 		WebCamComponent,
 		ImageUploadComponent,
+		PricingWrkViewComponent,
+		BVViewComponent,
 	],
 	imports: [
 		BrowserModule,

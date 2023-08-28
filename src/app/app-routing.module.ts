@@ -44,6 +44,8 @@ import { MilkyMastComponent } from './Diamond/Master/milky-mast/milky-mast.compo
 import { GridleMastComponent } from './Diamond/Master/gridle-mast/gridle-mast.component';
 import { DepthMastComponent } from './Diamond/Master/depth-mast/depth-mast.component';
 import { RatioMastComponent } from './Diamond/Master/ratio-mast/ratio-mast.component';
+import { PricingWrkViewComponent } from './Diamond/View/pricing-wrk-view/pricing-wrk-view.component';
+import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component';
 
 
 const routes: Routes = [
@@ -93,9 +95,13 @@ const routes: Routes = [
   { path: 'UserCat', component: UserCatComponent, canActivate: [AuthGuard] },
   { path: 'UserMast', component: UserMastComponent, canActivate: [AuthGuard] },
   { path: 'PerMast', component: PerMastComponent, canActivate: [AuthGuard] },
-
+  
   //report
   { path: 'report', component: ReportComponent, canActivate: [AuthGuard] },
+  
+  //view
+  { path: 'PricingWrk', component: PricingWrkViewComponent, canActivate: [AuthGuard] },
+  { path: 'BvView', component: BVViewComponent, canActivate: [AuthGuard] },
 
 ];
 

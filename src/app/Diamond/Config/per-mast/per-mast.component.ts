@@ -77,13 +77,16 @@ export class PerMastComponent implements OnInit {
 
     { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarComComponent', DESCR: 'Tendar Company' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarMastComponent', DESCR: 'Tendar Master' },
+    { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarEstComponent', DESCR: 'Tendar Estimation' },
 
+    { FORM_GROUP: 'View', FORM_NAME: 'PricingWrkViewComponent', DESCR: 'Pricing Work' },
+    { FORM_GROUP: 'View', FORM_NAME: 'BVViewComponent', DESCR: 'B V' },
+    
     { FORM_GROUP: 'Pricing', FORM_NAME: 'RapCutDiscComponent', DESCR: 'Rap Cut Discount' },
     { FORM_GROUP: 'Pricing', FORM_NAME: 'RapFloDiscComponent', DESCR: 'Rap Fluorescence Discount' },
     { FORM_GROUP: 'Pricing', FORM_NAME: 'RapIncDiscComponent', DESCR: 'Rap Inclusion Discount' },
     { FORM_GROUP: 'Pricing', FORM_NAME: 'RapMastComponent', DESCR: 'Rap Master' },
     { FORM_GROUP: 'Pricing', FORM_NAME: 'RapOrgComponent', DESCR: 'Rap Org' },
-    { FORM_GROUP: 'Pricing', FORM_NAME: 'TendarEstComponent', DESCR: 'Tendar Estimation' },
 
     { FORM_GROUP: 'Report', FORM_NAME: 'ReportComponent', DESCR: 'Report' },
 
