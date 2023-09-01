@@ -43,6 +43,7 @@ export class TendarEstComponent implements OnInit {
   DETIDarr: any = [];
   DETID: any = "";
   T_NAME: any = "";
+  ADIS: any = "";
   T_DATE: any = null;
 
   public columnDefs;
@@ -73,6 +74,7 @@ export class TendarEstComponent implements OnInit {
   FooterKey = [];
   FooterValue = [];
   GridFooter: any[] = [];
+  ADISDISABLE:boolean = false
 
   S_CODE: any = [];
   C_NAME: any = [];
@@ -207,7 +209,7 @@ export class TendarEstComponent implements OnInit {
   TendarStyle:string=`width: calc(100% - 150px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
   AreaBoxStyle:string=`border:1px solid black;width: 100%;resize: none;`;
   ContainWidth:string=`width:100%`;
-  BlankBoxStyle:string=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
+  BlankBoxStyle:string=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
   HearderBoxStyle:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
 
   dummay_class:any="abhishek"
@@ -1957,7 +1959,7 @@ export class TendarEstComponent implements OnInit {
       this.agGridStyles =`width: 100%; height: 58vh ; margin-bottom: 9%;`
       this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
       this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
-      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
+      this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
       this.HearderBoxStyle=`border:1px solid black;width:100%;padding: 2px 3px; text-align: center;border-bottom:none`;
       // this.ContainWidth=`width:145%`;
     }else{
@@ -1965,7 +1967,7 @@ export class TendarEstComponent implements OnInit {
       this.agGridStyles =`width: 100%; height: 58vh; margin-bottom: 9%;`
       this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
       this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
-      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
+      this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
       this.HearderBoxStyle=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
       this.ContainWidth=`width:100%`;
     }
@@ -2083,61 +2085,6 @@ export class TendarEstComponent implements OnInit {
     };
   }
 
-  // ColorFill(params) {
-  //   let newNAme;
-  //   if (params.data.C_CODE) {
-  //     newNAme = this.C_NAME.find(
-  //       (item) => item.code == params.data.C_CODE
-  //     ).name;
-  //     return newNAme;
-  //   }
-  // }
-  // QUAFill(params) {
-  //   let newNAme;
-  //   if (params.data.Q_CODE) {
-  //     newNAme = this.Q_NAME.find(
-  //       (item) => item.code == params.data.Q_CODE
-  //     ).name;
-  //     return newNAme;
-  //   }
-  // }
-  // CUTFill(params) {
-  //   let newNAme;
-  //   if (params.data.CT_CODE) {
-  //     newNAme = this.CT_NAME.find(
-  //       (item) => item.code == params.data.CT_CODE
-  //     ).name;
-  //     return newNAme;
-  //   }
-  // }
-  // FLOFill(params) {
-  //   let newNAme;
-  //   if (params.data.FL_CODE) {
-  //     newNAme = this.FL_NAME.find(
-  //       (item) => item.code == params.data.FL_CODE
-  //     ).name;
-  //     return newNAme;
-  //   }
-  // }
-  // LABFill(params) {
-  //   let newNAme;
-  //   if (params.data.LB_CODE) {
-  //     newNAme = this.LB_NAME.find(
-  //       (item) => item.code == params.data.LB_CODE
-  //     ).name;
-  //     return newNAme;
-  //   }
-  // }
-  // INCFill(params) {
-  //   let newNAme;
-  //   if (params.data.IN_CODE) {
-  //     newNAme = this.IN_NAME.find(
-  //       (item) => item.code == params.data.IN_CODE
-  //     ).name;
-  //     return newNAme;
-  //   }
-  // }
-
   NumberFormat(params) {
 
     if (params.value != "NaN" && params.value != null) {
@@ -2227,6 +2174,9 @@ export class TendarEstComponent implements OnInit {
       this.gridApi1.forEachNode(function (rowNode, index) {
         SubData.push(rowNode.data);
       });
+      let newdata =[]
+      let highestRate = 0;
+      let highAmt = -Infinity
       for (let i = 0; i < SubData.length; i++) {
         if (params.data.SRNO === SubData[i].SRNO) {
           if (params.data.PLANNO === SubData[i].PLANNO && SubData[i].PTAG !== "Total") {
@@ -2239,10 +2189,38 @@ export class TendarEstComponent implements OnInit {
             SubData[i].PLNSEL = false;
           }
         }
+
+        if(params.data.SRNO ===SubData[i].SRNO && SubData[i].PTAG === 'Total' && params.data.PLANNO === SubData[i].PLANNO){
+          newdata.push(SubData[i])
+        }
+
       }
+      if(params.data.PLNSEL === false){
+      for(let i=0;i<SubData.length;i++){
+        if(SubData[i].PTAG === 'Total' && SubData[i].PLNSEL == true){
+          break
+        }else if (SubData[i].AMT > highAmt) {
+          highAmt = SubData[i].AMT
+          highestRate = SubData[i].AMT / SubData[i].CARAT
+        }
+      }
+      this.PKTPER = highestRate.toFixed(2)
+    }else{
+      this.PKTPER = newdata[0].RATE
+    }
+      let NewValue = (this.ADIS/100)*this.PKTPER
+      let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+      this.FINALBID =FinalValue1.toFixed(2)
       params.node.setData(dataObj);
       params.api.refreshCells({ force: true });
     }
+  }
+
+  
+  ADISCHANGE(params){
+    let NewValue = (params/100)*this.PKTPER
+    let FinalValue = this.PKTPER + NewValue
+    this.FINALBID =FinalValue
   }
 
   async FindRap(params) {
@@ -2278,17 +2256,26 @@ export class TendarEstComponent implements OnInit {
 
       let highestRate = 0;
       let highAmt = -Infinity
-      for (let i = 0; i < FinalGrid.length; i++) {
-        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO == params.data.SRNO && FinalGrid[i].PTAG === 'Total') {
-          FinalGrid[i].AMT = LastSum
-        }
-        if (FinalGrid[i].AMT > highAmt) {
-          highAmt = FinalGrid[i].AMT
-          highestRate = FinalGrid[i].AMT / FinalGrid[i].CARAT
+        for (let i = 0; i < FinalGrid.length; i++) {
+          if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO == params.data.SRNO && FinalGrid[i].PTAG === 'Total') {
+            FinalGrid[i].AMT = LastSum
+          }
+
+          if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO == params.data.SRNO && FinalGrid[i].PTAG === 'Total' && params.data.PLNSEL == true){
+              highAmt = FinalGrid[i].AMT
+              highestRate = FinalGrid[i].AMT / FinalGrid[i].CARAT
+              break
+          }else{
+           if (FinalGrid[i].AMT > highAmt) {
+              highAmt = FinalGrid[i].AMT
+              highestRate = FinalGrid[i].AMT / FinalGrid[i].CARAT
+          }
         }
       }
       this.PKTPER = highestRate.toFixed(2)
-      console.log("#@#@@#@#@#",params.data)
+      let NewValue = (this.ADIS/100)*this.PKTPER
+      let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+      this.FINALBID =FinalValue1.toFixed(2)
 
     } else {
 
@@ -2414,6 +2401,9 @@ export class TendarEstComponent implements OnInit {
               }
             }
             this.PKTPER = highestRate.toFixed(2)
+            let NewValue = (this.ADIS/100)*this.PKTPER
+            let FinalValue1 = this.PKTPER + NewValue
+            this.FINALBID =FinalValue1
             this.gridApi1.refreshCells({ force: true });
 
           }
@@ -2468,7 +2458,8 @@ export class TendarEstComponent implements OnInit {
       F1C_CODE: this.F1 ? this.F1 : 0,
       F2C_CODE: this.F2 ? this.F2 : 0,
       PUSER: this.decodedTkn.UserId,
-      TEN_NAME: this.T_NAME
+      TEN_NAME: this.T_NAME,
+      ADIS:this.ADIS ? this.ADIS:0
     }
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
       try {
@@ -2543,12 +2534,17 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE: SubData[i].DEP_CODE ? SubData[i].DEP_CODE : 0,
         RAT_CODE: SubData[i].RAT_CODE ? SubData[i].RAT_CODE : 0,
         GRD_CODE: SubData[i].GRD_CODE ? SubData[i].GRD_CODE : 0,
+        MPER: SubData[i].MPER ? SubData[i].MPER : 0,
       };
       PerArr.push(SaveObj);
     }
     
     this.TendarEstServ.TendarPrdDetSave(PerArr).subscribe((SaveRes) => {
       try{
+        if(SaveRes.success == true){
+          this.spinner.hide()
+          this.toastr.success("Save sucesfully")
+        }else{
           this.spinner.hide();
           Swal.fire({
             icon: "error",
@@ -2556,7 +2552,7 @@ export class TendarEstComponent implements OnInit {
             text: JSON.stringify(SaveRes.data),
           });
           return;
-        
+        }
       } catch (err) {
         this.spinner.hide();
         this.toastr.error(err);
@@ -2636,6 +2632,11 @@ export class TendarEstComponent implements OnInit {
     document.getElementById("mySidebar").style.display = "none";
   }
   async ngOnInit() {
+    if(this.decodedTkn.UserId === 'DN'){
+      this.ADISDISABLE = false
+    }else {
+      this.ADISDISABLE = true
+    }
     this.FillViewPara1()
     this.FillViewPara();
     this.PER = await this._FrmOpePer.UserFrmOpePer("TendarMastComponent");
@@ -3890,6 +3891,9 @@ export class TendarEstComponent implements OnInit {
             }
           }
           this.PKTPER = highestRate.toFixed(2)
+            let NewValue = (this.ADIS/100)*this.PKTPER
+            let FinalValue1 = this.PKTPER + NewValue
+            this.FINALBID =FinalValue1
         }
       } catch (err) {
         console.log(err);
@@ -4001,6 +4005,7 @@ export class TendarEstComponent implements OnInit {
             this.LS = FillRes.data[0][0].LS
             this.FINALBID = FillRes.data[0][0].FBID
             this.FLOCODE = FillRes.data[0][0].FL_CODE
+            this.ADIS = FillRes.data[0][0].ADIS
 
             this.gridApi1.setRowData(FillRes.data[1])
             this.GridTempData = FillRes.data[1]

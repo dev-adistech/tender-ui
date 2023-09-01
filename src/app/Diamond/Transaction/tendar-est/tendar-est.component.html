@@ -478,9 +478,9 @@
         <div class="deskop_footer_bid p-0" [ngClass]="{'my_class': DOCKON === true}">
             <div class="container-name_2"  style="display: grid;">
                 <mat-label [style]="HearderBoxStyle" [ngClass]="dummay1_variable" class="final_name">FINAL BID</mat-label>
-                <textarea type="text" [style]="AreaBoxStyle" [ngClass]="dummay2_variable" name="Code" [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt find-area ws"></textarea>
+                <textarea type="text" [style]="AreaBoxStyle" [ngClass]="dummay2_variable" name="Code" disabled [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt find-area ws"></textarea>
                 <mat-label style="border:1px solid black; text-align: center;border-top:none;font-size: 12px;">Aditional Discount</mat-label>
-                <mat-label [style]="BlankBoxStyle" [ngClass]="dummay3_variable">   </mat-label>
+                <input [style]="BlankBoxStyle" [ngClass]="dummay3_variable" class="tenderTxt" (ngModelChange)="ADISCHANGE($event)" [disabled]="ADISDISABLE" [(ngModel)]="ADIS">
             </div>
         </div>
             </div>
@@ -870,7 +870,7 @@
         <div class="col-4 p-0">
             <div class="container-name respoisv_grid" [ngClass]="{'my_class': DOCKON === true}" style="display: grid;">
                 <mat-label [style]="HearderBoxStyle" id="bid_from_width">FINAL BID</mat-label>
-                <textarea type="text" [style]="AreaBoxStyle" name="Code" [disabled]="FLOCODEDIS" [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt  ws" id="bid_from_width"></textarea>
+                <textarea type="text" [style]="AreaBoxStyle" name="Code" disabled [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt  ws" id="bid_from_width"></textarea>
                 <mat-label [style]="BlankBoxStyle" id="bid_from_width">   </mat-label>
             </div>
         </div>
