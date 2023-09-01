@@ -56,15 +56,23 @@
             (click)="DRAW()">
         </button>
 
-        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Video Upload' matTooltipClass="custom-tooltip"
+        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Open Camera' matTooltipClass="custom-tooltip"
             (click)="UPLOAD()">
             <svg class="icon icon-video">
                 <use xlink:href="assets/symbol-defs.svg#icon-video"></use>
             </svg>
         </button>
+        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Upload Video' matTooltipClass="custom-tooltip">
+          <img src="./../../../../assets/img/Pricing/upload-video.png" style="width: 27.55px;height: 28.8px;"
+          (click)="UploadDirect()">
+        </button>
         <button class="btn theme-btn" matTooltip='Image Upload' tabindex="-1" matTooltipClass="custom-tooltip">
           <img src="./../../../../assets/img/Pricing/upload.png" style="width: 27.55px;height: 28.8px;"
             (click)="IMAGE()">
+        </button>
+        <button class="btn theme-btn" matTooltip='Show Video' tabindex="-1" matTooltipClass="custom-tooltip">
+          <img src="./../../../../assets/img/Pricing/play.png" style="width: 27.55px;height: 28.8px;"
+            (click)="ShowVideo()">
         </button>
 
         <input id="fileInput" type="file" (change)="onFileInputChange($event)" style="display: none;">

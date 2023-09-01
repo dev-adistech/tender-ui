@@ -44,7 +44,7 @@
           </mat-form-field>
 
         <article class="btn-wrapper">
-          <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData();">
+          <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData1();">
               <svg class="icon icon-show">
                 <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
               </svg>
@@ -53,19 +53,14 @@
         </article>
 
         <div class="aggrid-wrapper" style="display: flex;">
-            <ag-grid-angular class="ag-theme-alpine" style="width: 130px; height: 80vh;" [defaultColDef]="defaultColDef"
+            <ag-grid-angular class="ag-theme-alpine select-color" style="width: 190px; height: 80vh;" [defaultColDef]="defaultColDef"
               [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (cellDoubleClicked)="onCellDoubleClick($event)" [animateRows]="true">
             </ag-grid-angular>
           <div class="memo-ent-grid prc-view-grid">
             <ag-grid-angular style="margin-left: 15px;width: 1320px; height: 80vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef1"
-              [columnDefs]="columnDefs1" (cellEditingStopped)="OnCellEditingStart($event)" (gridReady)="onGridReady1($event)" [animateRows]="true">
+              [columnDefs]="columnDefs1" [getRowStyle]="getRowStyle" (cellEditingStopped)="OnCellEditingStart($event)" [pinnedBottomRowData]="pinnedBottomRowData" (gridReady)="onGridReady1($event)" [animateRows]="true">
             </ag-grid-angular>
           </div>
           </div>
-          <article class="password-wrapper">
-            <mat-form-field class='mt-2 password' appearance="outline">
-              <input type="password" matInput name="Password" autocomplete="off" />
-            </mat-form-field>
-          </article>
 </section>
 </div>

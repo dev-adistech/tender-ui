@@ -37,4 +37,8 @@ export class ViewService {
     return this.http.post<any>('View/BVView', Data)
   }
 
+  BidDataView(Data: any): Observable<any> {
+    return this.http.post<any>('View/BidDataView', Data)
+  }
+
 }

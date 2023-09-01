@@ -10,6 +10,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ViewService } from 'src/app/Service/View/view.service';
 import { ViewParaMastService } from 'src/app/Service/Master/view-para-mast.service';
+import { GridFunctions } from '../../_helpers/functions/GridFunctions';
+import { ConverterFunctions } from '../../_helpers/functions/ConverterFunctions';
 declare let $: any;
 
 
@@ -34,8 +36,10 @@ export class PricingWrkViewComponent implements OnInit {
   public defaultColDef;
 
   public columnDefs1;
+  public pinnedBottomRowData
   public gridApi1;
   public gridColumnApi1;
+  public getRowStyle
   public defaultColDef1;
 
   F_DATE:any =''
@@ -59,6 +63,8 @@ export class PricingWrkViewComponent implements OnInit {
   agGridWidth1: number = 0;
   agGridStyles1: string = "";
 
+  FooterKey = []
+
   constructor(
     public dialog: MatDialog,
     private EncrDecrServ: EncrDecrService,
@@ -67,6 +73,8 @@ export class PricingWrkViewComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private elementRef: ElementRef,
     private ViewServ :ViewService,
+    private _gridFunction: GridFunctions,
+    private _convFunction: ConverterFunctions,
     private ViewParaMastServ : ViewParaMastService
   ) { 
     this.columnDefs = [
@@ -78,7 +86,22 @@ export class PricingWrkViewComponent implements OnInit {
         width: 126,
         cellRenderer: this.DateFormat.bind(this),
       },
+      {
+        headerName: "Pcs",
+        field: "PCS",
+        cellStyle: { "text-align": "center" },
+        headerClass: "text-center",
+        width: 62,
+      },
     ]
+
+    this.getRowStyle = function (params) {
+      if (params.data) {
+        if (params.node.rowPinned === 'bottom') {
+          return { 'background': '#FFE0C0', 'font-weight': 'bold' };
+        }
+      }
+    };
 
     this.defaultColDef = {
       resizable: true,
@@ -119,10 +142,9 @@ export class PricingWrkViewComponent implements OnInit {
   }
 
   onCellDoubleClick(eve){
-    console.log(eve)
-
     let NewObj ={
       T_DATE:eve.data.T_DATE,
+      F_DATE:eve.data.T_DATE,
       S_CODE:this.S_CODE ? this.S_CODE:'',
       C_CODE:this.C_CODE ? this.C_CODE:'',
       Q_CODE:this.Q_CODE ? this.Q_CODE:'',
@@ -135,6 +157,73 @@ export class PricingWrkViewComponent implements OnInit {
           if (FillRes.success == true) {
             this.spinner.hide();
             this.gridApi1.setRowData(FillRes.data);
+            this._gridFunction.FooterKey = this.FooterKey
+          this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data)
+            const agBodyViewport: HTMLElement =
+              this.elementRef.nativeElement.querySelector(".ag-body-viewport");
+            const agBodyHorizontalViewport: HTMLElement =
+              this.elementRef.nativeElement.querySelector(
+                ".ag-body-horizontal-scroll-viewport"
+              );
+            if (agBodyViewport) {
+              const psV = new PerfectScrollbar(agBodyViewport);
+              psV.update();
+            }
+            if (agBodyHorizontalViewport) {
+              const psH = new PerfectScrollbar(agBodyHorizontalViewport);
+              psH.update();
+            }
+            if (agBodyViewport) {
+              const ps = new PerfectScrollbar(agBodyViewport);
+              const container = document.querySelector(".ag-body-viewport");
+              ps.update();
+            }
+            const widthsArray =
+              this.gridColumnApi1.columnController.displayedColumns.map(
+                (item) => item.actualWidth
+              );
+            this.agGridWidth1 = widthsArray.reduce(function (
+              previousValue,
+              currentValue
+            ) {
+              return previousValue + currentValue;
+            });
+            this.agGridWidth1 = 200 + this.agGridWidth1;
+            this.agGridStyles1 = `width: ${this.agGridWidth1}px; height: 70vh`;
+          } else {
+            this.spinner.hide();
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: JSON.stringify(FillRes.data),
+            });
+          }
+        } catch (error) {
+          this.spinner.hide();
+          this.toastr.error(error);
+        }
+      }
+    );
+  }
+
+  LoadGridData1(){
+    let NewObj ={
+      F_DATE:this.F_DATE ? this.datepipe.transform(this.F_DATE,'yyyy-MM-dd'):null,
+      T_DATE:this.T_DATE ? this.datepipe.transform(this.T_DATE,'yyyy-MM-dd'):null,
+      S_CODE:this.S_CODE ? this.S_CODE:'',
+      C_CODE:this.C_CODE ? this.C_CODE:'',
+      Q_CODE:this.Q_CODE ? this.Q_CODE:'',
+      F_CARAT:this.F_CARAT ? this.F_CARAT:0,
+      T_CARAT:this.T_CARAT ? this.T_CARAT:0,
+    }
+    this.ViewServ.PricingWrkDisp(NewObj).subscribe(
+      (FillRes) => {
+        try {
+          if (FillRes.success == true) {
+            this.spinner.hide();
+            this.gridApi1.setRowData(FillRes.data);
+            this._gridFunction.FooterKey = this.FooterKey
+          this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data)
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =
@@ -185,6 +274,7 @@ export class PricingWrkViewComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    this.LoadGridData()
   }
   onGridReady1(params) {
     this.gridApi1 = params.api;
@@ -223,6 +313,20 @@ export class PricingWrkViewComponent implements OnInit {
               if(GroupData[i].Data[j].FIELDNAME === "MPER"){
                 tempData[j].editable = this.decodedTkn.U_CAT === 'P' ? true : false
               }
+              if (j == 4) {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+              }
+              if (GroupData[i].Data[j].FIELDNAME == "CARAT") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
+                tempData[j].aggFunc = 'sum'
+              } else if (GroupData[i].Data[j].FIELDNAME == "PTAG"){
+                tempData[j].valueFormatter = this._convFunction.StringFormat
+                tempData[j].aggFunc = 'length'
+              }
+
+              // console.log(this._gridFunction.FooterKey)
+              this._gridFunction.FooterKey = this.FooterKey
             }
 
             jsonData["children"] = tempData
@@ -243,6 +347,14 @@ export class PricingWrkViewComponent implements OnInit {
         this.toastr.error(error)
       }
     })
+  }
+
+  TimeFormat(params) {
+    if (params.value) {
+      return this.datepipe.transform(params.value, "hh:mm a", "UTC+0")
+    } else {
+      return ""
+    }
   }
 
   OnCellEditingStart(params){
@@ -334,8 +446,8 @@ export class PricingWrkViewComponent implements OnInit {
   LoadGridData(){
     this.spinner.show();
     this.ViewServ.PricingWrk({
-      F_DATE:this.F_DATE,
-      T_DATE:this.T_DATE
+      F_DATE:this.F_DATE ? this.datepipe.transform(this.F_DATE,'dd-MM-yyyy'):null,
+      T_DATE:this.T_DATE ? this.datepipe.transform(this.T_DATE,'dd-MM-yyyy'):null
     }).subscribe(
       (FillRes) => {
         try {

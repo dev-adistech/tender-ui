@@ -119,36 +119,6 @@
       </ul>
     </menu>
 
-    <button class="navigation-btn view-btn" (click)="ShowMenu('.view-menu', '.view-btn')"
-      *ngIf="CheckMenuPermission('View')">
-      <svg class="icon icon-view">
-        <use xlink:href="assets/symbol-defs.svg#icon-view"></use>
-      </svg>
-      <span>View</span>
-    </button>
-
-    <menu class="navigation-menu view-menu" (mouseleave)="HideMenu()">
-      <ul>
-        <div class="sub-menu__wrapper" *ngIf="viewPointer">
-          <div class="sub-menu__section">
-            <div class="sub-menu__vert">
-              <li *ngIf="CheckFormPermission('PricingWrkViewComponent')"
-                (click)="addiFrameTabs('Pricing Work View', '/PricingWrk')">
-                <img src="../../../../assets/img/View/prcwrk.png" alt="" />
-                Pricing Work
-              </li>
-              <li *ngIf="CheckFormPermission('BVViewComponent')"
-                (click)="addiFrameTabs('B V View', '/BvView')">
-                <img src="../../../../assets/img/View/bv.png" alt="" />
-                B V
-              </li>
-            </div>
-          </div>
-          <p class="sub-menu__section-name">Pointer</p>
-        </div>
-      </ul>
-    </menu>
-
     <button class="navigation-btn transaction-btn" (click)="ShowMenu('.transaction-menu', '.transaction-btn')"
       *ngIf="CheckMenuPermission('Transaction')">
       <svg class="icon icon-transaction">
@@ -181,6 +151,41 @@
         </div>
       </ul>
     </menu>
+
+    <button class="navigation-btn view-btn" (click)="ShowMenu('.view-menu', '.view-btn')"
+      *ngIf="CheckMenuPermission('View')">
+      <svg class="icon icon-view">
+        <use xlink:href="assets/symbol-defs.svg#icon-view"></use>
+      </svg>
+      <span>View</span>
+    </button>
+
+    <menu class="navigation-menu view-menu" (mouseleave)="HideMenu()">
+      <ul>
+        <div class="sub-menu__wrapper" *ngIf="viewPointer">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('PricingWrkViewComponent')"
+                (click)="addiFrameTabs('Pricing Work View', '/PricingWrk')">
+                <img src="../../../../assets/img/View/prcwrk.png" alt="" />
+                Pricing Work
+              </li>
+              <li *ngIf="CheckFormPermission('BVViewComponent')"
+                (click)="addiFrameTabs('B V View', '/BvView')">
+                <img src="../../../../assets/img/View/bv.png" alt="" />
+                B V
+              </li>
+              <li *ngIf="CheckFormPermission('BidDataComponent')"
+                (click)="addiFrameTabs('Bid Data View', '/BidData')">
+                <img src="../../../../assets/img/View/Bid-data.png" alt="" />
+                Bid Data
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">Pointer</p>
+        </div>
+      </ul>
+    </menu>                                           
 
     <button class="navigation-btn pricing-btn" (click)="ShowMenu('.pricing-menu', '.pricing-btn')"
       *ngIf="CheckMenuPermission('Pricing')">

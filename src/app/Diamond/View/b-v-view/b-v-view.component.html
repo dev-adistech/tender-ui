@@ -12,7 +12,7 @@
       </mat-form-field>
 
       <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 6rem;" appearance="outline" autocomplete="off" [(ngModel)]="DETID"
-            (ngModelChange)="GETDATE();LoadGridData();">
+            (ngModelChange)="GETDATE();">
             <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}}</ng-option>
         </ng-select>
 
@@ -35,12 +35,12 @@
           </button>
         </div>
         <!-- <ng-container *ngIf="rowData"> -->
-        <div style="overflow: auto; height: 575px;">
+        <div style="overflow-x: hidden; height:calc(100vh - 70px);">
         <table id="tableToPrint" *ngFor="let item of rowData">
             <div class="row">
               <thead>
                 <tr style="display: flex;">
-                  <th style="border: 1px solid black;border-bottom: none;width:128px">TENDAR NAME:-</th>
+                  <td style="border: 1px solid black;border-bottom: none;width:128px">TENDAR NAME:-</td>
                   <th style="border: 1px solid black; border-left: none;border-bottom: none;"><input type="text" style="border: none;width: 1073px;" [(ngModel)]="item.TEN_NAME"/></th>
                 </tr>
               </thead>
@@ -61,7 +61,7 @@
               </tr>
               <tr style="display: flex; text-align: center;">
                 <input type="text" style="border:1px solid black;width: 63px;border-right:none;border-top:none;text-align: center;" [(ngModel)]="item.AUSER" disabled name="Code" autocomplete="off" />
-                <input type="text" style="border:1px solid black;width: 64px;border-right:none;border-top:none;text-align: center;" disabled="" [(ngModel)]="item.SRNO" name="Code" autocomplete="off" />
+                <input type="text" style="border:1px solid black;width: 64px;border-right:none;border-top:none;text-align: center;" disabled="" [(ngModel)]="item.SRNO"name="Code" autocomplete="off" />
                 <input type="text" style="border:1px solid black;width: 77px;border-right:none;border-top:none;text-align: center;" disabled [(ngModel)]="item.I_CARAT" name="Code" autocomplete="off" />
                 <input type="text" style="border:1px solid black;width: 150px;border-right:none;border-top:none;text-align: center;" [(ngModel)]="item.RESRVE" disabled name="Code" autocomplete="off"/>
                 <input type="text" style="border:1px solid black;width: 134px;border-right:none;border-top:none;text-align: center;" disabled [(ngModel)]="item.PERCTS" name="Code" autocomplete="off"/>
@@ -103,7 +103,7 @@
                 <select style="border:1px solid black;width: 64px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FINAL1" >
+                         [(ngModel)]="item.FFLAT1" disabled>
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -112,7 +112,7 @@
                 <select style="border:1px solid black;width: 77px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FINAL2" >
+                         [(ngModel)]="item.FFLAT2" disabled>
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -121,7 +121,7 @@
                 <select style="border:1px solid black;width: 75px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FINALME" >
+                         [(ngModel)]="item.FMED" disabled>
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -130,7 +130,7 @@
                 <select style="border:1px solid black;width: 75px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FINALHE" >
+                         [(ngModel)]="item.FHIGH" disabled>
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -139,7 +139,7 @@
                 <select style="border:1px solid black;width: 64px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="DN" >
+                         [(ngModel)]="item.DNC_CODE" disabled >
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -148,7 +148,7 @@
                 <select style="border:1px solid black;width: 70px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="USER1" >
+                         [(ngModel)]="item.I1C_CODE" disabled >
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -156,7 +156,7 @@
                 <select style="border:1px solid black;width: 70px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="USER2" >
+                         [(ngModel)]="item.I2C_CODE" disabled >
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -164,7 +164,7 @@
                 <select style="border:1px solid black;width: 51px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="USER3" >
+                         [(ngModel)]="item.I3C_CODE" disabled>
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -176,7 +176,7 @@
                 <select style="border:1px solid black;width: 64px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="RESULT1" >
+                         [(ngModel)]="item.RFLAT1" disabled>
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -184,7 +184,7 @@
                 <select style="border:1px solid black;width: 77px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="RESULT2" >
+                         [(ngModel)]="item.RFLAT2" disabled >
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -193,7 +193,7 @@
                 <select style="border:1px solid black;width: 75px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="RESULTME" >
+                         [(ngModel)]="item.RMED" disabled>
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -202,7 +202,7 @@
                 <select style="border:1px solid black;width: 75px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="RESULTHE" >
+                         [(ngModel)]="item.RHIGH" disabled >
                   <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -212,7 +212,7 @@
                 <select style="border:1px solid black;width: 64px;height: 21px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FLO1" >
+                         [(ngModel)]="item.FLNFLAT1" disabled>
                   <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -221,7 +221,7 @@
                 <select style="border:1px solid black;width: 77px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FLO2" >
+                         [(ngModel)]="item.FLNFLAT2" disabled>
                   <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -230,7 +230,7 @@
                 <select style="border:1px solid black;width: 75px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FLOME" >
+                         [(ngModel)]="item.FLNMED" disabled >
                   <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -239,7 +239,7 @@
                 <select style="border:1px solid black;width: 74px;height: 22px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FLOHE" >
+                         [(ngModel)]="item.FLNHIGH" disabled >
                   <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -251,7 +251,7 @@
                   <select style="border:1px solid black;width: 64px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacFLO1" >
+                           [(ngModel)]="item.MFLFLAT1" disabled>
                     <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
                       {{ cl.name }}
                     </option>
@@ -260,7 +260,7 @@
                   <select style="border:1px solid black;width: 77px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacFLO2" >
+                           [(ngModel)]="item.MFLFLAT2" disabled >
                     <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
                       {{ cl.name }}
                     </option>
@@ -269,7 +269,7 @@
                   <select style="border:1px solid black;width: 75px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacFLOME" >
+                           [(ngModel)]="item.MFLMED" disabled >
                     <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
                       {{ cl.name }}
                     </option>
@@ -278,7 +278,7 @@
                   <select style="border:1px solid black;width: 74px;height: 21px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacFLOHE" >
+                           [(ngModel)]="item.MFLHIGH" disabled >
                     <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
                       {{ cl.name }}
                     </option>
@@ -290,7 +290,7 @@
                   <select style="border:1px solid black;width: 64px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacCom1" >
+                           [(ngModel)]="item.CFLAT1" disabled >
                     <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
                       {{ cl.code }}
                     </option>
@@ -299,7 +299,7 @@
                   <select style="border:1px solid black;width: 77px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacCom2" >
+                           [(ngModel)]="item.CFLAT2" disabled >
                     <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
                       {{ cl.code }}
                     </option>
@@ -308,7 +308,7 @@
                   <select style="border:1px solid black;width: 75px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacComME" >
+                           [(ngModel)]="item.CMED" disabled>
                     <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
                       {{ cl.code }}
                     </option>
@@ -317,7 +317,7 @@
                   <select style="border:1px solid black;width: 74px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
-                           [(ngModel)]="MacComHE" >
+                           [(ngModel)]="item.CHIGH" disabled >
                     <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
                       {{ cl.code }}
                     </option>
@@ -330,7 +330,7 @@
                 <select style="border: 1px solid black; text-align: center; width: 70px; height: 44px; border-right: none; border-top: none;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                        [formControl]="ColControl" [(ngModel)]="ROUNDC1" >
+                        [(ngModel)]="item.RC_CODE" disabled >
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -339,7 +339,7 @@
                 <select style="border:1px solid black;width: 70px;height: 44px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="FANCY1">
+                         [(ngModel)]="item.FC_CODE" disabled>
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -350,7 +350,7 @@
                 <select style="border:1px solid black;width: 188px;height: 22px; border-right:none;border-top:none;position: relative;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="R1">
+                         [(ngModel)]="item.R1C_CODE" disabled>
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -359,7 +359,7 @@
                 <select style="border:1px solid black;width: 188px;border-right:none;border-top:none;height: 22px;position: relative;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="R2" >
+                         [(ngModel)]="item.R2C_CODE" disabled>
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -369,7 +369,7 @@
                 <select style="border:1px solid black;width: 188px;border-right:none;border-top:none;height: 22px;position: relative;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="F1" >
+                         [(ngModel)]="item.F1C_CODE" disabled>
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -379,7 +379,7 @@
                 <select style="border:1px solid black;width: 188px;border-right:none;border-top:none;height: 23px;position: relative;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
-                         [(ngModel)]="F2" >
+                         [(ngModel)]="item.F1C_CODE" disabled>
                   <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -390,22 +390,29 @@
               </thead>
             </div>
             <div class="col-lg-3 p-0">
-            <thead style="display: grid;">
+            <thead style="display: grid;margin-left: 0.5%;">
               <input [style]="HearderBoxStyle" value="FINAL BID" disabled/>
-              <textarea type="text" [style]="AreaBoxStyle" name="Code" [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt  ws"></textarea>
-              <input [style]="ContainWidth" disabled/>
+              <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" [(ngModel)] ="item.FBID" autocomplete="off" class="tenderTxt  ws"></textarea>
+              <div style="display: flex;">
+              <mat-label style="border:1px solid black; text-align: center;border-right:none;border-top:none;padding: 3px 31px;padding-bottom: 15px;">Aditional Discount</mat-label>
+              <input [style]="ContainWidth" [(ngModel)]="item.ADIS" disabled />
+            </div>
             </thead>
           </div>
             </div>
             <div class="memo-ent-grid">
-              <ag-grid-angular class="ag-theme-alpine" style="width: 85%; height: 40vh;"
+              <ag-grid-angular class="ag-theme-alpine select-color" style="width: 82%; height: calc(100vh - 399px);margin-top: 20px;"
                 [defaultColDef]="defaultColDef" [columnDefs]="columnDefs"
-                [rowData]="GetRowData(item.DETID,item.SRNO, item.COMP_CODE)" [animateRows]="true">
+                [rowData]="item.GRID_DATA" [animateRows]="true">
               </ag-grid-angular>
             </div>
             <hr />
-        </table>
+          </table>
 
     </div>
     <!-- </ng-container> -->
     </div>
+
+    <ngx-spinner>
+      <p style="color: white;">Loading...</p>
+    </ngx-spinner>

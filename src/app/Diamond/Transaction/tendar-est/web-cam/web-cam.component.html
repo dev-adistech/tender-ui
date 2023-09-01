@@ -3,9 +3,9 @@
     <video class="video" style="width: 455px;height:203px" [style]="DISPLAY" #video autoplay controls></video>
     <span class="m-1"></span>
     <video class="video" style="width: 455px;height:203px" [style]="NewStyle" controls #recordedVideo></video>
-    <video style="width: 455px;height:203px" controls="controls" *ngIf="uploadVideong">
+    <!-- <video style="width: 455px;height:203px" controls="controls" *ngIf="uploadVideong">
       <source [src]="videoSrc" type="video/mp4" autoplay>
-    </video>
+    </video> -->
     <br>
     <button class="btn btn-primary btn-lg" *ngIf="!isRecording" (click)="startRecording()">Start Recording</button>
     <button class="btn btn-warning btn-lg" *ngIf="isRecording" (click)="stopRecording()">Stop Recording</button>

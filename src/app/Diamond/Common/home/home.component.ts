@@ -46,6 +46,7 @@ import { DepthMastComponent } from '../../Master/depth-mast/depth-mast.component
 import { RatioMastComponent } from '../../Master/ratio-mast/ratio-mast.component';
 import { PricingWrkViewComponent } from '../../View/pricing-wrk-view/pricing-wrk-view.component';
 import { BVViewComponent } from '../../View/b-v-view/b-v-view.component';
+import { BidDataComponent } from '../../View/bid-data/bid-data.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -237,7 +238,7 @@ export class HomeComponent implements OnInit {
       this.configPersmission = false;
     }
 
-    if (this.CheckFormPermission('PricingWrkViewComponent') ||this.CheckFormPermission('BVViewComponent') ) {
+    if (this.CheckFormPermission('PricingWrkViewComponent') ||this.CheckFormPermission('BVViewComponent') ||this.CheckFormPermission('BidDataComponent') ) {
       this.viewPointer = true;
     } else {
       this.viewPointer = false;
@@ -407,6 +408,9 @@ export class HomeComponent implements OnInit {
         break;
       case "B V ":
         this.ComponentName = BVViewComponent;
+        break;
+      case "Bid Data":
+        this.ComponentName = BidDataComponent;
         break;
     }
 

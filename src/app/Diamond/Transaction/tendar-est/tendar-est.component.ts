@@ -21,6 +21,7 @@ import { MiniPaintComponent } from "./mini-paint/mini-paint.component";
 import { MatDialog } from "@angular/material/dialog";
 import { WebCamComponent } from "./web-cam/web-cam.component";
 import { ImageUploadComponent } from "./image-upload/image-upload.component";
+import { VideoShowComponent } from "./video-show/video-show.component";
 declare let $: any;
 
 @Component({
@@ -58,14 +59,15 @@ export class TendarEstComponent implements OnInit {
   public defaultColDef1;
   public getRowStyle
 
+  HIDEGRID: boolean = true
   ALLOWINS: boolean = false;
   ALLOWDEL: boolean = false;
   ALLOWUPD: boolean = false;
   PASS: any = "";
   PER = [];
 
-  disabledata:boolean=false
-  disabledataArray:any=[]
+  disabledata: boolean = false
+  disabledataArray: any = []
 
   GridHeader = [];
   FooterKey = [];
@@ -80,89 +82,89 @@ export class TendarEstComponent implements OnInit {
   LB_NAME: any = [];
   IN_NAME: any = [];
 
-  allSzs:any[]=[]
+  allSzs: any[] = []
   filteredSzs: Observable<any[]>;
-  szControl:FormControl;
-  selectedSz:any=''
+  szControl: FormControl;
+  selectedSz: any = ''
 
-  LS:boolean = false
-  R1:any=''
-  R2:any=''
-  F1:any=''
-  F2:any=''
-  DN:any=''
-  USER1:any=''
-  USER2:any=''
-  USER3:any=''
-  FANCY1:any=''
-  ROUNDC1:any=''
-  COLORArr=[]
+  LS: boolean = false
+  R1: any = ''
+  R2: any = ''
+  F1: any = ''
+  F2: any = ''
+  DN: any = ''
+  USER1: any = ''
+  USER2: any = ''
+  USER3: any = ''
+  FANCY1: any = ''
+  ROUNDC1: any = ''
+  COLORArr = []
   filteredColor: Observable<any[]>;
   ColControl: FormControl;
-  FINALBID:any=''
-  FLOCODE:any=''
+  FINALBID: any = ''
+  FLOCODE: any = ''
 
-  FLOCODEDIS:boolean = false
-  butDisabled:any = ''
-  
+  FLOCODEDIS: boolean = false
+  butDisabled: any = ''
+
   MacColControl: FormControl;
-  MacColor:any=[]
+  MacColor: any = []
   filteredMacColor: Observable<any[]>;
-  FINAL1:any=''
-  FINAL2:any=''
-  FINALME:any=''
-  FINALHE:any=''
-  RESULT1:any=''
-  RESULT2:any=''
-  RESULTME:any=''
-  RESULTHE:any=''
+  FINAL1: any = ''
+  FINAL2: any = ''
+  FINALME: any = ''
+  FINALHE: any = ''
+  RESULT1: any = ''
+  RESULT2: any = ''
+  RESULTME: any = ''
+  RESULTHE: any = ''
 
   FloControl: FormControl;
-  FLONO:any=[]
+  FLONO: any = []
   filteredFLO: Observable<any[]>;
-  FLO1:any=''
-  FLO2:any=''
-  FLOME:any=''
-  FLOHE:any=''
+  FLO1: any = ''
+  FLO2: any = ''
+  FLOME: any = ''
+  FLOHE: any = ''
 
   MacFloControl: FormControl;
-  MacFLONO:any=[]
+  MacFLONO: any = []
   filteredMacFLO: Observable<any[]>;
-  MacFLO1:any=''
-  MacFLO2:any=''
-  MacFLOME:any=''
-  MacFLOHE:any=''
+  MacFLO1: any = ''
+  MacFLO2: any = ''
+  MacFLOME: any = ''
+  MacFLOHE: any = ''
 
   MacComControl: FormControl;
-  MacComm:any=[]
+  MacComm: any = []
   filteredMacCom: Observable<any[]>;
-  MacCom1:any=''
-  MacCom2:any=''
-  MacComME:any=''
-  MacComHE:any=''
+  MacCom1: any = ''
+  MacCom2: any = ''
+  MacComME: any = ''
+  MacComHE: any = ''
 
-  DEP_NAME:any=[];
-  RAT_NAME:any=[]
-  GRD_NAME:any=[]
-  ML_NAME:any=[]
+  DEP_NAME: any = [];
+  RAT_NAME: any = []
+  GRD_NAME: any = []
+  ML_NAME: any = []
 
-  PKTNAME:any=''
-  PKTSRNO:any=''
-  PKTWEIGHT:any=''
-  PKTRESERVE:any=''
-  PKTPER:any=''
-  PKTSRW:any=''
-  PKTSRW1:any=''
-  FLAT1:any=''
-  FLAT2:any=''
+  PKTNAME: any = ''
+  PKTSRNO: any = ''
+  PKTWEIGHT: any = ''
+  PKTRESERVE: any = ''
+  PKTPER: any = ''
+  PKTSRW: any = ''
+  PKTSRW1: any = ''
+  FLAT1: any = ''
+  FLAT2: any = ''
 
   TensionControl: FormControl;
-  TenArr:any=[]
+  TenArr: any = []
   filteredTension: Observable<any[]>;
-  TENSION:any=''
-  DOCKData:any[]=[]
+  TENSION: any = ''
+  DOCKData: any[] = []
 
-  TENDAR_NAME:any=''
+  TENDAR_NAME: any = ''
 
   SRNO: any = "";
 
@@ -170,23 +172,23 @@ export class TendarEstComponent implements OnInit {
   SECONDDATA: any[] = [];
   MAinGridData: any[] = [];
 
-  PLANCHANGEVALUE:any=''
-  CliCKEDDATA:any=''
+  PLANCHANGEVALUE: any = ''
+  CliCKEDDATA: any = ''
 
   agGridWidth: number = 0;
   agGridStyles: string = `width: 1385px;height: 58vh; margin-bottom: 9%;`;
-  DOCKON:boolean = false
+  DOCKON: boolean = false
 
-  dummay_variable:any='newdivadd_variable'
+  dummay_variable: any = 'newdivadd_variable'
 
-  dummay1_variable:any='finalname_variable'
-  dummay2_variable:any='finalinput_variable'
-
-
-  dummay3_variable:any='finalfooter_variable'
+  dummay1_variable: any = 'finalname_variable'
+  dummay2_variable: any = 'finalinput_variable'
 
 
-  GRIDDATA:any[] =[]
+  dummay3_variable: any = 'finalfooter_variable'
+
+
+  GRIDDATA: any[] = []
 
   style = {
     width: '100%',
@@ -201,14 +203,14 @@ export class TendarEstComponent implements OnInit {
     display: 'grid',
   };
 
-  CANAVASOPEN:boolean =false 
-  TendarStyle:string=`width: 1191px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-  AreaBoxStyle:string=`border:1px solid black;width: 417px;height: 100px;resize: none;`;
-  ContainWidth:string=`width:103%`;
-  BlankBoxStyle:string=`border:1px solid black;padding: 21px 0px; width: 417px; text-align: center;border-top:none;`;
-  HearderBoxStyle:string=`border:1px solid black; width:417px; padding: 2px 3px; text-align: center;border-bottom:none`;
+  CANAVASOPEN: boolean = false
+  TendarStyle: string = `width: 1191px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+  AreaBoxStyle: string = `border:1px solid black;width: 417px;height: 100px;resize: none;`;
+  ContainWidth: string = `width:103%`;
+  BlankBoxStyle: string = `border:1px solid black;padding: 21px 0px; width: 417px; text-align: center;border-top:none;`;
+  HearderBoxStyle: string = `border:1px solid black; width:417px; padding: 2px 3px; text-align: center;border-bottom:none`;
 
-  dummay_class:any="abhishek"
+  dummay_class: any = "abhishek"
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -241,7 +243,7 @@ export class TendarEstComponent implements OnInit {
     //     width: 389,
     //   },
     // ];
-    let op=this
+    let op = this
     this.defaultColDef = {
       resizable: true,
       sortable: true,
@@ -266,17 +268,17 @@ export class TendarEstComponent implements OnInit {
     };
 
     this.getRowStyle = function (params) {
-      for (let i = 0; i < op.SECONDDATA.length; i++) { 
-        if (op.SECONDDATA[i].PLANNO == params.data.PLANNO && op.SECONDDATA[i].SRNO == params.data.SRNO){
-          if(params.data.PTAG == "Total"){
-              return { background: "#c0ffc0" };
-            }
+      for (let i = 0; i < op.SECONDDATA.length; i++) {
+        if (op.SECONDDATA[i].PLANNO == params.data.PLANNO && op.SECONDDATA[i].SRNO == params.data.SRNO) {
+          if (params.data.PTAG == "Total") {
+            return { background: "#c0ffc0" };
           }
         }
-        if (params.data.PTAG === "Total") {
-          return { background: "#FFE0C0" };
-        }
-       return {};
+      }
+      if (params.data.PTAG === "Total") {
+        return { background: "#FFE0C0" };
+      }
+      return {};
     }
 
   }
@@ -338,17 +340,33 @@ export class TendarEstComponent implements OnInit {
                   if (params.data) {
                     if (params.node.rowPinned != "bottom") {
                       if (params.data[VPRes.data[i].FIELDNAME] == 1) {
-                        return (
-                          '<input type="checkbox" data-action-type="' +
-                          "PLNSEL" +
-                          '" checked>'
-                        );
+                        if (this.decodedTkn.UserId === 'DN') {
+                          return (
+                            '<input type="checkbox" data-action-type="' +
+                            "PLNSEL" +
+                            '" checked>'
+                          );
+                        } else {
+                          return (
+                            '<input type="checkbox" data-action-type="' +
+                            "PLNSEL" +
+                            '" checked disabled>'
+                          );
+                        }
                       } else {
-                        return (
-                          '<input type="checkbox" data-action-type="' +
-                          "PLNSEL" +
-                          '" >'
-                        );
+                        if (this.decodedTkn.UserId === 'DN') {
+                          return (
+                            '<input type="checkbox" data-action-type="' +
+                            "PLNSEL" +
+                            '" >'
+                          );
+                        } else {
+                          return (
+                            '<input type="checkbox" data-action-type="' +
+                            "PLNSEL" +
+                            '" disabled>'
+                          );
+                        }
                       }
                     }
                   }
@@ -360,9 +378,9 @@ export class TendarEstComponent implements OnInit {
                 headerClass: VPRes.data[i].HEADERALIGN,
                 field: VPRes.data[i].FIELDNAME,
                 width: VPRes.data[i].COLWIDTH,
-                cellStyle: { 
+                cellStyle: {
                   "text-align": VPRes.data[i].CELLALIGN,
-               },
+                },
                 resizable: VPRes.data[i].ISRESIZE,
                 hide: VPRes.data[i].DISP == false ? true : false,
                 suppressMenu: true,
@@ -373,6 +391,9 @@ export class TendarEstComponent implements OnInit {
             }
             if (VPRes.data[i].FIELDNAME == 'CARAT') {
               temp[i].editable = this.CARATEDITABLE.bind(this)
+            }
+            if (VPRes.data[i].FIELDNAME == 'MPER') {
+              temp[i].editable = this.MPERDISABLE.bind(this)
             }
             if (VPRes.data[i].FIELDNAME == 'C_NAME') {
               temp[i].cellRenderer = this.ColorFill.bind(this)
@@ -454,1307 +475,1310 @@ export class TendarEstComponent implements OnInit {
       }
     });
   }
+  MPERDISABLE(params) {
+    if (this.decodedTkn.UserId === 'DN') {
+      return true
+    } else {
+      return false
+    }
+  }
 
-  CARATEDITABLE(params){
+  CARATEDITABLE(params) {
 
-    if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
+    if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
       this.FLOCODEDIS = true
       return false
-    }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER && params.data.PTAG !== "Total"){
+    } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER && params.data.PTAG !== "Total") {
       return true
-    }else {
+    } else {
       this.FLOCODEDIS = false
       return false
     }
   }
 
-  ShapeFill(params){
-    if(params.data.PTAG !=="Total"){
-    if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-      let template = `
+  ShapeFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+                        <input id="MPER" type="hidden" value=${params.data.MPER} / >
                         <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
                         <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
                         <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
                         <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
                         <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                          <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                          <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                          <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                          <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
+                          <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                          <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                          <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                          <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
                           <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
                           <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
                           <input id="PTAG" type="hidden" value="${params.data.PTAG}" / > 
-                          <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / > 
-                          <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                          <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
+                          <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / > 
+                          <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                          <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
                           <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
                           <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                          <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
+                          <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                           <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >`
-                template += '<select class="ShapeList" disabled>'
-                template += '<option value="">---</option>';
-                for(let i=0;i<this.S_CODE.length;i++){
-      
-                  if(this.S_CODE[i].code == params.data.S_CODE){
-                    template += '<option selected value="'+this.S_CODE[i].code+'">'+this.S_CODE[i].code+'</option>';
-                  }else{
-                    template += '<option value="'+this.S_CODE[i].code+'">'+this.S_CODE[i].code+'</option>';
-                  }
-      
-                }
-                template += '</select>';
-                return template;
-    } else
-      if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-    let template = `
+        template += '<select class="ShapeList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.S_CODE.length; i++) {
+
+          if (this.S_CODE[i].code == params.data.S_CODE) {
+            template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else
+        if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+          let template = `
+    <input id="MPER" type="hidden" value=${params.data.MPER} / >
                   <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
                   <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
                   <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
                   <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
                   <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
                     <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
                     <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
                     <input id="PTAG" type="hidden" value="${params.data.PTAG}" / > 
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
                     <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
                     <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                     <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >`
           template += '<select class="ShapeList">'
           template += '<option value="">---</option>';
-          for(let i=0;i<this.S_CODE.length;i++){
+          for (let i = 0; i < this.S_CODE.length; i++) {
 
-            if(this.S_CODE[i].code == params.data.S_CODE){
-              template += '<option selected value="'+this.S_CODE[i].code+'">'+this.S_CODE[i].code+'</option>';
-            }else{
-              template += '<option value="'+this.S_CODE[i].code+'">'+this.S_CODE[i].code+'</option>';
+            if (this.S_CODE[i].code == params.data.S_CODE) {
+              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+            } else {
+              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
             }
 
           }
           template += '</select>';
           return template;
-        }else {
-              let template = `
+        } else {
+          let template = `
+              <input id="MPER" type="hidden" value=${params.data.MPER} / >
                         <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
                         <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
                         <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
                         <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
                         <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                          <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                          <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                          <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                          <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
+                          <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                          <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                          <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                          <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
                           <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
                           <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
                           <input id="PTAG" type="hidden" value="${params.data.PTAG}" / > 
-                          <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / > 
-                          <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                          <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
+                          <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / > 
+                          <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                          <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
                           <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
                           <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                          <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
+                          <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                           <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >`
-                template += '<select class="ShapeList" disabled>'
-                template += '<option value="">---</option>';
-                for(let i=0;i<this.S_CODE.length;i++){
-      
-                  if(this.S_CODE[i].code == params.data.S_CODE){
-                    template += '<option selected value="'+this.S_CODE[i].code+'">'+this.S_CODE[i].code+'</option>';
-                  }else{
-                    template += '<option value="'+this.S_CODE[i].code+'">'+this.S_CODE[i].code+'</option>';
-                  }
-      
-                }
-                template += '</select>';
-                return template;
-              }
+          template += '<select class="ShapeList" disabled>'
+          template += '<option value="">---</option>';
+          for (let i = 0; i < this.S_CODE.length; i++) {
+
+            if (this.S_CODE[i].code == params.data.S_CODE) {
+              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+            } else {
+              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+            }
+
+          }
+          template += '</select>';
+          return template;
         }
+    }
   }
-  ColorFill(params){
-    if(params.data.PTAG !=="Total"){
+  ColorFill(params) {
+    if (params.data.PTAG !== "Total") {
 
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
     <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
     <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
     <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
                     <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
                     <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
                     <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
                     <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE? params.data.Q_CODE:0}" / > 
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
                     <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
                     <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                     <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="ColorList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.C_NAME.length;i++){
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="ColorList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.C_NAME.length; i++) {
 
-            if(this.C_NAME[i].code == params.data.C_CODE){
-              template += '<option selected value="'+this.C_NAME[i].code+'">'+this.C_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.C_NAME[i].code+'">'+this.C_NAME[i].name+'</option>';
-            }
-
+          if (this.C_NAME[i].code == params.data.C_CODE) {
+            template += '<option selected value="' + this.C_NAME[i].code + '">' + this.C_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.C_NAME[i].code + '">' + this.C_NAME[i].name + '</option>';
           }
-          template += '</select>';
-          return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-    let template = `
-    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE? params.data.Q_CODE:0}" / > 
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="ColorList">'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.C_NAME.length;i++){
 
-            if(this.C_NAME[i].code == params.data.C_CODE){
-              template += '<option selected value="'+this.C_NAME[i].code+'">'+this.C_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.C_NAME[i].code+'">'+this.C_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-        }else{
-          let template = `
-    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE? params.data.Q_CODE:0}" / > 
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="ColorList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.C_NAME.length;i++){
-
-            if(this.C_NAME[i].code == params.data.C_CODE){
-              template += '<option selected value="'+this.C_NAME[i].code+'">'+this.C_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.C_NAME[i].code+'">'+this.C_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
         }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+    <input id="MPER" type="hidden" value=${params.data.MPER} / >
+    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="ColorList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.C_NAME.length; i++) {
+
+          if (this.C_NAME[i].code == params.data.C_CODE) {
+            template += '<option selected value="' + this.C_NAME[i].code + '">' + this.C_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.C_NAME[i].code + '">' + this.C_NAME[i].name + '</option>';
+          }
+
         }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+          <input id="MPER" type="hidden" value=${params.data.MPER} / >
+    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="ColorList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.C_NAME.length; i++) {
+
+          if (this.C_NAME[i].code == params.data.C_CODE) {
+            template += '<option selected value="' + this.C_NAME[i].code + '">' + this.C_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.C_NAME[i].code + '">' + this.C_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
   }
 
-  QuaFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
+  QuaFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
         <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
         <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
         <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
         <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
         <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-        <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-        <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-        <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-        <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
+        <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+        <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+        <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+        <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
         <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
         <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
         <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-        <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-        <input id="CARAT" type="hidden" value="${params.data.CARAT? params.data.CARAT:0}" / > 
+        <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+        <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
         <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
         <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-        <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE? params.data.LB_CODE:''}" / > 
+        <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
         <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-        <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-template += '<select class="QuaList" disabled>'
-template += '<option value="">---</option>';
-for(let i=0;i<this.Q_NAME.length;i++){
+        <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="QuaList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.Q_NAME.length; i++) {
 
-if(this.Q_NAME[i].code == params.data.Q_CODE){
-  template += '<option selected value="'+this.Q_NAME[i].code+'">'+this.Q_NAME[i].name+'</option>';
-}else{
-  template += '<option value="'+this.Q_NAME[i].code+'">'+this.Q_NAME[i].name+'</option>';
-}
-
-}
-template += '</select>';
-return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-    let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT? params.data.CARAT:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE? params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="QuaList">'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.Q_NAME.length;i++){
-
-            if(this.Q_NAME[i].code == params.data.Q_CODE){
-              template += '<option selected value="'+this.Q_NAME[i].code+'">'+this.Q_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.Q_NAME[i].code+'">'+this.Q_NAME[i].name+'</option>';
-            }
-
+          if (this.Q_NAME[i].code == params.data.Q_CODE) {
+            template += '<option selected value="' + this.Q_NAME[i].code + '">' + this.Q_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.Q_NAME[i].code + '">' + this.Q_NAME[i].name + '</option>';
           }
-          template += '</select>';
-          return template;
-        }else{
-          let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT? params.data.CARAT:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE? params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="QuaList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.Q_NAME.length;i++){
 
-            if(this.Q_NAME[i].code == params.data.Q_CODE){
-              template += '<option selected value="'+this.Q_NAME[i].code+'">'+this.Q_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.Q_NAME[i].code+'">'+this.Q_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
         }
-        }
-  }
-
-  CutFill(params){
-    if(params.data.PTAG !=="Total"){
-
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
         let template = `
+    <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
                     <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
                     <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
                     <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
                     <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
                     <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
                     <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
                     <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
                     <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ?params.data.LB_CODE:''}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                     <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ?params.data.S_CODE:''}" / >`
-          template += '<select class="CutList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.CT_NAME.length;i++){
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="QuaList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.Q_NAME.length; i++) {
 
-            if(this.CT_NAME[i].code == params.data.CT_CODE){
-              template += '<option selected value="'+this.CT_NAME[i].code+'">'+this.CT_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.CT_NAME[i].code+'">'+this.CT_NAME[i].name+'</option>';
-            }
-
+          if (this.Q_NAME[i].code == params.data.Q_CODE) {
+            template += '<option selected value="' + this.Q_NAME[i].code + '">' + this.Q_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.Q_NAME[i].code + '">' + this.Q_NAME[i].name + '</option>';
           }
-          template += '</select>';
-          return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-    let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ?params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ?params.data.S_CODE:''}" / >`
-          template += '<select class="CutList">'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.CT_NAME.length;i++){
 
-            if(this.CT_NAME[i].code == params.data.CT_CODE){
-              template += '<option selected value="'+this.CT_NAME[i].code+'">'+this.CT_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.CT_NAME[i].code+'">'+this.CT_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-          }else{
-            let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ?params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ?params.data.S_CODE:''}" / >`
-          template += '<select class="CutList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.CT_NAME.length;i++){
-
-            if(this.CT_NAME[i].code == params.data.CT_CODE){
-              template += '<option selected value="'+this.CT_NAME[i].code+'">'+this.CT_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.CT_NAME[i].code+'">'+this.CT_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-          }
         }
-  }
-  FloFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
+        template += '</select>';
+        return template;
+      } else {
         let template = `
+          <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
                     <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
                     <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
                     <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
                     <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
                     <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
                     <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
                     <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="FloList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.FL_NAME.length;i++){
-
-            if(this.FL_NAME[i].code == params.data.FL_CODE){
-              template += '<option selected value="'+this.FL_NAME[i].code+'">'+this.FL_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.FL_NAME[i].code+'">'+this.FL_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-    let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="FloList">'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.FL_NAME.length;i++){
-
-            if(this.FL_NAME[i].code == params.data.FL_CODE){
-              template += '<option selected value="'+this.FL_NAME[i].code+'">'+this.FL_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.FL_NAME[i].code+'">'+this.FL_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-        }else{
-          let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="FloList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.FL_NAME.length;i++){
-
-            if(this.FL_NAME[i].code == params.data.FL_CODE){
-              template += '<option selected value="'+this.FL_NAME[i].code+'">'+this.FL_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.FL_NAME[i].code+'">'+this.FL_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-        }
-        }
-  }
-  LabFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-        let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
                     <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
                     <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                     <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="LabList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.LB_NAME.length;i++){
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="QuaList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.Q_NAME.length; i++) {
 
-            if(this.LB_NAME[i].code == params.data.LB_CODE){
-              template += '<option selected value="'+this.LB_NAME[i].code+'">'+this.LB_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.LB_NAME[i].code+'">'+this.LB_NAME[i].name+'</option>';
-            }
-
+          if (this.Q_NAME[i].code == params.data.Q_CODE) {
+            template += '<option selected value="' + this.Q_NAME[i].code + '">' + this.Q_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.Q_NAME[i].code + '">' + this.Q_NAME[i].name + '</option>';
           }
-          template += '</select>';
-          return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-    let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="LabList">'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.LB_NAME.length;i++){
 
-            if(this.LB_NAME[i].code == params.data.LB_CODE){
-              template += '<option selected value="'+this.LB_NAME[i].code+'">'+this.LB_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.LB_NAME[i].code+'">'+this.LB_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-        }else{
-          let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="LabList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.LB_NAME.length;i++){
-
-            if(this.LB_NAME[i].code == params.data.LB_CODE){
-              template += '<option selected value="'+this.LB_NAME[i].code+'">'+this.LB_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.LB_NAME[i].code+'">'+this.LB_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
         }
-        }
-  }
-  IncFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-        let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="IncList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.IN_NAME.length;i++){
-
-            if(this.IN_NAME[i].code == params.data.IN_CODE){
-              template += '<option selected value="'+this.IN_NAME[i].code+'">'+this.IN_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.IN_NAME[i].code+'">'+this.IN_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-    let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="IncList">'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.IN_NAME.length;i++){
-
-            if(this.IN_NAME[i].code == params.data.IN_CODE){
-              template += '<option selected value="'+this.IN_NAME[i].code+'">'+this.IN_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.IN_NAME[i].code+'">'+this.IN_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-        }else{
-          let template = `
-                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-          template += '<select class="IncList" disabled>'
-          template += '<option value="">---</option>';
-          for(let i=0;i<this.IN_NAME.length;i++){
-
-            if(this.IN_NAME[i].code == params.data.IN_CODE){
-              template += '<option selected value="'+this.IN_NAME[i].code+'">'+this.IN_NAME[i].name+'</option>';
-            }else{
-              template += '<option value="'+this.IN_NAME[i].code+'">'+this.IN_NAME[i].name+'</option>';
-            }
-
-          }
-          template += '</select>';
-          return template;
-        }
-        }
-  }
-
-  MilkyFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-        let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="MilkyLIST" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.ML_NAME.length;i++){
-  
-              if(this.ML_NAME[i].code == params.data.ML_CODE){
-                template += '<option selected value="'+this.ML_NAME[i].code+'">'+this.ML_NAME[i].name+'</option>';
-              }else{
-                template += '<option value="'+this.ML_NAME[i].code+'">'+this.ML_NAME[i].name+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-      let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="MilkyLIST">'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.ML_NAME.length;i++){
-  
-              if(this.ML_NAME[i].code == params.data.ML_CODE){
-                template += '<option selected value="'+this.ML_NAME[i].code+'">'+this.ML_NAME[i].name+'</option>';
-              }else{
-                template += '<option value="'+this.ML_NAME[i].code+'">'+this.ML_NAME[i].name+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }else{
-            let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="MilkyLIST" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.ML_NAME.length;i++){
-  
-              if(this.ML_NAME[i].code == params.data.ML_CODE){
-                template += '<option selected value="'+this.ML_NAME[i].code+'">'+this.ML_NAME[i].name+'</option>';
-              }else{
-                template += '<option value="'+this.ML_NAME[i].code+'">'+this.ML_NAME[i].name+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }
-          }
-  }
-
-  DepFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-        let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="DepList" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.DEP_NAME.length;i++){
-  
-              if(this.DEP_NAME[i].code == params.data.DEP_CODE){
-                template += '<option selected value="'+this.DEP_NAME[i].code+'">'+this.DEP_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.DEP_NAME[i].code+'">'+this.DEP_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-      let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="DepList">'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.DEP_NAME.length;i++){
-  
-              if(this.DEP_NAME[i].code == params.data.DEP_CODE){
-                template += '<option selected value="'+this.DEP_NAME[i].code+'">'+this.DEP_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.DEP_NAME[i].code+'">'+this.DEP_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }else{
-            let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="DepList" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.DEP_NAME.length;i++){
-  
-              if(this.DEP_NAME[i].code == params.data.DEP_CODE){
-                template += '<option selected value="'+this.DEP_NAME[i].code+'">'+this.DEP_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.DEP_NAME[i].code+'">'+this.DEP_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }
-          }
-  }
-
-  RatFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-        let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="RatList" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.RAT_NAME.length;i++){
-  
-              if(this.RAT_NAME[i].code == params.data.RAT_CODE){
-                template += '<option selected value="'+this.RAT_NAME[i].code+'">'+this.RAT_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.RAT_NAME[i].code+'">'+this.RAT_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-      let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="RatList">'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.RAT_NAME.length;i++){
-  
-              if(this.RAT_NAME[i].code == params.data.RAT_CODE){
-                template += '<option selected value="'+this.RAT_NAME[i].code+'">'+this.RAT_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.RAT_NAME[i].code+'">'+this.RAT_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }else{
-            let template = `
-                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="RatList" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.RAT_NAME.length;i++){
-  
-              if(this.RAT_NAME[i].code == params.data.RAT_CODE){
-                template += '<option selected value="'+this.RAT_NAME[i].code+'">'+this.RAT_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.RAT_NAME[i].code+'">'+this.RAT_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }
-          }
-  }
-
-  GrdFill(params){
-    if(params.data.PTAG !=="Total"){
-      if(this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-        let template = `
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="GRDFill" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.GRD_NAME.length;i++){
-  
-              if(this.GRD_NAME[i].code == params.data.GRD_CODE){
-                template += '<option selected value="'+this.GRD_NAME[i].code+'">'+this.GRD_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.GRD_NAME[i].code+'">'+this.GRD_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-      }else if(params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER){
-      let template = `
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="GRDFill">'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.GRD_NAME.length;i++){
-  
-              if(this.GRD_NAME[i].code == params.data.GRD_CODE){
-                template += '<option selected value="'+this.GRD_NAME[i].code+'">'+this.GRD_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.GRD_NAME[i].code+'">'+this.GRD_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }else{
-            let template = `
-                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
-                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
-                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
-                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
-                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
-                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT:0}" / >
-                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE:''}" / >
-                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER:0}" / >
-                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP:0}" / >
-                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
-                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
-                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
-                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE:0}" / >
-                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT:0}" / > 
-                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE:0}" / > 
-                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
-                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
-                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE:''}" / >
-                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE:''}" / >`
-            template += '<select class="GRDFill" disabled>'
-            template += '<option value="">---</option>';
-            for(let i=0;i<this.GRD_NAME.length;i++){
-  
-              if(this.GRD_NAME[i].code == params.data.GRD_CODE){
-                template += '<option selected value="'+this.GRD_NAME[i].code+'">'+this.GRD_NAME[i].code+'</option>';
-              }else{
-                template += '<option value="'+this.GRD_NAME[i].code+'">'+this.GRD_NAME[i].code+'</option>';
-              }
-  
-            }
-            template += '</select>';
-            return template;
-          }
-          }
-  }
-  
-  previouslyOpenedRow: any; 
-
-  PlannoClicked(params){
-    if(!this.PLANCHANGEVALUE){
-    const node = params.node;
-
-    if (node && node.master) {
-      if (this.previouslyOpenedRow && this.previouslyOpenedRow !== node) {
-        params.api.forEachNode((rowNode: any) => {
-          if (rowNode !== node && rowNode.expanded) {
-            rowNode.setExpanded(false);
-          }
-        });
+        template += '</select>';
+        return template;
       }
-  
-      node.setExpanded(!node.expanded);
-      this.previouslyOpenedRow = node;
     }
   }
-    if(!this.PLANCHANGEVALUE){
+
+  CutFill(params) {
+    if (params.data.PTAG !== "Total") {
+
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="CutList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.CT_NAME.length; i++) {
+
+          if (this.CT_NAME[i].code == params.data.CT_CODE) {
+            template += '<option selected value="' + this.CT_NAME[i].code + '">' + this.CT_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.CT_NAME[i].code + '">' + this.CT_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+    <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="CutList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.CT_NAME.length; i++) {
+
+          if (this.CT_NAME[i].code == params.data.CT_CODE) {
+            template += '<option selected value="' + this.CT_NAME[i].code + '">' + this.CT_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.CT_NAME[i].code + '">' + this.CT_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="CutList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.CT_NAME.length; i++) {
+
+          if (this.CT_NAME[i].code == params.data.CT_CODE) {
+            template += '<option selected value="' + this.CT_NAME[i].code + '">' + this.CT_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.CT_NAME[i].code + '">' + this.CT_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+  FloFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="FloList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.FL_NAME.length; i++) {
+
+          if (this.FL_NAME[i].code == params.data.FL_CODE) {
+            template += '<option selected value="' + this.FL_NAME[i].code + '">' + this.FL_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.FL_NAME[i].code + '">' + this.FL_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+    <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="FloList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.FL_NAME.length; i++) {
+
+          if (this.FL_NAME[i].code == params.data.FL_CODE) {
+            template += '<option selected value="' + this.FL_NAME[i].code + '">' + this.FL_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.FL_NAME[i].code + '">' + this.FL_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+          <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="FloList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.FL_NAME.length; i++) {
+
+          if (this.FL_NAME[i].code == params.data.FL_CODE) {
+            template += '<option selected value="' + this.FL_NAME[i].code + '">' + this.FL_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.FL_NAME[i].code + '">' + this.FL_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+  LabFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="LabList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.LB_NAME.length; i++) {
+
+          if (this.LB_NAME[i].code == params.data.LB_CODE) {
+            template += '<option selected value="' + this.LB_NAME[i].code + '">' + this.LB_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.LB_NAME[i].code + '">' + this.LB_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+    <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="LabList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.LB_NAME.length; i++) {
+
+          if (this.LB_NAME[i].code == params.data.LB_CODE) {
+            template += '<option selected value="' + this.LB_NAME[i].code + '">' + this.LB_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.LB_NAME[i].code + '">' + this.LB_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+          <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="LabList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.LB_NAME.length; i++) {
+
+          if (this.LB_NAME[i].code == params.data.LB_CODE) {
+            template += '<option selected value="' + this.LB_NAME[i].code + '">' + this.LB_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.LB_NAME[i].code + '">' + this.LB_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+  IncFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="IncList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.IN_NAME.length; i++) {
+
+          if (this.IN_NAME[i].code == params.data.IN_CODE) {
+            template += '<option selected value="' + this.IN_NAME[i].code + '">' + this.IN_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.IN_NAME[i].code + '">' + this.IN_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+    <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="IncList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.IN_NAME.length; i++) {
+
+          if (this.IN_NAME[i].code == params.data.IN_CODE) {
+            template += '<option selected value="' + this.IN_NAME[i].code + '">' + this.IN_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.IN_NAME[i].code + '">' + this.IN_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+          <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                    <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                    <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                    <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                    <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                    <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                    <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                    <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                    <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                    <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                    <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                    <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                    <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                    <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                    <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                    <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                    <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                    <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                    <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                    <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="IncList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.IN_NAME.length; i++) {
+
+          if (this.IN_NAME[i].code == params.data.IN_CODE) {
+            template += '<option selected value="' + this.IN_NAME[i].code + '">' + this.IN_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.IN_NAME[i].code + '">' + this.IN_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+
+  MilkyFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="MilkyLIST" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.ML_NAME.length; i++) {
+
+          if (this.ML_NAME[i].code == params.data.ML_CODE) {
+            template += '<option selected value="' + this.ML_NAME[i].code + '">' + this.ML_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.ML_NAME[i].code + '">' + this.ML_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+      <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="MilkyLIST">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.ML_NAME.length; i++) {
+
+          if (this.ML_NAME[i].code == params.data.ML_CODE) {
+            template += '<option selected value="' + this.ML_NAME[i].code + '">' + this.ML_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.ML_NAME[i].code + '">' + this.ML_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="MilkyLIST" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.ML_NAME.length; i++) {
+
+          if (this.ML_NAME[i].code == params.data.ML_CODE) {
+            template += '<option selected value="' + this.ML_NAME[i].code + '">' + this.ML_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.ML_NAME[i].code + '">' + this.ML_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+
+  DepFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="DepList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.DEP_NAME.length; i++) {
+
+          if (this.DEP_NAME[i].code == params.data.DEP_CODE) {
+            template += '<option selected value="' + this.DEP_NAME[i].code + '">' + this.DEP_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.DEP_NAME[i].code + '">' + this.DEP_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+      <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="DepList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.DEP_NAME.length; i++) {
+
+          if (this.DEP_NAME[i].code == params.data.DEP_CODE) {
+            template += '<option selected value="' + this.DEP_NAME[i].code + '">' + this.DEP_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.DEP_NAME[i].code + '">' + this.DEP_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="DepList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.DEP_NAME.length; i++) {
+
+          if (this.DEP_NAME[i].code == params.data.DEP_CODE) {
+            template += '<option selected value="' + this.DEP_NAME[i].code + '">' + this.DEP_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.DEP_NAME[i].code + '">' + this.DEP_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+
+  RatFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RatList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.RAT_NAME.length; i++) {
+
+          if (this.RAT_NAME[i].code == params.data.RAT_CODE) {
+            template += '<option selected value="' + this.RAT_NAME[i].code + '">' + this.RAT_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.RAT_NAME[i].code + '">' + this.RAT_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+      <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RatList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.RAT_NAME.length; i++) {
+
+          if (this.RAT_NAME[i].code == params.data.RAT_CODE) {
+            template += '<option selected value="' + this.RAT_NAME[i].code + '">' + this.RAT_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.RAT_NAME[i].code + '">' + this.RAT_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RatList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.RAT_NAME.length; i++) {
+
+          if (this.RAT_NAME[i].code == params.data.RAT_CODE) {
+            template += '<option selected value="' + this.RAT_NAME[i].code + '">' + this.RAT_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.RAT_NAME[i].code + '">' + this.RAT_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+
+  GrdFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="GRDFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.GRD_NAME.length; i++) {
+
+          if (this.GRD_NAME[i].code == params.data.GRD_CODE) {
+            template += '<option selected value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        let template = `
+      <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="GRDFill">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.GRD_NAME.length; i++) {
+
+          if (this.GRD_NAME[i].code == params.data.GRD_CODE) {
+            template += '<option selected value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="GRDFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.GRD_NAME.length; i++) {
+
+          if (this.GRD_NAME[i].code == params.data.GRD_CODE) {
+            template += '<option selected value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+
+  previouslyOpenedRow: any;
+
+  PlannoClicked(params) {
+    if (!this.PLANCHANGEVALUE) {
+      const node = params.node;
+
+      if (node && node.master) {
+        if (this.previouslyOpenedRow && this.previouslyOpenedRow !== node) {
+          params.api.forEachNode((rowNode: any) => {
+            if (rowNode !== node && rowNode.expanded) {
+              rowNode.setExpanded(false);
+            }
+          });
+        }
+
+        node.setExpanded(!node.expanded);
+        this.previouslyOpenedRow = node;
+      }
+    }
+    if (!this.PLANCHANGEVALUE) {
       return
     }
-    if(typeof(params.data.SUBGROUPKEY) !== 'number'){
+    if (typeof (params.data.SUBGROUPKEY) !== 'number') {
       params.data.SUBGROUPKEY = params.data.SUBGROUPKEY.split('-')[0]
     }
-    for(let i=0;i<params.data.Data.length;i++){
-      if(params.data.Data[i].PLANNO === parseInt(params.data.SUBGROUPKEY)){
-        params.api.refreshCells({force:true})
+    for (let i = 0; i < params.data.Data.length; i++) {
+      if (params.data.Data[i].PLANNO === parseInt(params.data.SUBGROUPKEY)) {
+        params.api.refreshCells({ force: true })
         params.data.SUBGROUPKEY = this.PLANCHANGEVALUE
         this.PLANCHANGEVALUE = ''
         return params
-      }else{
-        params 
+      } else {
+        params
       }
 
     }
-    
+
   }
-  MainGridOpen:any;
+  MainGridOpen: any;
   async onGridRowClicked(eve) {
     const target = eve.event.target;
-    let op=this
-    
+    let op = this
+
     if (target !== undefined) {
       const actionType = target.getAttribute("data-action-type");
-      if (actionType !== "ISAPPROVE" && actionType !== 'Savedata'  && actionType !== "DeleteData" && this.decodedTkn.U_CAT !== "C" && this.decodedTkn.U_CAT !== "S") {
-      let ApproveObj={
-        COMP_CODE:this.COMP_CODE,
-        DETID:this.DETID,
-        SRNO:eve.data.SRNO,
-        TEN_NAME:this.T_NAME,
-        ISAPPROVE:true,
-        AUSER:this.decodedTkn.UserId
-      }
-      this.TendarEstServ.TendarApprove(ApproveObj).subscribe((SaveRes) => {
-        try {
-          if (SaveRes.success == true) {
-            this.spinner.hide();
-            let NewObj = eve.data
-              NewObj.ISAPPROVE = true
-              NewObj.AUSER = this.decodedTkn.UserId
-              eve.node.setData(NewObj)
-              eve.api.refreshCells({ force: true })
-          } else {
-            this.spinner.hide();
-            // Swal.fire({
-            //   icon: "error",
-            //   title: "Oops...",
-            //   text: JSON.stringify(SaveRes.data),
-            // });
-            return;
-          }
-        } catch (err) {
-          this.spinner.hide();
-          this.toastr.error(err);
-          return;
-        }
-      });
-    }
-      if (actionType == "ISAPPROVE") {
-      if(this.decodedTkn.U_CAT !== "C" && this.decodedTkn.U_CAT !== "S"){
-        let dataObj = eve.data;
-        dataObj.ISAPPROVE = !dataObj.ISAPPROVE;
-        dataObj.AUSER = ''
-        eve.node.setData(dataObj)
-        eve.api.refreshCells({ force: true })
-
-        let ApproveObj={
-          COMP_CODE:this.COMP_CODE,
-          DETID:this.DETID,
-          SRNO:eve.data.SRNO,
-          TEN_NAME:this.T_NAME,
-          ISAPPROVE:eve.data.ISAPPROVE,
-          AUSER:this.decodedTkn.UserId
+      if (actionType !== "ISAPPROVE" && actionType !== 'Savedata' && actionType !== "DeleteData" && this.decodedTkn.U_CAT !== "C" && this.decodedTkn.U_CAT !== "S") {
+        let ApproveObj = {
+          COMP_CODE: this.COMP_CODE,
+          DETID: this.DETID,
+          SRNO: eve.data.SRNO,
+          TEN_NAME: this.T_NAME,
+          ISAPPROVE: true,
+          AUSER: this.decodedTkn.UserId
         }
         this.TendarEstServ.TendarApprove(ApproveObj).subscribe((SaveRes) => {
           try {
             if (SaveRes.success == true) {
               this.spinner.hide();
-              
+              let NewObj = eve.data
+              NewObj.ISAPPROVE = true
+              NewObj.AUSER = this.decodedTkn.UserId
+              eve.node.setData(NewObj)
+              eve.api.refreshCells({ force: true })
             } else {
               this.spinner.hide();
               // Swal.fire({
@@ -1762,7 +1786,7 @@ return template;
               //   title: "Oops...",
               //   text: JSON.stringify(SaveRes.data),
               // });
-              // return;
+              return;
             }
           } catch (err) {
             this.spinner.hide();
@@ -1770,11 +1794,48 @@ return template;
             return;
           }
         });
-      }else{
-        return
       }
+      if (actionType == "ISAPPROVE") {
+        if (this.decodedTkn.U_CAT !== "C" && this.decodedTkn.U_CAT !== "S") {
+          let dataObj = eve.data;
+          dataObj.ISAPPROVE = !dataObj.ISAPPROVE;
+          dataObj.AUSER = ''
+          eve.node.setData(dataObj)
+          eve.api.refreshCells({ force: true })
+
+          let ApproveObj = {
+            COMP_CODE: this.COMP_CODE,
+            DETID: this.DETID,
+            SRNO: eve.data.SRNO,
+            TEN_NAME: this.T_NAME,
+            ISAPPROVE: eve.data.ISAPPROVE,
+            AUSER: this.decodedTkn.UserId
+          }
+          this.TendarEstServ.TendarApprove(ApproveObj).subscribe((SaveRes) => {
+            try {
+              if (SaveRes.success == true) {
+                this.spinner.hide();
+
+              } else {
+                this.spinner.hide();
+                // Swal.fire({
+                //   icon: "error",
+                //   title: "Oops...",
+                //   text: JSON.stringify(SaveRes.data),
+                // });
+                // return;
+              }
+            } catch (err) {
+              this.spinner.hide();
+              this.toastr.error(err);
+              return;
+            }
+          });
+        } else {
+          return
+        }
       }
-    
+
       if (actionType === "Savedata") {
         let selectedFile
         const inputFile = target.closest(".file-input-label").querySelector("input[type='file']");
@@ -1798,18 +1859,18 @@ return template;
                 base64String = String.fromCharCode.apply(null, bytes);
                 op.uploadVideo(FileObj);
               }
-      
+
               op.uploadVideo(FileObj).subscribe((response) => {
                 try {
                   let Obj = {
                     COMP_CODE: op.COMP_CODE,
-                    DETID:eve.data.DETID,
+                    DETID: eve.data.DETID,
                     SRNO: eve.data.SRNO,
                     SECURE_URL: response.data.secure_url,
                     URL: response.data.url,
                     CLOUDID: response.data.cloudid,
                     PUBLICID: response.data.public_id,
-                    I_TYPE:'Print'
+                    I_TYPE: 'Print'
                   };
                   op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
                     try {
@@ -1827,14 +1888,14 @@ return template;
                     } catch (error) {
                       op.spinner.hide();
                       console.log(error);
-      
+
                       op.toastr.error(error);
                     }
                   });
                 } catch (error) {
                   op.spinner.hide();
                   console.log(error);
-      
+
                   op.toastr.error(error);
                 }
               });
@@ -1848,10 +1909,10 @@ return template;
           window.open(videoUrl, '_blank');
         }
       }
-      if(actionType === "DeleteData"){
+      if (actionType === "DeleteData") {
 
         let Obj = {
-          COMP_CODE: this.COMP_CODE ,
+          COMP_CODE: this.COMP_CODE,
           DETID: eve.data.DETID,
           FSRNO: eve.data.SRNO,
           TSRNO: eve.data.SRNO,
@@ -1860,7 +1921,7 @@ return template;
           try {
             if (Res.success == true) {
               this.spinner.hide();
-  
+
               //get file names from database
               const videos = Res.data.map((item) => item.PUBLICID);
               //delete files from cloud first then delete from database
@@ -1871,7 +1932,7 @@ return template;
             }
           } catch (error) {
             console.log(error);
-  
+
             this.spinner.hide();
             this.toastr.error(error);
           }
@@ -1888,7 +1949,7 @@ return template;
             }
           } catch (error) {
             console.log(error);
-    
+
             this.spinner.hide();
             this.toastr.error(error);
           }
@@ -1898,22 +1959,22 @@ return template;
   }
 
   DockON() {
-    if(this.DOCKON == false){
+    if (this.DOCKON == false) {
       this.DOCKON = true
-      this.agGridStyles =`width: 1085px; height: 58vh ; margin-bottom: 9%;`
-      this.TendarStyle=`width: 941px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-      this.AreaBoxStyle=`border:1px solid black;width: 167px;height: 100px;resize: none;`;
-      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 167px; text-align: center;border-top:none;`;
-      this.HearderBoxStyle=`border:1px solid black;width:167px;padding: 2px 3px; text-align: center;border-bottom:none`;
+      this.agGridStyles = `width: 1085px; height: 58vh ; margin-bottom: 9%;`
+      this.TendarStyle = `width: 941px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+      this.AreaBoxStyle = `border:1px solid black;width: 167px;height: 100px;resize: none;`;
+      this.BlankBoxStyle = `border:1px solid black;padding: 21px 0px; width: 167px; text-align: center;border-top:none;`;
+      this.HearderBoxStyle = `border:1px solid black;width:167px;padding: 2px 3px; text-align: center;border-bottom:none`;
       // this.ContainWidth=`width:145%`;
-    }else{
+    } else {
       this.DOCKON = false
-      this.agGridStyles =`width: 1385px; height: 58vh; margin-bottom: 9%;`
-      this.TendarStyle=`width: 1191px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-      this.AreaBoxStyle=`border:1px solid black;width: 417px;height: 100px;resize: none;`;
-      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 417px; text-align: center;border-top:none;`;
-      this.HearderBoxStyle=`border:1px solid black; width:417px; padding: 2px 3px; text-align: center;border-bottom:none`;
-      this.ContainWidth=`width:103%`;
+      this.agGridStyles = `width: 1385px; height: 58vh; margin-bottom: 9%;`
+      this.TendarStyle = `width: 1191px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+      this.AreaBoxStyle = `border:1px solid black;width: 417px;height: 100px;resize: none;`;
+      this.BlankBoxStyle = `border:1px solid black;padding: 21px 0px; width: 417px; text-align: center;border-top:none;`;
+      this.HearderBoxStyle = `border:1px solid black; width:417px; padding: 2px 3px; text-align: center;border-bottom:none`;
+      this.ContainWidth = `width:103%`;
     }
   }
 
@@ -1960,7 +2021,7 @@ return template;
       httpOptions
     );
   }
-  
+
 
   SUBvalue(params) {
     let newvalue = 0;
@@ -2014,8 +2075,8 @@ return template;
         },
       },
       onCellValueChanged: (params: any) => {
-        arrayname.find((item) =>item.name == params.data[viewdata.FIELDNAME]? (params.data[code] = item.code): "");
-        arrayname.find((item) =>item.code == params.data[code]? (params.data[viewdata.FIELDNAME] = item.name): "");
+        arrayname.find((item) => item.name == params.data[viewdata.FIELDNAME] ? (params.data[code] = item.code) : "");
+        arrayname.find((item) => item.code == params.data[code] ? (params.data[viewdata.FIELDNAME] = item.name) : "");
         params.api.refreshCells({ force: true });
       },
       cellStyle: {
@@ -2127,8 +2188,8 @@ return template;
       try {
         if (FillRes.success == true) {
           this.spinner.hide();
-          this.GRIDDATA=FillRes.data
-          this.SECONDDATA=FillRes.data
+          this.GRIDDATA = FillRes.data
+          this.SECONDDATA = FillRes.data
           // const agBodyViewport: HTMLElement =
           //   this.elementRef.nativeElement.querySelector(".ag-body-viewport");
           // const agBodyHorizontalViewport: HTMLElement =
@@ -2174,7 +2235,7 @@ return template;
       this.gridApi1.forEachNode(function (rowNode, index) {
         SubData.push(rowNode.data);
       });
-   
+
       for (let i = 0; i < SubData.length; i++) {
         if (params.data.SRNO === SubData[i].SRNO) {
           if (params.data.PLANNO === SubData[i].PLANNO && SubData[i].PTAG !== "Total") {
@@ -2194,163 +2255,229 @@ return template;
   }
 
   async FindRap(params) {
+    let _GridRowData1 = []
+    this.gridApi1.forEachNode(function (rowNode, index) {
+      _GridRowData1.push(rowNode.data);
+    });
 
-    let _GridRowData1= []
-      this.gridApi1.forEachNode(function (rowNode, index) {
-        _GridRowData1.push(rowNode.data);
-      });
-      for(let i =0;i<_GridRowData1.length;i++){
-        if(_GridRowData1[i].PLANNO === params.data.PLANNO && _GridRowData1[i].SRNO == params.data.SRNO && _GridRowData1[i].PTAG === params.data.PTAG){
+
+
+    let SubData = _GridRowData1;
+    let FinalGrid = this.GridTempData;
+
+    if (params.colDef.field === 'MPER') {
+      let newArray = 0
+      let carat = params.data.CARAT
+      let orap = params.data.ORAP
+      let MperValue = parseInt(params.data.MPER)
+      newArray = (MperValue / 100) * orap
+
+      let FinalValue = orap - newArray
+      let NewSum = FinalValue * carat
+
+      let LastSum = 0
+      for (let i = 0; i < FinalGrid.length; i++) {
+        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG) {
+          FinalGrid[i].AMT = NewSum
+        }
+        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total') {
+          LastSum += FinalGrid[i].AMT
+        }
+      }
+
+      let highestRate = 0;
+      let highAmt = -Infinity
+      for (let i = 0; i < FinalGrid.length; i++) {
+        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO == params.data.SRNO && FinalGrid[i].PTAG === 'Total') {
+          FinalGrid[i].AMT = LastSum
+        }
+        if (FinalGrid[i].AMT > highAmt) {
+          highAmt = FinalGrid[i].AMT
+          highestRate = FinalGrid[i].AMT / FinalGrid[i].CARAT
+        }
+      }
+      this.PKTPER = highestRate.toFixed(2)
+      console.log("#@#@@#@#@#",params.data)
+
+    } else {
+
+      for (let i = 0; i < _GridRowData1.length; i++) {
+        if (_GridRowData1[i].PLANNO === params.data.PLANNO && _GridRowData1[i].SRNO == params.data.SRNO && _GridRowData1[i].PTAG === params.data.PTAG) {
           _GridRowData1[i].CARAT = params.data.CARAT
         }
       }
       this.gridApi1.refreshCells({ force: true });
 
-    let _GridRowData = [];
-    let SubData = [];
-    let FinalGrid = [];
-      
-    if (!params.data.S_CODE) {
-      return;
-    }
-    if (!params.data.Q_CODE) {
-      return;
-    }
-    if (!params.data.C_CODE) {
-      return;
-    }
-    if (!params.data.CARAT) {
-      return;
-    }
-    if (!params.data.CT_CODE) {
-      return;
-    }
-    if (!params.data.FL_CODE) {
-      return;
-    }
-    if (!params.data.LB_CODE) {
-      return;
-    }
-    if (!params.data.IN_CODE) {
-      return;
-    }
+      let _GridRowData = [];
 
-    let RapObj = {
-      S_CODE: params.data.S_CODE,
-      Q_CODE: params.data.Q_CODE,
-      C_CODE: params.data.C_CODE,
-      CARAT: params.data.CARAT,
-      CUT_CODE: params.data.CT_CODE,
-      FL_CODE: params.data.FL_CODE,
-      IN_CODE: params.data.IN_CODE,
-      RTYPE: params.data.LB_CODE,
-    };
-    this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
-      try {
-        if (RapRes.success == true) {
-          params.data.ORAP = RapRes.data[0][0].AMT;
-          params.data.RATE = RapRes.data[1][0][""];
-          params.data.RTYPE = RapRes.data[2][0][""];
-          params.data.AMT = params.data.RATE * params.data.CARAT;
-          params.data.PER = 100 - (params.data.RATE / params.data.ORAP) * 100;
-          params.api.refreshCells({ force: true });
-
-      this.gridApi1.forEachNode(function (rowNode, index) {
-        _GridRowData.push(rowNode.data);
-      });
-
-      let CARATSUM =0
-      let ORAPSUM =0
-      let RATESUM =0
-      let AMTSUM =0
-      let PERSUM =0
-      let PERMUL =0
-      let CrtSUM =0
-      let PTAGROW =[]
-      for(let i=0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].SRNO == params.data.SRNO && _GridRowData[i].PLANNO === params.data.PLANNO && _GridRowData[i].PTAG !== 'Total'){
-            CARATSUM += _GridRowData[i].ORAP
-            AMTSUM += _GridRowData[i].AMT
-            CrtSUM += parseFloat(_GridRowData[i].CARAT)
-            RATESUM += (AMTSUM/CrtSUM)
-            PERMUL +=  (_GridRowData[i].ORAP*parseFloat(_GridRowData[i].CARAT))
-            // ORAPSUM +=  
-        }
-        
-        if(_GridRowData[i].SRNO === params.data.SRNO && _GridRowData[i].PLANNO === params.data.PLANNO && _GridRowData[i].PTAG === 'Total'){
-              _GridRowData[i].ORAP = (PERMUL/CrtSUM)
-              _GridRowData[i].RATE = (AMTSUM/CrtSUM)
-              _GridRowData[i].AMT = AMTSUM
-              _GridRowData[i].PER = 100 - (_GridRowData[i].RATE / _GridRowData[i].ORAP) * 100;
-              _GridRowData[i].CARAT = CrtSUM
-            }
-            if(_GridRowData[i].PTAG == "Total"){
-              PTAGROW.push(_GridRowData[i])
-            }
+      if (!params.data.S_CODE) {
+        return;
       }
-      let highestRate = 0;
-      let highAmt = -Infinity
-          for(let i=0;i<PTAGROW.length;i++){
-            if(PTAGROW[i].AMT > highAmt){
-              highAmt = PTAGROW[i].AMT
-              highestRate = PTAGROW[i].RATE
+      if (!params.data.Q_CODE) {
+        return;
+      }
+      if (!params.data.C_CODE) {
+        return;
+      }
+      if (!params.data.CARAT) {
+        return;
+      }
+      if (!params.data.CT_CODE) {
+        return;
+      }
+      if (!params.data.FL_CODE) {
+        return;
+      }
+      if (!params.data.LB_CODE) {
+        return;
+      }
+      if (!params.data.IN_CODE) {
+        return;
+      }
+
+      let RapObj = {
+        S_CODE: params.data.S_CODE,
+        Q_CODE: params.data.Q_CODE,
+        C_CODE: params.data.C_CODE,
+        CARAT: params.data.CARAT,
+        CUT_CODE: params.data.CT_CODE,
+        FL_CODE: params.data.FL_CODE,
+        IN_CODE: params.data.IN_CODE,
+        RTYPE: params.data.LB_CODE,
+        // MPER:params.data.MPER
+      };
+      this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
+        try {
+          if (RapRes.success == true) {
+            params.data.ORAP = RapRes.data[0][0].AMT;
+            params.data.RATE = RapRes.data[1][0][""];
+            params.data.RTYPE = RapRes.data[2][0][""];
+            params.data.AMT = params.data.RATE * params.data.CARAT;
+            params.data.PER = 100 - (params.data.RATE / params.data.ORAP) * 100;
+
+            params.api.refreshCells({ force: true });
+
+            this.gridApi1.forEachNode(function (rowNode, index) {
+              _GridRowData.push(rowNode.data);
+            });
+
+            let CARATSUM = 0
+            let ORAPSUM = 0
+            let RATESUM = 0
+            let AMTSUM = 0
+            let PERSUM = 0
+            let PERMUL = 0
+            let CrtSUM = 0
+            let NewCrtSUM = 0
+            let PTAGROW = []
+            for (let i = 0; i < _GridRowData.length; i++) {
+              if (_GridRowData[i].SRNO == params.data.SRNO && _GridRowData[i].PLANNO === params.data.PLANNO && _GridRowData[i].PTAG !== 'Total') {
+                NewCrtSUM += parseFloat(_GridRowData[i].CARAT)
+                if (_GridRowData[i].SRNO === params.data.SRNO && _GridRowData[i].PLANNO === params.data.PLANNO && _GridRowData[i].PTAG === params.data.PTAG) {
+                  if (NewCrtSUM > this.PKTWEIGHT) {
+                    params.data.CARAT = 0.000
+                    params.data.S_CODE = 0
+                    params.data.C_CODE = 0
+                    params.data.Q_CODE = 0
+                    params.data.LB_CODE = 0
+                    params.data.ML_CODE = 0
+                    params.data.AMT_CODE = 0.000
+                    params.data.RAT_CODE = 0
+                    params.data.GRD_CODE = 0
+                    _GridRowData[i].ORAP = 0
+                    _GridRowData[i].RATE = 0
+                    _GridRowData[i].AMT = 0
+                    _GridRowData[i].PER = 0
+                    params.data.ORAP = 0
+                    params.data.RATE = 0
+                    params.data.AMT = 0
+                    params.data.PER = 0
+                    _GridRowData[i].CARAT = 0.00
+                  }
+                }
+                CARATSUM += _GridRowData[i].ORAP
+                AMTSUM += _GridRowData[i].AMT
+                CrtSUM += parseFloat(_GridRowData[i].CARAT)
+                RATESUM += (AMTSUM / CrtSUM)
+                PERMUL += (_GridRowData[i].ORAP * parseFloat(_GridRowData[i].CARAT))
+                // ORAPSUM +=  
+              }
+
+              if (_GridRowData[i].SRNO === params.data.SRNO && _GridRowData[i].PLANNO === params.data.PLANNO && _GridRowData[i].PTAG === 'Total') {
+                _GridRowData[i].ORAP = (PERMUL / CrtSUM)
+                _GridRowData[i].RATE = (AMTSUM / CrtSUM)
+                _GridRowData[i].AMT = AMTSUM
+                _GridRowData[i].PER = 100 - (_GridRowData[i].RATE / _GridRowData[i].ORAP) * 100;
+                _GridRowData[i].CARAT = CrtSUM
+              }
+              if (_GridRowData[i].PTAG == "Total") {
+                PTAGROW.push(_GridRowData[i])
+              }
             }
+            let highestRate = 0;
+            let highAmt = -Infinity
+            for (let i = 0; i < PTAGROW.length; i++) {
+              if (PTAGROW[i].AMT > highAmt) {
+                highAmt = PTAGROW[i].AMT
+                highestRate = PTAGROW[i].RATE
+              }
+            }
+            this.PKTPER = highestRate.toFixed(2)
+            this.gridApi1.refreshCells({ force: true });
+
           }
-      this.PKTPER = highestRate.toFixed(2)
-      this.gridApi1.refreshCells({ force: true });
-
-      }
-      } catch (err) {
-        console.log(err);
-      }
-    });
+        } catch (err) {
+          console.log(err);
+        }
+      });
+    }
   }
 
   Save() {
 
-    let saveOBJ1={
-      COMP_CODE:this.COMP_CODE,
-      DETID:this.DETID,
-      SRNO:this.PKTSRNO ? this.PKTSRNO : 0,
-      RESRVE:this.PKTRESERVE ? this.PKTRESERVE:0,
-      PERCTS:this.PKTPER ? this.PKTPER:0,
-      SRW:this.PKTSRW ? this.PKTSRW:'',
-      FL_CODE:this.FLOCODE ? this.FLOCODE :0,
-      FBID:this.FINALBID ? this.FINALBID :0,
-      T_CODE:this.TENSION ? this.TENSION:'',
-      LS:this.LS? this.LS :0,
-      FFLAT1:this.FINAL1 ? this.FINAL1:'',
-      FFLAT2:this.FINAL2 ? this.FINAL2:'',
-      FMED: this.FINALME ? this.FINALME:'',
-      FHIGH: this.FINALHE ? this.FINALHE:'',
-      RFLAT1:this.RESULT1 ? this.RESULT1:'',
-      RFLAT2:this.RESULT2 ? this.RESULT2:'',
-      RMED:this.RESULTME ? this.RESULTME:'',
-      RHIGH:this.RESULTHE ? this.RESULTHE :'',
-      MFLFLAT1: this.MacFLO1 ? this.MacFLO1:'',
-      MFLFLAT2:this.MacFLO2 ? this.MacFLO2 :'',
-      MFLMED:this.MacFLOME ? this.MacFLOME:'',
-      MFLHIGH:this.MacFLOHE ? this.MacFLOHE:'',
-      FLNFLAT1: this.FLO1 ? this.FLO1:'',
-      FLNFLAT2:this.FLO2 ? this.FLO2:'',
-      FLNMED:this.FLOME ? this.FLOME:'',
-      FLNHIGH: this.FLOHE ? this.FLOHE:'',
-      CFLAT1: this.MacCom1 ? this.MacCom1:'',
-      CFLAT2: this.MacCom2 ? this.MacCom2:'',
-      CMED: this.MacComME ? this.MacComME:'',
-      CHIGH: this.MacComHE ? this.MacComHE:'',
-      DNC_CODE:this.DN? this.DN:0,
-      I1C_CODE: this.USER1 ? this.USER1:0,
-      I2C_CODE: this.USER2 ? this.USER2:0,
-      I3C_CODE:this.USER3 ? this.USER3:0,
-      RC_CODE:this.ROUNDC1 ? this.ROUNDC1 :0,
-      R1C_CODE:this.R1 ? this.R1:0,
-      R2C_CODE:this.R2 ? this.R2:0,
-      FC_CODE:this.FANCY1 ? this.FANCY1:0,
-      F1C_CODE:this.F1 ? this.F1:0,
-      F2C_CODE:this.F2 ?this.F2:0,
-      PUSER:this.decodedTkn.UserId,
-      TEN_NAME:this.T_NAME
+    let saveOBJ1 = {
+      COMP_CODE: this.COMP_CODE,
+      DETID: this.DETID,
+      SRNO: this.PKTSRNO ? this.PKTSRNO : 0,
+      RESRVE: this.PKTRESERVE ? this.PKTRESERVE : 0,
+      PERCTS: this.PKTPER ? this.PKTPER : 0,
+      SRW: this.PKTSRW ? this.PKTSRW : '',
+      FL_CODE: this.FLOCODE ? this.FLOCODE : 0,
+      FBID: this.FINALBID ? this.FINALBID : 0,
+      T_CODE: this.TENSION ? this.TENSION : '',
+      LS: this.LS ? this.LS : 0,
+      FFLAT1: this.FINAL1 ? this.FINAL1 : '',
+      FFLAT2: this.FINAL2 ? this.FINAL2 : '',
+      FMED: this.FINALME ? this.FINALME : '',
+      FHIGH: this.FINALHE ? this.FINALHE : '',
+      RFLAT1: this.RESULT1 ? this.RESULT1 : '',
+      RFLAT2: this.RESULT2 ? this.RESULT2 : '',
+      RMED: this.RESULTME ? this.RESULTME : '',
+      RHIGH: this.RESULTHE ? this.RESULTHE : '',
+      MFLFLAT1: this.MacFLO1 ? this.MacFLO1 : '',
+      MFLFLAT2: this.MacFLO2 ? this.MacFLO2 : '',
+      MFLMED: this.MacFLOME ? this.MacFLOME : '',
+      MFLHIGH: this.MacFLOHE ? this.MacFLOHE : '',
+      FLNFLAT1: this.FLO1 ? this.FLO1 : '',
+      FLNFLAT2: this.FLO2 ? this.FLO2 : '',
+      FLNMED: this.FLOME ? this.FLOME : '',
+      FLNHIGH: this.FLOHE ? this.FLOHE : '',
+      CFLAT1: this.MacCom1 ? this.MacCom1 : '',
+      CFLAT2: this.MacCom2 ? this.MacCom2 : '',
+      CMED: this.MacComME ? this.MacComME : '',
+      CHIGH: this.MacComHE ? this.MacComHE : '',
+      DNC_CODE: this.DN ? this.DN : 0,
+      I1C_CODE: this.USER1 ? this.USER1 : 0,
+      I2C_CODE: this.USER2 ? this.USER2 : 0,
+      I3C_CODE: this.USER3 ? this.USER3 : 0,
+      RC_CODE: this.ROUNDC1 ? this.ROUNDC1 : 0,
+      R1C_CODE: this.R1 ? this.R1 : 0,
+      R2C_CODE: this.R2 ? this.R2 : 0,
+      FC_CODE: this.FANCY1 ? this.FANCY1 : 0,
+      F1C_CODE: this.F1 ? this.F1 : 0,
+      F2C_CODE: this.F2 ? this.F2 : 0,
+      PUSER: this.decodedTkn.UserId,
+      TEN_NAME: this.T_NAME
     }
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
       try {
@@ -2379,10 +2506,19 @@ return template;
       _GridRowData.push(rowNode.data);
     });
     let SubData = [];
+    let TotalData = [];
 
-    for(let i=0;i<_GridRowData.length;i++){
-      if(_GridRowData[i].PTAG !=="Total"){
+    for (let i = 0; i < _GridRowData.length; i++) {
+      if (_GridRowData[i].PTAG !== "Total") {
         SubData.push(_GridRowData[i])
+      } else {
+        TotalData.push(_GridRowData[i])
+      }
+    }
+
+    for (let i = 0; i < TotalData.length; i++) {
+      if (TotalData[i].CARAT > this.PKTWEIGHT) {
+        return this.toastr.warning('Your Carat Was Greater Than Weight')
       }
     }
 
@@ -2411,7 +2547,7 @@ return template;
         ORAP: SubData[i].ORAP ? SubData[i].ORAP : 0,
         RATE: SubData[i].RATE ? SubData[i].RATE : 0,
         OTAG: SubData[i].OTAG ? SubData[i].OTAG : "",
-        IUSER: SubData[i].IUSER ? SubData[i].IUSER:'',
+        IUSER: SubData[i].IUSER ? SubData[i].IUSER : '',
         ML_CODE: SubData[i].ML_CODE ? SubData[i].ML_CODE : 0,
         DEP_CODE: SubData[i].DEP_CODE ? SubData[i].DEP_CODE : 0,
         RAT_CODE: SubData[i].RAT_CODE ? SubData[i].RAT_CODE : 0,
@@ -2419,9 +2555,9 @@ return template;
       };
       PerArr.push(SaveObj);
     }
-    
+
     this.TendarEstServ.TendarPrdDetSave(PerArr).subscribe((SaveRes) => {
-      try{
+      try {
         if (SaveRes.success == true) {
           this.spinner.hide();
           this.toastr.success("Save successfully.");
@@ -2508,8 +2644,8 @@ return template;
   w3_open() {
     document.getElementById("mySidebar").style.display = "block";
   }
-  
- w3_close() {
+
+  w3_close() {
     document.getElementById("mySidebar").style.display = "none";
   }
   async ngOnInit() {
@@ -2571,25 +2707,25 @@ return template;
       return { code: item.ML_CODE, name: item.ML_NAME };
     });
     this.DEP_NAME = this.decodedMast[21].map((item) => {
-      return { code: item.DEP_CODE};
+      return { code: item.DEP_CODE };
     });
     this.GRD_NAME = this.decodedMast[22].map((item) => {
-      return { code: item.GRD_CODE};
+      return { code: item.GRD_CODE };
     });
     this.RAT_NAME = this.decodedMast[23].map((item) => {
-      return { code: item.RAT_CODE};
+      return { code: item.RAT_CODE };
     });
 
-    let Com_arr =  this.decodedMast[20].map((item) => {
-      return { code: item.MCOM_NAME};
+    let Com_arr = this.decodedMast[20].map((item) => {
+      return { code: item.MCOM_NAME };
     });
-    
-    this.MacComm = [[{ code: 0}, ...Com_arr]]
+
+    this.MacComm = [[{ code: 0 }, ...Com_arr]]
 
     let Tension_arr = this.decodedMast[16].map((item) => {
-      return { code: item.T_CODE,name:item.T_NAME};
+      return { code: item.T_CODE, name: item.T_NAME };
     });
-    this.TenArr = [[{ code: 0}, ...Tension_arr]]
+    this.TenArr = [[{ code: 0 }, ...Tension_arr]]
     this.DEPTArr = this.decodedMast[2].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
@@ -2597,46 +2733,46 @@ return template;
     this.filteredSzs = this.szControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
-      );
+    );
     this.filteredColor = this.ColControl.valueChanges.pipe(
       startWith(''),
       map(value => this._Colfilter(value))
-      );
+    );
     this.filteredMacColor = this.MacColControl.valueChanges.pipe(
       startWith(''),
       map(value => this._MacColfilter(value))
-      );
+    );
     this.filteredFLO = this.FloControl.valueChanges.pipe(
       startWith(''),
       map(value => this._FLOfilter(value))
-      );
+    );
     this.filteredMacFLO = this.MacFloControl.valueChanges.pipe(
       startWith(''),
       map(value => this._MacFLOfilter(value))
-      );
+    );
     this.filteredMacCom = this.MacComControl.valueChanges.pipe(
       startWith(''),
       map(value => this._MacComfilter(value))
-      );
+    );
     this.filteredTension = this.TensionControl.valueChanges.pipe(
       startWith(''),
       map(value => this._Tensionfilter(value))
-      );
+    );
 
-    let op=this
+    let op = this
 
-    
 
-    $('body').on('focusin', 'select.ShapeList', function(this) {
+
+    $('body').on('focusin', 'select.ShapeList', function (this) {
       $(this).data('val', $(this).val());
     });
 
 
-    $('body').on('change', 'select.ShapeList', function(this) {
+    $('body').on('change', 'select.ShapeList', function (this) {
       var inputData = $(this).prevAll();
 
 
-      
+
       let IN_CODE = $(inputData[0]).val();
       let LB_CODE = $(inputData[1]).val();
       let FL_CODE = $(inputData[2]).val();
@@ -2656,7 +2792,8 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
-      let S_CODE = $(this).val() 
+      let MPER = $(inputData[19]).val();
+      let S_CODE = $(this).val()
 
       let NewCode = {
         IN_CODE,
@@ -2678,27 +2815,28 @@ return template;
         ML_CODE,
         RAT_CODE,
         DEP_CODE,
-        GRD_CODE
+        GRD_CODE,
+        MPER
       }
       op.findrap1(NewCode)
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].S_CODE = S_CODE
         }
       }
       op.gridApi1.refreshCells({ force: true });
     });
 
-    $('body').on('focusin', 'select.ColorList', function(this) {
+    $('body').on('focusin', 'select.ColorList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.ColorList', function(this) {
+    $('body').on('change', 'select.ColorList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -2720,6 +2858,7 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let C_CODE = $(this).val()
 
       let NewCode = {
@@ -2742,15 +2881,16 @@ return template;
         ML_CODE,
         RAT_CODE,
         DEP_CODE,
-        GRD_CODE
+        GRD_CODE,
+        MPER
       }
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].C_CODE = C_CODE
         }
       }
@@ -2760,11 +2900,11 @@ return template;
 
     })
 
-    $('body').on('focusin', 'select.QuaList', function(this) {
+    $('body').on('focusin', 'select.QuaList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.QuaList', function(this) {
+    $('body').on('change', 'select.QuaList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -2786,6 +2926,7 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let Q_CODE = $(this).val()
 
       let NewCode = {
@@ -2808,15 +2949,16 @@ return template;
         ML_CODE,
         RAT_CODE,
         DEP_CODE,
-        GRD_CODE
+        GRD_CODE,
+        MPER
       }
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].Q_CODE = Q_CODE
         }
       }
@@ -2825,11 +2967,11 @@ return template;
 
     })
 
-    $('body').on('focusin', 'select.CutList', function(this) {
+    $('body').on('focusin', 'select.CutList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.CutList', function(this) {
+    $('body').on('change', 'select.CutList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -2851,6 +2993,7 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let CT_CODE = $(this).val()
 
       let NewCode = {
@@ -2873,15 +3016,16 @@ return template;
         ML_CODE,
         RAT_CODE,
         DEP_CODE,
-        GRD_CODE
+        GRD_CODE,
+        MPER
       }
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].CT_CODE = CT_CODE
         }
       }
@@ -2891,11 +3035,11 @@ return template;
 
     })
 
-    $('body').on('focusin', 'select.FloList', function(this) {
+    $('body').on('focusin', 'select.FloList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.FloList', function(this) {
+    $('body').on('change', 'select.FloList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -2917,6 +3061,7 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let FL_CODE = $(this).val()
 
       let NewCode = {
@@ -2939,15 +3084,16 @@ return template;
         ML_CODE,
         RAT_CODE,
         DEP_CODE,
-        GRD_CODE
+        GRD_CODE,
+        MPER
       }
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].FL_CODE = FL_CODE
         }
       }
@@ -2956,11 +3102,11 @@ return template;
       op.findrap1(NewCode)
 
     })
-    $('body').on('focusin', 'select.LabList', function(this) {
+    $('body').on('focusin', 'select.LabList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.LabList', function(this) {
+    $('body').on('change', 'select.LabList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -2982,6 +3128,7 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let LB_CODE = $(this).val()
 
       let NewCode = {
@@ -3004,15 +3151,16 @@ return template;
         ML_CODE,
         RAT_CODE,
         DEP_CODE,
-        GRD_CODE
+        GRD_CODE,
+        MPER
       }
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].LB_CODE = LB_CODE
         }
       }
@@ -3021,11 +3169,11 @@ return template;
       op.findrap1(NewCode)
 
     })
-    $('body').on('focusin', 'select.IncList', function(this) {
+    $('body').on('focusin', 'select.IncList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.IncList', function(this) {
+    $('body').on('change', 'select.IncList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -3047,6 +3195,7 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let IN_CODE = $(this).val()
 
       let NewCode = {
@@ -3069,15 +3218,16 @@ return template;
         ML_CODE,
         RAT_CODE,
         DEP_CODE,
-        GRD_CODE
+        GRD_CODE,
+        MPER
       }
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].IN_CODE = IN_CODE
         }
       }
@@ -3086,11 +3236,11 @@ return template;
 
     })
 
-    $('body').on('focusin', 'select.MilkyLIST', function(this) {
+    $('body').on('focusin', 'select.MilkyLIST', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.MilkyLIST', function(this) {
+    $('body').on('change', 'select.MilkyLIST', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -3112,15 +3262,16 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let DEP_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let ML_CODE = $(this).val()
 
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].ML_CODE = ML_CODE
         }
       }
@@ -3128,11 +3279,11 @@ return template;
 
     })
 
-    $('body').on('focusin', 'select.DepList', function(this) {
+    $('body').on('focusin', 'select.DepList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.DepList', function(this) {
+    $('body').on('change', 'select.DepList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -3154,15 +3305,16 @@ return template;
       let RAT_CODE = $(inputData[16]).val();
       let ML_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let DEP_CODE = $(this).val()
 
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].DEP_CODE = DEP_CODE
         }
       }
@@ -3170,11 +3322,11 @@ return template;
 
     })
 
-    $('body').on('focusin', 'select.RatList', function(this) {
+    $('body').on('focusin', 'select.RatList', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.RatList', function(this) {
+    $('body').on('change', 'select.RatList', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -3196,15 +3348,16 @@ return template;
       let DEP_CODE = $(inputData[16]).val();
       let ML_CODE = $(inputData[17]).val();
       let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let RAT_CODE = $(this).val()
 
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].RAT_CODE = RAT_CODE
         }
       }
@@ -3212,11 +3365,11 @@ return template;
 
     })
 
-    $('body').on('focusin', 'select.GRDFill', function(this) {
+    $('body').on('focusin', 'select.GRDFill', function (this) {
       $(this).data('val', $(this).val());
     });
 
-    $('body').on('change', 'select.GRDFill', function(this) {
+    $('body').on('change', 'select.GRDFill', function (this) {
       var inputData = $(this).prevAll();
 
       let S_CODE = $(inputData[0]).val();
@@ -3238,15 +3391,16 @@ return template;
       let DEP_CODE = $(inputData[16]).val();
       let ML_CODE = $(inputData[17]).val();
       let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
       let GRD_CODE = $(this).val()
 
 
-      let _GridRowData= []
+      let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
       });
-      for(let i =0;i<_GridRowData.length;i++){
-        if(_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG){
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
           _GridRowData[i].GRD_CODE = GRD_CODE
         }
       }
@@ -3255,7 +3409,7 @@ return template;
     })
   }
 
-  
+
   FillViewPara1() {
     this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'TendarPrddet' }).subscribe((VPRes) => {
       try {
@@ -3276,16 +3430,7 @@ return template;
                 cellRenderer: (params) => {
                   if (params.data && params.data[VPRes.data[i].FIELDNAME] == 1) {
                     if (params.node.rowPinned !== "bottom") {
-                      if(this.disabledataArray.SRNO){
-                      if (params.data['AUSER'] === this.decodedTkn.UserId && this.disabledataArray.SRNO == params.data.SRNO) { 
-                        return (
-                          '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
-                        );
-                      } else if(params.data['AUSER'] === this.decodedTkn.UserId){
-                        return (
-                          '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
-                        );
-                      } else if(params.data['AUSER']){
+                      if (params.data['DISBLE'] == true || this.decodedTkn.U_CAT !== "U") {
                         return (
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
                         );
@@ -3294,11 +3439,29 @@ return template;
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
                         );
                       }
-                    }else{
-                      return (
-                        '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
-                      );
-                    }
+                      //   if(this.disabledataArray.SRNO){
+                      //   if (params.data['AUSER'] === this.decodedTkn.UserId && this.disabledataArray.SRNO == params.data.SRNO) { 
+                      //     return (
+                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
+                      //     );
+                      //   } else if(params.data['AUSER'] === this.decodedTkn.UserId){
+                      //     return (
+                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
+                      //     );
+                      //   } else if(params.data['AUSER']){
+                      //     return (
+                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
+                      //     );
+                      //   } else {
+                      //     return (
+                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
+                      //     );
+                      //   }
+                      // }else{
+                      //   return (
+                      //     '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
+                      //   );
+                      // }
                     }
                   } else {
                     return (
@@ -3307,7 +3470,7 @@ return template;
                   }
                 },
               });
-            } else if(VPRes.data[i].FIELDNAME == 'LINK'){
+            } else if (VPRes.data[i].FIELDNAME == 'LINK') {
               temp.push({
                 headerName: 'Link',
                 cellStyle: { 'text-align': 'center' },
@@ -3323,7 +3486,7 @@ return template;
                 headerClass: "text-center",
                 editable: false,
                 width: 50,
-                filter:false,
+                filter: false,
               })
             } else {
               temp.push({
@@ -3355,9 +3518,9 @@ return template;
             } else if (VPRes.data[i].FORMAT == "TimeFormat") {
               temp[i].cellRenderer = this.TimeFormat.bind(this);
               delete temp[i].valueFormatter;
-              } else {
-                temp[i].valueFormatter = this.StringFormat;
-              }
+            } else {
+              temp[i].valueFormatter = this.StringFormat;
+            }
           }
           this.columnDefs = temp
 
@@ -3370,7 +3533,7 @@ return template;
           //       cellRenderer: function (params) {
           //         if (params.node.rowPinned != 'bottom') {
           //           let a = '<span class="det_val">'
-                    
+
           //             if (op.ALLOWUPD) {
           //               a += '<label class="file-input-label">'
           //               a += '<input type="file" style="display: none;" data-action-type="Savedata">'
@@ -3380,7 +3543,7 @@ return template;
           //             if (op.ALLOWDEL) {
           //               a = a + '<svg class="grid-icon icon-delete" data-action-type="DeleteData" > <use  data-action-type="DeleteData" xlink: href = "assets/symbol-defs.svg#icon-delete" > </use> </svg>'
           //             }
-                    
+
           //           a = a + "</span>"
           //           return a
           //         }
@@ -3403,49 +3566,71 @@ return template;
     })
   }
 
-  IMAGE(){
+  IMAGE() {
     const dialogRef = this.dialog.open(ImageUploadComponent, {
       panelClass: "saw-mac-pro-det-dialog",
       autoFocus: false,
       minWidth: "30%",
       width: "50%",
       height: "98%",
-      data:this.DOCKData
+      data: this.DOCKData
     })
 
     $("#Close").click()
     dialogRef.afterClosed().subscribe((result) => { })
   }
 
-  
-  UPLOAD(){
-    Swal.fire({
-      // title:,
-      icon: "warning",
-      cancelButtonText: "Upload Video",
-      showCancelButton: true,
-      showConfirmButton: true,
-      confirmButtonText: "Camera Open",
-    }).then((result) => {
-      if (result.value) {
-        const dialogRef = this.dialog.open(WebCamComponent, {
-          panelClass: "saw-mac-pro-det-dialog",
-          autoFocus: false,
-          minWidth: "30%",
-          width: "35%",
-          height: "55%",
-          data:this.DOCKData
-        })
-    
-        $("#Close").click()
-        dialogRef.afterClosed().subscribe((result) => { })
-      }else if(result.dismiss == Swal.DismissReason.cancel){
-        const fileInput = document.getElementById('fileInput');
-        if (fileInput) {
-          fileInput.click();
-        }
-      }
+
+  UPLOAD() {
+    // Swal.fire({
+    //   // title:,
+    //   icon: "warning",
+    //   cancelButtonText: "Upload Video",
+    //   showCancelButton: true,
+    //   showConfirmButton: true,
+    //   confirmButtonText: "Camera Open",
+    // }).then((result) => {
+    //   if (result.value) {
+    const dialogRef = this.dialog.open(WebCamComponent, {
+      panelClass: "saw-mac-pro-det-dialog",
+      autoFocus: false,
+      minWidth: "30%",
+      width: "35%",
+      height: "55%",
+      disableClose: true,
+      data: this.DOCKData
     })
+
+    $("#Close").click()
+    dialogRef.afterClosed().subscribe((result) => { })
+    // }else if(result.dismiss == Swal.DismissReason.cancel){
+    //   const fileInput = document.getElementById('fileInput');
+    //   if (fileInput) {
+    //     fileInput.click();
+    //   }
+    // }
+    // })
+  }
+  UploadDirect() {
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  ShowVideo() {
+    const dialogRef = this.dialog.open(VideoShowComponent, {
+      panelClass: "saw-mac-pro-det-dialog",
+      autoFocus: false,
+      minWidth: "30%",
+      width: "35%",
+      height: "55%",
+      disableClose: true,
+      data: this.DOCKData
+    })
+
+    $("#Close").click()
+    dialogRef.afterClosed().subscribe((result) => { })
   }
 
   onFileInputChange(event: Event) {
@@ -3457,67 +3642,67 @@ return template;
 
     if (selectedFile) {
       const file = selectedFile
-            const blob = new Blob([file], { type: "video/mp4" });
-            const fileReader = new FileReader();
-            fileReader.readAsDataURL(blob);
-            fileReader.addEventListener("load", () => {
-              let base64String = fileReader.result;
-              let FileObj = {
-                FileName: `${op.COMP_CODE}-${op.DETID}`,
-                base64File: base64String,
-              };
-              if (typeof base64String === "string") {
-                op.uploadVideo(FileObj);
-              } else {
-                const bytes = new Uint8Array(base64String);
-                base64String = String.fromCharCode.apply(null, bytes);
-                op.uploadVideo(FileObj);
-              }
-              op.spinner.show()
-              op.uploadVideo(FileObj).subscribe((response) => {
-                try {
-                  let Obj = {
-                    COMP_CODE: op.COMP_CODE,
-                    DETID:this.DOCKData['DETID'],
-                    SRNO: this.DOCKData['SRNO'],
-                    SECURE_URL: response.data.secure_url,
-                    URL: response.data.url,
-                    CLOUDID: response.data.cloudid,
-                    PUBLICID: response.data.public_id,
-                    I_TYPE:'VIDEO'
-                  };
-                  op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
-                    try {
-                      if (Res.success == true) {
-                        op.spinner.hide();
-                        op.toastr.success("File uploaded succesfully.");
-                      } else {
-                        op.spinner.hide();
-                        Swal.fire({
-                          icon: "error",
-                          title: "Oops...",
-                          text: JSON.stringify(Res.data),
-                        });
-                      }
-                    } catch (error) {
-                      op.spinner.hide();
-                      console.log(error);
-      
-                      op.toastr.error(error);
-                    }
-                  });
-                } catch (error) {
+      const blob = new Blob([file], { type: "video/mp4" });
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(blob);
+      fileReader.addEventListener("load", () => {
+        let base64String = fileReader.result;
+        let FileObj = {
+          FileName: `${op.COMP_CODE}-${op.DETID}`,
+          base64File: base64String,
+        };
+        if (typeof base64String === "string") {
+          op.uploadVideo(FileObj);
+        } else {
+          const bytes = new Uint8Array(base64String);
+          base64String = String.fromCharCode.apply(null, bytes);
+          op.uploadVideo(FileObj);
+        }
+        op.spinner.show()
+        op.uploadVideo(FileObj).subscribe((response) => {
+          try {
+            let Obj = {
+              COMP_CODE: op.COMP_CODE,
+              DETID: this.DOCKData['DETID'],
+              SRNO: this.DOCKData['SRNO'],
+              SECURE_URL: response.data.secure_url,
+              URL: response.data.url,
+              CLOUDID: response.data.cloudid,
+              PUBLICID: response.data.public_id,
+              I_TYPE: 'VIDEO'
+            };
+            op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
+              try {
+                if (Res.success == true) {
                   op.spinner.hide();
-                  console.log(error);
-      
-                  op.toastr.error(error);
+                  op.toastr.success("File uploaded succesfully.");
+                } else {
+                  op.spinner.hide();
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: JSON.stringify(Res.data),
+                  });
                 }
-              });
+              } catch (error) {
+                op.spinner.hide();
+                console.log(error);
+
+                op.toastr.error(error);
+              }
             });
+          } catch (error) {
+            op.spinner.hide();
+            console.log(error);
+
+            op.toastr.error(error);
+          }
+        });
+      });
     }
   }
 
-  DRAW(){
+  DRAW() {
 
     const dialogRef = this.dialog.open(MiniPaintComponent, {
       panelClass: "saw-mac-pro-det-dialog",
@@ -3525,7 +3710,7 @@ return template;
       minWidth: "30%",
       width: "67%",
       height: "81%",
-      data:this.DOCKData
+      data: this.DOCKData
     })
 
     $("#Close").click()
@@ -3561,8 +3746,8 @@ return template;
   }
 
   GETDETID() {
-    this.DETID=''
-    this.T_DATE=null
+    this.DETID = ''
+    this.T_DATE = null
     this.DETIDarr = [];
     this.TendarMastser.TendarMastFill({ COMP_CODE: this.COMP_CODE }).subscribe(
       (FillRes) => {
@@ -3570,13 +3755,13 @@ return template;
           if (FillRes.success == true) {
             this.spinner.hide();
             for (let i = 0; i < FillRes.data.length; i++) {
-              if(FillRes.data[i].ISACTIVE == true){
-              this.DETIDarr.push({
-                code: FillRes.data[i].DETID,
-                date: FillRes.data[i].T_DATE,
-                name:FillRes.data[i].T_NAME
-              });
-            }
+              if (FillRes.data[i].ISACTIVE == true) {
+                this.DETIDarr.push({
+                  code: FillRes.data[i].DETID,
+                  date: FillRes.data[i].T_DATE,
+                  name: FillRes.data[i].T_NAME
+                });
+              }
             }
           } else {
             this.spinner.hide();
@@ -3595,51 +3780,52 @@ return template;
   }
 
 
-  findrap1(RapObj){
+  findrap1(RapObj) {
     let _GridRowData = [];
-      let SubData = [];
-      let FinalGrid = [];
-        
-      if (!RapObj.S_CODE) {
-        return;
-      }
-      if (!RapObj.Q_CODE) {
-        return;
-      }
-      if (!RapObj.C_CODE) {
-        return;
-      }
-      if (!RapObj.CARAT) {
-        return;
-      }
-      if (!RapObj.CT_CODE) {
-        return;
-      }
-      if (!RapObj.FL_CODE) {
-        return;
-      }
-      if (!RapObj.LB_CODE) {
-        return;
-      }
-      if (!RapObj.IN_CODE) {
-        return;
-      }
-      let RapObj1 = {
-        S_CODE: RapObj.S_CODE,
-        Q_CODE: RapObj.Q_CODE,
-        C_CODE: RapObj.C_CODE,
-        CARAT: RapObj.CARAT,
-        CUT_CODE: RapObj.CT_CODE,
-        FL_CODE: RapObj.FL_CODE,
-        IN_CODE: RapObj.IN_CODE,
-        RTYPE: RapObj.LB_CODE,
-      };
-   
+    let SubData = [];
+    let FinalGrid = [];
+
+    if (!RapObj.S_CODE) {
+      return;
+    }
+    if (!RapObj.Q_CODE) {
+      return;
+    }
+    if (!RapObj.C_CODE) {
+      return;
+    }
+    if (!RapObj.CARAT) {
+      return;
+    }
+    if (!RapObj.CT_CODE) {
+      return;
+    }
+    if (!RapObj.FL_CODE) {
+      return;
+    }
+    if (!RapObj.LB_CODE) {
+      return;
+    }
+    if (!RapObj.IN_CODE) {
+      return;
+    }
+    let RapObj1 = {
+      S_CODE: RapObj.S_CODE,
+      Q_CODE: RapObj.Q_CODE,
+      C_CODE: RapObj.C_CODE,
+      CARAT: RapObj.CARAT,
+      CUT_CODE: RapObj.CT_CODE,
+      FL_CODE: RapObj.FL_CODE,
+      IN_CODE: RapObj.IN_CODE,
+      RTYPE: RapObj.LB_CODE,
+      MPER: RapObj.MPER
+    };
+
     this.TendarEstServ.FindRap(RapObj1).then((RapRes) => {
       try {
         if (RapRes.success == true) {
 
-          
+
           let oldRapObj = JSON.parse(RapObj.DATA);
 
           let _GridRowData = []
@@ -3647,15 +3833,16 @@ return template;
             _GridRowData.push(rowNode.data);
           });
 
-          let newdata=[]
-          let CARATSUM =0
-          let RATESUM =0
-          let AMTSUM =0
-          let PERMUL =0
-          let CrtSUM =0
-          let PTAGROW=[]
-          for(let i=0;i<_GridRowData.length;i++){
-            if(_GridRowData[i].SRNO === oldRapObj.SRNO && _GridRowData[i].PLANNO === oldRapObj.PLANNO && _GridRowData[i].PTAG === oldRapObj.PTAG){
+          let newdata = []
+          let CARATSUM = 0
+          let RATESUM = 0
+          let AMTSUM = 0
+          let PERMUL = 0
+          let CrtSUM = 0
+          let NewCrtSUM = 0
+          let PTAGROW = []
+          for (let i = 0; i < _GridRowData.length; i++) {
+            if (_GridRowData[i].SRNO === oldRapObj.SRNO && _GridRowData[i].PLANNO === oldRapObj.PLANNO && _GridRowData[i].PTAG === oldRapObj.PTAG) {
               _GridRowData[i].ORAP = RapRes.data[0][0].AMT;
               _GridRowData[i].RATE = RapRes.data[1][0][''];
               _GridRowData[i].RTYPE = RapRes.data[2][0][""];
@@ -3668,35 +3855,61 @@ return template;
               _GridRowData[i].FL_CODE = RapObj.FL_CODE;
               _GridRowData[i].LB_CODE = RapObj.LB_CODE;
               _GridRowData[i].IN_CODE = RapObj.IN_CODE;
-            } if(_GridRowData[i].SRNO === oldRapObj.SRNO && _GridRowData[i].PLANNO === oldRapObj.PLANNO && _GridRowData[i].PTAG !== 'Total'){
+            } if (_GridRowData[i].SRNO === oldRapObj.SRNO && _GridRowData[i].PLANNO === oldRapObj.PLANNO && _GridRowData[i].PTAG !== 'Total') {
+              NewCrtSUM += parseFloat(_GridRowData[i].CARAT)
+              if (_GridRowData[i].SRNO === oldRapObj.SRNO && _GridRowData[i].PLANNO === oldRapObj.PLANNO && _GridRowData[i].PTAG === oldRapObj.PTAG) {
+                if (NewCrtSUM > this.PKTWEIGHT) {
+                  _GridRowData[i].CARAT = 0.000
+                  _GridRowData[i].S_CODE = 0
+                  _GridRowData[i].C_CODE = 0
+                  _GridRowData[i].Q_CODE = 0
+                  _GridRowData[i].LB_CODE = 0
+                  _GridRowData[i].ML_CODE = 0
+                  _GridRowData[i].RAT_CODE = 0
+                  _GridRowData[i].GRD_CODE = 0
+                  _GridRowData[i].ORAP = 0
+                  _GridRowData[i].RATE = 0
+                  _GridRowData[i].AMT = 0
+                  _GridRowData[i].PER = 0
+                  _GridRowData[i].ORAP = 0
+                  _GridRowData[i].RATE = 0
+                  _GridRowData[i].AMT = 0
+                  _GridRowData[i].PER = 0
+                  _GridRowData[i].CARAT = 0.00
+                }
+              }
+
               CARATSUM += _GridRowData[i].ORAP
               AMTSUM += _GridRowData[i].AMT
               CrtSUM += parseFloat(_GridRowData[i].CARAT)
-              RATESUM += (AMTSUM/CrtSUM)
-              PERMUL +=  (_GridRowData[i].ORAP*parseFloat(_GridRowData[i].CARAT))
+              RATESUM += (AMTSUM / CrtSUM)
+              PERMUL += (_GridRowData[i].ORAP * parseFloat(_GridRowData[i].CARAT))
               _GridRowData[i].IUSER = this.decodedTkn.UserId
             }
-            if(_GridRowData[i].SRNO === oldRapObj.SRNO && _GridRowData[i].PLANNO === oldRapObj.PLANNO && _GridRowData[i].PTAG === 'Total'){
-              _GridRowData[i].ORAP = (PERMUL/CrtSUM)
-              _GridRowData[i].RATE = (AMTSUM/CrtSUM)
+
+            let Total = ''
+            if (_GridRowData[i].SRNO === oldRapObj.SRNO && _GridRowData[i].PLANNO === oldRapObj.PLANNO && _GridRowData[i].PTAG === 'Total') {
+              _GridRowData[i].ORAP = (PERMUL / CrtSUM)
+              _GridRowData[i].RATE = (AMTSUM / CrtSUM)
               _GridRowData[i].AMT = AMTSUM
               _GridRowData[i].PER = 100 - (_GridRowData[i].RATE / _GridRowData[i].ORAP) * 100;
               _GridRowData[i].CARAT = CrtSUM
+              Total = _GridRowData[i].CARAT
             }
-            if(_GridRowData[i].PTAG == "Total"){
+            if (_GridRowData[i].PTAG == "Total") {
               PTAGROW.push(_GridRowData[i])
             }
           }
-         this.gridApi1.refreshCells({force:true})
-      let highestRate = 0;
-      let highAmt = -Infinity
-          for(let i=0;i<PTAGROW.length;i++){
-            if(PTAGROW[i].AMT > highAmt){
+          this.gridApi1.refreshCells({ force: true })
+          let highestRate = 0;
+          let highAmt = -Infinity
+          for (let i = 0; i < PTAGROW.length; i++) {
+            if (PTAGROW[i].AMT > highAmt) {
               highAmt = PTAGROW[i].AMT
               highestRate = PTAGROW[i].RATE
             }
           }
-      this.PKTPER = highestRate.toFixed(2)
+          this.PKTPER = highestRate.toFixed(2)
         }
       } catch (err) {
         console.log(err);
@@ -3705,7 +3918,7 @@ return template;
 
   }
 
-  GridClear(){
+  GridClear() {
     this.TENSION = ''
     this.TENDAR_NAME = ''
     this.PKTSRNO = ''
@@ -3752,116 +3965,118 @@ return template;
     this.gridApi1.setRowData()
   }
 
-  onCellDoubleClicked(eve){
-    console.log(eve)
-    if(eve.colDef.field !== "ISAPPROVE"){
-    this.FLOCODEDIS = false
-    this.TendarEstServ.TendarPrdDetDisp({
-      COMP_CODE: this.COMP_CODE,
-      DETID: eve.data.DETID,
-      SRNO:eve.data.SRNO
-    }).subscribe((FillRes) => {
-      try {
-        if (FillRes.success == true) {
-          this.spinner.hide();
-          this.DOCKData = FillRes.data[0][0]
-          this.TENSION = FillRes.data[0][0].T_CODE
-          this.TENDAR_NAME = FillRes.data[0][0].TEN_NAME
-          this.PKTSRNO = FillRes.data[0][0].SRNO
-          this.PKTNAME = this.decodedTkn.UserId
-          this.PKTWEIGHT = FillRes.data[0][0].I_CARAT
-          this.PKTRESERVE = FillRes.data[0][0].RESRVE
-          this.PKTPER = FillRes.data[0][0].PERCTS
-          this.PKTPER = FillRes.data[0][0].PERCTS
-          this.PKTSRW = FillRes.data[0][0].SRW
-          this.FINAL1 = FillRes.data[0][0].FFLAT1
-          this.FINAL2 = FillRes.data[0][0].FFLAT2
-          this.FINALME = FillRes.data[0][0].FMED
-          this.FINALHE = FillRes.data[0][0].FHIGH
-          this.DN = FillRes.data[0][0].DNC_CODE
-          this.USER1 = FillRes.data[0][0].I1C_CODE
-          this.USER2 = FillRes.data[0][0].I2C_CODE
-          this.USER3 = FillRes.data[0][0].I3C_CODE
-          this.RESULT1 = FillRes.data[0][0].RFLAT1
-          this.RESULT2 = FillRes.data[0][0].RFLAT2
-          this.RESULTME = FillRes.data[0][0].RMED
-          this.RESULTHE = FillRes.data[0][0].RHIGH
-          this.FLO1 = FillRes.data[0][0].FLNFLAT1
-          this.FLO2 = FillRes.data[0][0].FLNFLAT2
-          this.FLOME = FillRes.data[0][0].FLNMED
-          this.FLOHE = FillRes.data[0][0].FLNHIGH
-          this.MacFLO1 = FillRes.data[0][0].MFLFLAT1
-          this.MacFLO2 = FillRes.data[0][0].MFLFLAT2
-          this.MacFLOME = FillRes.data[0][0].MFLMED
-          this.MacFLOHE = FillRes.data[0][0].MFLHIGH
-          this.MacCom1 = FillRes.data[0][0].CFLAT1
-          this.MacCom2 = FillRes.data[0][0].CFLAT2
-          this.MacComME = FillRes.data[0][0].CMED
-          this.MacComHE = FillRes.data[0][0].CHIGH
-          this.ROUNDC1 = FillRes.data[0][0].RC_CODE
-          this.R1 = FillRes.data[0][0].R1C_CODE
-          this.R2 = FillRes.data[0][0].R2C_CODE
-          this.FANCY1 = FillRes.data[0][0].FC_CODE
-          this.F1 = FillRes.data[0][0].F1C_CODE
-          this.F2 = FillRes.data[0][0].F2C_CODE
-          this.LS = FillRes.data[0][0].LS
-          this.FINALBID = FillRes.data[0][0].FBID
-          this.FLOCODE = FillRes.data[0][0].FL_CODE
+  GridTempData = [];
+  onCellDoubleClicked(eve) {
+    if (eve.colDef.field !== "ISAPPROVE") {
+      this.FLOCODEDIS = false
+      this.TendarEstServ.TendarPrdDetDisp({
+        COMP_CODE: this.COMP_CODE,
+        DETID: eve.data.DETID,
+        SRNO: eve.data.SRNO
+      }).subscribe((FillRes) => {
+        try {
+          if (FillRes.success == true) {
+            this.HIDEGRID = false
+            this.spinner.hide();
+            this.DOCKData = FillRes.data[0][0]
+            this.TENSION = FillRes.data[0][0].T_CODE
+            this.TENDAR_NAME = FillRes.data[0][0].TEN_NAME
+            this.PKTSRNO = FillRes.data[0][0].SRNO
+            this.PKTNAME = this.decodedTkn.UserId
+            this.PKTWEIGHT = FillRes.data[0][0].I_CARAT
+            this.PKTRESERVE = FillRes.data[0][0].RESRVE
+            this.PKTPER = FillRes.data[0][0].PERCTS
+            this.PKTPER = FillRes.data[0][0].PERCTS
+            this.PKTSRW = FillRes.data[0][0].SRW
+            this.FINAL1 = FillRes.data[0][0].FFLAT1
+            this.FINAL2 = FillRes.data[0][0].FFLAT2
+            this.FINALME = FillRes.data[0][0].FMED
+            this.FINALHE = FillRes.data[0][0].FHIGH
+            this.DN = FillRes.data[0][0].DNC_CODE
+            this.USER1 = FillRes.data[0][0].I1C_CODE
+            this.USER2 = FillRes.data[0][0].I2C_CODE
+            this.USER3 = FillRes.data[0][0].I3C_CODE
+            this.RESULT1 = FillRes.data[0][0].RFLAT1
+            this.RESULT2 = FillRes.data[0][0].RFLAT2
+            this.RESULTME = FillRes.data[0][0].RMED
+            this.RESULTHE = FillRes.data[0][0].RHIGH
+            this.FLO1 = FillRes.data[0][0].FLNFLAT1
+            this.FLO2 = FillRes.data[0][0].FLNFLAT2
+            this.FLOME = FillRes.data[0][0].FLNMED
+            this.FLOHE = FillRes.data[0][0].FLNHIGH
+            this.MacFLO1 = FillRes.data[0][0].MFLFLAT1
+            this.MacFLO2 = FillRes.data[0][0].MFLFLAT2
+            this.MacFLOME = FillRes.data[0][0].MFLMED
+            this.MacFLOHE = FillRes.data[0][0].MFLHIGH
+            this.MacCom1 = FillRes.data[0][0].CFLAT1
+            this.MacCom2 = FillRes.data[0][0].CFLAT2
+            this.MacComME = FillRes.data[0][0].CMED
+            this.MacComHE = FillRes.data[0][0].CHIGH
+            this.ROUNDC1 = FillRes.data[0][0].RC_CODE
+            this.R1 = FillRes.data[0][0].R1C_CODE
+            this.R2 = FillRes.data[0][0].R2C_CODE
+            this.FANCY1 = FillRes.data[0][0].FC_CODE
+            this.F1 = FillRes.data[0][0].F1C_CODE
+            this.F2 = FillRes.data[0][0].F2C_CODE
+            this.LS = FillRes.data[0][0].LS
+            this.FINALBID = FillRes.data[0][0].FBID
+            this.FLOCODE = FillRes.data[0][0].FL_CODE
 
-          this.gridApi1.setRowData(FillRes.data[1])
+            this.gridApi1.setRowData(FillRes.data[1])
+            this.GridTempData = FillRes.data[1]
 
-          let newdata = []
-          this.gridApi1.forEachNode(function (rowNode, index) {
-            newdata.push(rowNode.data);
-          });
+            let newdata = []
+            this.gridApi1.forEachNode(function (rowNode, index) {
+              newdata.push(rowNode.data);
+            });
 
-        this.disabledata = false
-        for(let i = 0;i<newdata.length;i++){
-          if(newdata[i].IUSER){
-            if(newdata[i].IUSER === this.DOCKData['AUSER']){
-              this.disabledataArray = ''
-              this.disabledata = true
-              this.disabledataArray = this.DOCKData
-              if(this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !=="C"){
-              this.FLOCODEDIS =true
+            this.disabledata = false
+            for (let i = 0; i < newdata.length; i++) {
+              if (newdata[i].IUSER) {
+                if (newdata[i].IUSER === this.DOCKData['AUSER']) {
+                  this.disabledataArray = ''
+                  this.disabledata = true
+                  this.disabledataArray = this.DOCKData
+                  if (this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+                    this.FLOCODEDIS = true
+                  }
+                }
               }
             }
+            const agBodyViewport: HTMLElement =
+              this.elementRef.nativeElement.querySelector(".ag-body-viewport");
+            const agBodyHorizontalViewport: HTMLElement =
+              this.elementRef.nativeElement.querySelector(
+                ".ag-body-horizontal-scroll-viewport"
+              );
+            if (agBodyViewport) {
+              const psV = new PerfectScrollbar(agBodyViewport);
+              psV.update();
+            }
+            if (agBodyHorizontalViewport) {
+              const psH = new PerfectScrollbar(agBodyHorizontalViewport);
+              psH.update();
+            }
+            if (agBodyViewport) {
+              const ps = new PerfectScrollbar(agBodyViewport);
+              const container = document.querySelector(".ag-body-viewport");
+              ps.update();
+            }
+            this.DOCKON = false
+          } else {
+            this.spinner.hide();
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: JSON.stringify(FillRes.data),
+            });
           }
-        }
-          const agBodyViewport: HTMLElement =
-            this.elementRef.nativeElement.querySelector(".ag-body-viewport");
-          const agBodyHorizontalViewport: HTMLElement =
-            this.elementRef.nativeElement.querySelector(
-              ".ag-body-horizontal-scroll-viewport"
-            );
-          if (agBodyViewport) {
-            const psV = new PerfectScrollbar(agBodyViewport);
-            psV.update();
-          }
-          if (agBodyHorizontalViewport) {
-            const psH = new PerfectScrollbar(agBodyHorizontalViewport);
-            psH.update();
-          }
-          if (agBodyViewport) {
-            const ps = new PerfectScrollbar(agBodyViewport);
-            const container = document.querySelector(".ag-body-viewport");
-            ps.update();
-          }
-          this.DOCKON=false
-        } else {
+        } catch (error) {
           this.spinner.hide();
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: JSON.stringify(FillRes.data),
-          });
+          console.log(error)
+          this.toastr.error(error);
         }
-      } catch (error) {
-        this.spinner.hide();
-        console.log(error)
-        this.toastr.error(error);
-      }
-    });
-  }
+      });
+    }
   }
 }

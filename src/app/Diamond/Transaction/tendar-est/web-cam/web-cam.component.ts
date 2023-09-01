@@ -31,7 +31,7 @@ export class WebCamComponent implements OnInit {
   videoSrc: string = '';
   RecodedVideoNg:boolean= false
   NewStyle:any =`display:none`
-  DISPLAY:any =`display:none`
+  DISPLAY:any =`display:inline`
   uploadVideong:boolean = true
   IGIHRDResult:boolean=false
   constructor(
@@ -44,20 +44,20 @@ export class WebCamComponent implements OnInit {
   ) { 
     this.data = dataMain
 
-    let NewObj = {
-      COMP_CODE: this.data['COMP_CODE'],
-      DETID:this.data['DETID'],
-      SRNO: this.data['SRNO'],
-    }
-    this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
-      try{
-        if(NewRes.success == true){  
-        this.videoSrc = NewRes.data[0]['VID'];
-        }
-      } catch (error){
-        this.spinner.hide()
-      }
-    })
+    // let NewObj = {
+    //   COMP_CODE: this.data['COMP_CODE'],
+    //   DETID:this.data['DETID'],
+    //   SRNO: this.data['SRNO'],
+    // }
+    // this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+    //   try{
+    //     if(NewRes.success == true){  
+    //     this.videoSrc = NewRes.data[0]['VID'];
+    //     }
+    //   } catch (error){
+    //     this.spinner.hide()
+    //   }
+    // })
   }
 
   
@@ -82,11 +82,12 @@ export class WebCamComponent implements OnInit {
   }
 
   CLOSE(){
-    this.videoElement.pause();
-    this.videoElement.src =""
-    // this.videoElement.stop()
-    // this.videoElement.getTracks()[0].stop();
+    if(this.stream){
+    this.stream.getTracks().forEach(track => track.stop());
     this._mdr.close()
+    }else{
+      this._mdr.close()
+    }
   }
 
   startRecording() {

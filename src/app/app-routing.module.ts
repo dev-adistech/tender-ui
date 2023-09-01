@@ -8,6 +8,9 @@ import { AuthGuard } from './Service/auth/auth.guard';
 import { DashboardComponent } from './Diamond/Dashboard/dashboard/dashboard.component';
 
 //view
+import { PricingWrkViewComponent } from './Diamond/View/pricing-wrk-view/pricing-wrk-view.component';
+import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component';
+import { BidDataComponent } from './Diamond/View/bid-data/bid-data.component';
 
 //master
 import { ColMastComponent } from './Diamond/Master/col-mast/col-mast.component';
@@ -44,8 +47,7 @@ import { MilkyMastComponent } from './Diamond/Master/milky-mast/milky-mast.compo
 import { GridleMastComponent } from './Diamond/Master/gridle-mast/gridle-mast.component';
 import { DepthMastComponent } from './Diamond/Master/depth-mast/depth-mast.component';
 import { RatioMastComponent } from './Diamond/Master/ratio-mast/ratio-mast.component';
-import { PricingWrkViewComponent } from './Diamond/View/pricing-wrk-view/pricing-wrk-view.component';
-import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component';
+
 
 
 const routes: Routes = [
@@ -102,6 +104,7 @@ const routes: Routes = [
   //view
   { path: 'PricingWrk', component: PricingWrkViewComponent, canActivate: [AuthGuard] },
   { path: 'BvView', component: BVViewComponent, canActivate: [AuthGuard] },
+  { path: 'BidData', component: BidDataComponent, canActivate: [AuthGuard] },
 
 ];
 
