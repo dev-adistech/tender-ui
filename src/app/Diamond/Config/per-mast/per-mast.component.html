@@ -1,0 +1,63 @@
+<div class="mast__container glass-light">
+  <div class="mast__container--row-1">
+
+    <!-- <mat-form-field appearance="outline">
+      <mat-label>Select UserId</mat-label>
+      <input matInput name="Select User" aria-label="usd" [matAutocomplete]="autoUSD" [formControl]="usdCtrl"
+        [(ngModel)]="UserId" (blur)="LoadGrid(); autocompleteSelectUserId( SelectUserIdInput.value,UserIdArr,'UserId' )"
+        #SelectUserIdInput />
+      <mat-autocomplete #autoUSD="matAutocomplete">
+        <mat-option *ngFor="let usd of filteredUsds | async" [value]="usd.USERID">
+          <span>{{ usd.USERID }}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field> -->
+    <form autocomplete="off">
+      <ng-select class="autoComplete" placeholder="Select User" appearance="outline" name="selectuser"
+        [(ngModel)]="UserId" (blur)="LoadGrid()">
+        <ng-option *ngFor="let user of UserIdArr" [value]="user.USERID">{{user.USERID}}</ng-option>
+      </ng-select>
+    </form>
+
+    <div class="btn-grp">
+      <button class="btn theme-btn" matTooltip='Form Master' matTooltipClass="custom-tooltip" *ngIf="showformMaster"
+        (click)="SaveFormMaster()">Form Master</button>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Selected Users</mat-label>
+        <input matInput name="Selected Users" autocomplete="off" [(ngModel)]="SelectedUsers"
+          (ngModelChange)="SelectedUsers = $event.toUpperCase()" disabled />
+      </mat-form-field>
+
+      <button class="btn theme-btn" matTooltip='Users' matTooltipClass="custom-tooltip" (click)="openUserMaster()">
+        <svg class="icon icon-users">
+          <use xlink:href="assets/symbol-defs.svg#icon-users"></use>
+        </svg>
+      </button>
+      <button class="btn theme-btn" matTooltip='Copy' matTooltipClass="custom-tooltip" (click)="Copy()">
+        <svg class="icon icon-copy">
+          <use xlink:href="assets/symbol-defs.svg#icon-copy"></use>
+        </svg>
+      </button>
+      <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip" (click)="Save()">
+        <!-- <i class="icon-save mat-icon"></i> -->
+        <svg class="icon icon-save">
+          <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+  <div class="mast__container--row-2">
+    <ag-grid-angular style="width: 100%; height: 65vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef"
+      [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [animateRows]="true" [rowSelection]="rowSelection"
+      (rowClicked)='onGridRowClicked($event)' [gridOptions]="gridOptions"
+      (selectionChanged)="onSelectionChange($event)">
+    </ag-grid-angular>
+    <mat-form-field class='mt-2 password' appearance="outline">
+      <input type="password" matInput name="Password" autocomplete="off" [(ngModel)]="PASSWORD"
+        (ngModelChange)="CHANGEPASSWORD();" (change)="Rel1HIDE()" />
+    </mat-form-field>
+  </div>
+
+</div>

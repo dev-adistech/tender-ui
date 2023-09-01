@@ -1,0 +1,71 @@
+<div style="display: inline-flex;">
+    <section class="form-container glass-light">
+      <article class="fields-wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="ID1" [(ngModel)]="F_DATE" #fdate onfocus="this.select();"/>
+            <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()"></mat-datepicker-toggle>
+            <mat-datepicker #ID1></mat-datepicker>
+          </mat-form-field>
+
+        <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="ID2" [(ngModel)]="T_DATE" #Tdate onfocus="this.select();"/>
+            <mat-datepicker-toggle matSuffix [for]="ID2" (click)="ID2.open()"></mat-datepicker-toggle>
+            <mat-datepicker #ID2></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>S Code </mat-label>
+            <input matInput type="text" [(ngModel)]="S_CODE" (keydown.tab)="OpenLotPopup()" (click)="OpenLotPopup()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }" (ngModelChange)="S_CODE = $event" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>C Code </mat-label>
+            <input matInput type="text" [(ngModel)]="C_CODE" (keydown.tab)="OpenColor()" (click)="OpenColor()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }" (ngModelChange)="S_CODE = $event" />
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Q Code </mat-label>
+            <input matInput type="text" [(ngModel)]="Q_CODE" (keydown.tab)="OpenQua()" (click)="OpenQua()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }" (ngModelChange)="S_CODE = $event" />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>From Carat</mat-label>
+            <input matInput type="number" autocomplete="off" [(ngModel)]="F_CARAT"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>To Carat</mat-label>
+            <input matInput type="number" autocomplete="off" [(ngModel)]="T_CARAT"/>
+          </mat-form-field>
+
+        <article class="btn-wrapper">
+          <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData();">
+              <svg class="icon icon-show">
+                <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
+              </svg>
+            </button>
+        </article>
+        </article>
+
+        <div class="aggrid-wrapper" style="display: flex;">
+            <ag-grid-angular class="ag-theme-alpine" style="width: 130px; height: 80vh;" [defaultColDef]="defaultColDef"
+              [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (cellDoubleClicked)="onCellDoubleClick($event)" [animateRows]="true">
+            </ag-grid-angular>
+          <div class="memo-ent-grid prc-view-grid">
+            <ag-grid-angular style="margin-left: 15px;width: 1320px; height: 80vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef1"
+              [columnDefs]="columnDefs1" (cellEditingStopped)="OnCellEditingStart($event)" (gridReady)="onGridReady1($event)" [animateRows]="true">
+            </ag-grid-angular>
+          </div>
+          </div>
+          <article class="password-wrapper">
+            <mat-form-field class='mt-2 password' appearance="outline">
+              <input type="password" matInput name="Password" autocomplete="off" />
+            </mat-form-field>
+          </article>
+</section>
+</div>

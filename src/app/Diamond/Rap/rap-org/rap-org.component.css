@@ -1,0 +1,4 @@
+:host .btn-grp {
+	grid-column: -4 / -1;
+	align-items: center;
+}

@@ -1,0 +1,65 @@
+<div class="mast__container glass-light">
+  <div class="mast__container--row-1">
+    <ng-select class="autoComplete" placeholder="Select" appearance="outline" autocomplete="off" [(ngModel)]="SZ_TYPE"
+      (blur)="LoadGridData()" (ngModelChange)="SZ_TYPE = $event.toUpperCase()">
+      <ng-option *ngFor="let type of TypeArray" [value]="type">{{type}}</ng-option>
+    </ng-select>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Code *</mat-label>
+      <input matInput type="number" name="Code" autocomplete="off" [(ngModel)]="SZ_CODE"
+        (ngModelChange)="CODECHANGE()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>F-Size *</mat-label>
+      <input matInput type="number" name="F-Size" autocomplete="off" [ngModel]="F_SIZE | setFloat:2"
+        [ngModelOptions]="{ updateOn: 'blur' }" (ngModelChange)="F_SIZE = $event" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>T-Size *</mat-label>
+      <input matInput type="number" name="T-Size" autocomplete="off" [ngModel]="T_SIZE | setFloat:2"
+        [ngModelOptions]="{ updateOn: 'blur' }" (ngModelChange)="T_SIZE = $event" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Group</mat-label>
+      <input matInput type="text" name="Group Name" autocomplete="off" [(ngModel)]="SZ_GROUP"
+        (ngModelChange)="SZ_GROUP = $event.toUpperCase()" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>OSize Code</mat-label>
+      <input matInput type="number" name="OSize Code" autocomplete="off" [(ngModel)]="OSZ_CODE" />
+    </mat-form-field>
+
+
+    <div class="btn-grp">
+      <button class="btn theme-btn" matTooltip='Save' matTooltipClass="custom-tooltip" (click)="Save()">
+        <!-- <i class="icon-save mat-icon"></i> -->
+        <svg class="icon icon-save">
+          <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+        </svg>
+      </button>
+      <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="Clear()">
+        <svg class="icon icon-clear">
+          <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+
+  <div class="mast__container--row-2">
+    <ag-grid-angular style="width: 100%; height: calc(100vh - 126px);" class="ag-theme-alpine select-color"
+      [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [animateRows]="true"
+      (rowClicked)='onGridRowClicked($event)'>
+    </ag-grid-angular>
+
+    <mat-form-field class='mt-2 password' appearance="outline">
+      <input type="password" matInput name="Password" autocomplete="off" [(ngModel)]="PASSWORD"
+        (ngModelChange)="CHANGEPASSWORD();" />
+    </mat-form-field>
+  </div>
+</div>

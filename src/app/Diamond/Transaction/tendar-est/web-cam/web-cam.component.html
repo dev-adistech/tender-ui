@@ -1,0 +1,33 @@
+<div style="text-align:center">
+    <h1> </h1>
+    <video class="video" style="width: 455px;height:203px" [style]="DISPLAY" #video autoplay controls></video>
+    <span class="m-1"></span>
+    <video class="video" style="width: 455px;height:203px" [style]="NewStyle" controls #recordedVideo></video>
+    <video style="width: 455px;height:203px" controls="controls" *ngIf="uploadVideong">
+      <source [src]="videoSrc" type="video/mp4" autoplay>
+    </video>
+    <br>
+    <button class="btn btn-primary btn-lg" *ngIf="!isRecording" (click)="startRecording()">Start Recording</button>
+    <button class="btn btn-warning btn-lg" *ngIf="isRecording" (click)="stopRecording()">Stop Recording</button>
+    <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip"
+          (click)="Save()">
+          <svg class="icon icon-save">
+            <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+          </svg>
+        </button>
+    <button class="btn theme-btn mr-2 ml-auto" matTooltip='Delete' matTooltipClass="custom-tooltip"
+          (click)="DELETE()">
+          <svg class="icon icon-delete">
+            <use xlink:href="assets/symbol-defs.svg#icon-delete"></use>
+          </svg>
+        </button>
+    <button class="btn theme-btn mr-2 ml-auto" matTooltip='close' matTooltipClass="custom-tooltip"
+          (click)="CLOSE()">
+          <svg class="icon icon-close">
+            <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+          </svg>
+        </button>
+  </div>
+  <ngx-spinner>
+    <p style="color: white;"> Loading..</p>
+  </ngx-spinner>

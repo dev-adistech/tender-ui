@@ -1,0 +1,42 @@
+<section class="form-container glass-light">
+    <article class="fields-wrapper">
+      <mat-form-field appearance="outline">
+        <mat-label>Comment *</mat-label>
+        <input matInput type="text" [ngModel]="MCOM_NAME" name="Comment" autocomplete="off"
+          [ngModelOptions]="{ updateOn: 'blur' }" autofocus (ngModelChange)="MCOM_NAME = $event" />
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Order *</mat-label>
+        <input matInput type="number" [ngModel]="ORD" name="Order" autocomplete="off"
+          [ngModelOptions]="{ updateOn: 'blur' }" (ngModelChange)="ORD = $event" />
+      </mat-form-field>
+  
+      <article class="btn-wrapper">
+        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip" (click)="Save()">
+          <!-- <i class="icon-save mat-icon"></i> -->
+          <svg class="icon icon-save">
+            <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+          </svg>
+        </button>
+        <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="Clear()">
+          <!-- <i class="icon-clear mat-icon"></i> -->
+          <svg class="icon icon-clear">
+            <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
+          </svg>
+        </button>
+      </article>
+    </article>
+    <article class="aggrid-wrapper">
+      <ag-grid-angular [style]="agGridStyles" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef"
+        (scroll)="scrollHandler($event)" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [animateRows]="true"
+        (rowClicked)='onGridRowClicked($event)'>
+      </ag-grid-angular>
+    </article>
+    <article class="password-wrapper">
+      <mat-form-field class='mt-2 password' appearance="outline">
+        <input type="password" matInput name="Password" autocomplete="off" [(ngModel)]="PASSWORD"
+          (ngModelChange)="CHANGEPASSWORD();" />
+      </mat-form-field>
+    </article>
+  </section>
+  
