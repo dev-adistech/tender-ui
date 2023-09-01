@@ -172,23 +172,23 @@ export class TendarEstComponent implements OnInit {
   SECONDDATA: any[] = [];
   MAinGridData: any[] = [];
 
-  PLANCHANGEVALUE: any = ''
-  CliCKEDDATA: any = ''
+  PLANCHANGEVALUE:any=''
+  CliCKEDDATA:any=''
 
   agGridWidth: number = 0;
-  agGridStyles: string = `width: 1385px;height: 58vh; margin-bottom: 9%;`;
-  DOCKON: boolean = false
+  agGridStyles: string = `width: 100%;height: 58vh; margin-bottom: 9%;`;
+  DOCKON:boolean = false
 
-  dummay_variable: any = 'newdivadd_variable'
+  dummay_variable:any='newdivadd_variable'
 
-  dummay1_variable: any = 'finalname_variable'
-  dummay2_variable: any = 'finalinput_variable'
-
-
-  dummay3_variable: any = 'finalfooter_variable'
+  dummay1_variable:any='finalname_variable'
+  dummay2_variable:any='finalinput_variable'
 
 
-  GRIDDATA: any[] = []
+  dummay3_variable:any='finalfooter_variable'
+
+
+  GRIDDATA:any[] =[]
 
   style = {
     width: '100%',
@@ -203,14 +203,14 @@ export class TendarEstComponent implements OnInit {
     display: 'grid',
   };
 
-  CANAVASOPEN: boolean = false
-  TendarStyle: string = `width: 1191px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-  AreaBoxStyle: string = `border:1px solid black;width: 417px;height: 100px;resize: none;`;
-  ContainWidth: string = `width:103%`;
-  BlankBoxStyle: string = `border:1px solid black;padding: 21px 0px; width: 417px; text-align: center;border-top:none;`;
-  HearderBoxStyle: string = `border:1px solid black; width:417px; padding: 2px 3px; text-align: center;border-bottom:none`;
+  CANAVASOPEN:boolean =false 
+  TendarStyle:string=`width: calc(100% - 150px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+  AreaBoxStyle:string=`border:1px solid black;width: 100%;resize: none;`;
+  ContainWidth:string=`width:100%`;
+  BlankBoxStyle:string=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
+  HearderBoxStyle:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
 
-  dummay_class: any = "abhishek"
+  dummay_class:any="abhishek"
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -243,7 +243,7 @@ export class TendarEstComponent implements OnInit {
     //     width: 389,
     //   },
     // ];
-    let op = this
+    let op=this
     this.defaultColDef = {
       resizable: true,
       sortable: true,
@@ -1787,11 +1787,11 @@ export class TendarEstComponent implements OnInit {
               //   text: JSON.stringify(SaveRes.data),
               // });
               return;
+              // return;
             }
-          } catch (err) {
-            this.spinner.hide();
-            this.toastr.error(err);
-            return;
+            
+          }catch{
+              
           }
         });
       }
@@ -1859,7 +1859,6 @@ export class TendarEstComponent implements OnInit {
                 base64String = String.fromCharCode.apply(null, bytes);
                 op.uploadVideo(FileObj);
               }
-
               op.uploadVideo(FileObj).subscribe((response) => {
                 try {
                   let Obj = {
@@ -1871,8 +1870,7 @@ export class TendarEstComponent implements OnInit {
                     CLOUDID: response.data.cloudid,
                     PUBLICID: response.data.public_id,
                     I_TYPE: 'Print'
-                  };
-                  op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
+                  };op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
                     try {
                       if (Res.success == true) {
                         op.spinner.hide();
@@ -1888,14 +1886,12 @@ export class TendarEstComponent implements OnInit {
                     } catch (error) {
                       op.spinner.hide();
                       console.log(error);
-
                       op.toastr.error(error);
                     }
                   });
                 } catch (error) {
                   op.spinner.hide();
                   console.log(error);
-
                   op.toastr.error(error);
                 }
               });
@@ -1921,7 +1917,6 @@ export class TendarEstComponent implements OnInit {
           try {
             if (Res.success == true) {
               this.spinner.hide();
-
               //get file names from database
               const videos = Res.data.map((item) => item.PUBLICID);
               //delete files from cloud first then delete from database
@@ -1932,7 +1927,6 @@ export class TendarEstComponent implements OnInit {
             }
           } catch (error) {
             console.log(error);
-
             this.spinner.hide();
             this.toastr.error(error);
           }
@@ -1949,7 +1943,6 @@ export class TendarEstComponent implements OnInit {
             }
           } catch (error) {
             console.log(error);
-
             this.spinner.hide();
             this.toastr.error(error);
           }
@@ -1959,22 +1952,22 @@ export class TendarEstComponent implements OnInit {
   }
 
   DockON() {
-    if (this.DOCKON == false) {
+    if(this.DOCKON == false){
       this.DOCKON = true
-      this.agGridStyles = `width: 1085px; height: 58vh ; margin-bottom: 9%;`
-      this.TendarStyle = `width: 941px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-      this.AreaBoxStyle = `border:1px solid black;width: 167px;height: 100px;resize: none;`;
-      this.BlankBoxStyle = `border:1px solid black;padding: 21px 0px; width: 167px; text-align: center;border-top:none;`;
-      this.HearderBoxStyle = `border:1px solid black;width:167px;padding: 2px 3px; text-align: center;border-bottom:none`;
+      this.agGridStyles =`width: 100%; height: 58vh ; margin-bottom: 9%;`
+      this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+      this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
+      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
+      this.HearderBoxStyle=`border:1px solid black;width:100%;padding: 2px 3px; text-align: center;border-bottom:none`;
       // this.ContainWidth=`width:145%`;
-    } else {
+    }else{
       this.DOCKON = false
-      this.agGridStyles = `width: 1385px; height: 58vh; margin-bottom: 9%;`
-      this.TendarStyle = `width: 1191px;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-      this.AreaBoxStyle = `border:1px solid black;width: 417px;height: 100px;resize: none;`;
-      this.BlankBoxStyle = `border:1px solid black;padding: 21px 0px; width: 417px; text-align: center;border-top:none;`;
-      this.HearderBoxStyle = `border:1px solid black; width:417px; padding: 2px 3px; text-align: center;border-bottom:none`;
-      this.ContainWidth = `width:103%`;
+      this.agGridStyles =`width: 100%; height: 58vh; margin-bottom: 9%;`
+      this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+      this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
+      this.BlankBoxStyle=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
+      this.HearderBoxStyle=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
+      this.ContainWidth=`width:100%`;
     }
   }
 
@@ -2021,7 +2014,6 @@ export class TendarEstComponent implements OnInit {
       httpOptions
     );
   }
-
 
   SUBvalue(params) {
     let newvalue = 0;
@@ -2235,7 +2227,6 @@ export class TendarEstComponent implements OnInit {
       this.gridApi1.forEachNode(function (rowNode, index) {
         SubData.push(rowNode.data);
       });
-
       for (let i = 0; i < SubData.length; i++) {
         if (params.data.SRNO === SubData[i].SRNO) {
           if (params.data.PLANNO === SubData[i].PLANNO && SubData[i].PTAG !== "Total") {
@@ -2555,13 +2546,9 @@ export class TendarEstComponent implements OnInit {
       };
       PerArr.push(SaveObj);
     }
-
+    
     this.TendarEstServ.TendarPrdDetSave(PerArr).subscribe((SaveRes) => {
-      try {
-        if (SaveRes.success == true) {
-          this.spinner.hide();
-          this.toastr.success("Save successfully.");
-        } else {
+      try{
           this.spinner.hide();
           Swal.fire({
             icon: "error",
@@ -2569,7 +2556,7 @@ export class TendarEstComponent implements OnInit {
             text: JSON.stringify(SaveRes.data),
           });
           return;
-        }
+        
       } catch (err) {
         this.spinner.hide();
         this.toastr.error(err);
@@ -2644,8 +2631,8 @@ export class TendarEstComponent implements OnInit {
   w3_open() {
     document.getElementById("mySidebar").style.display = "block";
   }
-
-  w3_close() {
+  
+ w3_close() {
     document.getElementById("mySidebar").style.display = "none";
   }
   async ngOnInit() {
@@ -3409,7 +3396,6 @@ export class TendarEstComponent implements OnInit {
     })
   }
 
-
   FillViewPara1() {
     this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'TendarPrddet' }).subscribe((VPRes) => {
       try {
@@ -3533,17 +3519,11 @@ export class TendarEstComponent implements OnInit {
           //       cellRenderer: function (params) {
           //         if (params.node.rowPinned != 'bottom') {
           //           let a = '<span class="det_val">'
-
           //             if (op.ALLOWUPD) {
-          //               a += '<label class="file-input-label">'
           //               a += '<input type="file" style="display: none;" data-action-type="Savedata">'
-          //               a += '<svg class="grid-icon icon-save" data-action-type="Savedata"> <use type="file" xlink:href="assets/symbol-defs.svg#icon-video"> </use> </svg>';
-          //               a += '</label>';
-          //             }
           //             if (op.ALLOWDEL) {
           //               a = a + '<svg class="grid-icon icon-delete" data-action-type="DeleteData" > <use  data-action-type="DeleteData" xlink: href = "assets/symbol-defs.svg#icon-delete" > </use> </svg>'
           //             }
-
           //           a = a + "</span>"
           //           return a
           //         }

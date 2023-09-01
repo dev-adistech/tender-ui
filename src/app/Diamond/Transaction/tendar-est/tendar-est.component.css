@@ -73,7 +73,7 @@ input[type=text]:focus {
 }
 
 
-@media (max-width:1366px){
+/* @media (max-width:1366px){
 
 	
 	.container-name_1{
@@ -124,7 +124,7 @@ input[type=text]:focus {
 	font-weight: 600;
 }
 
-} 
+}  */
 
 
 /* @media (max-width:1920px){ */
@@ -154,7 +154,7 @@ input[type=text]:focus {
 
 } */
 
-@media (max-width:1920px){
+/* @media (max-width:1920px){
 	.deskop_div{
 		width: 51% !important;
 	
@@ -377,10 +377,10 @@ input[type=text]:focus {
 		margin-left: -57px !important;
 	}
 
-	/* #ty{
+	#ty{
 		display: flex !important;
 		flex-wrap: nowrap  !important;
-	} */
+	}
 
 	
 }
@@ -405,11 +405,42 @@ input[type=text]:focus {
 		margin-left: -89px !important;
 	}
 
+} */
+
+
+
+.tander-mainCon {
+	width: 100%;
+
 }
 
+.deskop_div {
+    width: 924px;
+}
 
+.deskop_footer_bid {
+    width: calc(100% - 924px);
+}
 
+.find-area {
+	height: 80px;
+}
 
+@media (max-width: 1600px) {
+	.slide-grid-tablet {
+		position: absolute;
+		z-index: 99;
+	}
+}
 
+@media (max-width: 1034px) {
+	.find-area {
+		height: 60px;
+	}
+
+	.final_name {
+		font-size: 12px;
+	}
+}
 
 

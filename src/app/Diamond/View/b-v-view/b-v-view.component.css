@@ -286,7 +286,31 @@ input[type=text]:focus {
 	display: none;
   }
 
+
+  .bv_tendar {
+    width: 800px;
+  }
+
+  .bv_bid {
+    width: calc(100% - 800px);
+  }
   
+  .bv_view {
+    width: 63.5%;
+  }
+  
+  @media(max-width: 1550px){
+    .bv_view {
+      width: 85%;
+    } 
+  }
+
+
+  @media(max-width: 1080px) {
+    .bv_view {
+      width: 100%;
+    }
+  }
 @keyframes swing {
     0% {
       transform: rotate(0deg);

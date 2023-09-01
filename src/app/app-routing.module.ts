@@ -49,7 +49,6 @@ import { DepthMastComponent } from './Diamond/Master/depth-mast/depth-mast.compo
 import { RatioMastComponent } from './Diamond/Master/ratio-mast/ratio-mast.component';
 
 
-
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
