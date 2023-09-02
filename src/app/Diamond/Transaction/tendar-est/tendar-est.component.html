@@ -875,9 +875,11 @@
             </div>
         </div>
             </div>
+            <div class="newGrid">
             <ag-grid-angular [style]="agGridStyles" [getRowStyle]="getRowStyle" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef1"
               [columnDefs]="columnDefs1" (rowClicked)="RowClicked($event)" (cellValueChanged)="FindRap($event)" (gridReady)="onGridReady1($event)" [animateRows]="true" style="position: relative;">
             </ag-grid-angular>
+          </div>
         </article>
         
     </article>
@@ -885,5 +887,5 @@
 
 </div>
 <ngx-spinner>
-  <p style="color: white;"> Loading..</p>
+  <p style="color: white;">Loading..</p>
 </ngx-spinner>

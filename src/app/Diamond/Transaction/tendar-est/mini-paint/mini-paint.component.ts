@@ -21,19 +21,27 @@ export class MiniPaintComponent implements OnInit {
   color = "#000000";
   radio = 2;
 
+  NEWIMAGE:any = ''
   image = new Image();
 
 
   ngAfterViewInit(){
-
     let li = this.lienzo.nativeElement;
     li.width = window.innerWidth - 400;
     this.signature = new SignaturePad(li, { backgroundColor: 'white' });
 
-  if(this.data['PRN']){
-    const imageUrl = this.data['PRN'];
+    let NewObj = {
+      COMP_CODE: this.data['COMP_CODE'],
+      DETID:this.data['DETID'],
+      SRNO: this.data['SRNO'],
+    }
+    this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+      try{
+        if(NewRes.success == true){
+          this.NEWIMAGE = NewRes.data[0].PRN
+          const imageUrl = this.NEWIMAGE;
 
-    fetch(imageUrl)
+        fetch(imageUrl)
       .then(response => response.blob())
       .then(blob => createImageBitmap(blob))
       .then(imageBitmap => {
@@ -47,32 +55,32 @@ export class MiniPaintComponent implements OnInit {
       .catch(error => {
         console.error('Error fetching or drawing image:', error);
       });
+        }
+      } catch (error){
+        this.spinner.hide()
+      }
+    })
+
+//  if(this.NEWIMAGE){
+//     const imageUrl = this.NEWIMAGE;
+
+//     fetch(imageUrl)
+//       .then(response => response.blob())
+//       .then(blob => createImageBitmap(blob))
+//       .then(imageBitmap => {
+//         // Draw the ImageBitmap on the canvas
+//         const canvas = document.getElementById('lienzo') as HTMLCanvasElement;
+//         const context = canvas.getContext('2d');
+//         canvas.width = imageBitmap.width;
+//         canvas.height = imageBitmap.height;
+//         context.drawImage(imageBitmap, 0, 0);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching or drawing image:', error);
+//       });
     
     
-    }
-    
-  //   let ctx: CanvasRenderingContext2D =
-  //     this.lienzo.nativeElement.getContext('2d');
-     
-  //    // showing
-  
-  // ctx.fillRect(20, 20, 150, 100);
-  
-  // this.image.onload = () => {
-  //   console.log("image has loaded!");
-  //   ctx.drawImage(this.image, 0, 0);
-  
-  //   ctx.beginPath();
-  //   ctx.moveTo(10, 10);
-  //   ctx.lineTo(50, 50);
-  //   ctx.lineTo(100, 55);
-  //   ctx.lineTo(90, 120);
-  //   ctx.lineTo(120, 200);
-  //   ctx.stroke();
-  // };
-  // this.image.setAttribute("src",this.data['PRN']);
-  
-  //   }
+//     }
 
     this.cambiarColor();
     this.changeRadio();
@@ -127,7 +135,7 @@ download(){
             fileReader.addEventListener("load", () => {
               let base64String = fileReader.result;
               let FileObj = {
-                FileName: `${this.data['COMP_CODE']}-${this.data['DETID']}`,
+                FileName: `${this.data['COMP_CODE']}-${this.data['DETID']}-${this.data['SRNO']}-D`,
                 base64File: selectedFile, //base64String
               };
               if (typeof base64String === "string") {

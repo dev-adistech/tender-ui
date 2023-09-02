@@ -80,7 +80,7 @@ export class ImageUploadComponent implements OnInit {
             fileReader.addEventListener("load", () => {
               let base64String = fileReader.result;
               let FileObj = {
-                FileName: `${this.data['COMP_CODE']}-${this.data['DETID']}`,
+                FileName: `${this.data['COMP_CODE']}-${this.data['DETID']}-${this.data['SRNO']}`,
                 base64File: base64String,
               };
               if (typeof base64String === "string") {
