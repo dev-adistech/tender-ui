@@ -302,7 +302,7 @@ export class TendarEstComponent implements OnInit {
     return this.MacFLONO[0].filter(sz => sz.name);
   }
   private _MacComfilter(value: string): any[] {
-    return this.MacComm[0].filter(sz => sz.code);
+    return this.MacComm[0].filter(sz => sz.name);
   }
   private _Tensionfilter(value: string): any[] {
     return this.TenArr[0].filter(sz => sz.name);
@@ -2314,14 +2314,17 @@ export class TendarEstComponent implements OnInit {
     let FinalGrid = this.GridTempData;
 
     if (params.colDef.field === 'MPER') {
+      if(parseFloat(params.newValue) !== 100 && parseFloat(params.newValue) !== 0 ){
       let newArray = 0
+      let FinalValue
+      let NewSum
       let carat = params.data.CARAT
+      let Rate = parseFloat(params.data.RATE)
       let orap = params.data.ORAP
-      let MperValue = parseInt(params.data.MPER)
+      let MperValue = parseFloat(params.data.MPER)
       newArray = (MperValue / 100) * orap
-
-      let FinalValue = orap - newArray
-      let NewSum = FinalValue * carat
+      FinalValue = orap - newArray
+      NewSum = FinalValue * carat
 
       let LastSum = 0
       for (let i = 0; i < FinalGrid.length; i++) {
@@ -2355,7 +2358,37 @@ export class TendarEstComponent implements OnInit {
       let NewValue = (this.ADIS/100)*this.PKTPER
       let FinalValue1 = parseFloat(this.PKTPER) + NewValue
       this.FINALBID =FinalValue1.toFixed(2)
+    }else {
+      let newArray = 0
+      let FinalValue
+      let NewSum
+      let carat = params.data.CARAT
+      let Rate = parseFloat(params.data.RATE)
+      NewSum = Rate * carat
+      
+      let LastSum = 0
+      let FinalSum = 0
+      for (let i = 0; i < FinalGrid.length; i++) {
+        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG) {
+          FinalGrid[i].AMT = NewSum
+        }
+        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total') {
+          LastSum += FinalGrid[i].AMT
+        }
+      }
+      for (let i = 0; i < FinalGrid.length; i++) {
+        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG == 'Total') {
+          FinalGrid[i].AMT = LastSum
 
+          FinalSum = FinalGrid[i].AMT / FinalGrid[i].CARAT
+        }
+      }
+      this.PKTPER = FinalSum.toFixed(2)
+      let NewValue = (this.ADIS/100)*this.PKTPER
+      let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+      this.FINALBID =FinalValue1.toFixed(2)
+    }
+      return
     } else {
 
       for (let i = 0; i < _GridRowData1.length; i++) {
@@ -2533,6 +2566,12 @@ export class TendarEstComponent implements OnInit {
           console.log(err);
         }
       });
+    }
+  }
+
+  OUTSIDECLICK(eve){
+    if(this.DOCKON === true){
+      this.DOCKON = false
     }
   }
 
@@ -2827,15 +2866,15 @@ export class TendarEstComponent implements OnInit {
     });
 
     let Com_arr = this.decodedMast[20].map((item) => {
-      return { code: item.MCOM_NAME };
+      return { code: item.MCOM_NAME, name:item.MCOM_NAME };
     });
 
-    this.MacComm = [[{ code: 0 }, ...Com_arr]]
+    this.MacComm = [[{ code: 0 ,name: '---'  }, ...Com_arr]]
 
     let Tension_arr = this.decodedMast[16].map((item) => {
       return { code: item.T_CODE, name: item.T_NAME };
     });
-    this.TenArr = [[{ code: 0 }, ...Tension_arr]]
+    this.TenArr = [[{ code: 0 ,name: '---' }, ...Tension_arr]]
     this.DEPTArr = this.decodedMast[2].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
@@ -4156,7 +4195,11 @@ export class TendarEstComponent implements OnInit {
             this.TENSION = FillRes.data[0][0].T_CODE
             this.TENDAR_NAME = FillRes.data[0][0].TEN_NAME
             this.PKTSRNO = FillRes.data[0][0].SRNO
-            this.PKTNAME = this.decodedTkn.UserId
+            if(FillRes.data[0][0].PUSER){
+              this.PKTNAME = FillRes.data[0][0].PUSER
+            }else{
+              this.PKTNAME = this.decodedTkn.UserId
+            }
             this.PKTWEIGHT = FillRes.data[0][0].I_CARAT
             this.PKTRESERVE = FillRes.data[0][0].RESRVE
             this.PKTPER = FillRes.data[0][0].PERCTS
@@ -4218,6 +4261,12 @@ export class TendarEstComponent implements OnInit {
                 }
               }
             }
+
+            if(eve.data.AUSER !== this.decodedTkn.UserId && this.decodedTkn.U_CAT == 'U'){
+              this.disabledata = true
+              this.FLOCODEDIS = true
+            }
+
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =
