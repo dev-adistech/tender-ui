@@ -447,7 +447,12 @@ export class PricingWrkViewComponent implements OnInit {
     this.spinner.show();
     this.ViewServ.PricingWrk({
       F_DATE:this.F_DATE ? this.datepipe.transform(this.F_DATE,'dd-MM-yyyy'):null,
-      T_DATE:this.T_DATE ? this.datepipe.transform(this.T_DATE,'dd-MM-yyyy'):null
+      T_DATE:this.T_DATE ? this.datepipe.transform(this.T_DATE,'dd-MM-yyyy'):null,
+      S_CODE:this.S_CODE? this.S_CODE:'',
+      C_CODE : this.C_CODE ? this.C_CODE:'',
+      Q_CODE: this.Q_CODE ? this.Q_CODE:'',
+      F_CARAT:this.F_CARAT ? this.F_CARAT:0,
+      T_CARAT:this.T_CARAT ? this.T_CARAT:0
     }).subscribe(
       (FillRes) => {
         try {
