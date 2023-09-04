@@ -69,7 +69,9 @@ import { MiniPaintComponent } from './Diamond/Transaction/tendar-est/mini-paint/
 import { WebCamComponent } from './Diamond/Transaction/tendar-est/web-cam/web-cam.component';
 import { ImageUploadComponent } from './Diamond/Transaction/tendar-est/image-upload/image-upload.component';
 import { PricingWrkViewComponent } from './Diamond/View/pricing-wrk-view/pricing-wrk-view.component';
-import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component'
+import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component';
+import { VideoShowComponent } from './Diamond/Transaction/tendar-est/video-show/video-show.component';
+import { BidDataComponent } from './Diamond/View/bid-data/bid-data.component'
 
 
 @NgModule({
@@ -125,6 +127,8 @@ import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component'
 		ImageUploadComponent,
 		PricingWrkViewComponent,
 		BVViewComponent,
+		VideoShowComponent,
+		BidDataComponent,
 	],
 	imports: [
 		BrowserModule,

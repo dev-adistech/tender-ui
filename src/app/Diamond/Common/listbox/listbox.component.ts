@@ -168,7 +168,7 @@ export class ListboxComponent implements OnInit {
           checkboxSelection: true,
           resizable: false,
           sortable: false,
-          width: 28
+          width: 55
         },
         {
           headerName: "UserID",

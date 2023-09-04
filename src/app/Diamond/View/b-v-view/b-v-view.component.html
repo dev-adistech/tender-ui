@@ -1,5 +1,5 @@
-<div class="prc-view__container w-100">
-    <div class="prc-view__container--row-1 w-100" style="display: flex;gap:1rem">
+<div class="prc-view__container glass-light">
+    <div class="prc-view__container--row-1" style="display: flex;gap:1rem">
 
         <ng-select class="autoComplete" placeholder="Company Code*" style="width: 6rem;" appearance="outline" autocomplete="off"
           [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID()">
@@ -12,7 +12,7 @@
       </mat-form-field>
 
       <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 6rem;" appearance="outline" autocomplete="off" [(ngModel)]="DETID"
-            (ngModelChange)="GETDATE();LoadGridData();">
+            (ngModelChange)="GETDATE();">
             <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}}</ng-option>
         </ng-select>
 
@@ -405,7 +405,7 @@
             <div class="memo-ent-grid">
               <ag-grid-angular class="ag-theme-alpine" style="width: 85%; height: 40vh;margin-top: 20px;"
                 [defaultColDef]="defaultColDef" [columnDefs]="columnDefs"
-                [rowData]="GRIDROw" [animateRows]="true">
+                [rowData]="item.GRID_DATA" [animateRows]="true">
               </ag-grid-angular>
             </div>
             <hr />
@@ -414,3 +414,7 @@
     </div>
     <!-- </ng-container> -->
     </div>
+
+    <ngx-spinner>
+      <p style="color: white;">Loading...</p>
+    </ngx-spinner>

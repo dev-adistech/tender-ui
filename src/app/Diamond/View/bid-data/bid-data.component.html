@@ -1,0 +1,44 @@
+<div class="prc-view__container glass-light">
+    <div class="prc-view__container--row-1" style="display: flex;gap:1rem">
+
+        <ng-select class="autoComplete" placeholder="Company Code*" style="width: 6rem;" appearance="outline" autocomplete="off"
+          [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID()">
+          <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
+      </ng-select>
+
+      <mat-form-field appearance="outline" style="width: 6rem;">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
+      </mat-form-field>
+
+      <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 6rem;" appearance="outline" autocomplete="off" [(ngModel)]="DETID"
+            (ngModelChange)="GETDATE();">
+            <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}}</ng-option>
+        </ng-select>
+
+        <mat-form-field appearance="outline" style="width: 6rem;">
+            <mat-label>Name</mat-label>
+            <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_NAME" disabled />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 8rem;">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" #fdate onfocus="this.select();" disabled />
+            <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()"></mat-datepicker-toggle>
+            <mat-datepicker #ID1></mat-datepicker>
+        </mat-form-field>
+
+        <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData();">
+            <svg class="icon icon-show">
+              <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
+            </svg>
+          </button>
+        </div>
+
+        <div class="memo-ent-grid">
+            <ag-grid-angular class="ag-theme-alpine select-color" style="width: 16%; height: calc(100vh - 85px);margin-top: 20px;"
+              [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
+              [animateRows]="true">
+            </ag-grid-angular>
+        </div>
+    </div>
