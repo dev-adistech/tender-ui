@@ -342,7 +342,7 @@ export class TendarEstComponent implements OnInit {
                   if (params.data) {
                     if (params.node.rowPinned != "bottom") {
                       if (params.data[VPRes.data[i].FIELDNAME] == 1) {
-                        if (this.decodedTkn.UserId === 'DN') {
+                        if (this.decodedTkn.UserId === 'DN'  || this.decodedTkn.U_CAT === 'S') {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
@@ -356,7 +356,7 @@ export class TendarEstComponent implements OnInit {
                           );
                         }
                       } else {
-                        if (this.decodedTkn.UserId === 'DN') {
+                        if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
@@ -478,7 +478,7 @@ export class TendarEstComponent implements OnInit {
     });
   }
   MPERDISABLE(params) {
-    if (this.decodedTkn.UserId === 'DN') {
+    if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
       return true
     } else {
       return false
@@ -490,7 +490,7 @@ export class TendarEstComponent implements OnInit {
     if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
       this.FLOCODEDIS = true
       return false
-    } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER && params.data.PTAG !== "Total") {
+    } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER && params.data.PTAG !== "Total" || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
       return true
     } else {
       this.FLOCODEDIS = false
@@ -537,7 +537,7 @@ export class TendarEstComponent implements OnInit {
         template += '</select>';
         return template;
       } else
-        if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+        if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
           let template = `
           <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -651,7 +651,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -765,7 +765,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -880,7 +880,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -993,7 +993,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -1106,7 +1106,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -1219,7 +1219,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -1333,7 +1333,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -1447,7 +1447,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -1561,7 +1561,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -1675,7 +1675,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER) {
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'DN') {
         let template = `
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
@@ -2212,7 +2212,7 @@ export class TendarEstComponent implements OnInit {
       let highAmt = -Infinity
       for (let i = 0; i < SubData.length; i++) {
         if (params.data.SRNO === SubData[i].SRNO) {
-          if (params.data.PLANNO === SubData[i].PLANNO && SubData[i].PTAG !== "Total") {
+          if (params.data.PLANNO === SubData[i].PLANNO) {
             if (SubData[i].PLNSEL != true) {
               SubData[i].PLNSEL = true;
             } else {
@@ -2228,8 +2228,8 @@ export class TendarEstComponent implements OnInit {
         }
 
       }
-
-      let FinalGrid = SubData;
+      params.node.setData(dataObj);
+      params.api.refreshCells({ force: true });
 
       let newArray = 0
       let carat = 0
@@ -2239,16 +2239,6 @@ export class TendarEstComponent implements OnInit {
 
       let FinalValue =0
       let NewSum = 0
-
-      let LastSum = 0
-      // for (let i = 0; i < FinalGrid.length; i++) {
-      //   if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG) {
-      //     FinalGrid[i].AMT = NewSum
-      //   }
-      //   if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total') {
-      //     LastSum += FinalGrid[i].AMT
-      //   }
-      // }
       let Final =0
       if(params.data.PLNSEL === true){
         let NewSumValue=0
@@ -2257,12 +2247,30 @@ export class TendarEstComponent implements OnInit {
         if(params.data.PLANNO == SubData[i].PLANNO && params.data.SRNO === SubData[i].SRNO && SubData[i].PTAG == params.data.PTAG){
           carat = SubData[i].CARAT
           orap = SubData[i].ORAP
-          MperValue = SubData[i].MPER
+          if(parseFloat(SubData[i].MPER) !== 0 && parseFloat(params.data.MPER) !== 100){
+            MperValue = SubData[i].MPER
+          }else {
+            MperValue = SubData[i].PER
+          }
           newArray = (MperValue / 100) * orap
           FinalValue = orap - newArray
           NewSum = FinalValue * carat
           NewSumValue += NewSum
+        }else if(params.data.PLANNO == SubData[i].PLANNO && params.data.SRNO === SubData[i].SRNO && SubData[i].PTAG !== 'Total'){
+          let carat1 = SubData[i].CARAT
+          let orap1 = SubData[i].ORAP
+          let MperValue1
+          if(parseFloat(SubData[i].MPER) !== 0 && parseFloat(SubData[i].MPER) !== 100){
+           MperValue1 = SubData[i].MPER
+          }else {
+            MperValue1 = SubData[i].PER
+          }
+          let newArray1 = (MperValue1 / 100) * orap1
+          let FinalValue1 = orap1 - newArray1
+          let NewSum1 = FinalValue1 * carat1
+          NewSumValue += NewSum1
         }
+      }
         let TotalLine =[]
         for(let i=0;i<SubData.length;i++){
           if(params.data.PLANNO == SubData[i].PLANNO && params.data.SRNO === SubData[i].SRNO && SubData[i].PTAG == 'Total'){
@@ -2285,43 +2293,102 @@ export class TendarEstComponent implements OnInit {
               this.PKTPER = highestRate.toFixed(2)
           }
         }
-      }
     }else{
       if(params.data.PLNSEL === false){
-        let NewSumValue =0
-        let LatestSum = []
-        for(let i=0;i<SubData.length;i++){
-          if(params.data.PLANNO == SubData[i].PLANNO && params.data.SRNO === SubData[i].SRNO && SubData[i].PTAG !== 'Total'){
-            carat = SubData[i].CARAT
-            orap = SubData[i].ORAP
-            MperValue = SubData[i].MPER
-            newArray = (MperValue / 100) * orap
-            FinalValue = orap - newArray
-            NewSum = FinalValue * carat
-
-            NewSumValue += NewSum
+        let newArray = 0
+        let FinalValue
+        let NewSum
+        let carat = params.data.CARAT
+        let orap = params.data.ORAP
+        let MperValue
+        if(parseFloat(params.data.MPER) !== 0 && parseFloat(params.data.MPER) !== 100){
+          MperValue = parseFloat(params.data.MPER)
+        }else {
+          MperValue = parseFloat(params.data.PER)
+        }
+        newArray = (MperValue / 100) * orap
+        FinalValue = orap - newArray
+        NewSum = FinalValue * carat
+  
+        let LastSum = 0
+        let OtherLine = 0
+  
+        for(let i=0;i< SubData.length;i++){
+          if(SubData[i].PLANNO === params.data.PLANNO && SubData[i].SRNO === params.data.SRNO && SubData[i].PTAG === params.data.PTAG){
+            LastSum += NewSum
+          }else if (SubData[i].PLANNO === params.data.PLANNO && SubData[i].SRNO === params.data.SRNO && SubData[i].PTAG !== 'Total'){
+            let carat1 = SubData[i].CARAT
+            let orap1 = SubData[i].ORAP
+            let MperValue1
+            if(parseFloat(SubData[i].MPER)!== 0 && parseFloat(SubData[i].MPER) !== 100){
+              MperValue1 = SubData[i].MPER
+            }else {
+              MperValue1 = SubData[i].PER
+            }
+            let newArray1 = (MperValue1 / 100) * orap1
+            let FinalValue1 = orap1 - newArray1
+            let NewSum1 = FinalValue1 * carat1
+            LastSum += NewSum1
           }
         }
-        let TotalLine =[]
+        let TotalValue = []
         for(let i=0;i<SubData.length;i++){
-          if(params.data.PLANNO == SubData[i].PLANNO && params.data.SRNO === SubData[i].SRNO && SubData[i].PTAG == 'Total'){
-            LatestSum.push(NewSumValue)
-          }else if(SubData[i].PTAG == 'Total') {
-            LatestSum.push(SubData[i].AMT)
+          if(SubData[i].PLANNO === params.data.PLANNO && SubData[i].SRNO === params.data.SRNO && SubData[i].PTAG == 'Total'){
+            TotalValue.push({NEWAMT:LastSum,data:SubData[i]})
+          }else if(SubData[i].PTAG === 'Total') {
+            TotalValue.push({NEWAMT:SubData[i].AMT,data:SubData[i]})
           }
         }
-
-        for(let i=0;i<SubData.length;i++){
-          if(SubData[i].PTAG === 'Total'){
-            TotalLine.push(SubData[i])
+        let NewArray = []
+        let LastSum1 = 0
+        for(let i=0; i<SubData.length;i++){
+          for(let j=0;j<TotalValue.length;j++){
+            if(TotalValue[j].data['PLANNO']===SubData[i].PLANNO  && SubData[i].PTAG !== TotalValue[j].data['PTAG'] && SubData[i].PLANNO !== params.data.PLANNO){
+              let carat1 = SubData[i].CARAT
+            let orap1 = SubData[i].ORAP
+            let MperValue1
+            if(parseFloat(SubData[i].MPER)!== 0){
+              MperValue1 = SubData[i].MPER
+            }else {
+              MperValue1 = SubData[i].PER
+            }
+            let newArray1 = (MperValue1 / 100) * orap1
+            let FinalValue1 = orap1 - newArray1
+            let NewSum1 = FinalValue1 * carat1
+            LastSum1 += NewSum1
+            } else if (TotalValue[j].data['PLANNO']===SubData[i].PLANNO && SubData[i].PLANNO !== params.data.PLANNO){
+              TotalValue[j].NEWAMT = LastSum1
+              TotalValue[j].data['PLNSEL'] = SubData[i].PLNSEL
+              LastSum1 =0
+            }
           }
         }
-
-        for(let i =0;i<TotalLine.length;i++){
-            if(LatestSum[i] > highAmt){
-              highAmt = LatestSum[i]
-              highestRate = LatestSum[i] / TotalLine[i].CARAT
+        console.log(NewArray)
+        console.log(TotalValue)
+        console.log(LastSum)
+        let highestRate = 0;
+        let highAmt = -Infinity
+        if(params.data.PLNSEL == true){
+          for(let i=0;i<TotalValue.length;i++){
+            if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
+              console.log(TotalValue[i])
+              highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
               this.PKTPER = highestRate.toFixed(2)
+            }
+          }
+        } else {
+          for(let i=0;i<TotalValue.length;i++){
+            if(TotalValue[i].data['PLNSEL'] === true){
+              highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+              this.PKTPER = highestRate.toFixed(2)
+              break
+            }else{
+              if (TotalValue[i].NEWAMT > highAmt) {
+                highAmt = TotalValue[i].NEWAMT
+                highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+                this.PKTPER = highestRate.toFixed(2)
+              }
+            }
           }
         }
       }
@@ -2357,90 +2424,197 @@ export class TendarEstComponent implements OnInit {
       let NewSum
       let carat = params.data.CARAT
       let orap = params.data.ORAP
-      let MperValue = parseFloat(params.data.MPER)
+      let MperValue
+      if(parseFloat(params.data.MPER) !== 0&& parseFloat(params.data.MPER) !== 100){
+        MperValue = parseFloat(params.data.MPER)
+      }else {
+        MperValue = parseFloat(params.data.PER)
+      }
       newArray = (MperValue / 100) * orap
       FinalValue = orap - newArray
       NewSum = FinalValue * carat
 
       let LastSum = 0
-      for (let i = 0; i < FinalGrid.length; i++) {
-        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO) {
-          if(FinalGrid[i].PTAG === params.data.PTAG){
-            LastSum += NewSum
-          }else if(FinalGrid[i].PTAG !== 'Total'){
-            let orap1 = FinalGrid[i].ORAP
-            let carat1 = FinalGrid[i].CARAT
-            let MperValue1
-            if(parseFloat(FinalGrid[i].MPER) !== 0){
-             MperValue1 = parseFloat(FinalGrid[i].MPER)
-            }else {
-              MperValue1 = parseFloat(FinalGrid[i].PER)
-            }
-            let newArray1 = (MperValue1 / 100) * orap1
-            let FinalValue1 = orap1 - newArray1
-            let NewSum1 = FinalValue1 * carat1
-            LastSum+= NewSum1
-        }
+      let OtherLine = 0
+
+      for(let i=0;i< FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG){
+          LastSum += NewSum
+        }else if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total'){
+          let carat1 = FinalGrid[i].CARAT
+          let orap1 = FinalGrid[i].ORAP
+          let MperValue1
+          if(parseFloat(FinalGrid[i].MPER)!== 0 && parseFloat(FinalGrid[i].MPER) !== 100){
+            MperValue1 = FinalGrid[i].MPER
+          }else {
+            MperValue1 = FinalGrid[i].PER
+          }
+          let newArray1 = (MperValue1 / 100) * orap1
+          let FinalValue1 = orap1 - newArray1
+          let NewSum1 = FinalValue1 * carat1
+          LastSum += NewSum1
         }
       }
-
+      let TotalValue = []
+      for(let i=0;i<FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG == 'Total'){
+          TotalValue.push({NEWAMT:LastSum,data:FinalGrid[i]})
+        }else if(FinalGrid[i].PTAG === 'Total') {
+          TotalValue.push({NEWAMT:FinalGrid[i].AMT,data:FinalGrid[i]})
+        }
+      }
+      let NewArray = []
+      let LastSum1 = 0
+      for(let i=0; i<FinalGrid.length;i++){
+        for(let j=0;j<TotalValue.length;j++){
+          if(TotalValue[j].data['PLANNO']===FinalGrid[i].PLANNO  && FinalGrid[i].PTAG !== TotalValue[j].data['PTAG'] && FinalGrid[i].PLANNO !== params.data.PLANNO){
+            let carat1 = FinalGrid[i].CARAT
+          let orap1 = FinalGrid[i].ORAP
+          let MperValue1
+          if(parseFloat(FinalGrid[i].MPER)!== 0 && parseFloat(FinalGrid[i].MPER) !== 100){
+            MperValue1 = FinalGrid[i].MPER
+          }else {
+            MperValue1 = FinalGrid[i].PER
+          }
+          let newArray1 = (MperValue1 / 100) * orap1
+          let FinalValue1 = orap1 - newArray1
+          let NewSum1 = FinalValue1 * carat1
+          LastSum1 += NewSum1
+          } else if (TotalValue[j].data['PLANNO']===FinalGrid[i].PLANNO && FinalGrid[i].PLANNO !== params.data.PLANNO){
+            TotalValue[j].NEWAMT = LastSum1
+            TotalValue[j].data['PLNSEL'] = FinalGrid[i].PLNSEL
+            LastSum1 =0
+          }
+        }
+      }
+      console.log(NewArray)
+      console.log(TotalValue)
+      console.log(LastSum)
       let highestRate = 0;
       let highAmt = -Infinity
-      let latestamount = []
-      let TotalValue = []
-        for (let i = 0; i < FinalGrid.length; i++) {
-          if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO == params.data.SRNO && FinalGrid[i].PTAG === 'Total') {
-            latestamount.push(LastSum)
-          }else if(FinalGrid[i].PTAG === 'Total') {
-            latestamount.push(FinalGrid[i].AMT)
+      if(params.data.PLNSEL == true){
+        for(let i=0;i<TotalValue.length;i++){
+          if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
+            console.log(TotalValue[i])
+            highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+            this.PKTPER = highestRate.toFixed(2)
           }
-      }
-
-      for(let i=0;i<FinalGrid.length;i++){
-        // if(params.data.PLNSEL === true){
-          if( FinalGrid[i].PTAG === 'Total'){
-            TotalValue.push(FinalGrid[i])
+        }
+      } else {
+        for(let i=0;i<TotalValue.length;i++){
+          if(TotalValue[i].data['PLNSEL'] === true){
+            highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+            this.PKTPER = highestRate.toFixed(2)
+            break
+          }else{
+            if (TotalValue[i].NEWAMT > highAmt) {
+              highAmt = TotalValue[i].NEWAMT
+              highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+              this.PKTPER = highestRate.toFixed(2)
+            }
           }
-      }
-
-      console.log(TotalValue)
-      for(let i=0;i<TotalValue.length;i++){
-        if (latestamount[i] > highAmt) {
-          highAmt = latestamount[i]
-          highestRate = latestamount[i] / TotalValue[i].CARAT
-          this.PKTPER = highestRate.toFixed(2)
         }
       }
       let NewValue = (this.ADIS/100)*this.PKTPER
       let FinalValue1 = parseFloat(this.PKTPER) + NewValue
       this.FINALBID =FinalValue1.toFixed(2)
+      this.gridApi1.refreshCells({ force: true });
     }else {
+      let newArray = 0
+      let FinalValue
       let NewSum
       let carat = params.data.CARAT
-      let Rate = parseFloat(params.data.RATE)
-      NewSum = Rate * carat
-      
-      let LastSum = 0
-      let FinalSum = 0
-      for (let i = 0; i < FinalGrid.length; i++) {
-        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG) {
-          FinalGrid[i].AMT = NewSum
-        }
-        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total') {
-          LastSum += FinalGrid[i].AMT
-        }
-      }
-      for (let i = 0; i < FinalGrid.length; i++) {
-        if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG == 'Total') {
-          FinalGrid[i].AMT = LastSum
+      let orap = params.data.ORAP
+      let MperValue = parseFloat(params.data.PER)
+      newArray = (MperValue / 100) * orap
+      FinalValue = orap - newArray
+      NewSum = FinalValue * carat
 
-          FinalSum = FinalGrid[i].AMT / FinalGrid[i].CARAT
+      let LastSum = 0
+      let OtherLine = 0
+
+      for(let i=0;i< FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG){
+          LastSum += NewSum
+        }else if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total'){
+          let carat1 = FinalGrid[i].CARAT
+          let orap1 = FinalGrid[i].ORAP
+          let MperValue1
+          if(parseFloat(FinalGrid[i].MPER)!== 0 && parseFloat(FinalGrid[i].MPER) !== 100){
+            MperValue1 = FinalGrid[i].MPER
+          }else {
+            MperValue1 = FinalGrid[i].PER
+          }
+          let newArray1 = (MperValue1 / 100) * orap1
+          let FinalValue1 = orap1 - newArray1
+          let NewSum1 = FinalValue1 * carat1
+          LastSum += NewSum1
         }
       }
-      this.PKTPER = FinalSum.toFixed(2)
+      let TotalValue = []
+      for(let i=0;i<FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG == 'Total'){
+          TotalValue.push({NEWAMT:LastSum,data:FinalGrid[i]})
+        }else if(FinalGrid[i].PTAG === 'Total') {
+          TotalValue.push({NEWAMT:FinalGrid[i].AMT,data:FinalGrid[i]})
+        }
+      }
+      let NewArray = []
+      let LastSum1 = 0
+      for(let i=0; i<FinalGrid.length;i++){
+        for(let j=0;j<TotalValue.length;j++){
+          if(TotalValue[j].data['PLANNO']===FinalGrid[i].PLANNO  && FinalGrid[i].PTAG !== TotalValue[j].data['PTAG'] && FinalGrid[i].PLANNO !== params.data.PLANNO){
+            let carat1 = FinalGrid[i].CARAT
+          let orap1 = FinalGrid[i].ORAP
+          let MperValue1
+          if(parseFloat(FinalGrid[i].MPER)!== 0 && parseFloat(FinalGrid[i].MPER) !== 100){
+            MperValue1 = FinalGrid[i].MPER
+          }else {
+            MperValue1 = FinalGrid[i].PER
+          }
+          let newArray1 = (MperValue1 / 100) * orap1
+          let FinalValue1 = orap1 - newArray1
+          let NewSum1 = FinalValue1 * carat1
+          LastSum1 += NewSum1
+          } else if (TotalValue[j].data['PLANNO']===FinalGrid[i].PLANNO && FinalGrid[i].PLANNO !== params.data.PLANNO){
+            TotalValue[j].NEWAMT = LastSum1
+            TotalValue[j].data['PLNSEL'] = FinalGrid[i].PLNSEL
+            LastSum1 =0
+          }
+        }
+      }
+      console.log(NewArray)
+      console.log(TotalValue)
+      console.log(LastSum)
+      let highestRate = 0;
+      let highAmt = -Infinity
+      if(params.data.PLNSEL == true){
+        for(let i=0;i<TotalValue.length;i++){
+          if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
+            console.log(TotalValue[i])
+            highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+            this.PKTPER = highestRate.toFixed(2)
+          }
+        }
+      } else {
+        for(let i=0;i<TotalValue.length;i++){
+          if(TotalValue[i].data['PLNSEL'] === true){
+            highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+            this.PKTPER = highestRate.toFixed(2)
+            break
+          }else{
+            if (TotalValue[i].NEWAMT > highAmt) {
+              highAmt = TotalValue[i].NEWAMT
+              highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+              this.PKTPER = highestRate.toFixed(2)
+            }
+          }
+        }
+      }
       let NewValue = (this.ADIS/100)*this.PKTPER
       let FinalValue1 = parseFloat(this.PKTPER) + NewValue
       this.FINALBID =FinalValue1.toFixed(2)
+      this.gridApi1.refreshCells({ force: true });
     }
       return
     } else {
@@ -2557,41 +2731,100 @@ export class TendarEstComponent implements OnInit {
             }
 
             let newArray = 0
-        let carat = params.data.CARAT
-        let orap = params.data.ORAP
-        let MperValue = parseInt(params.data.MPER)
-        newArray = (MperValue / 100) * orap
-
-        let FinalValue = orap - newArray
-        let NewSum = FinalValue * carat
-
-        let LastSum = 0
-        for (let i = 0; i < FinalGrid.length; i++) {
-          if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG) {
-            FinalGrid[i].AMT = NewSum
-          }
-          if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total') {
-            LastSum += FinalGrid[i].AMT
-          }
-        }
-
-        let highestRate = 0;
-        let highAmt = -Infinity
-          for (let i = 0; i < FinalGrid.length; i++) {
-            if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO == params.data.SRNO && FinalGrid[i].PTAG === 'Total') {
-              FinalGrid[i].AMT = LastSum
+            let FinalValue
+            let NewSum
+            let carat = params.data.CARAT
+            let orap = params.data.ORAP
+            let MperValue
+            if(parseFloat(params.data.MPER) !== 0 && parseFloat(params.data.MPER) !== 100){
+              MperValue = params.data.MPER
+            }else {
+              MperValue = params.data.PER
             }
-
-            if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO == params.data.SRNO && FinalGrid[i].PTAG === 'Total' && params.data.PLNSEL == true){
-                highAmt = FinalGrid[i].AMT
-                highestRate = FinalGrid[i].AMT / FinalGrid[i].CARAT
-                break
-            }else{
-             if (FinalGrid[i].AMT > highAmt) {
-                highAmt = FinalGrid[i].AMT
-                highestRate = FinalGrid[i].AMT / FinalGrid[i].CARAT
+            newArray = (MperValue / 100) * orap
+            FinalValue = orap - newArray
+            NewSum = FinalValue * carat
+      
+            let LastSum = 0
+            let OtherLine = 0
+      
+            for(let i=0;i< FinalGrid.length;i++){
+              if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG){
+                LastSum += NewSum
+              }else if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total'){
+                let carat1 = FinalGrid[i].CARAT
+                let orap1 = FinalGrid[i].ORAP
+                let MperValue1
+                if(parseFloat(FinalGrid[i].MPER)!== 0 && parseFloat(FinalGrid[i].MPER) !== 100){
+                  MperValue1 = FinalGrid[i].MPER
+                }else {
+                  MperValue1 = FinalGrid[i].PER
+                }
+                let newArray1 = (MperValue1 / 100) * orap1
+                let FinalValue1 = orap1 - newArray1
+                let NewSum1 = FinalValue1 * carat1
+                LastSum += NewSum1
+              }
             }
-          }
+            let TotalValue = []
+            for(let i=0;i<FinalGrid.length;i++){
+              if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG == 'Total'){
+                TotalValue.push({NEWAMT:LastSum,data:FinalGrid[i]})
+              }else if(FinalGrid[i].PTAG === 'Total') {
+                TotalValue.push({NEWAMT:FinalGrid[i].AMT,data:FinalGrid[i]})
+              }
+            }
+            let NewArray = []
+            let LastSum1 = 0
+            for(let i=0; i<FinalGrid.length;i++){
+              for(let j=0;j<TotalValue.length;j++){
+                if(TotalValue[j].data['PLANNO']===FinalGrid[i].PLANNO  && FinalGrid[i].PTAG !== TotalValue[j].data['PTAG'] && FinalGrid[i].PLANNO !== params.data.PLANNO){
+                  let carat1 = FinalGrid[i].CARAT
+                let orap1 = FinalGrid[i].ORAP
+                let MperValue1
+                if(parseFloat(FinalGrid[i].MPER)!== 0 && parseFloat(FinalGrid[i].MPER) !== 100){
+                  MperValue1 = FinalGrid[i].MPER
+                }else {
+                  MperValue1 = FinalGrid[i].PER
+                }
+                let newArray1 = (MperValue1 / 100) * orap1
+                let FinalValue1 = orap1 - newArray1
+                let NewSum1 = FinalValue1 * carat1
+                LastSum1 += NewSum1
+                } else if (TotalValue[j].data['PLANNO']===FinalGrid[i].PLANNO && FinalGrid[i].PLANNO !== params.data.PLANNO){
+                  TotalValue[j].NEWAMT = LastSum1
+                  TotalValue[j].data['PLNSEL'] = FinalGrid[i].PLNSEL
+                  LastSum1 =0
+                }
+              }
+            }
+            console.log(NewArray)
+            console.log(TotalValue)
+            console.log(LastSum)
+            let highestRate = 0;
+            let highAmt = -Infinity
+            if(params.data.PLNSEL == true){
+              for(let i=0;i<TotalValue.length;i++){
+                if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
+                  console.log(TotalValue[i])
+                  highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+                  this.PKTPER = highestRate.toFixed(2)
+                }
+              }
+            } else {
+              for(let i=0;i<TotalValue.length;i++){
+                if(TotalValue[i].data['PLNSEL'] === true){
+                  highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+                  this.PKTPER = highestRate.toFixed(2)
+                  break
+                }else{
+                  if (TotalValue[i].NEWAMT > highAmt) {
+                    highAmt = TotalValue[i].NEWAMT
+                    highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
+                    this.PKTPER = highestRate.toFixed(2)
+                  }
+                }
+              }
         }
         this.PKTPER = highestRate.toFixed(2)
         let NewValue = (this.ADIS/100)*this.PKTPER
@@ -4113,67 +4346,57 @@ export class TendarEstComponent implements OnInit {
           }
           this.gridApi1.refreshCells({ force: true })
           
-          let newArray = 0
-          let carat = 0
-          let orap = 0
-          let MperValue = 0
-          // newArray = (MperValue / 100) * orap
+          // let newArray = 0
+          // let carat = 0
+          // let orap = 0
+          // let MperValue = 0
+          // let FinalValue = 0
+          // let NewSum = 0
               
-          let FinalValue = 0
-          let NewSum = 0
+          // let LastSum = 0
+          // for (let i = 0; i < _GridRowData.length; i++) {
+          //   if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO === parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === RapObj.PTAG) {
+          //     carat =_GridRowData[i].CARAT
+          //     orap = _GridRowData[i].ORAP
+          //     if(parseFloat(_GridRowData[i].MPER) !== 0 && parseFloat(_GridRowData[i].MPER) !== 100){
+          //       MperValue = _GridRowData[i].MPER
+          //     }else {
+          //       MperValue = _GridRowData[i].PER
+          //     }
+          //     newArray = (MperValue / 100) * orap
+          //     FinalValue = orap - newArray
+          //     NewSum = FinalValue * carat
               
-          let LastSum = 0
-          for (let i = 0; i < _GridRowData.length; i++) {
-            if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO === parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === RapObj.PTAG) {
-              carat =_GridRowData[i].CARAT
-              orap = _GridRowData[i].ORAP
-              MperValue = parseFloat(_GridRowData[i].MPER)
-              newArray = (MperValue / 100) * orap
-              FinalValue = orap - newArray
-              NewSum = FinalValue * carat
-              _GridRowData[i].AMT = NewSum
-            }
-            if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO === parseInt(RapObj.SRNO) && _GridRowData[i].PTAG !== 'Total') {
-              LastSum += _GridRowData[i].AMT
-            }
-          }
+          //   }
+          //   if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO === parseInt(RapObj.SRNO) && _GridRowData[i].PTAG !== 'Total') {
+          //     LastSum += NewSum
+          //   }
+          // }
         
-          let highestRate = 0;
-          let highAmt = -Infinity
-            for (let i = 0; i < _GridRowData.length; i++) {
-              if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO == parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === 'Total') {
-                _GridRowData[i].AMT = LastSum
-              }
-            
-              if(_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO == parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === 'Total' && RapObj.PLNSEL == 'true'){
-                  highAmt = _GridRowData[i].AMT
-                  highestRate = _GridRowData[i].AMT / _GridRowData[i].CARAT
-                  break
-              }else{
-               if (_GridRowData[i].AMT > highAmt) {
-                  highAmt = _GridRowData[i].AMT
-                  highestRate = _GridRowData[i].AMT / _GridRowData[i].CARAT
-              }
-            }
-          }
-          this.PKTPER = highestRate.toFixed(2)
-          let NewValue = (this.ADIS/100)*this.PKTPER
-          let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-          this.FINALBID =FinalValue1.toFixed(2)
-
-          this.gridApi1.refreshCells({ force: true })
           // let highestRate = 0;
           // let highAmt = -Infinity
-          // for (let i = 0; i < PTAGROW.length; i++) {
-          //   if (PTAGROW[i].AMT > highAmt) {
-          //     highAmt = PTAGROW[i].AMT
-          //     highestRate = PTAGROW[i].RATE
+          //   for (let i = 0; i < _GridRowData.length; i++) {
+          //     if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO == parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === 'Total') {
+          //       _GridRowData[i].AMT = LastSum
+          //     }
+            
+          //     if(_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO == parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === 'Total' && RapObj.PLNSEL == 'true'){
+          //         highAmt = LastSum
+          //         highestRate = LastSum / _GridRowData[i].CARAT
+          //         break
+          //     }else{
+          //      if (_GridRowData[i].AMT > highAmt) {
+          //         highAmt = _GridRowData[i].AMT
+          //         highestRate = _GridRowData[i].AMT / _GridRowData[i].CARAT
+          //     }
           //   }
           // }
           // this.PKTPER = highestRate.toFixed(2)
-          //   let NewValue = (this.ADIS/100)*this.PKTPER
-          //   let FinalValue1 = this.PKTPER + NewValue
-          //   this.FINALBID =FinalValue1
+          // let NewValue = (this.ADIS/100)*this.PKTPER
+          // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+          // this.FINALBID =FinalValue1.toFixed(2)
+
+          // this.gridApi1.refreshCells({ force: true })
         }
       } catch (err) {
         console.log(err);
@@ -4316,6 +4539,11 @@ export class TendarEstComponent implements OnInit {
             if(eve.data.AUSER !== this.decodedTkn.UserId && this.decodedTkn.U_CAT == 'U'){
               this.disabledata = true
               this.FLOCODEDIS = true
+            }
+
+            if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S'){
+              this.disabledata = false 
+              this.FLOCODEDIS = false
             }
 
             const agBodyViewport: HTMLElement =
