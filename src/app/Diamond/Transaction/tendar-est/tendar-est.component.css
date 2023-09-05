@@ -415,7 +415,9 @@ input[type=text]:focus {
 }
 
 .deskop_div {
-    width: 924px;
+	width: 924px;
+/* background-color: #fff; */
+	
 }
 
 .deskop_footer_bid {
@@ -423,7 +425,7 @@ input[type=text]:focus {
 }
 
 .find-area {
-	height: 80px;
+	height: 90px;
 }
 
 @media (max-width: 1600px) {
@@ -442,5 +444,6 @@ input[type=text]:focus {
 		font-size: 12px;
 	}
 }
+
 
 

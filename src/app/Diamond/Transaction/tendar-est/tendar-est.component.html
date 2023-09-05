@@ -13,7 +13,7 @@
     <p style="margin: 0 -4px 10px;">k</p>
     <p style="margin: 0 -4px 10px;">t</p>
       </button>
-    <section class="form-container" style="width: calc(100% - 26px); place-content: baseline; display: flex; flex-direction: column;">
+    <section class="form-container" style="width: calc(100% - 26px); justify-content: start;">
       <article class="fields-wrapper">
 
         <ng-select class="autoComplete" placeholder="Company Code*" style="width: 13rem;" appearance="outline" autocomplete="off"
@@ -140,23 +140,22 @@
                   </option>
                 </select>
 
-                <input type="text" style="border:1px solid black;width: 76px;height: 20.9px;border-right:none;border-top:none" name="Code" disabled autocomplete="off" />
-                <mat-label style="border:1px solid black;padding: 2px 15px; text-align: center;border-right:none;border-top:none" >FLAT 1</mat-label>
-                <mat-label style="border:1px solid black;padding: 2px 22.7px; text-align: center;border-right:none;border-top:none">FLAT 2</mat-label>
-                <mat-label style="border:1px solid black;padding: 2px 19.7px; text-align: center;border-right:none;border-top:none">MEDUIM</mat-label>
-                <mat-label style="border:1px solid black;padding: 2px 12.8px; text-align: center;border-right:none;border-top:none">HEIGHT</mat-label>
-                <mat-label style="border:1px solid black;padding: 2px 25px; text-align: center;border-right:none;border-top:none">DN</mat-label>
-                <mat-label style="border:1px solid black;padding: 2px 9px; text-align: center;border-right:none;border-top:none">USER 1</mat-label>
-                <mat-label style="border:1px solid black;padding: 2px 14px; text-align: center;border-right:none;border-top:none">USER 2</mat-label>
-                <mat-label style="border:1px solid black;padding: 2px 6.9px; text-align: center;border-right:none;border-top:none">USER 3</mat-label>
-                <mat-label style="border:1px solid black;padding-right: 243px; text-align: center;border-right:none;border-top:none;padding-bottom: 41px;position: fixed;"></mat-label>
+                <div style="display: flex;align-items: center;">
+                  <input type="text" style="border:1px solid black;width: 76px;height: 20.9px;border-right:none;border-top:none" name="Code" disabled autocomplete="off" />
+                  <mat-label style="border:1px solid black;padding: 2px 15px; text-align: center;border-right:none;border-top:none" >FLAT 1</mat-label>
+                  <mat-label style="border:1px solid black;padding: 2px 22.7px; text-align: center;border-right:none;border-top:none">FLAT 2</mat-label>
+                  <mat-label style="border:1px solid black;padding: 2px 19.7px; text-align: center;border-right:none;border-top:none">MEDUIM</mat-label>
+                  <mat-label style="border:1px solid black;padding: 2px 12.8px; text-align: center;border-right:none;border-top:none">HEIGHT</mat-label>
+                  <mat-label style="border:1px solid black;padding: 2px 25px; text-align: center;border-right:none;border-top:none">DN</mat-label>
+                  <mat-label style="border:1px solid black;padding: 2px 9px; text-align: center;border-right:none;border-top:none">USER 1</mat-label>
+                  <mat-label style="border:1px solid black;padding: 2px 14px; text-align: center;border-right:none;border-top:none">USER 2</mat-label>
+                  <mat-label style="border:1px solid black;padding: 2px 6.8px; text-align: center;border-top:none">USER 3</mat-label>
+                </div>
+                <div style="display: flex;align-items: center;">
 
-                <!-- <input type="text" style="border:1px solid black;padding-right: 83px; text-align: center;border-right:none;border-top:none;padding-bottom: 36px;position: fixed;" name="Code" autocomplete="off" /> -->
-                <mat-label style="padding: 2px 100px; text-align: center;"></mat-label>
-                <mat-label style="padding: 2px 15px; text-align: center;"></mat-label>
                 <mat-label style="border:1px solid black;padding: 2px 15px; text-align: center;border-right:none;border-top:none;">FINAL:-</mat-label>
                 <!-- <input type="text" style="border:1px solid black;width: 74px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 74px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <select style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="FINAL1"[disabled]="FLOCODEDIS" >
@@ -164,8 +163,8 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <!-- <input type="text" style="border:1px solid black;width: 89px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 89px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <!-- <input type="text" style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="FINAL2" [disabled]="FLOCODEDIS">
@@ -173,8 +172,8 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <!-- <input type="text" style="border:1px solid black;width: 95px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 95px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <!-- <input type="text" style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="FINALME" [disabled]="FLOCODEDIS">
@@ -182,8 +181,8 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <!-- <input type="text" style="border:1px solid black;width: 76px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 76px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <!-- <input type="text" style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="FINALHE" [disabled]="FLOCODEDIS">
@@ -191,8 +190,8 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <!-- <input type="text" style="border:1px solid black;width: 70px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 70px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <!-- <input type="text" style="border:1px solid black;width: 70px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 70px;height: 25px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="DN" [disabled]="FLOCODEDIS">
@@ -200,8 +199,8 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <!-- <input type="text" style="border:1px solid black;width: 65px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 65px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <!-- <input type="text" style="border:1px solid black;width: 65px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 65px;height: 25px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="USER1"[disabled]="FLOCODEDIS" >
@@ -209,8 +208,8 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <!-- <input type="text" style="border:1px solid black;width: 74px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 74px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="USER2" [disabled]="FLOCODEDIS">
@@ -218,8 +217,8 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <!-- <input type="text" style="border:1px solid black;width: 62px;height: 21px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 62px;height: 21px;border-right:none;border-top:none;text-align: center;"
+                <!-- <input type="text" style="border:1px solid black;width: 62px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 61px;height: 25px;border-top:none;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="USER3"[disabled]="FLOCODEDIS" >
@@ -227,8 +226,15 @@
                     {{ cl.name }}
                   </option>
                 </select>
-                <mat-label style="padding: 2px 100px; text-align: center;"></mat-label>
-                <mat-label style="padding: 2px 15px; text-align: center;"></mat-label>
+                </div>
+
+                
+                <!-- <mat-label style="border:1px solid black;padding-right: 243px; text-align: center;border-right:none;border-top:none;padding-bottom: 41px;position: fixed;"></mat-label> -->
+                <!-- <input type="text" style="border:1px solid black;padding-right: 83px; text-align: center;border-right:none;border-top:none;padding-bottom: 36px;position: fixed;" name="Code" autocomplete="off" /> -->
+                <!-- <mat-label style="padding: 2px 100px; text-align: center;"></mat-label> -->
+                <!-- <mat-label style="padding: 2px 15px; text-align: center;"></mat-label> -->
+                <!-- <mat-label style="padding: 2px 100px; text-align: center;"></mat-label> -->
+                <!-- <mat-label style="padding: 2px 15px; text-align: center;"></mat-label> -->
 
                 <div class="row">
                     <div class="">
@@ -312,7 +318,7 @@
                 <div class="newClass" style="display: flex;height: 21px;">
                 <mat-label style="border:1px solid black;padding: 2px 17.9px; text-align: center;border-right:none;border-top:none;">T1:-</mat-label>
                 <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;position: relative" name="Code" autocomplete="off" /> -->
-                <select style="border:1px solid black;width: 245px;border-right:none;border-top:none;position: relative;text-align: center;"
+                <select style="border:1px solid black;width: 245px;border-right:none;position: relative;text-align: center;"
                         name="name"
                         autocomplete="off" class="tenderSelect"
                          [(ngModel)]="R1" [disabled]="FLOCODEDIS">
@@ -476,14 +482,14 @@
             </div>
             </div>
         </div>
-        <div class="deskop_footer_bid p-0" [ngClass]="{'my_class': DOCKON === true}">
+       <div class="deskop_footer_bid p-0" [ngClass]="{'my_class': DOCKON === true}">
             <div class="container-name_2"  style="display: grid;">
                 <mat-label [style]="HearderBoxStyle" [ngClass]="dummay1_variable" class="final_name">FINAL BID</mat-label>
                 <textarea type="text" [style]="AreaBoxStyle" [ngClass]="dummay2_variable" name="Code" disabled [(ngModel)] ="FINALBID" autocomplete="off" class="tenderTxt find-area ws"></textarea>
                 <mat-label style="border:1px solid black; text-align: center;border-top:none;font-size: 12px;">Aditional Discount</mat-label>
                 <input [style]="BlankBoxStyle" [ngClass]="dummay3_variable" class="tenderTxt" (ngModelChange)="ADISCHANGE($event)" [disabled]="ADISDISABLE" [(ngModel)]="ADIS">
             </div>
-        </div>
+        </div> 
             </div>
           </div>
           <div class="newGrid">

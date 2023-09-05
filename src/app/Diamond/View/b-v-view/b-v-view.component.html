@@ -173,7 +173,9 @@
                 </tr>
                 <tr style="display: flex;">
                   <div style="width: 44.4%;">
-                  <input style="border:1px solid black;width: 63px;height: 22px; text-align: center;border-right:none;border-top:none;" disabled value="RESULT:-"/>
+                  <!-- <input style="border:1px solid black;width: 63px;height: 22px; text-align: center;border-right:none;border-top:none;" disabled value="RESULT:-"/> -->
+                  <mat-label style="border:1px solid black;padding: 3px 3.5px; text-align: center;border-right:none;border-top:none;">RESULT:-</mat-label>
+
                   <select style="border:1px solid black;width: 64px;height: 22px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
@@ -326,7 +328,9 @@
                 </div>
                   <mat-label style="border:1px solid black; text-align: center;border-right:none;border-top:none;padding: 3px 31.5px;padding-bottom: 15px;">   </mat-label>
                 <div style="width: 17.6%;">
-                  <input style="border:1px solid black; text-align: center;border-right:none;border-top:none;width: 70px;height: 44px;" disabled value="ROUND:-"/>
+                  <!-- <input style="border:1px solid black; text-align: center;border-right:none;border-top:none;width: 70px;height: 44px;" disabled value="ROUND:-"/> -->
+                  <mat-label style="border:1px solid black;padding: 13px 6.8px; text-align: center;border-right:none;border-top:none;">ROUND:-</mat-label>
+
         
                   <select style="border: 1px solid black; text-align: center; width: 70px; height: 44px; border-right: none; border-top: none;"
                           name="name"
@@ -336,7 +340,9 @@
                       {{ cl.name }}
                     </option>
                   </select>
-                  <input style="border:1px solid black; text-align: center;border-right:none;border-top:none;width: 70px;height: 45px;" disabled value="FANCY:-"/>
+                  <!-- <input style="border:1px solid black; text-align: center;border-right:none;border-top:none;width: 70px;height: 45px;" disabled value="FANCY:-"/> -->
+                  <mat-label style="border:1px solid black;padding: 13px 6.8px; text-align: center;border-right:none;border-top:none;">FANCY:-</mat-label>
+
                   <select style="border:1px solid black;width: 70px;height: 44px;border-right:none;border-top:none;text-align: center;"
                           name="name"
                           autocomplete="off" class="tenderSelect"
@@ -392,7 +398,8 @@
               </div>
               <div class="bv_bid p-0">
               <thead style="display: grid;margin-left: 0;">
-                <input [style]="HearderBoxStyle" value="FINAL BID" disabled/>
+                <!-- <input [style]="HearderBoxStyle" value="FINAL BID" disabled/> -->
+                <mat-label style="border:1px solid black;padding: 1px 6.8px; text-align: center;">FINAL BID</mat-label>
                 <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" [(ngModel)] ="item.FBID" autocomplete="off" class="tenderTxt  ws"></textarea>
                 <div style="display: flex;">
                 <mat-label style="border:1px solid black; text-align: center;border-right:none;border-top:none;padding: 3px 31px;padding-bottom: 15px;">Aditional Discount</mat-label>
@@ -403,7 +410,7 @@
               </div>
             </div>
             <div class="memo-ent-grid">
-              <ag-grid-angular class="ag-theme-alpine" style="width: 85%; height: 40vh;margin-top: 20px;"
+              <ag-grid-angular class="ag-theme-alpine" style="width: 85%; height: 40vh;"
                 [defaultColDef]="defaultColDef" [columnDefs]="columnDefs"
                 [rowData]="item.GRID_DATA" [animateRows]="true">
               </ag-grid-angular>

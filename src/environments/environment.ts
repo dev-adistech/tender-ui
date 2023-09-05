@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // local connectins
-  BaseUrl: '192.168.1.203', //local - 192.168.1.102
+  BaseUrl: '192.168.1.150', //local - 192.168.1.102
 
   //live connections
   // BaseUrl: 'api.tender.peacocktech.in', //domain name -  tender.peacocktech.in // 9928
