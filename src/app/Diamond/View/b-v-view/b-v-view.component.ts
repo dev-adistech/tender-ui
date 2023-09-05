@@ -105,7 +105,7 @@ export class BVViewComponent implements OnInit {
   TENDAR_NAME:any=''
 
   TendarStyle:string=`width: 100%;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-  AreaBoxStyle:string=`border:1px solid black;width: 100%;height: 100px;resize: none;`;
+  AreaBoxStyle:string=`border:1px solid black;width: 100%;height: 102px;resize: none;`;
   ContainWidth:string=`border:1px solid black;width: calc(100% - 10px);height: 59px;border-top:none`;
   BlankBoxStyle:string=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
   HearderBoxStyle:string=`border:1px solid black; width:100%; text-align: center;border-bottom:none`;

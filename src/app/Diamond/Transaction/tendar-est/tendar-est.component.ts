@@ -342,7 +342,7 @@ export class TendarEstComponent implements OnInit {
                   if (params.data) {
                     if (params.node.rowPinned != "bottom") {
                       if (params.data[VPRes.data[i].FIELDNAME] == 1) {
-                        if (this.decodedTkn.UserId === 'DN'  || this.decodedTkn.U_CAT === 'S') {
+                        if (this.decodedTkn.UserId === 'DN') {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
@@ -2228,6 +2228,71 @@ export class TendarEstComponent implements OnInit {
         }
 
       }
+
+      let FinalGrid = SubData;
+
+      let newArray = 0
+      let carat = 0
+      let orap = 0
+      let MperValue = 0
+      newArray = 0
+
+      let FinalValue =0
+      let NewSum = 0
+
+      let LastSum = 0
+      // for (let i = 0; i < FinalGrid.length; i++) {
+      //   if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG) {
+      //     FinalGrid[i].AMT = NewSum
+      //   }
+      //   if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total') {
+      //     LastSum += FinalGrid[i].AMT
+      //   }
+      // }
+      for(let i=0;i<SubData.length;i++){
+      if(params.data.SRNO ===SubData[i].SRNO && SubData[i].PTAG !== 'Total' && params.data.PLANNO === SubData[i].PLANNO){
+        carat = SubData[i].CARAT
+        orap = SubData[i].ORAP
+        MperValue = SubData[i].MPER 
+        newArray = (MperValue / 100) * orap
+
+        FinalValue = orap - newArray
+        NewSum = FinalValue * carat
+
+        SubData[i].AMT = NewSum
+        }
+        if(params.data.SRNO ===SubData[i].SRNO && SubData[i].PTAG == 'Total' && params.data.PLANNO === SubData[i].PLANNO){
+          this.PKTPER = SubData[i].AMT
+        }
+      }
+      
+
+      for(let i=0;i<SubData.length;i++){
+      if(params.data.PLNSEL === false){
+
+        carat = SubData[i].CARAT
+        orap = SubData[i].ORAP
+        MperValue = SubData[i].MPER 
+        newArray = (MperValue / 100) * orap
+
+        FinalValue = orap - newArray
+        NewSum = FinalValue * carat
+
+        SubData[i].AMT = NewSum
+
+        if(SubData[i].PTAG === 'Total' && SubData[i].PLNSEL == true){
+          break
+        }else if (SubData[i].AMT > highAmt) {
+          highAmt = SubData[i].AMT
+          highestRate = SubData[i].AMT / SubData[i].CARAT
+        }
+        this.PKTPER = highestRate.toFixed(2)
+      }
+    }
+
+      let NewValue = (this.ADIS/100)*this.PKTPER
+      let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+      this.FINALBID =FinalValue1.toFixed(2)
       params.node.setData(dataObj);
       params.api.refreshCells({ force: true });
 
