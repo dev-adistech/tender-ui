@@ -514,7 +514,7 @@ export class ListboxComponent implements OnInit {
   userExists(name) {
     if (this.TYPE == 'ORDDIS') {
       return this.Selected.some(function (el) {
-        return parseInt(el) === name;
+        return el === name;
       });
     } else {
       return this.Selected.some(function (el) {

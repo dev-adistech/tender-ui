@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ListboxComponent } from '../../Common/listbox/listbox.component';
 import { MatDialog } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -25,7 +25,7 @@ export interface Code {
   styleUrls: ['./pricing-wrk-view.component.css']
 })
 export class PricingWrkViewComponent implements OnInit {
-
+  @ViewChild('agGrid', { static: true }) agGrid: ElementRef;
   decodeHelper = new JwtHelperService()
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem("token"))
   decodedMast = JSON.parse(this.EncrDecrServ.get(localStorage.getItem("unfam1")));
@@ -432,21 +432,8 @@ export class PricingWrkViewComponent implements OnInit {
     })
   }
   }
-
-  onTouchStart(event) {
-    const currentTime = new Date().getTime();
-    const timeDiff = currentTime - this.touchStartTime;
-    const selectedNodes = this.gridApi.getSelectedNodes();
-    if (timeDiff < 300) {
-      alert(selectedNodes)
-      if (selectedNodes.length > 0) {
-        const rowData = selectedNodes[0].data;
-        this.onCellDoubleClick(rowData);
-      }
-    } else {
-      this.touchStartTime = currentTime;
-    }
-  }
+  touchCount:number=0
+  touchTimer: any;
 
   OpenLotPopup() {
     const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Shapes, CODE: this.S_CODE, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
