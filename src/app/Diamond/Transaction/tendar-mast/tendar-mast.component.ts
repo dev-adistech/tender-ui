@@ -348,6 +348,10 @@ export class TendarMastComponent implements OnInit {
   }
 
   onCellDoubleClicked(eve){
+    console.log(eve)
+    if(eve.colDef.headerName == 'Action' || eve.colDef.field == "ISACTIVE"){
+      return;
+    }
     if(this.PASS !== this.PASSWORD){
       return;
     }

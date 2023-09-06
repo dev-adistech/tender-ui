@@ -63,14 +63,14 @@ export class TendarComComponent implements OnInit {
         width:117
       },
       {
-        headerName: 'COMP Code',
+        headerName: 'Company Code',
         field: 'COMP_CODE',
         cellStyle: { 'text-align': 'center' },
         headerClass: "text-center",
         width: 100
       },
       {
-        headerName: 'COMP Name',
+        headerName: 'Company Name',
         field: 'COMP_NAME',
         cellStyle: { 'text-align': 'center' },
         headerClass: "text-center",
