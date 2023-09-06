@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .first-span {
+    width: 50%;
+  }
+  
+  .second-span {
+    width: 50%;
+  }

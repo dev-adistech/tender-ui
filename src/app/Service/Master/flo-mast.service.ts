@@ -22,4 +22,16 @@ export class FloMastService {
     return this.http.post<any>('FloMast/FloMastDelete', Data)
   }
 
+  FloMastsmipleDelete(Data: any): Observable<any> {
+    return this.http.post<any>('FloMast/FloMastsmipleDelete', Data)
+  }
+
+  FloMastsmipleSave(Data: any): Observable<any> {
+    return this.http.post<any>('FloMast/FloMastsmipleSave', Data)
+  }
+
+  FloMastsmipleFill(Data: any): Observable<any> {
+    return this.http.post<any>('FloMast/FloMastsmipleFill', Data)
+  }
+
 }

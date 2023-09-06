@@ -63,6 +63,8 @@ export class PricingWrkViewComponent implements OnInit {
   agGridWidth1: number = 0;
   agGridStyles1: string = "";
 
+  touchStartTime: number;
+
   FooterKey = []
 
   constructor(
@@ -77,6 +79,7 @@ export class PricingWrkViewComponent implements OnInit {
     private _convFunction: ConverterFunctions,
     private ViewParaMastServ : ViewParaMastService
   ) { 
+    this.touchStartTime=0
     this.columnDefs = [
       {
         headerName: "Date",
@@ -230,31 +233,31 @@ export class PricingWrkViewComponent implements OnInit {
               this.elementRef.nativeElement.querySelector(
                 ".ag-body-horizontal-scroll-viewport"
               );
-            if (agBodyViewport) {
-              const psV = new PerfectScrollbar(agBodyViewport);
-              psV.update();
-            }
-            if (agBodyHorizontalViewport) {
-              const psH = new PerfectScrollbar(agBodyHorizontalViewport);
-              psH.update();
-            }
-            if (agBodyViewport) {
-              const ps = new PerfectScrollbar(agBodyViewport);
-              const container = document.querySelector(".ag-body-viewport");
-              ps.update();
-            }
-            const widthsArray =
-              this.gridColumnApi1.columnController.displayedColumns.map(
-                (item) => item.actualWidth
-              );
-            this.agGridWidth1 = widthsArray.reduce(function (
-              previousValue,
-              currentValue
-            ) {
-              return previousValue + currentValue;
-            });
-            this.agGridWidth1 = 200 + this.agGridWidth1;
-            this.agGridStyles1 = `width: ${this.agGridWidth1}px; height: 70vh`;
+            // if (agBodyViewport) {
+            //   const psV = new PerfectScrollbar(agBodyViewport);
+            //   psV.update();
+            // }
+            // if (agBodyHorizontalViewport) {
+            //   const psH = new PerfectScrollbar(agBodyHorizontalViewport);
+            //   psH.update();
+            // }
+            // if (agBodyViewport) {
+            //   const ps = new PerfectScrollbar(agBodyViewport);
+            //   const container = document.querySelector(".ag-body-viewport");
+            //   ps.update();
+            // }
+            // const widthsArray =
+            //   this.gridColumnApi1.columnController.displayedColumns.map(
+            //     (item) => item.actualWidth
+            //   );
+            // this.agGridWidth1 = widthsArray.reduce(function (
+            //   previousValue,
+            //   currentValue
+            // ) {
+            //   return previousValue + currentValue;
+            // });
+            // this.agGridWidth1 = 200 + this.agGridWidth1;
+            // this.agGridStyles1 = `width: ${this.agGridWidth1}px; height: 70vh`;
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -311,7 +314,7 @@ export class PricingWrkViewComponent implements OnInit {
               })
 
               if(GroupData[i].Data[j].FIELDNAME === "MPER"){
-                tempData[j].editable = this.decodedTkn.U_CAT === 'P' ? true : false
+                tempData[j].editable = this.decodedTkn.U_CAT === 'P' || this.decodedTkn.U_CAT === 'S'? true : false
               }
               if (j == 4) {
                 this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
@@ -421,6 +424,30 @@ export class PricingWrkViewComponent implements OnInit {
     }, [])
   }
 
+  oncellClick(eve){
+    if(eve.colDef.field === 'MPER'){
+    this.gridApi1.startEditingCell({
+      rowIndex: eve.rowIndex,
+      colKey: eve.colDef.field,
+    })
+  }
+  }
+
+  onTouchStart(event) {
+    const currentTime = new Date().getTime();
+    const timeDiff = currentTime - this.touchStartTime;
+    const selectedNodes = this.gridApi.getSelectedNodes();
+    if (timeDiff < 300) {
+      alert(selectedNodes)
+      if (selectedNodes.length > 0) {
+        const rowData = selectedNodes[0].data;
+        this.onCellDoubleClick(rowData);
+      }
+    } else {
+      this.touchStartTime = currentTime;
+    }
+  }
+
   OpenLotPopup() {
     const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Shapes, CODE: this.S_CODE, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
     $("#Close").click();
@@ -465,31 +492,31 @@ export class PricingWrkViewComponent implements OnInit {
               this.elementRef.nativeElement.querySelector(
                 ".ag-body-horizontal-scroll-viewport"
               );
-            if (agBodyViewport) {
-              const psV = new PerfectScrollbar(agBodyViewport);
-              psV.update();
-            }
-            if (agBodyHorizontalViewport) {
-              const psH = new PerfectScrollbar(agBodyHorizontalViewport);
-              psH.update();
-            }
-            if (agBodyViewport) {
-              const ps = new PerfectScrollbar(agBodyViewport);
-              const container = document.querySelector(".ag-body-viewport");
-              ps.update();
-            }
-            const widthsArray =
-              this.gridColumnApi.columnController.displayedColumns.map(
-                (item) => item.actualWidth
-              );
-            this.agGridWidth = widthsArray.reduce(function (
-              previousValue,
-              currentValue
-            ) {
-              return previousValue + currentValue;
-            });
-            this.agGridWidth = 200 + this.agGridWidth;
-            this.agGridStyles = `width: ${this.agGridWidth}px; height: 70vh`;
+            // if (agBodyViewport) {
+            //   const psV = new PerfectScrollbar(agBodyViewport);
+            //   psV.update();
+            // }
+            // if (agBodyHorizontalViewport) {
+            //   const psH = new PerfectScrollbar(agBodyHorizontalViewport);
+            //   psH.update();
+            // }
+            // if (agBodyViewport) {
+            //   const ps = new PerfectScrollbar(agBodyViewport);
+            //   const container = document.querySelector(".ag-body-viewport");
+            //   ps.update();
+            // }
+            // const widthsArray =
+            //   this.gridColumnApi.columnController.displayedColumns.map(
+            //     (item) => item.actualWidth
+            //   );
+            // this.agGridWidth = widthsArray.reduce(function (
+            //   previousValue,
+            //   currentValue
+            // ) {
+            //   return previousValue + currentValue;
+            // });
+            // this.agGridWidth = 200 + this.agGridWidth;
+            // this.agGridStyles = `width: ${this.agGridWidth}px; height: 70vh`;
           } else {
             this.spinner.hide();
             Swal.fire({
