@@ -791,3 +791,40 @@ input[type=text]:focus {
   .chiller-theme .sidebar-footer>a:last-child {
       border-right: none;
   }
+
+  .tander-mainCon {
+    width: 100%;
+  
+  }
+  
+  .deskop_div {
+    width: 924px;
+  /* background-color: #fff; */
+    
+  }
+  
+  .deskop_footer_bid {
+      width: calc(100% - 924px);
+  }
+  
+  .find-area {
+    height: 113px;
+  }
+  
+  @media (max-width: 1600px) {
+    .slide-grid-tablet {
+      position: absolute;
+      z-index: 99;
+    }
+  }
+  
+  @media (max-width: 1034px) {
+    .find-area {
+      height: 93px;
+    }
+  
+    .final_name {
+      font-size: 12px;
+    }
+  }
+  

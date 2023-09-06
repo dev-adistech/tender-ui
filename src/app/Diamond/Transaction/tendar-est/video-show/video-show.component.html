@@ -1,15 +1,15 @@
-<div style="text-align:center">
-    <h1> </h1>
-    <video style="width: 485px;height:263px" controls="controls" *ngIf="uploadVideong">
-      <source [src]="videoSrc" type="video/mp4" autoplay>
-    </video>
-    <br>
+<div style="text-align:end">
+    <!-- <h1> </h1> -->
     <button class="btn theme-btn mr-2 ml-auto" matTooltip='close' matTooltipClass="custom-tooltip"
           (click)="CLOSE()" style="width: 5%;">
           <svg class="icon icon-close">
             <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
           </svg>
     </button>
+    <video style="width: 100%;height:263px" controls="controls" *ngIf="uploadVideong">
+      <source [src]="videoSrc" type="video/mp4" autoplay>
+    </video>
+    <br>
   </div>
   <ngx-spinner>
     <p style="color: white;"> Loading..</p>

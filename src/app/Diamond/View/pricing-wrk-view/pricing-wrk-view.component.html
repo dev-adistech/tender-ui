@@ -1,5 +1,5 @@
-<div style="display: inline-flex;">
-    <section class="form-container glass-light">
+<div style="width: 99%;">
+    <section class="form-container glass-light" style="width: 100%;">
       <article class="fields-wrapper">
         <mat-form-field appearance="outline">
             <mat-label>From Date</mat-label>
@@ -43,24 +43,25 @@
             <input matInput type="number" autocomplete="off" [(ngModel)]="T_CARAT"/>
           </mat-form-field>
 
-        <article class="btn-wrapper">
-          <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData1();">
+        <!-- <article class="btn-wrapper"> -->
+          <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData1();LoadGridData();">
               <svg class="icon icon-show">
                 <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
               </svg>
             </button>
+        <!-- </article> -->
         </article>
-        </article>
-
-        <div class="aggrid-wrapper" style="display: flex;">
+        <div class="container" style="display: inline-table;position: relative;">
+        <div class="aggrid-wrapper first-span" style="display: inline-flex;">
             <ag-grid-angular class="ag-theme-alpine select-color" style="width: 190px; height: 80vh;" [defaultColDef]="defaultColDef"
-              [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (cellDoubleClicked)="onCellDoubleClick($event)" [animateRows]="true">
+              [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (touchstart)="onTouchStart($event)" (cellDoubleClicked)="onCellDoubleClick($event)" [animateRows]="true">
             </ag-grid-angular>
-          <div class="memo-ent-grid prc-view-grid">
-            <ag-grid-angular style="margin-left: 15px;width: 1320px; height: 80vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef1"
-              [columnDefs]="columnDefs1" [getRowStyle]="getRowStyle" (cellEditingStopped)="OnCellEditingStart($event)" [pinnedBottomRowData]="pinnedBottomRowData" (gridReady)="onGridReady1($event)" [animateRows]="true">
+          <div class="memo-ent-grid prc-view-grid second-span">
+            <ag-grid-angular style="margin-left: 15px;width: 82vw; height: 80vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef1"
+              [columnDefs]="columnDefs1" [rowMultiSelectWithClick]="true" [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle" (cellClicked)="oncellClick($event)" (cellEditingStopped)="OnCellEditingStart($event)" [pinnedBottomRowData]="pinnedBottomRowData" (gridReady)="onGridReady1($event)" [animateRows]="true">
             </ag-grid-angular>
-          </div>
-          </div>
-</section>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

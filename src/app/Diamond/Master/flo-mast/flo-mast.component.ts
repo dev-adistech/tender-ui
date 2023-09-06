@@ -170,7 +170,7 @@ export class FloMastComponent implements OnInit {
       FL_ORD: this.FL_ORD ? this.FL_ORD : 0
     }
     this.spinner.show()
-    this.FloMastServ.FloMastSave(SaveObj).subscribe((SaveRes) => {
+    this.FloMastServ.FloMastsmipleSave(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
           this.spinner.hide()
@@ -194,7 +194,7 @@ export class FloMastComponent implements OnInit {
 
   LoadGridData() {
     this.spinner.show()
-    this.FloMastServ.FloMastFill({}).subscribe((FillRes) => {
+    this.FloMastServ.FloMastsmipleFill({}).subscribe((FillRes) => {
 
       try {
         if (FillRes.success == true) {
@@ -246,7 +246,7 @@ export class FloMastComponent implements OnInit {
         }).then(result => {
           if (result.value) {
             this.spinner.show()
-            this.FloMastServ.FloMastDelete({ FL_CODE: eve.data.FL_CODE }).subscribe((DelRes) => {
+            this.FloMastServ.FloMastsmipleDelete({ FL_CODE: eve.data.FL_CODE }).subscribe((DelRes) => {
               try {
                 if (DelRes.success == true) {
                   this.spinner.hide()

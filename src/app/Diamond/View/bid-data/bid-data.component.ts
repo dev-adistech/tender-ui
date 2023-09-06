@@ -150,6 +150,7 @@ export class BidDataComponent implements OnInit {
                   "background-color": GroupData[i].Data[j].BACKCOLOR,
                 },
                 resizable: GroupData[i].Data[j].ISRESIZE,
+                
                 GROUPKEY: GroupData[i].Data[j].GROUPKEY,
                 hide: GroupData[i].Data[j].DISP == false ? true : false,
                 pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
