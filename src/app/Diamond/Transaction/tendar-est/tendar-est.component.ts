@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from "ngx-toastr";
@@ -179,7 +179,7 @@ export class TendarEstComponent implements OnInit {
   CliCKEDDATA:any=''
 
   agGridWidth: number = 0;
-  agGridStyles: string = `width: 100%;height: 58vh; margin-bottom: 9%;`;
+  agGridStyles: string = `width: 100%;height: calc(100vh - 469px); margin-bottom: 9%;`;
   DOCKON:boolean = false
 
   dummay_variable:any='newdivadd_variable'
@@ -206,6 +206,8 @@ export class TendarEstComponent implements OnInit {
     display: 'grid',
   };
 
+  @ViewChild('lienzo1') lienzo1: any;
+
   CANAVASOPEN:boolean =false 
   TendarStyle:string=`width: calc(100% - 150px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
   AreaBoxStyle:string=`border:1px solid black;width: 100%;resize: none;`;
@@ -214,6 +216,8 @@ export class TendarEstComponent implements OnInit {
   HearderBoxStyle:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
 
   dummay_class:any="abhishek"
+
+  NEWIMAGE:any = ''
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -1990,7 +1994,7 @@ export class TendarEstComponent implements OnInit {
   DockON() {
     if(this.DOCKON == false){
       this.DOCKON = true
-      this.agGridStyles =`width: 100%; height: 58vh ; margin-bottom: 9%;`
+      this.agGridStyles =`width: 100%; height: calc(100vh - 469px); margin-bottom: 9%;`
       this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
       this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
       this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
@@ -1998,7 +2002,7 @@ export class TendarEstComponent implements OnInit {
       // this.ContainWidth=`width:145%`;
     }else{
       this.DOCKON = false
-      this.agGridStyles =`width: 100%; height: 58vh; margin-bottom: 9%;`
+      this.agGridStyles =`width: 100%; height: calc(100vh - 469px); margin-bottom: 9%;`
       this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
       this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
       this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
@@ -2362,15 +2366,11 @@ export class TendarEstComponent implements OnInit {
             }
           }
         }
-        console.log(NewArray)
-        console.log(TotalValue)
-        console.log(LastSum)
         let highestRate = 0;
         let highAmt = -Infinity
         if(params.data.PLNSEL == true){
           for(let i=0;i<TotalValue.length;i++){
             if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
-              console.log(TotalValue[i])
               highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
               this.PKTPER = highestRate.toFixed(2)
             }
@@ -2403,9 +2403,9 @@ export class TendarEstComponent implements OnInit {
 
   
   ADISCHANGE(params){
-    let NewValue = (params/100)*this.PKTPER
-    let FinalValue = this.PKTPER + NewValue
-    this.FINALBID =FinalValue
+    let NewValue = (parseFloat(params)/100)*parseFloat(this.PKTPER)
+    let FinalValue = parseFloat(this.PKTPER) + NewValue
+    this.FINALBID =FinalValue.toFixed(2)
   }
 
   async FindRap(params) {
@@ -2486,15 +2486,11 @@ export class TendarEstComponent implements OnInit {
           }
         }
       }
-      console.log(NewArray)
-      console.log(TotalValue)
-      console.log(LastSum)
       let highestRate = 0;
       let highAmt = -Infinity
       if(params.data.PLNSEL == true){
         for(let i=0;i<TotalValue.length;i++){
           if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
-            console.log(TotalValue[i])
             highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
           }
@@ -2582,15 +2578,11 @@ export class TendarEstComponent implements OnInit {
           }
         }
       }
-      console.log(NewArray)
-      console.log(TotalValue)
-      console.log(LastSum)
       let highestRate = 0;
       let highAmt = -Infinity
       if(params.data.PLNSEL == true){
         for(let i=0;i<TotalValue.length;i++){
           if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
-            console.log(TotalValue[i])
             highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
           }
@@ -2797,15 +2789,11 @@ export class TendarEstComponent implements OnInit {
                 }
               }
             }
-            console.log(NewArray)
-            console.log(TotalValue)
-            console.log(LastSum)
             let highestRate = 0;
             let highAmt = -Infinity
             if(params.data.PLNSEL == true){
               for(let i=0;i<TotalValue.length;i++){
                 if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
-                  console.log(TotalValue[i])
                   highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
                   this.PKTPER = highestRate.toFixed(2)
                 }
@@ -2824,24 +2812,11 @@ export class TendarEstComponent implements OnInit {
                   }
                 }
               }
-        }
-        this.PKTPER = highestRate.toFixed(2)
-        let NewValue = (this.ADIS/100)*this.PKTPER
-        let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-        this.FINALBID =FinalValue1.toFixed(2)
-
-            // let highestRate = 0;
-            // let highAmt = -Infinity
-            // for (let i = 0; i < PTAGROW.length; i++) {
-            //   if (PTAGROW[i].AMT > highAmt) {
-            //     highAmt = PTAGROW[i].AMT
-            //     highestRate = PTAGROW[i].RATE
-            //   }
-            // }
-            // this.PKTPER = highestRate.toFixed(2)
-            // let NewValue = (this.ADIS/100)*this.PKTPER
-            // let FinalValue1 = this.PKTPER + NewValue
-            // this.FINALBID =FinalValue1
+            }
+            this.PKTPER = highestRate.toFixed(2)
+            let NewValue = (this.ADIS/100)*this.PKTPER
+            let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+            this.FINALBID =FinalValue1.toFixed(2)
             this.gridApi1.refreshCells({ force: true });
 
           }
@@ -2947,6 +2922,49 @@ export class TendarEstComponent implements OnInit {
         return this.toastr.warning('Your Carat Was Greater Than Weight')
       }
     }
+    let ConditionArray =[]
+    for (let i = 0; i < SubData.length; i++) {
+      if (
+        SubData[i].S_CODE ||
+        SubData[i].C_CODE ||
+        SubData[i].Q_CODE ||
+        parseFloat(SubData[i].CARAT) ||
+        SubData[i].LB_CODE
+      ) {
+        if(
+        !SubData[i].S_CODE ||
+        !SubData[i].C_CODE ||
+        !SubData[i].Q_CODE ||
+        !parseFloat(SubData[i].CARAT) ||
+        !SubData[i].CT_CODE ||
+        !SubData[i].FL_CODE ||
+        !SubData[i].LB_CODE ||
+        !SubData[i].IN_CODE ||
+        !SubData[i].ML_CODE
+        ){
+          if(!SubData[i].S_CODE){
+            ConditionArray.push('Shape')
+          }else if(!SubData[i].C_CODE){
+            ConditionArray.push('Color')
+          }else if(!SubData[i].Q_CODE){
+            ConditionArray.push('Clarity')
+          }else if(!parseFloat(SubData[i].CARAT)){
+            ConditionArray.push('Carat')
+          }else if(!SubData[i].CT_CODE){
+            ConditionArray.push('Cut')
+          }else if(!SubData[i].FL_CODE){
+            ConditionArray.push('Fluorescence')
+          }else if(!SubData[i].LB_CODE){
+            ConditionArray.push('Lab')
+          }else if(!SubData[i].IN_CODE){
+            ConditionArray.push('Inclusion')
+          }else if(!SubData[i].ML_CODE){
+            ConditionArray.push('Milky')
+          }
+        return this.toastr.warning(ConditionArray[0] + ' ' +'is Missing');  
+        }
+      }
+    }
 
 
     let PerArr = [];
@@ -3038,14 +3056,10 @@ export class TendarEstComponent implements OnInit {
       if (el) {
         el.Data.push(x);
       } else {
-        // for(let i=0;i<s2.length;i++){
-        // if(s2[i].SRNO === _GROUPKEY){
         rv.push({
           GROUPKEY: _GROUPKEY,
           Data: [x],
         });
-        //   }
-        // }
       }
 
       return rv;
@@ -4150,11 +4164,43 @@ export class TendarEstComponent implements OnInit {
       autoFocus: false,
       minWidth: "30%",
       width: "67%",
+      disableClose: true,
       data: this.DOCKData
     })
 
     $("#Close").click()
-    dialogRef.afterClosed().subscribe((result) => { })
+    dialogRef.afterClosed().subscribe((result) => { 
+      let NewObj = {
+        COMP_CODE: this.COMP_CODE,
+        DETID:this.CliCKEDDATA.DETID,
+        SRNO: this.CliCKEDDATA.SRNO,
+      }
+      this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+        try{
+          if(NewRes.success == true){
+            this.NEWIMAGE = NewRes.data[0].PRN
+            const imageUrl = this.NEWIMAGE;
+
+          fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => createImageBitmap(blob))
+        .then(imageBitmap => {
+          // Draw the ImageBitmap on the canvas
+          const canvas = document.getElementById('lienzo1') as HTMLCanvasElement;
+          const context = canvas.getContext('2d');
+          canvas.width = imageBitmap.width;
+          canvas.height = imageBitmap.height;
+          context.drawImage(imageBitmap, 0, 0);
+        })
+        .catch(error => {
+          console.error('Error fetching or drawing image:', error);
+        });
+          }
+        } catch (error){
+          this.spinner.hide()
+        }
+      })
+    })
   }
 
   GETNAME() {
@@ -4381,31 +4427,69 @@ export class TendarEstComponent implements OnInit {
               LastSum += NewSum1
             }
           }
-        
-          let highestRate = 0;
-          let highAmt = -Infinity
-            for (let i = 0; i < _GridRowData.length; i++) {
-              // if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO == parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === 'Total') {
-              //   _GridRowData[i].AMT = LastSum
-              // }
-            
-              if(_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO == parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === 'Total' && RapObj.PLNSEL == 'true'){
-                  highAmt = LastSum
-                  highestRate = LastSum / _GridRowData[i].CARAT
-                  break
-              }else{
-               if (_GridRowData[i].AMT > highAmt) {
-                  highAmt = _GridRowData[i].AMT
-                  highestRate = _GridRowData[i].AMT / _GridRowData[i].CARAT
+          
+          let totalSum =[]
+          let FINALAMT=0
+          for(let i=0;i<_GridRowData.length;i++){
+            if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO == parseInt(RapObj.SRNO) && _GridRowData[i].PTAG === 'Total') {
+              totalSum.push({NEWAMT:LastSum,data:_GridRowData[i]})
+            } else if(_GridRowData[i].PTAG === 'Total'){
+              totalSum.push({NEWAMT:_GridRowData[i].AMT,data:_GridRowData[i]})
+            }
+          }
+          let LastSum1 =0
+          for(let i=0; i<_GridRowData.length;i++){
+            for(let j=0;j<totalSum.length;j++){
+              if(totalSum[j].data['PLANNO']===_GridRowData[i].PLANNO  && _GridRowData[i].PTAG !== totalSum[j].data['PTAG'] && _GridRowData[i].PLANNO !== RapObj.PLANNO){
+                let carat1 = _GridRowData[i].CARAT
+              let orap1 = _GridRowData[i].ORAP
+              let MperValue1
+              if(parseFloat(_GridRowData[i].MPER)!== 0 && parseFloat(_GridRowData[i].MPER) !== 100){
+                MperValue1 = _GridRowData[i].MPER
+              }else {
+                MperValue1 = _GridRowData[i].PER
+              }
+              let newArray1 = (MperValue1 / 100) * orap1
+              let FinalValue1 = orap1 - newArray1
+              let NewSum1 = FinalValue1 * carat1
+              LastSum1 += NewSum1
+              } else if (totalSum[j].data['PLANNO']===_GridRowData[i].PLANNO && _GridRowData[i].PLANNO !== RapObj.PLANNO){
+                totalSum[j].NEWAMT = LastSum1
+                totalSum[j].data['PLNSEL'] = _GridRowData[i].PLNSEL
+                LastSum1 =0
               }
             }
           }
-          this.PKTPER = highestRate.toFixed(2)
+
+          let highestRate = 0;
+      let highAmt = -Infinity
+      if(RapObj.PLNSEL == 'true'){
+        for(let i=0;i<totalSum.length;i++){
+          if(totalSum[i].data['PLANNO'] === parseInt(RapObj.PLANNO) && totalSum[i].data['SRNO'] === parseInt(RapObj.SRNO)){
+            highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
+            this.PKTPER = highestRate.toFixed(2)
+          }
+        }
+      } else {
+        for(let i=0;i<totalSum.length;i++){
+          if(totalSum[i].data['PLNSEL'] === true){
+            highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
+            this.PKTPER = highestRate.toFixed(2)
+            break
+          }else{
+            if (totalSum[i].NEWAMT > highAmt) {
+              highAmt = totalSum[i].NEWAMT
+              highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
+              this.PKTPER = highestRate.toFixed(2)
+            }
+          }
+        }
+      }
           let NewValue = (this.ADIS/100)*this.PKTPER
           let FinalValue1 = parseFloat(this.PKTPER) + NewValue
           this.FINALBID =FinalValue1.toFixed(2)
 
-          this.gridApi1.refreshCells({ force: true })
+          // this.gridApi1.refreshCells({ force: true })
         }
       } catch (err) {
         console.log(err);
@@ -4462,7 +4546,6 @@ export class TendarEstComponent implements OnInit {
   }
 
   OnCellCLICK(eve){
-    console.log(eve)
     this.gridApi1.startEditingCell({
       rowIndex: eve.rowIndex,
       colKey: eve.colDef.field,
@@ -4551,6 +4634,40 @@ export class TendarEstComponent implements OnInit {
                 }
               }
             }
+
+      let li = this.lienzo1.nativeElement;
+      li.width = window.innerWidth - 400;
+      this.CliCKEDDATA = eve.data
+      let NewObj = {
+        COMP_CODE: this.COMP_CODE,
+        DETID:eve.data.DETID,
+        SRNO: eve.data.SRNO,
+      }
+      this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+        try{
+          if(NewRes.success == true){
+            this.NEWIMAGE = NewRes.data[0].PRN
+            const imageUrl = this.NEWIMAGE;
+
+          fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => createImageBitmap(blob))
+        .then(imageBitmap => {
+          // Draw the ImageBitmap on the canvas
+          const canvas = document.getElementById('lienzo1') as HTMLCanvasElement;
+          const context = canvas.getContext('2d');
+          canvas.width = imageBitmap.width;
+          canvas.height = imageBitmap.height;
+          context.drawImage(imageBitmap, 0, 0);
+        })
+        .catch(error => {
+          console.error('Error fetching or drawing image:', error);
+        });
+          }
+        } catch (error){
+          this.spinner.hide()
+        }
+      })
 
             if(eve.data.AUSER !== this.decodedTkn.UserId && this.decodedTkn.U_CAT == 'U'){
               this.disabledata = true

@@ -1,4 +1,4 @@
-<canvas width="10" height="450" style="border: 1px solid;height: 450px; width: 100%;" #lienzo id="lienzo"></canvas>
+<canvas width="1000" height="450" style="border: 1px solid;height: 450px;" #lienzo id="lienzo"></canvas>
 <div class="controls">
   <input type="color" (change)="cambiarColor()" [(ngModel)]="color"/>
   <!-- <button class="mui-btn mui-btn--primary" (click)="borrar()">Clear</button> -->
@@ -25,6 +25,13 @@
     </button>
   <input type="range" min="1" max="25" [(ngModel)]="radio" (change)="changeRadio()">
   <div class="radio" [style.padding.px]="(radio/2)"></div>
+
+  <button class="btn theme-btn mr-2 ml-auto" matTooltip='close' matTooltipClass="custom-tooltip"
+          (click)="CLOSE()">
+          <svg class="icon icon-close">
+            <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+          </svg>
+        </button>
 </div>
 <ngx-spinner>
   <p style="color: white;"> Loading..</p>

@@ -117,6 +117,7 @@
                       CTS</mat-label>
                     <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">
                       S.R.W</mat-label>
+                    <!-- <mat-label style="border:1px solid black;padding: 1px 29.5px; text-align: center;border-right:none;"> </mat-label> -->
                     <input type="text" style="border:1px solid black;width: 60px;height: 25px;border-right:none;" disabled
                       name="Code" autocomplete="off" />
                     <mat-label style="border:1px solid black;padding: 1px 30px; text-align: left;border-right:none;">FLOR
@@ -583,10 +584,11 @@
             </div>
           </div>
           <!-- </div> -->
+          <canvas width="10" height="170" style="border: 1px solid;height: 170px; width: calc(100vw - 36px);max-width: 1087px;" #lienzo1 id="lienzo1"></canvas>
           <div class="newGrid">
             <ag-grid-angular [style]="agGridStyles" [getRowStyle]="getRowStyle" class="ag-theme-alpine select-color"
               [defaultColDef]="defaultColDef1" [columnDefs]="columnDefs1" (rowClicked)="RowClicked($event)"
-              (cellValueChanged)="FindRap($event)" (gridReady)="onGridReady1($event)" [animateRows]="true"
+              (cellValueChanged)="FindRap($event)" (cellClicked)="OnCellCLICK($event)" (gridReady)="onGridReady1($event)" [animateRows]="true"
               style="position: relative;">
             </ag-grid-angular>
           </div>

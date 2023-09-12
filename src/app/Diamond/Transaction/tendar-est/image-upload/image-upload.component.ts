@@ -24,7 +24,6 @@ export class ImageUploadComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public dataMain: any
   ) { 
     this.data = dataMain
-    console.log("27",dataMain)
   }
 
   ngOnInit(){
@@ -71,7 +70,6 @@ export class ImageUploadComponent implements OnInit {
     const selectedFile = inputElement.files?.[0];
 
     if (selectedFile) {
-      console.log(selectedFile)
 
       const file = selectedFile
             const blob = new Blob([file], { type: "image/png" });

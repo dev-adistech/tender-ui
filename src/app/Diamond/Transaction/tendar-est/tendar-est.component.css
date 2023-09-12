@@ -109,5 +109,13 @@ input[type=text]:focus {
 	}
 }
 
+input:disabled{
+	background-color:#ffffff;
+	color: black;
+}
+.tenderTxt:disabled{
+	background-color:#ffffff;
+	color: black;
+}
 
 

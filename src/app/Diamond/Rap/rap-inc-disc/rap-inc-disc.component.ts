@@ -612,7 +612,6 @@ export class RapIncDiscComponent implements OnInit {
 
             })
           }).subscribe((StoneChkRes) => {
-            console.log('stonechkres1=>', StoneChkRes)
             try {
               let data = [];
               data = StoneChkRes.map((item) => item.data.map((_item) => ({
@@ -623,7 +622,6 @@ export class RapIncDiscComponent implements OnInit {
               let data2 = [];
 
               data.map((item) => item.map((_item) => data2.push(_item)))
-              console.log('DATA=>', data)
               StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)))
               if (!data.length) {
                 this.toastr.warning('No Data!!')
@@ -674,9 +672,6 @@ export class RapIncDiscComponent implements OnInit {
         } else {
 
           this.tempDataArr = []
-
-          console.log(JSON.stringify(this.tempDataArr))
-
           let SheetName = this.incs.map((incs) => { return incs.code })
           let SHAPE = this.incs.map((incs) => { return incs.name })
           // this.spinner.show();
@@ -692,7 +687,6 @@ export class RapIncDiscComponent implements OnInit {
               }
             })
           }).subscribe((StoneChkRes) => {
-            console.log('stonechkres=>', StoneChkRes)
             try {
 
               let data = [];
@@ -705,8 +699,6 @@ export class RapIncDiscComponent implements OnInit {
               let data2 = [];
 
               data.map((item) => item.map((_item) => data2.push(_item)))
-              console.log(data2)
-
               this.spinner.hide();
               // StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)));
 
@@ -801,7 +793,6 @@ export class RapIncDiscComponent implements OnInit {
           var first_sheet_name = workbook.SheetNames[sheet];
           var worksheet = workbook.Sheets[first_sheet_name];
           newRecords = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '', blankrows: false, raw: false })
-          console.log(newRecords)
           let RapAr = []
           RapAr = newRecords[1][1].split('_')
           RType = RapAr[0]
@@ -816,8 +807,6 @@ export class RapIncDiscComponent implements OnInit {
           Itype = newRecords[1][1].split('_')[2]
           i_TYPE = newRecords[2][1].split('_')[1]
           s_NAME = newRecords[2][1].split('_')[0]
-          // console.log(JSON.stringify(newRecords))
-          // console.log('I_TYPE=>', newRecords[2][1].split('_')[2])
           this.spinner.hide()
 
 
@@ -825,12 +814,9 @@ export class RapIncDiscComponent implements OnInit {
           if (newRecords[0].length != 0) {
             let mappedData = this.RapIncDiscComponent(newRecords, i_TYPE, s_NAME, RTyp, Itype)
             DataObj.push(mappedData)
-
-            // console.log('new data=>', DataObj)
           }
 
         }
-        console.log(DataObj)
         this.spinner.show()
         this.RapIncDiscServ.RapIncDiscImport(DataObj).subscribe((SaveRes) => {
 
@@ -843,7 +829,6 @@ export class RapIncDiscComponent implements OnInit {
               }).subscribe(RapRes => {
                 this.spinner.hide()
                 this.toastr.success('INC Upload Successfully')
-                console.log(RapRes)
               })
             } else {
               this.spinner.hide()

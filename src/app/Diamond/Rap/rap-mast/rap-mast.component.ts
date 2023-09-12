@@ -461,7 +461,6 @@ export class RapMastComponent implements OnInit {
     this.RapMastServ.RapTypeFill({ TYPE: "RTYPE", TABNAME: "" }).subscribe(RRes => {
       try {
         if (RRes.success == true) {
-          console.log(RRes);
           this.RTARR = RRes.data.map(item => {
             return { code: item.RTYPE, name: item.RAPNAME, DISP: item.DISP };
           });
@@ -635,11 +634,8 @@ export class RapMastComponent implements OnInit {
   }
 
   onCellClicked(event) {
-    console.log(event)
     const selectedCell = this.gridApi.getFocusedCell()
-    console.log(selectedCell);
     const columnDefs = this.gridApi.getColumnDefs();
-    // console.log(columnDefs)
     columnDefs[1].children.map((it) => {
       if (it.headerName == selectedCell.column.colDef.headerName) {
         setTimeout(() => {
@@ -650,8 +646,6 @@ export class RapMastComponent implements OnInit {
       }
     })
     this.gridApi.refreshCells();
-    // this.gridApi.redrawRows();
-
   }
 
   LoadGridData() {
@@ -1033,8 +1027,6 @@ export class RapMastComponent implements OnInit {
             RTYPE: t.RTYPE
           }
         }))
-        console.log(ExRap)
-        console.log('DataObj', newRecords);
         if (ExRap[0][0].RTYPE != this.RTYPE) {
           this.toastr.warning("Selected Paramter Invalid")
           return;
@@ -1313,8 +1305,6 @@ export class RapMastComponent implements OnInit {
 
   async fillData() {
     this.spinner.show()
-    console.log(this.sizes)
-
     if (this.S_CODE) {
       this.RapMastServ.RapMastExportFast({
         Data: this.sizes.map((item) => {
@@ -1329,7 +1319,6 @@ export class RapMastComponent implements OnInit {
         try {
           let data = []
               let data2 = [];
-              // StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)))
               data = StoneChkRes.map((item) => item.data.map((_item) => ({
                 ..._item,
                 SIZE: item.SZ_NAME,
@@ -1337,7 +1326,6 @@ export class RapMastComponent implements OnInit {
               })));
 
               data.map((item) => item.map((_item) => data2.push(_item)))
-              console.log(data2)
               StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)))
               if (!data2.length) {
                 this.toastr.warning('No Data!!')
@@ -1350,7 +1338,6 @@ export class RapMastComponent implements OnInit {
           mapForm.action = `http://${this.url}:${this.port}/api/RapMast/RapMastExcelDownload`;
 
           let QuaData = this.FillDataSet("QUAMAST");
-          console.log(QuaData)
           let _QuaData = QuaData[0].map(item => {
 
             return { code: 'Q' + item.Q_CODE, name: item.Q_NAME };
@@ -1363,7 +1350,6 @@ export class RapMastComponent implements OnInit {
             RTYPE: this.RTYPE,
             RTYPENAME: this.RTARR.find((x) => x.code == this.RTYPE).name,
           }
-          console.log("4573564",obj)
 
           Object.keys(obj).forEach(function (param) {
             if (obj[param]) {
@@ -1411,19 +1397,6 @@ export class RapMastComponent implements OnInit {
         })
       }).subscribe((StoneChkRes) => {
         try {
-          // console.log("1504", StoneChkRes)
-
-          // let data = [];
-          // StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)));
-          // // console.log(data);
-          // // this.ExportDataLog(this.groupByArraySizeWise(data, 'SIZE'));
-          // this.tempDataArr.push(this.groupByArraySizeWise(data, 'SIZE'))
-          // if (this.tempDataArr.length == newshap.length) {
-          //   if (!this.tempDataArr.length) {
-          //     this.toastr.warning('No Data!!')
-          //     return
-          //   }
-
             let data = [];
               // this.spinner.hide();
               // StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)));
@@ -1435,9 +1408,7 @@ export class RapMastComponent implements OnInit {
               let data2 = [];
 
               data.map((item) => item.map((_item) => data2.push(_item)))
-              console.log(data2)
               StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)))
-              // this.ExportDataLog(this.groupByArraySizeWise(data, 'SIZE'));
               this.tempDataArr.push(this.groupByArraySizeWise(data2, 'SIZE'))
               if (this.tempDataArr.length == newshap.length) {
                 if (!this.tempDataArr.length) {
@@ -1453,7 +1424,6 @@ export class RapMastComponent implements OnInit {
             let _QuaData = QuaData[0].map(item => {
               return { code: 'Q' + item.Q_CODE, name: item.Q_NAME };
             });
-            console.log(shape)
             let obj = {
               DataRow: JSON.stringify(this.tempDataArr),
               QuaData: JSON.stringify(_QuaData),
@@ -1499,7 +1469,6 @@ export class RapMastComponent implements OnInit {
       } else {
         rv.push({ SIZE: v, Data: [x] });
       }
-      // console.log(SIZE)
       return rv;
     }, []);
   }

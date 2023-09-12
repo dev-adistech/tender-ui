@@ -379,7 +379,6 @@ export class RapFloDiscComponent implements OnInit {
     //     }
     //   } catch (error) {
     //     this.spinner.hide();
-    //     console.log(error)
     //     this.toastr.error(error);
     //   }
     // });
@@ -606,7 +605,6 @@ export class RapFloDiscComponent implements OnInit {
               })));
 
               data.map((item) => item.map((_item) => data2.push(_item)))
-              console.log(data2)
               StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)))
               if (!data2.length) {
                 this.toastr.warning('No Data!!')
@@ -619,7 +617,6 @@ export class RapFloDiscComponent implements OnInit {
               mapForm.action = `http://${this.url}:${this.port}/api/RapFloDisc/RapFloDiscExcelDownload`;
 
               let QuaData = this.FillDataSet("FLOMAST");
-              console.log(QuaData)
               let _QuaData = QuaData[0].map(item => {
 
                 return { code: 'Q' + item.FL_CODE, name: item.FL_NAME };
@@ -633,7 +630,6 @@ export class RapFloDiscComponent implements OnInit {
                 CT_CODE: this.CT_NAME,
                 S_CODE: this.S_NAME ? this.S_NAME : this.shapes.find((item) => item.code == 'PE' ? item.name : '').name,
               }
-              console.log(obj)
 
               Object.keys(obj).forEach(function (param) {
                 if (obj[param]) {
@@ -674,7 +670,6 @@ export class RapFloDiscComponent implements OnInit {
             })
           }).subscribe((StoneChkRes) => {
             try {
-              console.log(StoneChkRes)
               let data = [];
               data = StoneChkRes.map((item) => item.data.map((_item) => ({
                 ..._item,
@@ -684,7 +679,6 @@ export class RapFloDiscComponent implements OnInit {
               let data2 = [];
 
               data.map((item) => item.map((_item) => data2.push(_item)))
-              console.log(data2)
               StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)))
               this.tempDataArr.push(this.groupByArraySizeWise(data2, 'SIZE'))
               if (this.tempDataArr.length == this.flos.length) {
@@ -698,7 +692,6 @@ export class RapFloDiscComponent implements OnInit {
                 mapForm.method = "POST";
                 mapForm.action = `http://${this.url}:${this.port}/api/RapFloDisc/RapFloDiscExcelDownload`;
                 let QuaData = this.FillDataSet("FLOMAST");
-                console.log(QuaData)
 
                 let _QuaData = QuaData[0].map(item => {
                   return { code: 'Q' + item.FL_CODE, name: item.FL_NAME };
@@ -715,7 +708,6 @@ export class RapFloDiscComponent implements OnInit {
                   S_CODE: this.S_NAME ? this.S_NAME : this.shapes.find((item) => item.code == 'PE' ? item.name : '').name,
 
                 }
-                console.log(obj)
                 Object.keys(obj).forEach(function (param) {
 
                   var mapInput = document.createElement("input");
@@ -732,7 +724,6 @@ export class RapFloDiscComponent implements OnInit {
 
             } catch (err) {
               this.spinner.hide()
-
               console.log(err)
             }
           }))
@@ -811,14 +802,11 @@ export class RapFloDiscComponent implements OnInit {
           var first_sheet_name = workbook.SheetNames[sheet];
           var worksheet = workbook.Sheets[first_sheet_name];
           newRecords = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '', blankrows: false, raw: false })
-          console.log(newRecords)
           let RapAr = []
           RapAr = newRecords[1][1].split('_')
          
           RType = RapAr[0]
           this.Import.nativeElement.value = '';
-          // console.log(RapType)
-          // console.log(RType)
           if (RType != this.RTARR.find((x) => x.code == this.RTYPE).name) {
             this.toastr.warning('Select Valid Parameter')
             this.spinner.hide();
@@ -826,12 +814,8 @@ export class RapFloDiscComponent implements OnInit {
           }
           RTyp = this.RTARR.find((x) => x.name == RType).code
           S_NAME = newRecords[2][1].split('-')[0]
-          console.log(S_NAME)
-          console.log('S_NAME', newRecords[2][1])
           FL_NAME = newRecords[2][1].split('-')[2]
-          console.log(FL_NAME)
           CT_NAME = newRecords[2][1].split('-')[1]
-          console.log(JSON.stringify(newRecords))
           this.spinner.hide()
 
 
@@ -839,12 +823,10 @@ export class RapFloDiscComponent implements OnInit {
           if (newRecords[0].length != 0) {
             let mappedData = this.DataMapforImport(newRecords, S_NAME, CT_NAME, FL_NAME, RAP, RTyp)
             DataObj.push(mappedData)
-            console.log(DataObj)
           }
         }
         this.spinner.show()
         this.RapFloDiscServ.RapFloDiscImport(DataObj).subscribe((SaveRes) => {
-          console.log(SaveRes);
           try {
             if (SaveRes.success == true) {
               this.spinner.show()
@@ -852,7 +834,6 @@ export class RapFloDiscComponent implements OnInit {
                 RTYPE: RTyp,
                 TYP: "FLO"
               }).subscribe(RapRes => {
-                console.log(RapRes)
                 this.spinner.hide()
                 this.toastr.success('Flors upload successfully')
               })

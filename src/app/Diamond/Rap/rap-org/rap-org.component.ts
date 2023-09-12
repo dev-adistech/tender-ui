@@ -599,11 +599,6 @@ export class RapOrgComponent implements OnInit {
   }
 
   uploadCSVData($event: any) {
-    console.log("######",this.decodedMast[1])
-    // if (this.PASS != this.PASSWORD) {
-    //   this.toastr.warning("Incorrect Password")
-    //   return
-    // }
 
     let files = $event.srcElement.files;
     let newFileName = files[0].name.toLowerCase();
@@ -673,14 +668,10 @@ export class RapOrgComponent implements OnInit {
               F_CARAT: finalarr[i].fsize,
               T_CARAT: finalarr[i].tsize,
             }
-            console.log("SaveObj",SaveObj)
             this.RapOrgServ.RapOrgSave(SaveObj).then((SaveRes) => {
               try {
 
                 if (SaveRes.success == true) {
-                  // this.spinner.hide()
-                  // this.toastr.success('save')
-                  // this.LoadGridData()
                 } else {
                   this.spinner.hide()
                   Swal.fire({

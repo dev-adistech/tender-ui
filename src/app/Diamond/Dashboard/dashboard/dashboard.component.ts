@@ -32,7 +32,6 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.clickEventsubscription = this.DashboardServ.getClickEvent().subscribe((res) => {
-      console.log(res);
       // this.onPress(res)
       this.close();
     });

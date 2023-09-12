@@ -348,7 +348,6 @@ export class TendarMastComponent implements OnInit {
   }
 
   onCellDoubleClicked(eve){
-    console.log(eve)
     if(eve.colDef.headerName == 'Action' || eve.colDef.field == "ISACTIVE"){
       return;
     }
@@ -357,7 +356,6 @@ export class TendarMastComponent implements OnInit {
     }
     this.EVEDATA=eve.data
 	  this.HIDEPOPUP=true
-	  console.log(eve)
     this.ClearPop()
     this.LoadGridData1();
     }
@@ -469,7 +467,6 @@ export class TendarMastComponent implements OnInit {
   }
 
   SavePop() {
-    console.log(this.EVEDATA)
     if (!this.ALLOWINS) {
       this.toastr.warning(
         "Insert Permission was not set!!",

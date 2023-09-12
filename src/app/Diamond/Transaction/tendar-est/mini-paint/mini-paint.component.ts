@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -27,7 +27,7 @@ export class MiniPaintComponent implements OnInit {
 
   ngAfterViewInit(){
     let li = this.lienzo.nativeElement;
-    li.width = window.innerWidth - 400;
+    li.width = 1000;
     this.signature = new SignaturePad(li, { backgroundColor: 'white' });
 
     let NewObj = {
@@ -48,7 +48,7 @@ export class MiniPaintComponent implements OnInit {
         // Draw the ImageBitmap on the canvas
         const canvas = document.getElementById('lienzo') as HTMLCanvasElement;
         const context = canvas.getContext('2d');
-        canvas.width = imageBitmap.width;
+        canvas.width = 1000;
         canvas.height = imageBitmap.height;
         context.drawImage(imageBitmap, 0, 0);
       })
@@ -60,27 +60,6 @@ export class MiniPaintComponent implements OnInit {
         this.spinner.hide()
       }
     })
-
-//  if(this.NEWIMAGE){
-//     const imageUrl = this.NEWIMAGE;
-
-//     fetch(imageUrl)
-//       .then(response => response.blob())
-//       .then(blob => createImageBitmap(blob))
-//       .then(imageBitmap => {
-//         // Draw the ImageBitmap on the canvas
-//         const canvas = document.getElementById('lienzo') as HTMLCanvasElement;
-//         const context = canvas.getContext('2d');
-//         canvas.width = imageBitmap.width;
-//         canvas.height = imageBitmap.height;
-//         context.drawImage(imageBitmap, 0, 0);
-//       })
-//       .catch(error => {
-//         console.error('Error fetching or drawing image:', error);
-//       });
-    
-    
-//     }
 
     this.cambiarColor();
     this.changeRadio();
@@ -107,21 +86,21 @@ data: any[] = []
     private spinner: NgxSpinnerService,
     private TendarEstServ: TendarEstService,
     private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public dataMain: any
+    @Inject(MAT_DIALOG_DATA) public dataMain: any,
+    private _mdr: MatDialogRef<MiniPaintComponent>
   ) { 
-    console.log(dataMain)
     this.data = dataMain
-
-    console.log(this.data)
   }
 
   ngOnInit(): void {
   }
 
+  CLOSE(){
+   this._mdr.close()
+  }
   
 download(){
   let a = document.getElementById('lienzo');
-  console.log(a)
   // a.href = this.signature.toDataURL();
   let NEWDATA = this.data
   let op = this

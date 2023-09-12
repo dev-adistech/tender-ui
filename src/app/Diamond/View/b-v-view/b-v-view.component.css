@@ -827,4 +827,12 @@ input[type=text]:focus {
       font-size: 12px;
     }
   }
-  
+
+  input:disabled{
+    background-color:#ffffff;
+    color: black;
+  }
+  .tenderTxt:disabled{
+    background-color:#ffffff;
+    color: black;
+  }

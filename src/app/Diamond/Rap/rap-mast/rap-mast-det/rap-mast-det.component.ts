@@ -235,7 +235,6 @@ export class RapMastDetComponent implements OnInit {
     this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'RapDisCompView' }).subscribe((VPRes) => {
       try {
         if (VPRes.success == 1) {
-          // console.log(VPRes)
           let GroupData = this.groupByArray(VPRes.data, "GROUPKEY")
           let ViewParaRowData = []
           for (let i = 0; i < GroupData.length; i++) {
@@ -288,7 +287,6 @@ export class RapMastDetComponent implements OnInit {
               } else {
                 tempData[j].valueFormatter = this._convFunction.StringFormat
               }
-              // console.log(this.FooterKey)
               this._gridFunction.FooterKey = this.FooterKey
               tempData[j].cellStyle = this.cellColor.bind(this)
             }

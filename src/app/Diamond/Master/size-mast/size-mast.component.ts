@@ -49,7 +49,6 @@ export class SizeMastComponent implements OnInit {
     private EncrDecrServ: EncrDecrService,
     private elementRef: ElementRef
   ) {
-    console.log(this.decodedMast)
     this.TypeArray = this.decodedMast[9].map(item => {
       return item.SZ_TYPE
     });

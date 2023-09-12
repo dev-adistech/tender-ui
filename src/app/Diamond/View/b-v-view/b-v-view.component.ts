@@ -411,8 +411,7 @@ export class BVViewComponent implements OnInit {
               this.rowData[i].GRID_DATA = this.GetRowData(this.rowData[i].DETID, this.rowData[i].SRNO, this.rowData[i].COMP_CODE,this.NewRowData)
             }
             this.spinner.hide();
-         
-            this.populateRowData()
+
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =
@@ -447,14 +446,6 @@ export class BVViewComponent implements OnInit {
         }
       }
     );
-  }
-
-  populateRowData() {
-    // this.GRIDROw = []
-    // for (let item of this.rowData) {
-    //   const newData = this.GetRowData(item.DETID, item.SRNO, item.COMP_CODE,this.NewRowData);
-    //   this.GRIDROw.push(...newData);
-    // }
   }
 
   GetRowData(DetId,Srno,Comp,data){

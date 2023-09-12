@@ -21,8 +21,6 @@ export class ColMastComponent implements OnInit {
 	@HostListener('window:scroll', ['$event'])
 	@HostListener('scroll', ['$event'])
 	scrollHandler(event) {
-		// console.debug("Scroll Event");
-		// console.log(event)
 	}
 	public columnDefs
 	public gridApi

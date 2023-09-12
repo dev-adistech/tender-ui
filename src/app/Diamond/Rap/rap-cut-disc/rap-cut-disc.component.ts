@@ -523,7 +523,6 @@ export class RapCutDiscComponent implements OnInit {
         this.toastr.error(error);
       }
     });
-    console.log(this.RapCutDiscServ.RapCutDiscFill)
   }
 
   PRPCHANGE() {
@@ -646,7 +645,6 @@ export class RapCutDiscComponent implements OnInit {
 
           })
         }).subscribe((StoneChkRes) => {
-          console.log('stone=>', StoneChkRes)
           try {
 
             let data = [];
@@ -659,7 +657,6 @@ export class RapCutDiscComponent implements OnInit {
             let data2 = [];
 
             data.map((item) => item.map((_item) => data2.push(_item)))
-            console.log('DATA2=>', data2)
             StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)))
             if (!data.length) {
               this.toastr.warning('No Data!!')
@@ -739,7 +736,6 @@ export class RapCutDiscComponent implements OnInit {
             let data2 = [];
 
             data.map((item) => item.map((_item) => data2.push(_item)))
-            console.log(data2)
 
             this.spinner.hide();
             // StoneChkRes.map((item) => item.data.map((_item) => data.push(_item)));
@@ -835,7 +831,6 @@ export class RapCutDiscComponent implements OnInit {
           var first_sheet_name = workbook.SheetNames[sheet];
           var worksheet = workbook.Sheets[first_sheet_name];
           newRecords = XLSX.utils.sheet_to_json(worksheet, { header: 1, defval: '', blankrows: false, raw: false })
-          // console.log(newRecords)
           let RapAr = []
           RapAr = newRecords[1][1].split('_')
           
@@ -851,7 +846,6 @@ export class RapCutDiscComponent implements OnInit {
           PRP_NAME = newRecords[2][1].split('-')[2]
           s_NAME = newRecords[2][1].split('-')[0]
           s_TYPE = newRecords[2][1].split('-')[1]
-          // console.log(JSON.stringify(newRecords))
           this.spinner.hide()
 
 
@@ -859,16 +853,10 @@ export class RapCutDiscComponent implements OnInit {
           if (newRecords[0].length != 0) {
             let mappedData = this.RapCutDiscComponent(newRecords, PRP_NAME, s_NAME, RTyp, s_TYPE)
             DataObj.push(mappedData)
-
-            // console.log('new data=>', DataObj)
           }
-
         }
-        console.log(DataObj)
 
         this.RapCutDiscServ.RapCutdImport(DataObj).subscribe((SaveRes) => {
-          console.log('saveRes', SaveRes);
-
           try {
             if (SaveRes.success == true) {
               this.RapCutDiscServ.RapCutInsertDis({
@@ -877,7 +865,6 @@ export class RapCutDiscComponent implements OnInit {
               }).subscribe(RapRes => {
                 this.spinner.hide()
                 this.toastr.success('Cuts Upload Successfully')
-                console.log(RapRes)
               })
             } else {
               this.spinner.hide()

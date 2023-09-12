@@ -64,6 +64,7 @@ export class WebCamComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploadVideong = true
+    if(navigator.mediaDevices){
     navigator.mediaDevices
     .getUserMedia({
       video: {
@@ -77,7 +78,7 @@ export class WebCamComponent implements OnInit {
       this.recordVideoElement = this.recordVideoElementRef.nativeElement;
 
     });
-
+  }
     
   }
 
@@ -116,12 +117,10 @@ export class WebCamComponent implements OnInit {
     this.IGIHRDResult =false
     this.mediaRecorder.stop();
     this.isRecording = !this.isRecording;
-    console.log('Recorded Blobs: ', this.recordedBlobs);
   }
 
   playRecording() {
     if (!this.recordedBlobs || !this.recordedBlobs.length) {
-      console.log('cannot play.');
       return;
     }
     this.recordVideoElement.play();

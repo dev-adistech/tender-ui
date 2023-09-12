@@ -1,4 +1,4 @@
-<div class="prc-view__container glass-light">
+<div class="prc-view__container glass-light" style="overflow: scroll; height: 98%;">
   <div class="prc-view__container--row-1" style="display: flex;gap:1rem">
 
     <ng-select class="autoComplete" placeholder="Company Code*" style="width: 6rem;" appearance="outline"
@@ -378,10 +378,7 @@
         <input type="text"
           style="width: calc(100% - 128px);height: 25px;font-size: 17px;border:1px solid black;border-bottom:none;"
           [(ngModel)]="item.TEN_NAME" />
-        <!-- </mat-form-field> -->
       </div>
-      <!-- <div class="container-mainheader"> -->
-      <!-- <div class="container-header" style="display: -webkit-box;"> -->
       <div class="row m-0" id="tys">
         <div class="deskop_div p-0" [ngClass]="{'my_class': DOCKON === true}">
           <div class="container-name" [ngClass]="dummay_variable">
@@ -554,7 +551,7 @@
                     <mat-label
                       style="border:1px solid black;padding: 2px 9px; text-align: center;border-right:none;border-top:none;">
                       RESULT:-</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;"
                       name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.RFLAT1" disabled>
@@ -591,35 +588,34 @@
                     <mat-label
                       style="border:1px solid black;padding: 2px 9px; text-align: center;border-top:none;border-right: none;">
                       FLO NO:-</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO1" [disabled]="FLOCODEDIS">
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO1" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
                     </select>
-                    <!-- <input type="text" style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO2" [disabled]="FLOCODEDIS">
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO2" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
                     </select>
-                    <!-- <input type="text" style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOME" [disabled]="FLOCODEDIS">
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOME" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
                     </select>
-                    <!-- <input type="text" style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
 
                     <select
                       style="border:1px solid black;width: 79px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOHE" [disabled]="FLOCODEDIS">
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOHE" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
@@ -643,7 +639,7 @@
                     </select>
                   </div>
                 </div>
-                <!-- <div class="col-lg-5"> -->
+
                 <div style="display: flex;flex-direction: column;">
 
                   <div class="newClass" style="display: flex;height: 25px;">
@@ -663,7 +659,7 @@
                     <mat-label
                       style="border:1px solid black;padding: 2px 17.7px; text-align: center;border-right:none;border-top:none;">
                       T2:-</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative;text-align: center;"
                       name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.R2C_CODE" disabled>
@@ -675,15 +671,6 @@
 
                 </div>
               </div>
-              <!-- <input type="text" style="border:1px solid black;width: 74px;height:50px;border-right:none;border-top:none;"
-                  name="name" autocomplete="off" bind
-                      [matAutocomplete]="autoCL" [formControl]="ColControl" [(ngModel)]="ROUNDC1">
-                  <mat-autocomplete #autoCL="matAutocomplete">
-                    <mat-option *ngFor="let cl of filteredColor | async" [value]="cl">
-                      <span>{{ cl.name }}</span>
-                    </mat-option>
-                  </mat-autocomplete> -->
-              <!-- </div> -->
 
               <div style="display: flex;">
                 <div style="display: flex; flex-direction: column;">
@@ -691,9 +678,9 @@
                   <div class="sample" style="display: flex;">
 
                     <mat-label
-                      style="border:1px solid black;padding: 2px 0px; text-align: center;border-top:none;border-right: none; font-size: 13.5px;">
+                      style="border:1px solid black;padding: 2px 4px; text-align: center;border-top:none;border-right: none; font-size: 12px;">
                       MACH FLO:-</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;"
                       name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.MFLFLAT1" disabled>
@@ -731,7 +718,7 @@
                     <mat-label
                       style="border:1px solid black;padding: 2px 2px; text-align: center;border-top:none;border-right: none;">
                       COMMENT</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;"
                       name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.CFLAT1" disabled>
@@ -773,7 +760,7 @@
                     <mat-label
                       style="border:1px solid black; text-align: center;border-right:none;border-top:none;height:50px;padding: 12px 7px;">
                       FANCY:-</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 74px;height:50px;border-right:none;border-top:none;" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 73px;height: 50px;border-right:none;border-top:none;text-align: center;"
                       name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.FC_CODE" disabled>
@@ -783,14 +770,14 @@
                     </select>
                   </div>
                 </div>
-                <!-- <div class="col-lg-5"> -->
+
                 <div style="display: flex;flex-direction: column;">
 
                   <div class="newClass" style="display: flex;height: 25px;">
                     <mat-label
                       style="border:1px solid black;padding: 2px 17.9px; text-align: center;border-right:none;border-top:none;">
                       T1:-</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;position: relative" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative;text-align: center;"
                       name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.F1C_CODE" disabled>
@@ -804,7 +791,7 @@
                     <mat-label
                       style="border:1px solid black;padding: 2px 18px; text-align: center;border-right:none;border-top:none;">
                       T2:-</mat-label>
-                    <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative" name="Code" autocomplete="off" /> -->
+
                     <select
                       style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25pxpx;position: relative;text-align: center;"
                       name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.F1C_CODE" disabled>
@@ -833,7 +820,7 @@
       </div>
     </div>
 
-    <div class="newGrid">
+    <div class="newGrid memo-ent-grid">
         <ag-grid-angular class="ag-theme-alpine" style="width: 85%; height: 40vh;"
         [defaultColDef]="defaultColDef" [columnDefs]="columnDefs"
         [rowData]="item.GRID_DATA" [animateRows]="true">
@@ -841,7 +828,6 @@
       </div>
       </article>
   </div>
-  <!-- </ng-container> -->
 </div>
 
 <ngx-spinner>

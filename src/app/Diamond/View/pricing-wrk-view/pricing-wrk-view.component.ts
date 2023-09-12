@@ -327,8 +327,6 @@ export class PricingWrkViewComponent implements OnInit {
                 tempData[j].valueFormatter = this._convFunction.StringFormat
                 tempData[j].aggFunc = 'length'
               }
-
-              // console.log(this._gridFunction.FooterKey)
               this._gridFunction.FooterKey = this.FooterKey
             }
 
@@ -361,8 +359,6 @@ export class PricingWrkViewComponent implements OnInit {
   }
 
   OnCellEditingStart(params){
-    console.log(params)
-
     if(params.colDef.field == 'MPER'){
     this.gridApi1.stopEditing({
       rowIndex: params.rowIndex,
