@@ -5,10 +5,10 @@
 export const environment = {
   production: false,
   // local connectins
-  // BaseUrl: '192.168.1.150', //local - 192.168.1.102
+  BaseUrl: '192.168.1.150', //local - 192.168.1.102
 
   //live connections
-  BaseUrl: 'api.tender.peacocktech.in', //domain name -  tender.peacocktech.in // 9928
+  // BaseUrl: 'api.tender.peacocktech.in', //domain name -  tender.peacocktech.in // 9928
   // BaseUrl: 'ncmp.predacon.in', //domain name -  ncmp.predacon.in
   // BaseUrl: 'nd.predacon.in', //domain name - nd.predacon.in // PORT = 4000 use this
   // BaseUrl: 'skd.predacon.in', // PORT -9920
@@ -22,8 +22,8 @@ export const environment = {
 
   //PORTS
 
-  // PORT: 6001, // default
-  PORT: 9928, // tender.peacocktech.in
+  PORT: 6001, // default
+  // PORT: 9928, // tender.peacocktech.in
   // PORT: 5000 // ncmp.predacon.in
   // PORT: 9909, // mfg.peacocktech.in
   // PORT: 9920, // skd.predacon.in

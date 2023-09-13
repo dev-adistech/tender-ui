@@ -199,7 +199,6 @@ export class DashStockComponent implements OnInit {
   //           } else {
   //             temp[i].valueFormatter = this._convFunction.StringFormat
   //           }
-  //           // console.log(this.FooterKey)
   //           this._gridFunction.FooterKey = this.FooterKey
   //         }
 
@@ -434,7 +433,6 @@ export class DashStockComponent implements OnInit {
     //         this.toastr.success('Save successfully.')
     //         eve.data.SAVED = true;
     //         eve.api.refreshCells({ force: true });
-    //         console.log(eve)
     //       } else {
     //         this.spinner.hide()
     //         Swal.fire({
@@ -460,7 +458,6 @@ export class DashStockComponent implements OnInit {
     this.gridApi.forEachNode(function (rowNode, index) {
       _GridRowData.push(rowNode.data);
     });
-    // console.log("454!@#$%^&*()",_GridRowData)
 
     let FinalArray = []
     let KEYARR
@@ -493,7 +490,6 @@ export class DashStockComponent implements OnInit {
         FinalArray.push({..._GridRowData[i],KEYARR:"TC"})
       }
     }
-    // console.log(FinalArray)
     let PerArr = [];
     for (let i = 0; i < FinalArray.length; i++) {
       let SaveObj = {
@@ -561,7 +557,6 @@ export class DashStockComponent implements OnInit {
   }
 
   onSelectionChanged(eve : any) {
-    console.log("555",eve)
     this.gridApi.setRowSelectionEnabled(true);
     const selectedRows = this.gridApi.getSelectedRows();
     (document.querySelector('#selectedRows') as any).innerHTML =
@@ -635,7 +630,6 @@ export class DashStockComponent implements OnInit {
   PRINT() {
     let _GridRowData = []
     this.gridApi.forEachNodeAfterFilter(function (rowNode, index) {
-      // console.log("444",rowNode)
       _GridRowData.push(rowNode.data);
     });
     let rowdata = []
@@ -736,11 +730,6 @@ export class DashStockComponent implements OnInit {
 
   onRangeSelectionChanged(eve: any) {
     if (eve.started === false && eve.finished === true) {
-      // console.log(eve)
-      // console.log(this.gridApi.getSelectedRows())
-      // console.log(this.gridApi.getCellRanges())
-      // console.log(`Start row: ${this.gridApi.getCellRanges()[0].startRow.rowIndex} - End row: ${this.gridApi.getCellRanges()[0].endRow.rowIndex}`)
-      // console.log(this.gridApi)
 
       const colId = this.gridApi.getCellRanges()[0].startColumn.colId
       const colLength = this.gridApi.getCellRanges()[0].columns.length
@@ -762,32 +751,15 @@ export class DashStockComponent implements OnInit {
         }
       }
 
-
-      // console.log(`${colId}-${startIndex}-${endIndex}`)
-      //  console.log(this.gridApi.getDisplayedRowAtIndex(startIndex));
-      //  console.log(this.gridApi.getDisplayedRowAtIndex(endIndex));
-      // for (let index = startIndex; index <= endIndex; index++) {
-      //   // console.log(this.gridApi.getDisplayedRowAtIndex(index).data);
-      //   const temp = this.gridApi.getDisplayedRowAtIndex(index).data[colId];
-      //   selecteData.push(temp)
-      // }
-      // console.log(selecteData)
-      // selecteData.map
       this.sum = selecteData.reduce(function (previousValue, currentValue) {
         return previousValue + currentValue;
       });
-      // console.log(typeof this.sum)
       if (typeof this.sum === 'number' && colLength === 1) {
         this.summaryToggle = true
         this.summaryHeader = colId
         this.count = selecteData.length
         this.average = parseFloat((this.sum / this.count).toFixed(2))
 
-        // alert(`
-        //   Sum: ${this.sum}
-        //   Count: ${this.count}
-        //   Average: ${this.average}
-        // `)
       } else {
         colLength > 1 && this.toastr.warning('Select only one column to get summary.')
         typeof this.sum !== 'number' && this.toastr.warning('Select valid column to get summary.')

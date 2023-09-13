@@ -24,7 +24,6 @@ export class ReportListBoxComponent implements OnInit {
   ) {
 
     this.ModelStateData = data
-    // console.log(this.ModelStateData)
 
     this.defaultColDef = {
       resizable: true,

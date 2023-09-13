@@ -41,7 +41,6 @@ export class UserCatComponent implements OnInit {
     private UserCatServ: UserCatService,
     private _FrmOpePer: FrmOpePer,
   ) {
-    console.log(this.decodedTkn);
     this.columnDefs = [
       {
         headerName: 'Action',

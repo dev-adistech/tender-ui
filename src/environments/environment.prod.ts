@@ -1,11 +1,11 @@
 export const environment = {
   production: true,
   //local connectins
-  // BaseUrl: '192.168.1.150', //local - 192.168.1.200
+  BaseUrl: '192.168.1.150', //local - 192.168.1.200
 
   //live connections
 
-  BaseUrl: 'api.tender.peacocktech.in', //domain name -  tender.peacocktech.in
+  // BaseUrl: 'api.tender.peacocktech.in', //domain name -  tender.peacocktech.in
   // BaseUrl: 'cmp.predacon.in', //domain name -  cmp.predacon.in
   // BaseUrl: 'ncmp.predacon.in',
   // BaseUrl: 'nd.predacon.in', //domain name - nd.predacon.in // PORT - 4000
@@ -18,8 +18,8 @@ export const environment = {
   // BaseUrl: '103.218.111.144', //domain ip - narola.predacon.in
   // BaseUrl: '27.116.48.171', // domain ip - ng.predacon.in
 
-  // PORT: 6001, // default
-  PORT: 9928, // tender.peacocktech.in
+  PORT: 6001, // default
+  // PORT: 9928, // tender.peacocktech.in
   // PORT: 5000 // cmp.predacon.in
   // PORT: 9909, // mfg.peacocktech.in
   // PORT: 9920, // skd.predacon.

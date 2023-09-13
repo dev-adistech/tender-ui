@@ -2643,6 +2643,9 @@ export class TendarEstComponent implements OnInit {
       if (!params.data.IN_CODE) {
         return;
       }
+      if (!params.data.ML_CODE) {
+        return;
+      }
 
       let RapObj = {
         S_CODE: params.data.S_CODE,
@@ -2653,6 +2656,7 @@ export class TendarEstComponent implements OnInit {
         FL_CODE: params.data.FL_CODE,
         IN_CODE: params.data.IN_CODE,
         RTYPE: params.data.LB_CODE,
+        ML_CODE: params.data.ML_CODE,
         // MPER:params.data.MPER
       };
       this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
@@ -3726,6 +3730,30 @@ export class TendarEstComponent implements OnInit {
       let PLNSEL = $(inputData[20]).val();
       let ML_CODE = $(this).val()
 
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER
+      }
 
       let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
@@ -3737,7 +3765,7 @@ export class TendarEstComponent implements OnInit {
         }
       }
       op.gridApi1.refreshCells({ force: true });
-
+      op.findrap1(NewCode)
     })
 
     $('body').on('focusin', 'select.DepList', function (this) {
@@ -4295,6 +4323,9 @@ export class TendarEstComponent implements OnInit {
     if (!RapObj.IN_CODE) {
       return;
     }
+    if (!RapObj.ML_CODE) {
+      return;
+    }
     let RapObj1 = {
       S_CODE: RapObj.S_CODE,
       Q_CODE: RapObj.Q_CODE,
@@ -4304,7 +4335,8 @@ export class TendarEstComponent implements OnInit {
       FL_CODE: RapObj.FL_CODE,
       IN_CODE: RapObj.IN_CODE,
       RTYPE: RapObj.LB_CODE,
-      MPER: RapObj.MPER
+      MPER: RapObj.MPER,
+      ML_CODE: RapObj.ML_CODE
     };
 
     this.TendarEstServ.FindRap(RapObj1).then((RapRes) => {

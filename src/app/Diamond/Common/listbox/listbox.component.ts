@@ -445,7 +445,6 @@ export class ListboxComponent implements OnInit {
       this.valdata = data.arr.map((item) => {
         return { code: item.code, name: item.name, CKB: this.userExists(item.name) }
       })
-      // console.log(this.valdata)
       this.columnDefs = [
         {
           field: '',
@@ -479,7 +478,6 @@ export class ListboxComponent implements OnInit {
       this.valdata = data.arr.map((item) => {
         return { code: item.code, CKB: this.userExists(item.code) }
       })
-      // console.log(this.valdata)
       this.columnDefs = [
         {
           field: '',
@@ -559,7 +557,6 @@ export class ListboxComponent implements OnInit {
         return { CODE: item.CODE, CKB: item.CKB }
       })
     }
-    // console.log("529", this.valdata)
     let gridFilter = this.gridApi.getFilterModel()
     this.gridApi.setRowData(this.valdata);
     this.gridApi.setFilterModel(gridFilter);
@@ -609,7 +606,6 @@ export class ListboxComponent implements OnInit {
   }
 
   onFilterChanged(params) {
-    // console.log(params)
     let _GridRowData = []
     this.gridApi.forEachNodeAfterFilter(function (rowNode, index) {
       _GridRowData.push(rowNode.data);
@@ -618,21 +614,8 @@ export class ListboxComponent implements OnInit {
     this.gridApi.forEachNode(function (rowNode, index) {
       GridRowData.push(rowNode.data);
     });
-    // console.log(GridRowData)
     let selectedRows = this.gridApi.getSelectedRows()
     let nodes = this.gridApi.getSelectedNodes();
-    // console.log(selectedRows)
-    // nodes.map((it) => {
-    //   _GridRowData.map((t, index) => {
-    //     if (it.data.PRC_CODE != t.PRC_CODE) {
-    //       if (it.rowIndex) {
-    //         this.gridApi.getRowNode(it.rowIndex).setSelected(false, false)
-    //       }
-    //     }
-    //   })
-    // })
-    // console.log(_GridRowData)
-    // console.log(nodes)
   }
 
   Close() {

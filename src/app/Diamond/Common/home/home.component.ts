@@ -269,7 +269,6 @@ export class HomeComponent implements OnInit {
 
             $("#Close").click()
             dialogRef.afterClosed().subscribe((result) => {
-              console.log(result)
               if (!DresPrdtype.Res || DresPrdtype.Res.trim() === "") {
                 dialogRef.close();
               }
@@ -444,7 +443,6 @@ export class HomeComponent implements OnInit {
           U_PASS: this.NEWPASS
         }
         this.commonServ.ChangePassword(PObj).subscribe((PRes) => {
-          console.log(PRes)
           if (PRes.success == 1) {
             this.toastr.success("Password Update Successfully")
             this.NEWPASS = ''
@@ -531,7 +529,6 @@ export class HomeComponent implements OnInit {
 
   BgImage() {
     const BgImage = `url: ('http://${this.url}:${this.port}/images/bg/background.jpg')`;
-    console.log(BgImage)
     document.documentElement.style.setProperty('--bgUrl', BgImage);
   }
 

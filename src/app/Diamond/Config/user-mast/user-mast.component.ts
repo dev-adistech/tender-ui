@@ -84,8 +84,6 @@ export class UserMastComponent implements OnInit {
         width: 70,
         cellRenderer: (params) => {
           if (params.data.ISACCESS == true) {
-            console.log(params)
-
             return '<input type="checkbox" data-action-type="isAccess" checked disabled>';
           } else {
 
@@ -167,7 +165,6 @@ export class UserMastComponent implements OnInit {
     this.gridApi.forEachNode(node => {
       GridData.push(node)
     })
-    console.log(GridData)
 
     let SaveObj = {
       USERID: this.USERID.trim(),
@@ -177,7 +174,6 @@ export class UserMastComponent implements OnInit {
       IP: this.IP ? this.IP : '',
       ISACCESS: this.isAccess,
     }
-    console.log(SaveObj)
     this.UserMastServ.UserMastSave(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {

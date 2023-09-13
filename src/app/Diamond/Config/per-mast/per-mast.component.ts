@@ -399,11 +399,8 @@ export class PerMastComponent implements OnInit {
   }
 
   onSelectionChange(params) {
-    // console.log(params)
     let grid = this.gridApi.getSelectedRows();
     let focuscell = this.gridApi.getFocusedCell();
-    // console.log(grid)
-    // console.log(focuscell)
     if (focuscell.column.colId == 'INS') {
       grid.map((it) => {
         it.INS = !it.INS

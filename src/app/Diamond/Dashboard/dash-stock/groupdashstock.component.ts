@@ -24,7 +24,6 @@ export class groupDashstckRenderer implements ICellRendererAngularComp {
   
     agInit(params: any): void {
       this.node = params.node;
-      console.log(this.node)
     }
   
     refresh(): boolean {

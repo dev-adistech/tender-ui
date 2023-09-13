@@ -31,8 +31,6 @@ export class LoginComponent implements OnInit {
 		this.title = window.origin
 		this.title = this.title.slice(7)
 
-		// console.log(this.title);
-
 		this.titleService.setTitle(this.title)
 
 		this.loginForm = new FormGroup({

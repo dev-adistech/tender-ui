@@ -208,14 +208,10 @@ export class ReportComponent implements OnInit {
     this.SP_NAME = e;
     this.RPT_NAME = r
     this.GetActiveReport();
-    // console.log("e", e);
-    // console.log("r", r);
-    // console.log("id", id);
 
     this.spinner.show();
     this.ReportServ.GetReportParams({ SP_NAME: e, REP_ID: id }).subscribe((FillRes) => {
       try {
-        // console.log("217", FillRes)
         if (FillRes.success == true) {
           this.spinner.hide()
           if (FillRes.data == '') {
@@ -238,24 +234,19 @@ export class ReportComponent implements OnInit {
               }
             })
           })
-          // console.log("newarr", newarr);
-
           this.Report_arr = FillRes.data;
 
           for (let i = 0; i < FillRes.data.length; i++) {
             for (let j = 0; j < newarr.length; j++) {
               if (FillRes.data[i].NAME === newarr[j].key) {
-                // if (FillRes.data[i].DEFVAL !== "0") {
                 if (FillRes.data[i].DISPLAYNAME !== "Report Type :") {
                   if (FillRes.data[i].DISPLAYNAME !== "Rep Type:") {
                     FillRes.data[i].DEFVAL = newarr[j].value
                   }
                 }
-                // }
               }
             }
           }
-          // console.log(FillRes.data)
 
           let Obj = {}
           for (let i = 0; i < FillRes.data.length; i++) {
@@ -267,7 +258,6 @@ export class ReportComponent implements OnInit {
           }
 
           this.FormColumns = this.groupByArray(this.GroupArry, 'CATE_NAME')
-          console.log(this.FormColumns)
         } else {
           this.spinner.hide()
           Swal.fire({
@@ -385,13 +375,11 @@ export class ReportComponent implements OnInit {
         DataTypeArr.push(this.FindFieldDataType(key))
       }
     }
-    console.log("386", RPObj)
     RPObj['RP_NAME'] = `<b>${this.REPORT_NAME}</b>` + '<br>' + SubTitle.toString() + '<br>'
 
     const propertyNames = Object.keys(RPObj)
     const propertyValues = Object.values(RPObj)
 
-    console.log("DataTypeArr", DataTypeArr)
     let SP_PARAMS = []
 
     for (let i = 0; i < DataTypeArr.length; i++) {
@@ -401,7 +389,6 @@ export class ReportComponent implements OnInit {
         VALUE: propertyValues[i],
       })
     }
-    console.log("SP_PARAMS", SP_PARAMS)
     for (let i = 0; i < SP_PARAMS.length; i++) {
       if (SP_PARAMS[i].FIELD == 'F_DATE' || SP_PARAMS[i].FIELD == 'T_DATE') {
         if (SP_PARAMS[i].VALUE == 'NULL') {
@@ -414,7 +401,6 @@ export class ReportComponent implements OnInit {
         }
       }
     }
-    // console.log("381", SP_PARAMS)
     let SP_DETAILS = []
     if (SP_PARAMS.find((item) => item.FIELD === 'DS_TYPE')) {
       if (SP_PARAMS.find((item) => item.FIELD === 'DS_TYPE') && SP_PARAMS.find((item) => item.VALUE === 'D')) {
@@ -435,7 +421,6 @@ export class ReportComponent implements OnInit {
         if (checkDet == 'Det') {
           this.RPT_NAME = this.RPT_NAME.substring(0, this.RPT_NAME.length - 3)
         }
-        // console.log(this.RPT_NAME);
 
         SP_DETAILS.push({
           RP_NAME: `<b>${this.REPORT_NAME}</b>` + '<br>' + SubTitle.toString() + '<br>',
@@ -451,9 +436,6 @@ export class ReportComponent implements OnInit {
         RPT_NAME: this.RPT_NAME
       })
     }
-
-    // console.log("419", SP_DETAILS);
-
     this.spinner.show()
     this.ReportServ.RPTDATA({ SP_PARAMS, SP_DETAILS }).subscribe((FillRes) => {
       try {
@@ -484,7 +466,6 @@ export class ReportComponent implements OnInit {
               Data: JSON.stringify(RptData),
               mrtname: this.RPT_NAME,
             }
-            console.log("451", RptData)
           } else {
             let ReportData = FillRes.data[0].map(v => ({
               ...v,
@@ -504,7 +485,6 @@ export class ReportComponent implements OnInit {
               mapInput.setAttribute("value", obj[param]);
               mapForm.appendChild(mapInput);
             }
-            // console.log("471", obj[param])
           });
 
           document.body.appendChild(mapForm);
@@ -572,7 +552,6 @@ export class ReportComponent implements OnInit {
       return { Code: item };
     });
     DATASET.push(temp)
-    console.log(DATASET)
     return DATASET
   }
 
@@ -625,9 +604,6 @@ export class ReportComponent implements OnInit {
   matDialogRefReportListBox: MatDialogRef<ReportListBoxComponent>;
   ReportHelpList(KeyValue: any, GropKey: any, DefSelectVal: any) {
     let ObjForList = {}
-    // console.log(KeyValue);
-
-    console.log('report array', DefSelectVal);
 
     for (let i = 0; i < this.Report_arr.length; i++) {
       if (KeyValue == this.Report_arr[i].NAME) {
@@ -660,7 +636,6 @@ export class ReportComponent implements OnInit {
             DefSelectVal: DefSelectVal
           }
         }
-        // console.log("601", ObjForList);
       }
     }
     this.matDialogRefReportListBox = this.matDialog.open(ReportListBoxComponent, { data: ObjForList, disableClose: false, width: '900px', height: '80%', panelClass: 'custome-report-list-mat-dialog-container' });
