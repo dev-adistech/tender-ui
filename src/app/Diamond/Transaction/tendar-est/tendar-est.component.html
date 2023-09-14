@@ -393,7 +393,7 @@
                             T1:-</mat-label>
                           <select
                             style="border:1px solid black;width: 245px;border-right:none;height: 25px;position: relative;text-align: center;"
-                            name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="F1" [disabled]="FLOCODEDIS">
+                            name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="R1" [disabled]="FLOCODEDIS">
                             <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                               {{ cl.name }}
                             </option>
@@ -543,7 +543,7 @@
                           <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;position: relative" name="Code" autocomplete="off" /> -->
                           <select
                             style="border:1px solid black;width: 245px;border-right:none;border-top:none;position: relative;text-align: center;"
-                            name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="R1" [disabled]="FLOCODEDIS">
+                            name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="F1" [disabled]="FLOCODEDIS">
                             <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                               {{ cl.name }}
                             </option>
@@ -572,9 +572,12 @@
               </div>
               <div class="deskop_footer_bid p-0" [ngClass]="{'my_class': DOCKON === true}">
                 <div class="container-name_2" style="display: grid;">
-                  <mat-label [style]="HearderBoxStyle" [ngClass]="dummay1_variable" class="final_name">FINAL BID</mat-label>
+                  <mat-label [style]="HearderBoxStyle" [ngClass]="dummay1_variable" class="final_name">Final Amount Per</mat-label>
                   <textarea type="text" [style]="AreaBoxStyle" [ngClass]="dummay2_variable" name="Code" disabled
-                    [(ngModel)]="FINALBID" autocomplete="off" class="tenderTxt find-area ws"></textarea>
+                  [(ngModel)]="FINALBID" autocomplete="off" class="tenderTxt find-area ws"></textarea>
+                  <mat-label [style]="HearderBoxStyle1" [ngClass]="dummay1_variable" class="final_name">Final Amount</mat-label>
+                  <textarea type="text" [style]="AreaBoxStyle" [ngClass]="dummay2_variable" name="Code" disabled
+                  [(ngModel)]="FINALAMT" autocomplete="off" class="tenderTxt find-area ws"></textarea>
                   <mat-label style="border:1px solid black; text-align: center;border-top:none;font-size: 12px;">Aditional
                     Discount</mat-label>
                   <input [style]="BlankBoxStyle" [ngClass]="dummay3_variable" class="tenderTxt"

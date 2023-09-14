@@ -591,7 +591,7 @@
 
                     <select
                       style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO1" disabled>
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.FLNFLAT1" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
@@ -599,7 +599,7 @@
 
                     <select
                       style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO2" disabled>
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.FLNFLAT2" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
@@ -607,7 +607,7 @@
 
                     <select
                       style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOME" disabled>
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.FLNHIGH" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
@@ -615,7 +615,7 @@
 
                     <select
                       style="border:1px solid black;width: 79px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOHE" disabled>
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.FLNMED" disabled>
                       <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>
@@ -809,9 +809,11 @@
         </div>
         <div class="deskop_footer_bid p-0" [ngClass]="{'my_class': DOCKON === true}">
           <div class="container-name_2" style="display: grid;">
-              <mat-label style="border:1px solid black;padding: 1px 6.8px; text-align: center;">FINAL BID</mat-label>
+              <mat-label style="border:1px solid black;padding: 1px 6.8px; text-align: center;border-bottom:none;">Final Amount Per</mat-label>
               <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" [(ngModel)] ="item.FBID" autocomplete="off" class="tenderTxt  ws"></textarea>
-              <div style="display: flex;">
+              <mat-label style="border:1px solid black;padding: 1px 6.8px; text-align: center;border-bottom:none;border-top: none;">Final Amount</mat-label>
+              <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" [(ngModel)] ="item.FAMT" autocomplete="off" class="tenderTxt  ws"></textarea>
+              <div style="display: flex;height: calc(100% - 7%);">
               <mat-label style="border:1px solid black; text-align: center;border-right:none;border-top:none;padding: 3px 31px;padding-bottom: 15px;">Aditional Discount</mat-label>
               <input [style]="ContainWidth" [(ngModel)]="item.ADIS" disabled />
             </div>
@@ -821,7 +823,7 @@
     </div>
 
     <div class="newGrid memo-ent-grid">
-        <ag-grid-angular class="ag-theme-alpine" style="width: 85%; height: 40vh;"
+        <ag-grid-angular class="ag-theme-alpine" style="width: calc(100% - 2%); height: 40vh; min-width: 1140px;"
         [defaultColDef]="defaultColDef" [columnDefs]="columnDefs"
         [rowData]="item.GRID_DATA" [animateRows]="true">
       </ag-grid-angular>

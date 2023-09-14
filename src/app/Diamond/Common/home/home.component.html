@@ -91,6 +91,18 @@
                 Ratio
               </li>
             </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('ShdMastComponent')"
+                (click)="addiFrameTabs('Shade Master', '/ShdMast')">
+                <img src="../../../../assets/img/Master/shade.png" alt="" />
+                Shade
+              </li>
+              <li *ngIf="CheckFormPermission('RefMastComponent')"
+                (click)="addiFrameTabs('Reflection Master', '/RefMast')">
+                <img src="../../../../assets/img/Master/Reflection.png" alt="" />
+                Reflection
+              </li>
+            </div>
           </div>
           <p class="sub-menu__section-name">Parameter</p>
         </div>

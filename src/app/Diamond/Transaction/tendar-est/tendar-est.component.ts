@@ -105,8 +105,9 @@ export class TendarEstComponent implements OnInit {
   filteredColor: Observable<any[]>;
   ColControl: FormControl;
   FINALBID: any = ''
+  FINALAMT: any = ''
   FLOCODE: any = ''
-
+  FINALAMT1:any = ''
   FLOCODEDIS: boolean = false
   butDisabled: any = ''
 
@@ -149,6 +150,9 @@ export class TendarEstComponent implements OnInit {
   DEP_NAME: any = [];
   RAT_NAME: any = []
   GRD_NAME: any = []
+  SHD_NAME: any = []
+  REF_NAME: any = []
+  RAPNAME: any = []
   ML_NAME: any = []
 
   PKTNAME: any = ''
@@ -210,10 +214,11 @@ export class TendarEstComponent implements OnInit {
 
   CANAVASOPEN:boolean =false 
   TendarStyle:string=`width: calc(100% - 150px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-  AreaBoxStyle:string=`border:1px solid black;width: 100%;resize: none;`;
+  AreaBoxStyle:string=`border:1px solid black;width: 100%;resize: none;height:100%`;
   ContainWidth:string=`width:100%`;
-  BlankBoxStyle:string=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
+  BlankBoxStyle:string=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;height: 100%;`;
   HearderBoxStyle:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
+  HearderBoxStyle1:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none;border-top:none`;
 
   dummay_class:any="abhishek"
 
@@ -387,6 +392,8 @@ export class TendarEstComponent implements OnInit {
                 width: VPRes.data[i].COLWIDTH,
                 cellStyle: {
                   "text-align": VPRes.data[i].CELLALIGN,
+                  "background-color": VPRes.data[i].BACKCOLOR,
+                  "color":VPRes.data[i].FONTCOLOR
                 },
                 resizable: VPRes.data[i].ISRESIZE,
                 hide: VPRes.data[i].DISP == false ? true : false,
@@ -431,6 +438,18 @@ export class TendarEstComponent implements OnInit {
             }
             if (VPRes.data[i].FIELDNAME == 'GRD_CODE') {
               temp[i].cellRenderer = this.GrdFill.bind(this)
+            }
+
+            if (VPRes.data[i].FIELDNAME == 'SH_NAME') {
+              temp[i].cellRenderer = this.SHADESFill.bind(this)
+            }
+
+            if (VPRes.data[i].FIELDNAME == 'REF_NAME') {
+              temp[i].cellRenderer = this.REFFill.bind(this)
+            }
+
+            if (VPRes.data[i].FIELDNAME == 'RAPTYPE') {
+              temp[i].cellRenderer = this.RAPTYPEFill.bind(this)
             }
 
             if (i == 0) {
@@ -507,6 +526,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+                        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+                        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+                        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
                         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
                         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                         <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -544,8 +566,11 @@ export class TendarEstComponent implements OnInit {
       } else
         if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
           let template = `
+          <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+          <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+          <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
           <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
-    <input id="MPER" type="hidden" value=${params.data.MPER} / >
+          <input id="MPER" type="hidden" value=${params.data.MPER} / >
                   <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
                   <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
                   <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
@@ -580,6 +605,9 @@ export class TendarEstComponent implements OnInit {
           return template;
         } else {
           let template = `
+          <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+          <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+          <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
           <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
               <input id="MPER" type="hidden" value=${params.data.MPER} / >
                         <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -622,6 +650,9 @@ export class TendarEstComponent implements OnInit {
 
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -658,6 +689,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -694,6 +728,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
           <input id="MPER" type="hidden" value=${params.data.MPER} / >
     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -736,6 +773,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
         <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -772,6 +812,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -808,6 +851,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
           <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -851,6 +897,9 @@ export class TendarEstComponent implements OnInit {
 
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -887,6 +936,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -923,6 +975,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
             <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -964,6 +1019,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1000,6 +1058,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1036,6 +1097,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
           <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1077,6 +1141,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1113,6 +1180,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1149,6 +1219,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
           <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1190,6 +1263,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1226,6 +1302,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
     <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1262,6 +1341,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
           <input id="MPER" type="hidden" value=${params.data.MPER} / >
                     <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1304,6 +1386,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1340,6 +1425,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1376,6 +1464,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
             <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1418,6 +1509,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1454,6 +1548,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1490,6 +1587,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
             <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1532,6 +1632,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1568,6 +1671,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1604,6 +1710,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
             <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
@@ -1646,6 +1755,9 @@ export class TendarEstComponent implements OnInit {
     if (params.data.PTAG !== "Total") {
       if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
         <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
@@ -1682,6 +1794,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
       <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
@@ -1718,6 +1833,9 @@ export class TendarEstComponent implements OnInit {
         return template;
       } else {
         let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
         <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
             <input id="MPER" type="hidden" value=${params.data.MPER} / >
                       <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
@@ -1747,6 +1865,374 @@ export class TendarEstComponent implements OnInit {
             template += '<option selected value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
           } else {
             template += '<option value="' + this.GRD_NAME[i].code + '">' + this.GRD_NAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+
+  SHADESFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="ShdFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.SHD_NAME.length; i++) {
+
+          if (this.SHD_NAME[i].code == params.data.SH_CODE) {
+            template += '<option selected value="' + this.SHD_NAME[i].code + '">' + this.SHD_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.SHD_NAME[i].code + '">' + this.SHD_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+        let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+      <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="ShdFill">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.SHD_NAME.length; i++) {
+
+          if (this.SHD_NAME[i].code == params.data.SH_CODE) {
+            template += '<option selected value="' + this.SHD_NAME[i].code + '">' + this.SHD_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.SHD_NAME[i].code + '">' + this.SHD_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="ShdFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.SHD_NAME.length; i++) {
+
+          if (this.SHD_NAME[i].code == params.data.SH_CODE) {
+            template += '<option selected value="' + this.SHD_NAME[i].code + '">' + this.SHD_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.SHD_NAME[i].code + '">' + this.SHD_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+  REFFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RefFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.REF_NAME.length; i++) {
+
+          if (this.REF_NAME[i].code == params.data.REF_CODE) {
+            template += '<option selected value="' + this.REF_NAME[i].code + '">' + this.REF_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.REF_NAME[i].code + '">' + this.REF_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+        let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+      <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RefFill">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.REF_NAME.length; i++) {
+
+          if (this.REF_NAME[i].code == params.data.REF_CODE) {
+            template += '<option selected value="' + this.REF_NAME[i].code + '">' + this.REF_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.REF_NAME[i].code + '">' + this.REF_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+        <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RefFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.REF_NAME.length; i++) {
+
+          if (this.REF_NAME[i].code == params.data.REF_CODE) {
+            template += '<option selected value="' + this.REF_NAME[i].code + '">' + this.REF_NAME[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.REF_NAME[i].code + '">' + this.REF_NAME[i].name + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      }
+    }
+  }
+
+  RAPTYPEFill(params) {
+    if (params.data.PTAG !== "Total") {
+      if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+        let template = `
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+        <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RapTypeFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.RAPNAME.length; i++) {
+
+          if (this.RAPNAME[i].code == params.data.RAPTYPE) {
+            template += '<option selected value="' + this.RAPNAME[i].code + '">' + this.RAPNAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.RAPNAME[i].code + '">' + this.RAPNAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+        let template = `
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+      <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RapTypeFill">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.RAPNAME.length; i++) {
+
+          if (this.RAPNAME[i].code == params.data.RAPTYPE) {
+            template += '<option selected value="' + this.RAPNAME[i].code + '">' + this.RAPNAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.RAPNAME[i].code + '">' + this.RAPNAME[i].code + '</option>';
+          }
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
+        <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
+        <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
+        <input id="GRD_CODE" type="hidden" value=${params.data.GRD_CODE} / >
+        <input id="PLNSEL" type="hidden" value=${params.data.PLNSEL} / >
+            <input id="MPER" type="hidden" value=${params.data.MPER} / >
+                      <input id="RAT_CODE" type="hidden" value=${params.data.RAT_CODE} / >
+                      <input id="ML_CODE" type="hidden" value=${params.data.ML_CODE} / >
+                      <input id="DEP_CODE" type="hidden" value=${params.data.DEP_CODE} / >
+                      <input id="IN_CODE" type="hidden" value=${params.data.IN_CODE} / >
+                      <input id="DATA" type="hidden" value=${JSON.stringify(params.data)} / >
+                      <input id="AMT" type="hidden" value="${params.data.AMT ? params.data.AMT : 0}" / >
+                      <input id="RTYPE" type="hidden" value="${params.data.RTYPE ? params.data.RTYPE : ''}" / >
+                      <input id="PER" type="hidden" value="${params.data.PER ? params.data.PER : 0}" / >
+                      <input id="ORAP" type="hidden" value="${params.data.ORAP ? params.data.ORAP : 0}" / >
+                      <input id="SRNO" type="hidden" value="${params.data.SRNO}" / >  
+                      <input id="PLANNO" type="hidden" value="${params.data.PLANNO}" / > 
+                      <input id="PTAG" type="hidden" value="${params.data.PTAG}" / >  
+                      <input id="C_CODE" type="hidden" value="${params.data.C_CODE ? params.data.C_CODE : 0}" / >
+                      <input id="CARAT" type="hidden" value="${params.data.CARAT ? params.data.CARAT : 0}" / > 
+                      <input id="Q_CODE" type="hidden" value="${params.data.Q_CODE ? params.data.Q_CODE : 0}" / > 
+                      <input id="CT_CODE" type="hidden" value="${params.data.CT_CODE}" / > 
+                      <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
+                      <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / >
+                      <input id="S_CODE" type="hidden" value="${params.data.S_CODE ? params.data.S_CODE : ''}" / >`
+        template += '<select class="RapTypeFill" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.RAPNAME.length; i++) {
+
+          if (this.RAPNAME[i].code == params.data.RAPTYPE) {
+            template += '<option selected value="' + this.RAPNAME[i].code + '">' + this.RAPNAME[i].code + '</option>';
+          } else {
+            template += '<option value="' + this.RAPNAME[i].code + '">' + this.RAPNAME[i].code + '</option>';
           }
 
         }
@@ -1996,16 +2482,16 @@ export class TendarEstComponent implements OnInit {
       this.DOCKON = true
       this.agGridStyles =`width: 100%; height: calc(100vh - 469px); margin-bottom: 9%;`
       this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-      this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
-      this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
+      this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;height:100%`;
+      this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;height: 100%;`;
       this.HearderBoxStyle=`border:1px solid black;width:100%;padding: 2px 3px; text-align: center;border-bottom:none`;
       // this.ContainWidth=`width:145%`;
     }else{
       this.DOCKON = false
       this.agGridStyles =`width: 100%; height: calc(100vh - 469px); margin-bottom: 9%;`
       this.TendarStyle=`width: calc(100% - 128px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-      this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;`;
-      this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;`;
+      this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;height:100%`;
+      this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;height: 100%;`;
       this.HearderBoxStyle=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
       this.ContainWidth=`width:100%`;
     }
@@ -2294,6 +2780,8 @@ export class TendarEstComponent implements OnInit {
               highAmt = LatestSum[i]
               highestRate = LatestSum[i] / TotalLine[i].CARAT
               this.PKTPER = highestRate.toFixed(2)
+              this.FINALAMT = highAmt
+              this.FINALAMT1 =highAmt
           }
         }
     }else{
@@ -2373,6 +2861,8 @@ export class TendarEstComponent implements OnInit {
             if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
               highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
               this.PKTPER = highestRate.toFixed(2)
+              this.FINALAMT = TotalValue[i].NEWAMT
+              this.FINALAMT1 = TotalValue[i].NEWAMT
             }
           }
         } else {
@@ -2380,12 +2870,16 @@ export class TendarEstComponent implements OnInit {
             if(TotalValue[i].data['PLNSEL'] === true){
               highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
               this.PKTPER = highestRate.toFixed(2)
+              this.FINALAMT = TotalValue[i].NEWAMT
+              this.FINALAMT1 = TotalValue[i].NEWAMT
               break
             }else{
               if (TotalValue[i].NEWAMT > highAmt) {
                 highAmt = TotalValue[i].NEWAMT
                 highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
                 this.PKTPER = highestRate.toFixed(2)
+                this.FINALAMT = TotalValue[i].NEWAMT
+                this.FINALAMT1 = TotalValue[i].NEWAMT
               }
             }
           }
@@ -2393,9 +2887,15 @@ export class TendarEstComponent implements OnInit {
       }
     }
 
-      let NewValue = (this.ADIS/100)*this.PKTPER
-      let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-      this.FINALBID =FinalValue1.toFixed(2)
+    let NewValue = (this.ADIS/100)*this.FINALAMT
+    let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+    this.FINALAMT = FinalValue1.toFixed(2)
+
+    let NewBid = this.FINALAMT / this.PKTWEIGHT
+    this.FINALBID =NewBid.toFixed(2)
+      // let NewValue = (this.ADIS/100)*this.PKTPER
+      // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+      // this.FINALBID =FinalValue1.toFixed(2)
       params.node.setData(dataObj);
       params.api.refreshCells({ force: true });
     }
@@ -2403,9 +2903,17 @@ export class TendarEstComponent implements OnInit {
 
   
   ADISCHANGE(params){
-    let NewValue = (parseFloat(params)/100)*parseFloat(this.PKTPER)
-    let FinalValue = parseFloat(this.PKTPER) + NewValue
-    this.FINALBID =FinalValue.toFixed(2)
+    if(parseFloat(params)){
+    let NewValue = (parseFloat(params)/100)*parseFloat(this.FINALAMT1)
+    let FinalValue = parseFloat(this.FINALAMT1) + NewValue
+    this.FINALAMT = FinalValue
+    let FinalBidAMT =  this.FINALAMT / this.PKTWEIGHT
+    this.FINALBID =FinalBidAMT.toFixed(2)
+    }else {
+      this.FINALAMT = this.FINALAMT1
+      let FinalBidAMT =  this.FINALAMT / this.PKTWEIGHT
+      this.FINALBID =FinalBidAMT.toFixed(2)
+    }
   }
 
   async FindRap(params) {
@@ -2493,6 +3001,8 @@ export class TendarEstComponent implements OnInit {
           if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
             highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
+            this.FINALAMT = TotalValue[i].NEWAMT
+            this.FINALAMT1 = TotalValue[i].NEWAMT
           }
         }
       } else {
@@ -2500,19 +3010,29 @@ export class TendarEstComponent implements OnInit {
           if(TotalValue[i].data['PLNSEL'] === true){
             highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
+            this.FINALAMT = TotalValue[i].NEWAMT
+            this.FINALAMT1 = TotalValue[i].NEWAMT
             break
           }else{
             if (TotalValue[i].NEWAMT > highAmt) {
               highAmt = TotalValue[i].NEWAMT
               highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
               this.PKTPER = highestRate.toFixed(2)
+              this.FINALAMT = highAmt.toFixed(2)
+              this.FINALAMT1 = highAmt.toFixed(2)
             }
           }
         }
       }
-      let NewValue = (this.ADIS/100)*this.PKTPER
-      let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-      this.FINALBID =FinalValue1.toFixed(2)
+      let NewValue = (this.ADIS/100)*this.FINALAMT
+      let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+      this.FINALAMT = FinalValue1.toFixed(2)
+
+      let NewBid = this.FINALAMT / this.PKTWEIGHT
+      this.FINALBID =NewBid.toFixed(2)
+      // let NewValue = (this.ADIS/100)*this.PKTPER
+      // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+      // this.FINALBID =FinalValue1.toFixed(2)
       this.gridApi1.refreshCells({ force: true });
     }else {
       let newArray = 0
@@ -2585,6 +3105,8 @@ export class TendarEstComponent implements OnInit {
           if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
             highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
+            this.FINALAMT = TotalValue[i].NEWAMT
+            this.FINALAMT1 = TotalValue[i].NEWAMT
           }
         }
       } else {
@@ -2592,19 +3114,29 @@ export class TendarEstComponent implements OnInit {
           if(TotalValue[i].data['PLNSEL'] === true){
             highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
+            this.FINALAMT = TotalValue[i].NEWAMT
+            this.FINALAMT1 = TotalValue[i].NEWAMT
             break
           }else{
             if (TotalValue[i].NEWAMT > highAmt) {
               highAmt = TotalValue[i].NEWAMT
               highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
               this.PKTPER = highestRate.toFixed(2)
+              this.FINALAMT = highAmt
+              this.FINALAMT1 = highAmt
             }
           }
         }
       }
-      let NewValue = (this.ADIS/100)*this.PKTPER
-      let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-      this.FINALBID =FinalValue1.toFixed(2)
+      let NewValue = (this.ADIS/100)*this.FINALAMT
+      let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+      this.FINALAMT = FinalValue1.toFixed(2)
+
+      let NewBid = this.FINALAMT / this.PKTWEIGHT
+      this.FINALBID =NewBid.toFixed(2)
+      // let NewValue = (this.ADIS/100)*this.PKTPER
+      // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+      // this.FINALBID =FinalValue1.toFixed(2)
       this.gridApi1.refreshCells({ force: true });
     }
       return
@@ -2646,6 +3178,15 @@ export class TendarEstComponent implements OnInit {
       if (!params.data.ML_CODE) {
         return;
       }
+      if (!params.data.SH_CODE) {
+        return;
+      }
+      if (!params.data.REF_CODE) {
+        return;
+      }
+      if (!params.data.RAPTYPE) {
+        return;
+      }
 
       let RapObj = {
         S_CODE: params.data.S_CODE,
@@ -2657,6 +3198,9 @@ export class TendarEstComponent implements OnInit {
         IN_CODE: params.data.IN_CODE,
         RTYPE: params.data.LB_CODE,
         ML_CODE: params.data.ML_CODE,
+        SH_CODE: params.data.SH_CODE,
+        REF_CODE: params.data.REF_CODE,
+        RAPTYPE: params.data.RAPTYPE,
         // MPER:params.data.MPER
       };
       this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
@@ -2800,6 +3344,8 @@ export class TendarEstComponent implements OnInit {
                 if(TotalValue[i].data['PLANNO'] === params.data.PLANNO && TotalValue[i].data['SRNO'] === params.data.SRNO){
                   highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
                   this.PKTPER = highestRate.toFixed(2)
+                  this.FINALAMT = TotalValue[i].NEWAMT
+                  this.FINALAMT1 = TotalValue[i].NEWAMT
                 }
               }
             } else {
@@ -2807,20 +3353,30 @@ export class TendarEstComponent implements OnInit {
                 if(TotalValue[i].data['PLNSEL'] === true){
                   highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
                   this.PKTPER = highestRate.toFixed(2)
+                  this.FINALAMT = TotalValue[i].NEWAMT
+                  this.FINALAMT1 = TotalValue[i].NEWAMT
                   break
                 }else{
                   if (TotalValue[i].NEWAMT > highAmt) {
                     highAmt = TotalValue[i].NEWAMT
                     highestRate = TotalValue[i].NEWAMT / TotalValue[i].data['CARAT']
                     this.PKTPER = highestRate.toFixed(2)
+                    this.FINALAMT = highAmt
+                    this.FINALAMT1 = highAmt
                   }
                 }
               }
             }
             this.PKTPER = highestRate.toFixed(2)
-            let NewValue = (this.ADIS/100)*this.PKTPER
-            let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-            this.FINALBID =FinalValue1.toFixed(2)
+            let NewValue = (this.ADIS/100)*this.FINALAMT
+            let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+            this.FINALAMT = FinalValue1.toFixed(2)
+  
+            let NewBid = this.FINALAMT / this.PKTWEIGHT
+            this.FINALBID =NewBid.toFixed(2)
+            // let NewValue = (this.ADIS/100)*this.PKTPER
+            // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
+            // this.FINALBID =FinalValue1.toFixed(2)
             this.gridApi1.refreshCells({ force: true });
 
           }
@@ -2882,7 +3438,8 @@ export class TendarEstComponent implements OnInit {
       F2C_CODE: this.F2 ? this.F2 : 0,
       PUSER: this.decodedTkn.UserId,
       TEN_NAME: this.T_NAME,
-      ADIS:this.ADIS ? this.ADIS:0
+      ADIS:this.ADIS ? this.ADIS:0,
+      FAMT:this.FINALAMT ? this.FINALAMT:0
     }
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
       try {
@@ -3001,6 +3558,9 @@ export class TendarEstComponent implements OnInit {
         RAT_CODE: SubData[i].RAT_CODE ? SubData[i].RAT_CODE : 0,
         GRD_CODE: SubData[i].GRD_CODE ? SubData[i].GRD_CODE : 0,
         MPER: SubData[i].MPER ? SubData[i].MPER : 0,
+        SH_CODE: SubData[i].SH_CODE ? SubData[i].SH_CODE : 0,
+        REF_CODE: SubData[i].REF_CODE ? SubData[i].REF_CODE : 0,
+        RAPTYPE: SubData[i].RAPTYPE ? SubData[i].RAPTYPE : '',
       };
       PerArr.push(SaveObj);
     }
@@ -3094,6 +3654,7 @@ export class TendarEstComponent implements OnInit {
     document.getElementById("mySidebar").style.display = "none";
   }
   async ngOnInit() {
+    console.log(this.decodedMast)
     if(this.decodedTkn.UserId === 'DN'){
       this.ADISDISABLE = false
     }else {
@@ -3156,6 +3717,14 @@ export class TendarEstComponent implements OnInit {
     this.ML_NAME = this.decodedMast[24].map((item) => {
       return { code: item.ML_CODE, name: item.ML_NAME };
     });
+
+    this.SHD_NAME = this.decodedMast[25].map((item) => {
+      return { code: item.SH_CODE, name: item.SH_NAME };
+    });
+
+    this.REF_NAME = this.decodedMast[26].map((item) => {
+      return { code: item.REF_CODE, name: item.REF_NAME };
+    });
     this.DEP_NAME = this.decodedMast[21].map((item) => {
       return { code: item.DEP_CODE };
     });
@@ -3164,6 +3733,10 @@ export class TendarEstComponent implements OnInit {
     });
     this.RAT_NAME = this.decodedMast[23].map((item) => {
       return { code: item.RAT_CODE };
+    });
+
+    this.RAPNAME = this.decodedMast[27].map((item) => {
+      return { code: item.RAPTYPE };
     });
 
     let Com_arr = this.decodedMast[20].map((item) => {
@@ -3244,6 +3817,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let S_CODE = $(this).val()
 
       let NewCode = {
@@ -3268,10 +3844,12 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
-      op.findrap1(NewCode)
-
+      
       let _GridRowData = []
       op.gridApi1.forEachNode(function (rowNode, index) {
         _GridRowData.push(rowNode.data);
@@ -3282,6 +3860,7 @@ export class TendarEstComponent implements OnInit {
         }
       }
       op.gridApi1.refreshCells({ force: true });
+      op.findrap1(NewCode)
     });
 
     $('body').on('focusin', 'select.ColorList', function (this) {
@@ -3312,6 +3891,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let C_CODE = $(this).val()
 
       let NewCode = {
@@ -3336,7 +3918,10 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
 
       let _GridRowData = []
@@ -3382,6 +3967,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let Q_CODE = $(this).val()
 
       let NewCode = {
@@ -3406,7 +3994,10 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
 
       let _GridRowData = []
@@ -3451,6 +4042,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let CT_CODE = $(this).val()
 
       let NewCode = {
@@ -3475,7 +4069,10 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
 
       let _GridRowData = []
@@ -3521,6 +4118,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let FL_CODE = $(this).val()
 
       let NewCode = {
@@ -3545,7 +4145,10 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
 
       let _GridRowData = []
@@ -3590,6 +4193,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let LB_CODE = $(this).val()
 
       let NewCode = {
@@ -3614,7 +4220,10 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
 
       let _GridRowData = []
@@ -3659,6 +4268,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let IN_CODE = $(this).val()
 
       let NewCode = {
@@ -3683,7 +4295,10 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
 
       let _GridRowData = []
@@ -3728,6 +4343,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let ML_CODE = $(this).val()
 
       let NewCode = {
@@ -3752,7 +4370,10 @@ export class TendarEstComponent implements OnInit {
         DEP_CODE,
         GRD_CODE,
         PLNSEL,
-        MPER
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
       }
 
       let _GridRowData = []
@@ -3796,6 +4417,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let DEP_CODE = $(this).val()
 
 
@@ -3840,6 +4464,9 @@ export class TendarEstComponent implements OnInit {
       let GRD_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let RAT_CODE = $(this).val()
 
 
@@ -3884,6 +4511,9 @@ export class TendarEstComponent implements OnInit {
       let RAT_CODE = $(inputData[18]).val();
       let MPER = $(inputData[19]).val();
       let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
       let GRD_CODE = $(this).val()
 
 
@@ -3898,6 +4528,224 @@ export class TendarEstComponent implements OnInit {
       }
       op.gridApi1.refreshCells({ force: true });
 
+    })
+
+    $('body').on('focusin', 'select.ShdFill', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.ShdFill', function (this) {
+      var inputData = $(this).prevAll();
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let GRD_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let SH_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      let _GridRowData = []
+      op.gridApi1.forEachNode(function (rowNode, index) {
+        _GridRowData.push(rowNode.data);
+      });
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
+          _GridRowData[i].SH_CODE = SH_CODE
+        }
+      }
+      op.gridApi1.refreshCells({ force: true });
+      op.findrap1(NewCode)
+    })
+    $('body').on('focusin', 'select.RefFill', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.RefFill', function (this) {
+      var inputData = $(this).prevAll();
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let GRD_CODE = $(inputData[21]).val();
+      let SH_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let REF_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      let _GridRowData = []
+      op.gridApi1.forEachNode(function (rowNode, index) {
+        _GridRowData.push(rowNode.data);
+      });
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
+          _GridRowData[i].REF_CODE = REF_CODE
+        }
+      }
+      op.gridApi1.refreshCells({ force: true });
+      op.findrap1(NewCode)
+    })
+
+    $('body').on('focusin', 'select.RapTypeFill', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.RapTypeFill', function (this) {
+      var inputData = $(this).prevAll();
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let GRD_CODE = $(inputData[21]).val();
+      let SH_CODE = $(inputData[22]).val();
+      let REF_CODE = $(inputData[23]).val();
+      let RAPTYPE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      let _GridRowData = []
+      op.gridApi1.forEachNode(function (rowNode, index) {
+        _GridRowData.push(rowNode.data);
+      });
+      for (let i = 0; i < _GridRowData.length; i++) {
+        if (_GridRowData[i].PLANNO === parseInt(PLANNO) && _GridRowData[i].SRNO == parseInt(SRNO) && _GridRowData[i].PTAG === PTAG) {
+          _GridRowData[i].RAPTYPE = RAPTYPE
+        }
+      }
+      op.gridApi1.refreshCells({ force: true });
+      op.findrap1(NewCode)
     })
   }
 
@@ -3985,7 +4833,11 @@ export class TendarEstComponent implements OnInit {
                 headerClass: VPRes.data[i].HEADERALIGN,
                 field: VPRes.data[i].FIELDNAME,
                 width: VPRes.data[i].COLWIDTH,
-                cellStyle: { "text-align": VPRes.data[i].CELLALIGN },
+                cellStyle: { 
+                            "text-align": VPRes.data[i].CELLALIGN,
+                            "background-color": VPRes.data[i].BACKCOLOR,
+                            "color":VPRes.data[i].FONTCOLOR
+                            },
                 resizable: VPRes.data[i].ISRESIZE,
                 hide: VPRes.data[i].DISP == false ? true : false,
                 suppressMenu: true,
@@ -4308,7 +5160,7 @@ export class TendarEstComponent implements OnInit {
     if (!RapObj.C_CODE) {
       return;
     }
-    if (!RapObj.CARAT) {
+    if (!parseFloat(RapObj.CARAT)) {
       return;
     }
     if (!RapObj.CT_CODE) {
@@ -4326,6 +5178,15 @@ export class TendarEstComponent implements OnInit {
     if (!RapObj.ML_CODE) {
       return;
     }
+    if (!parseInt(RapObj.SH_CODE)) {
+      return;
+    }
+    if (!parseInt(RapObj.REF_CODE)) {
+      return;
+    }
+    if (!RapObj.RAPTYPE || RapObj.RAPTYPE == 'null') {
+      return;
+    }
     let RapObj1 = {
       S_CODE: RapObj.S_CODE,
       Q_CODE: RapObj.Q_CODE,
@@ -4336,7 +5197,10 @@ export class TendarEstComponent implements OnInit {
       IN_CODE: RapObj.IN_CODE,
       RTYPE: RapObj.LB_CODE,
       MPER: RapObj.MPER,
-      ML_CODE: RapObj.ML_CODE
+      ML_CODE: RapObj.ML_CODE,
+      SH_CODE:RapObj.SH_CODE,
+      REF_CODE:RapObj.REF_CODE,
+      RAPTYPE:RapObj.RAPTYPE,
     };
 
     this.TendarEstServ.FindRap(RapObj1).then((RapRes) => {
@@ -4500,6 +5364,8 @@ export class TendarEstComponent implements OnInit {
           if(totalSum[i].data['PLANNO'] === parseInt(RapObj.PLANNO) && totalSum[i].data['SRNO'] === parseInt(RapObj.SRNO)){
             highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
+            this.FINALAMT = totalSum[i].NEWAMT.toFixed(2)
+            this.FINALAMT1 = totalSum[i].NEWAMT.toFixed(2)
           }
         }
       } else {
@@ -4507,19 +5373,27 @@ export class TendarEstComponent implements OnInit {
           if(totalSum[i].data['PLNSEL'] === true){
             highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
             this.PKTPER = highestRate.toFixed(2)
+            this.FINALAMT = totalSum[i].NEWAMT.toFixed(2)
+            this.FINALAMT1 = totalSum[i].NEWAMT.toFixed(2)
             break
           }else{
             if (totalSum[i].NEWAMT > highAmt) {
               highAmt = totalSum[i].NEWAMT
               highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
               this.PKTPER = highestRate.toFixed(2)
+              this.FINALAMT = highAmt.toFixed(2)
+              this.FINALAMT1 = highAmt.toFixed(2)
             }
           }
         }
       }
-          let NewValue = (this.ADIS/100)*this.PKTPER
-          let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-          this.FINALBID =FinalValue1.toFixed(2)
+
+          let NewValue = (this.ADIS/100)*this.FINALAMT
+          let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+          this.FINALAMT = FinalValue1.toFixed(2)
+
+          let NewBid = this.FINALAMT / this.PKTWEIGHT
+          this.FINALBID =NewBid.toFixed(2)
 
           // this.gridApi1.refreshCells({ force: true })
         }
@@ -4574,6 +5448,7 @@ export class TendarEstComponent implements OnInit {
     this.FINALBID = ''
     this.FLOCODE = ''
     this.FLOCODEDIS = false
+    this.FINALAMT = ''
     this.gridApi1.setRowData()
   }
 
@@ -4640,6 +5515,7 @@ export class TendarEstComponent implements OnInit {
             this.FANCY1 = FillRes.data[0][0].FC_CODE
             this.F1 = FillRes.data[0][0].F1C_CODE
             this.F2 = FillRes.data[0][0].F2C_CODE
+            this.FINALAMT = FillRes.data[0][0].FAMT
             this.LS = FillRes.data[0][0].LS
             this.FINALBID = FillRes.data[0][0].FBID
             this.FLOCODE = FillRes.data[0][0].FL_CODE

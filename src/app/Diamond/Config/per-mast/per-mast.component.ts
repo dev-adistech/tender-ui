@@ -74,6 +74,8 @@ export class PerMastComponent implements OnInit {
     { FORM_GROUP: 'Master', FORM_NAME: 'GridleMastComponent', DESCR: 'Gridle Master' },
     { FORM_GROUP: 'Master', FORM_NAME: 'DepthMastComponent', DESCR: 'Depth Master' },
     { FORM_GROUP: 'Master', FORM_NAME: 'RatioMastComponent', DESCR: 'Ratio Master' },
+    { FORM_GROUP: 'Master', FORM_NAME: 'ShdMastComponent', DESCR: 'Shade Master' },
+    { FORM_GROUP: 'Master', FORM_NAME: 'RefMastComponent', DESCR: 'Reflection Master' },
 
     { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarComComponent', DESCR: 'Tendar Company' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarMastComponent', DESCR: 'Tendar Master' },

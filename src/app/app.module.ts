@@ -71,7 +71,9 @@ import { ImageUploadComponent } from './Diamond/Transaction/tendar-est/image-upl
 import { PricingWrkViewComponent } from './Diamond/View/pricing-wrk-view/pricing-wrk-view.component';
 import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component';
 import { VideoShowComponent } from './Diamond/Transaction/tendar-est/video-show/video-show.component';
-import { BidDataComponent } from './Diamond/View/bid-data/bid-data.component'
+import { BidDataComponent } from './Diamond/View/bid-data/bid-data.component';
+import { ShdMastComponent } from './Diamond/Master/shd-mast/shd-mast.component';
+import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component'
 
 
 @NgModule({
@@ -129,6 +131,8 @@ import { BidDataComponent } from './Diamond/View/bid-data/bid-data.component'
 		BVViewComponent,
 		VideoShowComponent,
 		BidDataComponent,
+		ShdMastComponent,
+		RefMastComponent,
 	],
 	imports: [
 		BrowserModule,

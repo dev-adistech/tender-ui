@@ -9,6 +9,14 @@
     <br>
     <button class="btn btn-primary btn-lg" *ngIf="!isRecording" (click)="startRecording()">Start Recording</button>
     <button class="btn btn-warning btn-lg" *ngIf="isRecording" (click)="stopRecording()">Stop Recording</button>
+    <!-- <button class="btn theme-btn" matTooltip='Switch Camera' matTooltipClass="custom-tooltip"
+          (click)="switchCamera()">
+    Switch Camera
+  </button> -->
+
+  <button class="btn theme-btn" matTooltip='Switch Camera' tabindex="-1" matTooltipClass="custom-tooltip">
+    <img src="./../../../../assets/img/Pricing/switch-camera.png" style="width: 27.55px;height: 28.8px;" (click)="switchCamera()">
+  </button>
     <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip"
           (click)="Save()">
           <svg class="icon icon-save">

@@ -105,8 +105,8 @@ export class BVViewComponent implements OnInit {
   TENDAR_NAME:any=''
 
   TendarStyle:string=`width: 100%;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-  AreaBoxStyle:string=`border:1px solid black;width: 100%;height: 117px;resize: none;`;
-  ContainWidth:string=`border:1px solid black;width: calc(100% - 10px);height: 59px;border-top:none`;
+  AreaBoxStyle:string=`border:1px solid black;width: 100%;height: 50px;resize: none;`;
+  ContainWidth:string=`border:1px solid black;width: calc(100% - 10px);height: 55px;border-top:none`;
   BlankBoxStyle:string=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
   HearderBoxStyle:string=`border:1px solid black; width:100%; text-align: center;border-bottom:none`;
 
@@ -322,7 +322,7 @@ export class BVViewComponent implements OnInit {
   }
 
   FillViewPara() {
-    this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'PricingWrkDisp' }).subscribe((VPRes) => {
+    this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'BVView' }).subscribe((VPRes) => {
       try {
         if (VPRes.success == 1) {
           let GroupData = this.groupByArray(VPRes.data, "GROUPKEY")
@@ -342,6 +342,7 @@ export class BVViewComponent implements OnInit {
                 cellStyle: {
                   "text-align": GroupData[i].Data[j].CELLALIGN,
                   "background-color": GroupData[i].Data[j].BACKCOLOR,
+                  "color":GroupData[i].Data[j].FONTCOLOR
                 },
                 resizable: GroupData[i].Data[j].ISRESIZE,
                 GROUPKEY: GroupData[i].Data[j].GROUPKEY,

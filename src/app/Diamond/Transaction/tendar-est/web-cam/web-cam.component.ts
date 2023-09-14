@@ -82,6 +82,33 @@ export class WebCamComponent implements OnInit {
     
   }
 
+  switchCamera() {
+    const videoElement = document.querySelector('.video') as HTMLVideoElement;
+  
+    const currentStream = videoElement.srcObject as MediaStream;
+  
+    if (currentStream) {
+      const currentFacingMode = currentStream.getTracks()[0].getSettings().facingMode;
+  
+      const newFacingMode = currentFacingMode === 'user' ? 'environment' : 'user';
+  
+      const newConstraints = {
+        video: { facingMode: newFacingMode },
+      };
+  
+      navigator.mediaDevices.getUserMedia(newConstraints)
+        .then(newStream => {
+          videoElement.srcObject = newStream;
+  
+          videoElement.play();
+        })
+        .catch(error => {
+          console.error('Error switching camera:', error);
+        });
+    }
+  }
+    
+
   CLOSE(){
     if(this.stream){
     this.stream.getTracks().forEach(track => track.stop());

@@ -47,6 +47,8 @@ import { MilkyMastComponent } from './Diamond/Master/milky-mast/milky-mast.compo
 import { GridleMastComponent } from './Diamond/Master/gridle-mast/gridle-mast.component';
 import { DepthMastComponent } from './Diamond/Master/depth-mast/depth-mast.component';
 import { RatioMastComponent } from './Diamond/Master/ratio-mast/ratio-mast.component';
+import { ShdMastComponent } from './Diamond/Master/shd-mast/shd-mast.component';
+import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component';
 
 
 const routes: Routes = [
@@ -87,6 +89,8 @@ const routes: Routes = [
   { path: 'GridleMast', component: GridleMastComponent, canActivate: [AuthGuard] },
   { path: 'DepthMast', component: DepthMastComponent, canActivate: [AuthGuard] },
   { path: 'RatioMast', component: RatioMastComponent, canActivate: [AuthGuard] },
+  { path: 'ShdMast', component: ShdMastComponent, canActivate: [AuthGuard] },
+  { path: 'RefMast', component: RefMastComponent, canActivate: [AuthGuard] },
 
   // Transaction
   { path: 'TenCom', component: TendarComComponent, canActivate: [AuthGuard] },

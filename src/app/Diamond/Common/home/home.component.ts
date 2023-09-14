@@ -47,6 +47,8 @@ import { RatioMastComponent } from '../../Master/ratio-mast/ratio-mast.component
 import { PricingWrkViewComponent } from '../../View/pricing-wrk-view/pricing-wrk-view.component';
 import { BVViewComponent } from '../../View/b-v-view/b-v-view.component';
 import { BidDataComponent } from '../../View/bid-data/bid-data.component';
+import { ShdMastComponent } from '../../Master/shd-mast/shd-mast.component';
+import { RefMastComponent } from '../../Master/ref-mast/ref-mast.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -195,6 +197,8 @@ export class HomeComponent implements OnInit {
       this.CheckFormPermission('GridleMastComponent')||
       this.CheckFormPermission('DepthMastComponent')||
       this.CheckFormPermission('RatioMastComponent')||
+      this.CheckFormPermission('ShdMastComponent')||
+      this.CheckFormPermission('RefMastComponent')||
       this.CheckFormPermission('TensionMastComponent')) {
       this.masterParameter = true;
     } else {
@@ -401,6 +405,12 @@ export class HomeComponent implements OnInit {
         break;
       case "Ratio Master":
         this.ComponentName = RatioMastComponent;
+        break;
+      case "Shade Master":
+        this.ComponentName = ShdMastComponent;
+        break;
+      case "Reflection Master":
+        this.ComponentName = RefMastComponent;
         break;
       case "Pricing Work":
         this.ComponentName = PricingWrkViewComponent;
