@@ -3178,15 +3178,6 @@ export class TendarEstComponent implements OnInit {
       if (!params.data.ML_CODE) {
         return;
       }
-      if (!params.data.SH_CODE) {
-        return;
-      }
-      if (!params.data.REF_CODE) {
-        return;
-      }
-      if (!params.data.RAPTYPE) {
-        return;
-      }
 
       let RapObj = {
         S_CODE: params.data.S_CODE,
@@ -3490,7 +3481,10 @@ export class TendarEstComponent implements OnInit {
         SubData[i].C_CODE ||
         SubData[i].Q_CODE ||
         parseFloat(SubData[i].CARAT) ||
-        SubData[i].LB_CODE
+        SubData[i].LB_CODE||
+        SubData[i].SH_CODE||
+        SubData[i].RAPTYPE||
+        SubData[i].REF_CODE
       ) {
         if(
         !SubData[i].S_CODE ||
@@ -3501,7 +3495,10 @@ export class TendarEstComponent implements OnInit {
         !SubData[i].FL_CODE ||
         !SubData[i].LB_CODE ||
         !SubData[i].IN_CODE ||
-        !SubData[i].ML_CODE
+        !SubData[i].ML_CODE ||
+        !SubData[i].SH_CODE ||
+        !SubData[i].RAPTYPE ||
+        !SubData[i].REF_CODE
         ){
           if(!SubData[i].S_CODE){
             ConditionArray.push('Shape')
@@ -3521,8 +3518,14 @@ export class TendarEstComponent implements OnInit {
             ConditionArray.push('Inclusion')
           }else if(!SubData[i].ML_CODE){
             ConditionArray.push('Milky')
+          }else if(!SubData[i].SH_CODE){
+            ConditionArray.push('Shades')
+          }else if(!SubData[i].RAPTYPE){
+            ConditionArray.push('Raptype')
+          }else if(!SubData[i].REF_CODE){
+            ConditionArray.push('Reflection')
           }
-        return this.toastr.warning(ConditionArray[0] + ' ' +'is Missing');  
+        return this.toastr.warning(ConditionArray[0] + ' ' +'is Missing');
         }
       }
     }
@@ -5176,15 +5179,6 @@ export class TendarEstComponent implements OnInit {
       return;
     }
     if (!RapObj.ML_CODE) {
-      return;
-    }
-    if (!parseInt(RapObj.SH_CODE)) {
-      return;
-    }
-    if (!parseInt(RapObj.REF_CODE)) {
-      return;
-    }
-    if (!RapObj.RAPTYPE || RapObj.RAPTYPE == 'null') {
       return;
     }
     let RapObj1 = {
