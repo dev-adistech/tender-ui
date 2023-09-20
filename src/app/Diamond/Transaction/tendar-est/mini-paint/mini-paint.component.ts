@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnInit, ViewChild } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -8,6 +8,7 @@ import SignaturePad from 'signature_pad';
 // declare var SignaturePad;
 import { TendarEstService } from 'src/app/Service/Rap/tendar-est.service';
 import Swal from 'sweetalert2';
+declare let $: any;
 
 @Component({
   selector: 'app-mini-paint',
@@ -17,12 +18,32 @@ import Swal from 'sweetalert2';
 export class MiniPaintComponent implements OnInit {
 
   @ViewChild('lienzo') lienzo: any;
+  @ViewChild('lienzo') canvasContainer: ElementRef<HTMLElement>;
+  // @ViewChild('resizeHandle') resizeHandle: ElementRef<HTMLElement>;
+
   private signature: any;
+  private ctx: CanvasRenderingContext2D;
   color = "#000000";
   radio = 2;
 
+  private resizeStartWidth = 0;
+  private resizeStartHeight = 0;
   NEWIMAGE:any = ''
+  private isDragging = false;
+  private offsetX = 0;
+  private offsetY = 0;
   image = new Image();
+
+
+  private selectedImage: HTMLImageElement | null = null;
+private selectedImageX = 0;
+private selectedImageY = 0;
+private selectedImageWidth = 0;
+private selectedImageHeight = 0;
+private resizing = false;
+private resizeHandle: string | null = null;
+private resizeStartX = 0;
+private resizeStartY = 0;
 
 
   ngAfterViewInit(){
@@ -40,7 +61,7 @@ export class MiniPaintComponent implements OnInit {
         if(NewRes.success == true){
           this.NEWIMAGE = NewRes.data[0].PRN
           const imageUrl = this.NEWIMAGE;
-
+          // this.loadImage();
         fetch(imageUrl)
       .then(response => response.blob())
       .then(blob => createImageBitmap(blob))
@@ -64,7 +85,193 @@ export class MiniPaintComponent implements OnInit {
     this.cambiarColor();
     this.changeRadio();
 
+    this.ctx = this.lienzo.nativeElement.getContext('2d');
+    this.setupDragAndDrop();
+    // this.setupResizeHandlers();
 }
+
+
+startResizing(handle: string) {
+  if (this.selectedImage) {
+    this.resizing = true;
+    this.resizeHandle = handle;
+
+    this.resizeStartX = this.selectedImage.x || 0;
+    this.resizeStartY = this.selectedImage.y || 0;
+    this.resizeStartWidth = this.selectedImage.width || 0;
+    this.resizeStartHeight = this.selectedImage.height || 0;
+  }
+}
+
+@HostListener('document:mousemove', ['$event'])
+onMouseMove(event: MouseEvent) {
+  if (this.resizing && this.selectedImage) {
+    const x = event.clientX
+    const y = event.clientY 
+
+    const widthDiff = x - this.resizeStartX;
+    const heightDiff = y - this.resizeStartY;
+
+    if (this.resizeHandle === 'top-left' || this.resizeHandle === 'bottom-left') {
+      // this.selectedImage.x = this.resizeStartX + widthDiff;
+      this.selectedImage.width = this.resizeStartWidth - widthDiff;
+    } else {
+      this.selectedImage.width = this.resizeStartWidth + widthDiff;
+    }
+
+    if (this.resizeHandle === 'top-left' || this.resizeHandle === 'top-right') {
+      // this.selectedImage.y = this.resizeStartY + heightDiff;
+      this.selectedImage.height = this.resizeStartHeight - heightDiff;
+    } else {
+      this.selectedImage.height = this.resizeStartHeight + heightDiff;
+    }
+
+    this.ctx.clearRect(0, 0, this.lienzo.nativeElement.width, this.lienzo.nativeElement.height);
+    this.ctx.drawImage(this.selectedImage, 0, 0, this.selectedImage.width, this.selectedImage.height);
+    this.selectedImage.width = this.selectedImage.width
+    this.selectedImage.height = this.selectedImage.height
+  }
+}
+
+@HostListener('document:mouseup', ['$event'])
+onMouseUp(event: MouseEvent) {
+  this.resizing = false;
+  this.resizeHandle = null;
+}
+
+
+private setupDragAndDrop() {
+  const canvas = this.lienzo.nativeElement;
+
+  canvas.addEventListener('dragover', (e) => {
+    e.preventDefault();
+  });
+
+  canvas.addEventListener('drop', (e) => {
+    e.preventDefault();
+
+    const imageFile = e.dataTransfer.files[0];
+    if (imageFile) {
+      this.handleImageDrop(imageFile);
+    }
+  });
+  canvas.addEventListener('mousedown', (e) => {
+    const x = e.clientX - canvas.getBoundingClientRect().left;
+    const y = e.clientY - canvas.getBoundingClientRect().top;
+
+    // Check if any image is clicked and select it
+    if (this.isInsideImage(this.selectedImage, x, y)) {
+      this.isDragging = true;
+      this.offsetX = x;
+      this.offsetY = y;
+    }
+  });
+
+  canvas.addEventListener('mousemove', (e) => {
+    if (this.isDragging && this.selectedImage) {
+      const x = e.clientX - canvas.getBoundingClientRect().left - this.offsetX;
+      const y = e.clientY - canvas.getBoundingClientRect().top - this.offsetY;
+      // Clear the canvas and redraw the selected image at the new position
+      this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+      this.ctx.drawImage(this.selectedImage, x, y,this.selectedImage.width,this.selectedImage.height);
+    }
+  });
+
+  canvas.addEventListener('mouseup', () => {
+    this.isDragging = false;
+  });
+
+  canvas.addEventListener('mouseleave', () => {
+    this.isDragging = false;
+  });
+}
+
+
+
+// private setupDragAndDrop() {
+//   const canvas = this.lienzo.nativeElement;
+
+//   canvas.addEventListener('dragover', (e) => {
+//     e.preventDefault();
+//   });
+
+//   canvas.addEventListener('drop', (e) => {
+//     e.preventDefault();
+
+//     const imageFile = e.dataTransfer.files[0];
+//     if (imageFile) {
+//       this.handleImageDrop(imageFile);
+//     }
+//   });
+//   canvas.addEventListener('mousedown', (e) => {
+//     if (this.selectedImage && this.isInsideImage(this.selectedImage, e.clientX, e.clientY)) {
+//       this.isDragging = true;
+//       this.offsetX = e.clientX - canvas.getBoundingClientRect().left;
+//       this.offsetY = e.clientY - canvas.getBoundingClientRect().top;
+//     }
+//   });
+  
+//   canvas.addEventListener('mousemove', (e) => {
+//     if (this.isDragging && this.selectedImage) {
+//       const x = e.clientX - canvas.getBoundingClientRect().left - this.offsetX;
+//       const y = e.clientY - canvas.getBoundingClientRect().top - this.offsetY;
+  
+//       // Clear the canvas and redraw the selected image at the new position
+//       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+//       this.ctx.drawImage(this.selectedImage, x, y);
+  
+//       // Update the offset for the next mousemove event
+//       this.offsetX = e.clientX - canvas.getBoundingClientRect().left;
+//       this.offsetY = e.clientY - canvas.getBoundingClientRect().top;
+//     }
+//   });
+  
+//   canvas.addEventListener('mouseup', () => {
+//     this.isDragging = false;
+//     this.selectedImage = null; // Deselect the image after releasing the mouse button
+//   });
+  
+//   canvas.addEventListener('mouseleave', () => {
+//     this.isDragging = false;
+//   });
+// }
+
+private isInsideImage(image: HTMLImageElement, x: number, y: number): boolean {
+  const imageX = image.x || 0;
+  const imageY = image.y || 0;
+  const imageWidth = image.width || 0;
+  const imageHeight = image.height || 0;
+
+  return (
+    x >= imageX &&
+    x <= imageX + imageWidth &&
+    y >= imageY &&
+    y <= imageY + imageHeight
+  );
+}
+
+
+
+private handleImageDrop(file: File) {
+  const canvas = this.lienzo.nativeElement;
+  const ctx = this.ctx;
+
+  const img = new Image();
+  const reader = new FileReader();
+
+  reader.onload = (e) => {
+    img.src = e.target.result as string;
+    
+    img.onload = () => {
+      // ctx.clearRect(0, 0, 1000, 450);
+      this.selectedImage = img;
+      ctx.drawImage(img, 0, 0);
+    };
+  };
+
+  reader.readAsDataURL(file);
+}
+
 
 borrar(){
   this.signature.clear();
@@ -260,3 +467,4 @@ async deleteTenderVideoFromCloud(videos) {
 }
 
 }
+

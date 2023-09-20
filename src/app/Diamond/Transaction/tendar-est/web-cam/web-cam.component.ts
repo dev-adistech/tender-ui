@@ -98,9 +98,9 @@ export class WebCamComponent implements OnInit {
   
       navigator.mediaDevices.getUserMedia(newConstraints)
         .then(newStream => {
-          videoElement.srcObject = newStream;
-  
-          videoElement.play();
+          this.stream = newStream;
+          this.recordVideoElement = this.recordVideoElementRef.nativeElement;
+          // videoElement.play();
         })
         .catch(error => {
           console.error('Error switching camera:', error);

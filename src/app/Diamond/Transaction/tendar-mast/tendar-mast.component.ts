@@ -9,6 +9,10 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { TendatMastService } from "src/app/Service/Transaction/tendat-mast.service";
 import { DatePipe } from "@angular/common";
 import { FormControl } from "@angular/forms";
+import { TendarEstService } from "src/app/Service/Rap/tendar-est.service";
+import { Observable } from "rxjs";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+declare var $: any;
 
 @Component({
   selector: "app-tendar-mast",
@@ -61,8 +65,10 @@ export class TendarMastComponent implements OnInit {
 
   public columnDefs1;
   public gridApi1;
+  public rowSelection
   public gridColumnApi1;
   public defaultColDef1;
+  public gridOptions1;
 
   agGridWidth: number = 0;
   agGridStyles: string = "";
@@ -82,6 +88,8 @@ export class TendarMastComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private elementRef: ElementRef,
     private TendarMastser: TendatMastService,
+    private TendarEstServ: TendarEstService,
+    private http: HttpClient,
     private datepipe: DatePipe
   ) {
     this.Tendar = new FormControl();
@@ -205,13 +213,41 @@ export class TendarMastComponent implements OnInit {
         headerClass: "text-center",
         width: 150,
       },
+      {
+        headerName: "Video",
+        field: "VIDEO",
+        cellStyle: { "text-align": "center" },
+        headerClass: "text-center",
+        cellRenderer: (params) => {
+          if (params.node.rowPinned != 'bottom') {
+            if (params.data.VIDEO == true) {
+            return '<input type="checkbox" data-action-type="VIDEO"  checked (keydown.space)="checked">';
+            }else {
+              return '<input type="checkbox" data-action-type="VIDEO" (keydown.space)="checked">';
+            }
+          }
+        },
+        width: 150,
+      },
     ];
 
     this.defaultColDef1 = {
       resizable: true,
       sortable: true,
       filter: true,
-    };
+      enableRowGroup: true,
+      filterParams: {
+        suppressMiniFilter: false,
+        resetButton: true,
+      },
+    }
+    this.gridOptions1 = {
+      // columnDefs: this.columnDefs,
+      // rowData: this.rowData,
+      enableSorting: false,
+      enableFilter: false,
+      context: { thisComponent: this },
+    }
   }
 
   DateFormat(params) {
@@ -264,6 +300,119 @@ export class TendarMastComponent implements OnInit {
     // this.LoadGridData1();
   }
 
+  UploadDirect(){
+    const fileInput = document.getElementById('fileInput');
+    if (fileInput) {
+      fileInput.click();
+    }
+  }
+
+  onFileInputChange(event: Event){
+    let SubData =[]
+    this.gridApi1.forEachNode(function (rowNode, index) {
+      SubData.push(rowNode.data);
+    });
+    let selected =[]
+    for(let i=0;i<SubData.length;i++){
+      if(SubData[i].VIDEO == true){
+        selected.push(SubData[i])
+      }
+    }
+    console.log(selected)
+
+    const inputElement = event.target as HTMLInputElement;
+    const selectedFile = inputElement.files;
+
+    console.log(selectedFile)
+    let NewName
+    for(let i=0;i<selectedFile.length;i++){
+      for(let j=0;j<selected.length;j++){
+        NewName = selected[j].COMP_CODE + '-' + selected[j].DETID + '-' + selected[j].SRNO
+        let name = selectedFile[i].name.split('.')[0]
+        if(NewName == name){
+          let op = this
+
+    if (selectedFile) {
+      const file = selectedFile[i]
+      const blob = new Blob([file], { type: "video/mp4" });
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(blob);
+      fileReader.addEventListener("load", () => {
+        let base64String = fileReader.result;
+        let FileObj = {
+          FileName: `${selected[i].COMP_CODE}-${selected[i].DETID}-${selected[i].SRNO}`,
+          base64File: base64String,
+        };
+        if (typeof base64String === "string") {
+          op.uploadVideo(FileObj);
+        } else {
+          const bytes = new Uint8Array(base64String);
+          base64String = String.fromCharCode.apply(null, bytes);
+          op.uploadVideo(FileObj);
+        }
+        op.spinner.show()
+        op.uploadVideo(FileObj).subscribe((response) => {
+          try {
+            let Obj = {
+              COMP_CODE: op.COMP_CODE,
+              DETID: selected[i].DETID,
+              SRNO: selected[i].SRNO,
+              SECURE_URL: response.data.secure_url,
+              URL: response.data.url,
+              CLOUDID: response.data.cloudid,
+              PUBLICID: response.data.public_id,
+              I_TYPE: 'VIDEO'
+            };
+            op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
+              try {
+                if (Res.success == true) {
+                  op.spinner.hide();
+                  op.toastr.success("File uploaded succesfully.");
+                } else {
+                  op.spinner.hide();
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: JSON.stringify(Res.data),
+                  });
+                }
+              } catch (error) {
+                op.spinner.hide();
+                console.log(error);
+
+                op.toastr.error(error);
+              }
+            });
+          } catch (error) {
+            op.spinner.hide();
+            console.log(error);
+
+            op.toastr.error(error);
+          }
+        });
+      });
+    }
+        }
+      }
+    }
+  }
+
+  uploadVideo(FileObj): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        "Content-Type": "application/json",
+        projectId: "63ab279447964464e2194563",
+        companyId: "63ab2411a95148bc211212fc",
+      }),
+    };
+
+    return this.http.post(
+      "https://cloud.peacocktech.in/api/PublicAPI/uploadFileOnCloud",
+      FileObj,
+      httpOptions
+    );
+  }
+
   CHANGEPASSWORD() {
     if (!this.PASS) return;
     this.gridApi.redrawRows();
@@ -309,6 +458,7 @@ export class TendarMastComponent implements OnInit {
     this.TendarMastser.ChkTendarPktEnt(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
+          this.spinner.hide();
           if(SaveRes.data[''] !== 'TRUE'){
             setTimeout(() => { this.Srno.nativeElement.focus() }, 0)
             this.toastr.warning(SaveRes.data[''])
@@ -335,6 +485,7 @@ export class TendarMastComponent implements OnInit {
     this.TendarMastser.GetTendarPktNumber(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
+          this.spinner.hide()
           this.SRNO = SaveRes.data[0]['']
         }else{
           this.spinner.hide()
@@ -430,6 +581,7 @@ export class TendarMastComponent implements OnInit {
     this.TendarMastser.ChkTendarNumber(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
+          this.spinner.hide()
           if(SaveRes.data[''] !== 'TRUE'){
             setTimeout(() => { this.TNumber.nativeElement.focus() }, 0)
             this.toastr.warning(SaveRes.data[''])
@@ -454,6 +606,7 @@ export class TendarMastComponent implements OnInit {
     this.TendarMastser.GetTendarNumber(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
+          this.spinner.hide()
           this.DETID = SaveRes.data[0]['']
         }else{
           this.spinner.hide()
@@ -620,7 +773,13 @@ export class TendarMastComponent implements OnInit {
 
   onGridRowClicked1(eve: any) {
     if (eve.event.target !== undefined) {
+      let dataObj = eve.data;
       let actionType = eve.event.target.getAttribute("data-action-type");
+      if(actionType == 'VIDEO'){
+        dataObj.VIDEO = !dataObj.VIDEO;
+        eve.node.setData(dataObj)
+        eve.api.refreshCells({ force: true })
+      }
       if (actionType == "DeleteData") {
         Swal.fire({
           title:
@@ -659,6 +818,7 @@ export class TendarMastComponent implements OnInit {
           }
         });
       } else if (actionType == "EditData") {
+        this.spinner.hide()
         this.SRNO = eve.data.SRNO ? eve.data.SRNO : "";
         this.CRT = eve.data.I_CARAT ? eve.data.I_CARAT : 0.000,
         this.COMMENT = eve.data.COMMENT ? eve.data.COMMENT : '';
@@ -762,6 +922,7 @@ export class TendarMastComponent implements OnInit {
           }
         });
       } else if (actionType == "EditData") {
+        this.spinner.hide()
         this.COMP_CODE = eve.data.COMP_CODE ? eve.data.COMP_CODE : "";
         (this.T_DATE = eve.data.T_DATE ? eve.data.T_DATE : null),
         (this.T_NAME = eve.data.T_NAME ? eve.data.T_NAME : ""),
@@ -771,5 +932,17 @@ export class TendarMastComponent implements OnInit {
         setTimeout(() => { this.TName.nativeElement.focus() }, 0)
       }
     }
+  }
+
+  nextenter(element: any, id: any) {
+    // if (e.keyCode == 13) {
+    if (element) {
+      setTimeout(() => {
+        this[element].closePanel();
+      }, 0);
+    }
+    $("#" + id).focus();
+    $("#" + id).select();
+    // }
   }
 }

@@ -351,6 +351,7 @@ export class TendarEstComponent implements OnInit {
                 cellRenderer: (params) => {
                   if (params.data) {
                     if (params.node.rowPinned != "bottom") {
+                      if(params.data['PTAG'] !== 'Total'){
                       if (params.data[VPRes.data[i].FIELDNAME] == 1) {
                         if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
                           return (
@@ -381,6 +382,7 @@ export class TendarEstComponent implements OnInit {
                         }
                       }
                     }
+                  }
                   }
                 },
               });
@@ -3481,10 +3483,7 @@ export class TendarEstComponent implements OnInit {
         SubData[i].C_CODE ||
         SubData[i].Q_CODE ||
         parseFloat(SubData[i].CARAT) ||
-        SubData[i].LB_CODE||
-        SubData[i].SH_CODE||
-        SubData[i].RAPTYPE||
-        SubData[i].REF_CODE
+        SubData[i].LB_CODE
       ) {
         if(
         !SubData[i].S_CODE ||
@@ -4957,6 +4956,88 @@ export class TendarEstComponent implements OnInit {
     }
   }
 
+  CapClick(){
+    const capInput = document.getElementById('capInput');
+    if (capInput) {
+      capInput.click();
+    }
+  }
+
+  onCapInputChange(eve){
+    let op = this
+
+    const inputElement = eve.target as HTMLInputElement;
+    const selectedFile = inputElement.files?.[0];
+
+    if (selectedFile) {
+      let formData:FormData = new FormData();
+    if(selectedFile) {
+      formData.append('Pic', selectedFile, selectedFile.name)
+    }
+      let uploadedPicName = null;
+      let uploadedPicExt = null;
+    this.spinner.show()
+      this.TendarEstServ.fileUpload(formData).subscribe(uploadImageRes => {
+        
+        if(uploadImageRes.length != 0){
+          uploadedPicName = uploadImageRes[0];
+          uploadedPicExt = uploadedPicName.split('.').pop();
+
+          let Obj = {
+              uploadedPicName:uploadedPicName,
+              uploadedPicExt:uploadedPicExt,
+              COMP_CODE: op.COMP_CODE,
+              DETID: this.DOCKData['DETID'],
+              SRNO: this.DOCKData['SRNO'],
+              SECURE_URL: 'https://pcknstg.blob.core.windows.net/hdfile/Sarine/'+uploadedPicName,
+              URL: '',
+              CLOUDID: '',
+              PUBLICID: '',
+              I_TYPE: 'FILE'
+          }
+          this.TendarEstServ.TendarVidUpload(Obj).subscribe((SaveRes) => {
+            try{
+              if(SaveRes.success){
+                  this.spinner.hide()
+                  this.toastr.success('File Upload SucessFully')
+                }
+              else{
+                this.spinner.hide()
+                this.toastr.warning('Something want Wrong While File Upload')
+                };
+            }catch(err){
+              this.spinner.hide()
+              this.toastr.warning(err)
+            }
+          })
+        }else {
+          this.spinner.hide()
+          this.toastr.error('Something want Wrong While File Upload')
+        }
+    })
+    }
+  }
+
+  Download(){
+    let Obj = {
+      COMP_CODE: this.COMP_CODE,
+      DETID: this.DETID,
+      FSRNO: this.DOCKData['SRNO'],
+      TSRNO: this.DOCKData['SRNO'],
+      I_TYPE:'FILE'
+    };
+    this.TendarEstServ.TendarVidDisp(Obj).subscribe((Res) => {
+      try {
+        if (Res.success == true) {
+          let newurl = Res.data[0].URL
+          window.open(newurl, '_blank');
+        }
+      } catch{
+
+      }
+    })
+  }
+
   ShowVideo() {
     const dialogRef = this.dialog.open(VideoShowComponent, {
       panelClass: "saw-mac-pro-det-dialog",
@@ -4986,7 +5067,7 @@ export class TendarEstComponent implements OnInit {
       fileReader.addEventListener("load", () => {
         let base64String = fileReader.result;
         let FileObj = {
-          FileName: `${op.COMP_CODE}-${op.DETID}-${op.SRNO}`,
+          FileName: `${op.COMP_CODE}-${op.DETID}-${this.DOCKData['SRNO']}`,
           base64File: base64String,
         };
         if (typeof base64String === "string") {

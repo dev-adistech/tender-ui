@@ -74,7 +74,18 @@
             <img src="./../../../../assets/img/Pricing/play.png" style="width: 27.55px;height: 28.8px;"
               (click)="ShowVideo()">
           </button>
+
+          <button class="btn theme-btn" matTooltip='Cap/adv Upload' tabindex="-1" matTooltipClass="custom-tooltip">
+            <img src="./../../../../assets/img/Pricing/capUpload.png" style="width: 27.55px;height: 28.8px;"
+              (click)="CapClick()">
+          </button>
+
+          <button class="btn theme-btn" matTooltip='Download File' tabindex="-1" matTooltipClass="custom-tooltip">
+            <img src="./../../../../assets/img/Pricing/downloadfile.png" style="width: 27.55px;height: 28.8px;"
+              (click)="Download()">
+          </button>
   
+          <input id="capInput" type="file" (change)="onCapInputChange($event)" style="display: none;">
           <input id="fileInput" type="file" (change)="onFileInputChange($event)" style="display: none;">
           <video id="cameraStream" style="display: none;" autoplay></video>
         </article>

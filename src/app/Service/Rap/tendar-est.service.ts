@@ -49,4 +49,8 @@ export class TendarEstService {
   TendarVidUploadDisp(Data: any): Observable<any> {
     return this.http.post<any>('TendarEst/TendarVidUploadDisp', Data)
   }
+
+  fileUpload(Data: any): Observable<any> {
+    return this.http.post<any>('TendarEst/fileUpload', Data)
+  }
 }

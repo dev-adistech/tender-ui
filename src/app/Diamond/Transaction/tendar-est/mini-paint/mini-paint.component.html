@@ -1,17 +1,24 @@
-<canvas width="1000" height="450" style="border: 1px solid;height: 450px;" #lienzo id="lienzo"></canvas>
+<!-- <canvas width="1000" height="450" style="border: 1px solid;height: 450px;" #lienzo id="lienzo"></canvas> -->
+<!-- <div class="canvas-container">
+  <canvas width="1000" height="450" style="border: 1px solid;height: 450px;" #lienzo id="lienzo"></canvas>
+</div> -->
+<canvas #lienzo id="lienzo" width="1000" style="border: 1px solid black;" height="450"></canvas>
+<div class="resize-handle top-left" (mousedown)="startResizing('top-left')"></div>
+<div class="resize-handle top-right" (mousedown)="startResizing('top-right')"></div>
+<div class="resize-handle bottom-left" (mousedown)="startResizing('bottom-left')"></div>
+<div class="resize-handle bottom-right" (mousedown)="startResizing('bottom-right')"></div>
+
+
+
 <div class="controls">
   <input type="color" (change)="cambiarColor()" [(ngModel)]="color"/>
-  <!-- <button class="mui-btn mui-btn--primary" (click)="borrar()">Clear</button> -->
   <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="borrar()">
-    <!-- <i class="icon-clear mat-icon"></i> -->
     <svg class="icon icon-clear">
       <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
     </svg>
   </button>
-  <!-- <button class="mui-btn mui-btn--primary" (click)="download()">Save</button> -->
   <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip"
           (click)="download()">
-          <!-- <i class="icon-save mat-icon"></i> -->
           <svg class="icon icon-save">
             <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
           </svg>

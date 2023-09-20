@@ -14,16 +14,16 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Tendar Number *</mat-label>
-        <input matInput type="number" name="Code" #TNumber  autocomplete="off" [(ngModel)]="DETID" (blur)="BlurTendar()"  [formControl]="Tendar" />
+        <input matInput type="number" name="Code" #TNumber (keydown.enter)="nextenter('','Tname')" autocomplete="off" [(ngModel)]="DETID" (blur)="BlurTendar()"  [formControl]="Tendar" />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Tendar Name *</mat-label>
-        <input matInput type="text" #TName name="Code" autocomplete="off" [(ngModel)]="T_NAME" [formControl]="TendarNumber" />
+        <input matInput type="text" #TName name="Code" autocomplete="off" id="Tname" (keydown.enter)="nextenter('','date')" [(ngModel)]="T_NAME" [formControl]="TendarNumber" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Tendar Date *</mat-label>
-        <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" #fdate onfocus="this.select();" [formControl]="TendarDate" />
+        <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" id="date" (keydown.enter)="nextenter('','save1')" #fdate onfocus="this.select();" [formControl]="TendarDate" />
         <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()"></mat-datepicker-toggle>
         <mat-datepicker #ID1></mat-datepicker>
       </mat-form-field>
@@ -31,7 +31,7 @@
       <mat-checkbox class="example-margin" [(ngModel)]="ISACTIVE"> Active</mat-checkbox>
 
       <article class="btn-wrapper">
-        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip" (click)="Save()">
+        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' id="save1" (keydown.enter)="nextenter('','Tname')" matTooltipClass="custom-tooltip" (click)="Save()">
           <!-- <i class="icon-save mat-icon"></i> -->
           <svg class="icon icon-save">
             <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
@@ -67,22 +67,22 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Srno *</mat-label>
-        <input matInput type="number" #Srno name="Srno" [formControl]="SRNOForm" autocomplete="off" [(ngModel)]="SRNO" (blur)="BlurSrno()" />
+        <input matInput type="number" (keydown.enter)="nextenter('','NCRATE')" #Srno name="Srno" [formControl]="SRNOForm" autocomplete="off" [(ngModel)]="SRNO" (blur)="BlurSrno()" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Carat *</mat-label>
-        <input matInput type="number" name="Carat" #CRATE autocomplete="off" [(ngModel)]="CRT" />
+        <input matInput type="number" name="Carat" (keydown.enter)="nextenter('','Comment')" id='NCRATE' autocomplete="off" [(ngModel)]="CRT" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Comment</mat-label>
-        <input matInput type="text" name="Comment" autocomplete="off" [(ngModel)]="COMMENT" />
+        <input matInput  id='Comment' type="text" (keydown.enter)="nextenter('','save')" name="Comment" autocomplete="off" [(ngModel)]="COMMENT" />
       </mat-form-field>
 
 
       <article class="btn-wrapper">
-        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip"
+        <button class="btn theme-btn mr-2 ml-auto" id='save' (keydown.enter)="nextenter('','NCRATE')" matTooltip='Save' matTooltipClass="custom-tooltip"
           (click)="SavePop()">
           <!-- <i class="icon-save mat-icon"></i> -->
           <svg class="icon icon-save">
@@ -101,15 +101,23 @@
             <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
           </svg>
         </button>
+
+        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Upload Video' matTooltipClass="custom-tooltip">
+          <img src="./../../../../assets/img/Pricing/upload-video.png" style="width: 27.55px;height: 28.8px;"
+            (click)="UploadDirect()">
+        </button>
       </article>
+      <input id="fileInput" type="file" multiple (change)="onFileInputChange($event)" style="display: none;">
     </article>
 
     <article class="aggrid-wrapper">
       <ag-grid-angular [style]="agGridStyles1" style="margin-bottom: 9%;" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef1"
-        [columnDefs]="columnDefs1" (gridReady)="onGridReady1($event)" [animateRows]="true"
-        (rowClicked)='onGridRowClicked1($event)'>
+        [columnDefs]="columnDefs1" (gridReady)="onGridReady1($event)"  [suppressMultiRangeSelection]="true"[rowSelection]="rowSelection" [enableRangeSelection]="true" [animateRows]="true"
+        (rowClicked)='onGridRowClicked1($event)' [gridOptions]="gridOptions1">
       </ag-grid-angular>
     </article>
   </section>
-
 </div>
+<ngx-spinner>
+  <p style="color: white;">Loading...</p>
+</ngx-spinner>

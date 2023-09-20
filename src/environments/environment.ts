@@ -9,26 +9,12 @@ export const environment = {
 
   //live connections
   // BaseUrl: 'api.tender.peacocktech.in', //domain name -  tender.peacocktech.in // 9928
-  // BaseUrl: 'ncmp.predacon.in', //domain name -  ncmp.predacon.in
-  // BaseUrl: 'nd.predacon.in', //domain name - nd.predacon.in // PORT = 4000 use this
-  // BaseUrl: 'skd.predacon.in', // PORT -9920
-  // BaseUrl: 'skd.peacocktech.in', // PORT -9920
-
-  // BaseUrl: 'ng.predacon.in', //domain name - ng.predacon.in /// 3000
-  // BaseUrl: 'mfg.peacocktech.in', //domain name -  mfg.peacocktech.in // PORT - 9909 use this but change port in project
-  // BaseUrl: '103.218.111.144', //domain ip - narola.predacon.in
-  // BaseUrl: '27.116.48.171', // domain ip - ng.predacon.in
 
 
   //PORTS
 
   PORT: 6001, // default
   // PORT: 9928, // tender.peacocktech.in
-  // PORT: 5000 // ncmp.predacon.in
-  // PORT: 9909, // mfg.peacocktech.in
-  // PORT: 9920, // skd.predacon.in
-  // PORT: 9920, // skd.peacocktech.in
-
   PORT1: 3002,// default
 };
 
