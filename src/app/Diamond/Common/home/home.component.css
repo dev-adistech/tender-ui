@@ -92,7 +92,7 @@
 	display: flex;
 	justify-content: flex-end;
 	justify-self: end;
-	gap: 2rem;
+	gap: 1.7rem;
 }
 .navigation-btn__grp button {
 	padding: 0;

@@ -49,6 +49,8 @@ import { BVViewComponent } from '../../View/b-v-view/b-v-view.component';
 import { BidDataComponent } from '../../View/bid-data/bid-data.component';
 import { ShdMastComponent } from '../../Master/shd-mast/shd-mast.component';
 import { RefMastComponent } from '../../Master/ref-mast/ref-mast.component';
+import Swal from 'sweetalert2';
+import { PerMastService } from 'src/app/Service/Config/per-mast.service';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -126,6 +128,7 @@ export class HomeComponent implements OnInit {
   NEWPASS: any = ''
   CNFPASS: any = ''
 
+  RAPBUTTON:boolean = false
   constructor(
     public toastr: ToastrService,
     public spinner: NgxSpinnerService,
@@ -142,6 +145,7 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     public homeShortCut: HomeShortCuts,
     public commonServ: CommonService,
+    private PerMastServ: PerMastService,
     // private _pushNotificationService: PushNotificationService
   ) {
     this.socket = io(`${this.url}:${this.port1}`, {
@@ -157,6 +161,11 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.spinner.hide()
+    if(this.decodedTkn.U_CAT === 'S'){
+      this.RAPBUTTON = true
+    }else {
+      this.RAPBUTTON = false
+    }
     this.USER_NAME = this.decodedTkn.UserId;
     this.FillPermissions()
     this.loadScript('./../../../../assets/easyui/jquery.min.js');
@@ -512,6 +521,35 @@ export class HomeComponent implements OnInit {
         this.toastr.error(error);
       }
     });
+  }
+
+  RapUpdate(){
+    Swal.fire({
+        title:"Are you sure you want to Update Rap ?",
+        icon: "question",
+        cancelButtonText: "No",
+        showCancelButton: true,
+        showConfirmButton: true,
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        if (result.value) { 
+          this.spinner.show()
+          this.PerMastServ.RapTrf({}).subscribe((UserIPRes) => {
+            try {
+              if (UserIPRes.success == true) {
+                this.spinner.hide();
+                this.toastr.success('Rap Update Successfully')
+              } else {
+                this.spinner.hide()
+                this.toastr.warning('Something Want Wrong to Update Rap')
+              }
+            } catch (error) {
+              this.spinner.hide()
+              this.toastr.error(error)
+            }
+          })
+        }
+      })
   }
 
   ReportName(e: any) {

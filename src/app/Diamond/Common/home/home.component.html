@@ -287,6 +287,11 @@
     <div class="navigation-end">
       <div class="version">{{ version }}</div>
       <div class="navigation-btn__grp">
+        <button class="btn" (click)="RapUpdate()" *ngIf="RAPBUTTON">
+          <svg class="icon icon-update icn-btn" matTooltip='Rap Update'>
+            <use xlink:href="assets/symbol-defs.svg#icon-update"></use>
+          </svg>
+        </button>
         <button class="btn" matTooltip="Tendar Estimation" matTooltipClass="custom-tooltip"
           *ngIf="CheckFormPermission('TendarEstComponent')" (click)="addiFrameTabs('Tendar Estimation', '/TendEst')">
           <!-- <i class="icon-calc mat-icon"></i> -->
@@ -305,7 +310,7 @@
             <use xlink:href="assets/symbol-defs.svg#icon-logout"></use>
           </svg>
         </button>
-        <button class="navigation-user" style="margin-right: 10%;" (click)="BgImage(); OpenPasswordChange = true;">
+        <button class="navigation-user" style="margin-right: 5%;" (click)="BgImage(); OpenPasswordChange = true;">
           <span> {{ USER_NAME }}</span>
         </button>
       </div>
@@ -345,3 +350,7 @@
 <footer class="home--footer">
   <p id="footer-text">{{ this.FOOTERMSG }}</p>
 </footer>
+
+<ngx-spinner>
+  <p style="color: white;">Loading...</p>
+</ngx-spinner>

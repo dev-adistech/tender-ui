@@ -26,4 +26,8 @@ export class PerMastService {
     return this.http.post<any>('PerMast/PerMastCopy', Data)
   }
 
+  RapTrf(Data: any): Observable<any> {
+    return this.http.post<any>('PerMast/RapTrf', Data)
+  }
+
 }
