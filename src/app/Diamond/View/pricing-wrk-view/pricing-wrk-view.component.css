@@ -10,3 +10,46 @@
   .second-span {
     width: 50%;
   }
+
+  .rap-excel__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .rap-excel__container h1 {
+    margin: 0;
+    background: var(--color-accent);
+    color: var(--color-white);
+    text-align: center;
+  }
+  
+  .rap-excel__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0 0.5rem;
+  }
+  
+  .rap-excel__row mat-form-field {
+    width: 8rem;
+  }
+  
+  .rap-excel__row button {
+    padding: 5px;
+  }
+  
+  .cell-span1 {
+    background: #ffffff;
+  }
+  
+  .ag-cell.ag-cell-not-inline-editing.ag-cell-auto-height.cell-span1.ag-cell-value {
+    border: 0.5px solid grey;
+  }
+  
+  .cell-center {
+    text-align: center;
+  }
+  
+  
+  

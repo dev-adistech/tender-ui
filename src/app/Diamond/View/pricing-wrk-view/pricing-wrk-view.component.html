@@ -52,13 +52,15 @@
         <!-- </article> -->
         </article>
         <div class="container" style="display: inline-table;position: relative;margin-left: 0%;">
-        <div class="aggrid-wrapper first-span" style="display: inline-flex;">
-            <ag-grid-angular  class="ag-theme-alpine select-color" style="width: 190px; height: 80vh;" [defaultColDef]="defaultColDef"
+        <div class="memo-ent-grid prc-view-grid first-span" style="display: inline-flex;">
+            <ag-grid-angular  class="ag-theme-alpine" style="width: calc(100vw - 71vw); height: 80vh;" [defaultColDef]="defaultColDef"
               [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" (cellClicked)="onCellDoubleClick($event)" [animateRows]="true">
             </ag-grid-angular>
           <div class="memo-ent-grid prc-view-grid second-span">
-            <ag-grid-angular style="margin-left: 15px;width: 82vw; height: 80vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef1"
-              [columnDefs]="columnDefs1" [rowMultiSelectWithClick]="true" [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle" (cellClicked)="oncellClick($event)" (cellEditingStopped)="OnCellEditingStart($event)" [pinnedBottomRowData]="pinnedBottomRowData" (gridReady)="onGridReady1($event)" [animateRows]="true">
+            <ag-grid-angular style="margin-left: 15px;width: calc(100vw - 29vw); height: 80vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef1"
+              [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" [suppressMenuHide]="false" [rowMultiSelectWithClick]="true" [getContextMenuItems]="getContextMenuItems" 
+              [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle" (cellClicked)="oncellClick($event)" (cellEditingStopped)="OnCellEditingStart($event)" 
+              (gridReady)="onGridReady1($event)" [animateRows]="true" [suppressRowTransform]="true" [suppressMenuHide]="false" >
             </ag-grid-angular>
         </div>
       </div>

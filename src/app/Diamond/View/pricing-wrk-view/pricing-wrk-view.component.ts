@@ -41,6 +41,9 @@ export class PricingWrkViewComponent implements OnInit {
   public gridColumnApi1;
   public getRowStyle
   public defaultColDef1;
+  public gridOptions1;
+
+  GridDataForMapping: any[] = []
 
   F_DATE:any =''
   T_DATE:any =''
@@ -66,6 +69,7 @@ export class PricingWrkViewComponent implements OnInit {
   touchStartTime: number;
 
   FooterKey = []
+  ISFILTER: boolean = false
 
   constructor(
     public dialog: MatDialog,
@@ -80,23 +84,23 @@ export class PricingWrkViewComponent implements OnInit {
     private ViewParaMastServ : ViewParaMastService
   ) { 
     this.touchStartTime=0
-    this.columnDefs = [
-      {
-        headerName: "Date",
-        field: "T_DATE",
-        cellStyle: { "text-align": "center" },
-        headerClass: "text-center",
-        width: 126,
-        cellRenderer: this.DateFormat.bind(this),
-      },
-      {
-        headerName: "Pcs",
-        field: "PCS",
-        cellStyle: { "text-align": "center" },
-        headerClass: "text-center",
-        width: 62,
-      },
-    ]
+    // this.columnDefs = [
+    //   {
+    //     headerName: "Date",
+    //     field: "T_DATE",
+    //     cellStyle: { "text-align": "center" },
+    //     headerClass: "text-center",
+    //     width: 126,
+    //     cellRenderer: this.DateFormat.bind(this),
+    //   },
+    //   {
+    //     headerName: "Pcs",
+    //     field: "PCS",
+    //     cellStyle: { "text-align": "center" },
+    //     headerClass: "text-center",
+    //     width: 62,
+    //   },
+    // ]
 
     this.getRowStyle = function (params) {
       if (params.data) {
@@ -121,7 +125,13 @@ export class PricingWrkViewComponent implements OnInit {
         resetButton: true,
       },
     }
+    this.gridOptions1 = {
+      enableSorting: false,
+      enableFilter: false,
+      context: { thisComponent: this }
+    }
     this.FillViewPara()
+    this.FillViewPara1()
   }
 
   DateFormat(params) {
@@ -160,6 +170,7 @@ export class PricingWrkViewComponent implements OnInit {
           if (FillRes.success == true) {
             this.spinner.hide();
             this.gridApi1.setRowData(FillRes.data);
+            this.GridDataForMapping = FillRes.data
             this._gridFunction.FooterKey = this.FooterKey
           this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data)
             const agBodyViewport: HTMLElement =
@@ -193,6 +204,8 @@ export class PricingWrkViewComponent implements OnInit {
             });
             this.agGridWidth1 = 200 + this.agGridWidth1;
             this.agGridStyles1 = `width: ${this.agGridWidth1}px; height: 70vh`;
+
+            this.gridApi1.refreshCells({ force: true })
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -258,6 +271,7 @@ export class PricingWrkViewComponent implements OnInit {
             // });
             // this.agGridWidth1 = 200 + this.agGridWidth1;
             // this.agGridStyles1 = `width: ${this.agGridWidth1}px; height: 70vh`;
+            this.gridApi1.refreshCells({ force: true })
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -311,22 +325,60 @@ export class PricingWrkViewComponent implements OnInit {
                 GROUPKEY: GroupData[i].Data[j].GROUPKEY,
                 hide: GroupData[i].Data[j].DISP == false ? true : false,
                 pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
+                rowSpan: this.rowSpy.bind(this),
                 suppressMenu: true,
+                cellClass: function (params) {
+                    if (params.node.rowPinned != 'bottom') {
+                      if (params.colDef.field == 'TOTAL') {
+                        return 'cell-span1 cell-center'
+                      }
+                      if (params.colDef.field == 'RCTS') {
+                        return 'cell-span1 cell-center'
+                      }
+                    }
+                  }
               })
 
               if(GroupData[i].Data[j].FIELDNAME === "MPER"){
                 tempData[j].editable = this.decodedTkn.U_CAT === 'P' || this.decodedTkn.U_CAT === 'S'? true : false
               }
-              if (j == 4) {
+              // if (j == 4) {
+              //   this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+              // }
+              // if (GroupData[i].Data[j].FIELDNAME == "CARAT") {
+              //   this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+              //   tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
+              //   tempData[j].aggFunc = 'sum'
+              // } else if (GroupData[i].Data[j].FIELDNAME == "PTAG"){
+              //   tempData[j].valueFormatter = this._convFunction.StringFormat
+              //   tempData[j].aggFunc = 'length'
+              // }
+
+              if (i == 0 && j == 0) {
                 this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
               }
-              if (GroupData[i].Data[j].FIELDNAME == "CARAT") {
+              if (GroupData[i].Data[j].FORMAT == "#0") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.NumberFormat
+                tempData[j].aggFunc = 'sum'
+              } else if (GroupData[i].Data[j].FORMAT == "#0.00") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.TwoFloatFormat
+                tempData[j].aggFunc = 'sum'
+
+              } else if (GroupData[i].Data[j].FORMAT == "#0.000") {
                 this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
                 tempData[j].aggFunc = 'sum'
-              } else if (GroupData[i].Data[j].FIELDNAME == "PTAG"){
+
+              } else if (GroupData[i].Data[j].FORMAT == "DateFormat") {
+                tempData[j].cellRenderer = this._convFunction.DateFormat.bind(this)
+                delete tempData[j].valueFormatter
+              } else if (GroupData[i].Data[j].FORMAT == "TimeFormat") {
+                tempData[j].cellRenderer = this._convFunction.TimeFormat.bind(this)
+                delete tempData[j].valueFormatter
+              } else {
                 tempData[j].valueFormatter = this._convFunction.StringFormat
-                tempData[j].aggFunc = 'length'
               }
               this._gridFunction.FooterKey = this.FooterKey
             }
@@ -349,6 +401,160 @@ export class PricingWrkViewComponent implements OnInit {
         this.toastr.error(error)
       }
     })
+  }
+  FillViewPara1() {
+    this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'PricingWrk' }).subscribe((VPRes) => {
+      try {
+        if (VPRes.success == 1) {
+          let GroupData = this.groupByArray(VPRes.data, "GROUPKEY")
+          let ViewParaRowData = []
+          for (let i = 0; i < GroupData.length; i++) {
+            let jsonData = {}
+            jsonData["headerName"] = GroupData[i].GROUPKEY
+            jsonData["headerClass"] = "header-align-center"
+            let tempData = []
+
+            for (let j = 0; j < GroupData[i].Data.length; j++) {
+              tempData.push({
+                headerName: GroupData[i].Data[j].DISPNAME,
+                headerClass: GroupData[i].Data[j].HEADERALIGN,
+                field: GroupData[i].Data[j].FIELDNAME,
+                width: GroupData[i].Data[j].COLWIDTH,
+                cellStyle: {
+                  "text-align": GroupData[i].Data[j].CELLALIGN,
+                  "background-color": GroupData[i].Data[j].BACKCOLOR,
+                  "color":GroupData[i].Data[j].FONTCOLOR
+                },
+                resizable: GroupData[i].Data[j].ISRESIZE,
+                GROUPKEY: GroupData[i].Data[j].GROUPKEY,
+                hide: GroupData[i].Data[j].DISP == false ? true : false,
+                pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
+                // rowSpan: this.rowSpy.bind(this),
+                suppressMenu: true,
+              })
+
+
+              if (i == 0 && j == 0) {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+              }
+              if (GroupData[i].Data[j].FORMAT == "#0") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.NumberFormat
+                tempData[j].aggFunc = 'sum'
+              } else if (GroupData[i].Data[j].FORMAT == "#0.00") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.TwoFloatFormat
+                tempData[j].aggFunc = 'sum'
+
+              } else if (GroupData[i].Data[j].FORMAT == "#0.000") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
+                tempData[j].aggFunc = 'sum'
+
+              } else if (GroupData[i].Data[j].FORMAT == "DateFormat") {
+                tempData[j].cellRenderer = this.DateFormat.bind(this)
+                delete tempData[j].valueFormatter
+              } else if (GroupData[i].Data[j].FORMAT == "TimeFormat") {
+                tempData[j].cellRenderer = this.TimeFormat.bind(this)
+                delete tempData[j].valueFormatter
+              } else {
+                tempData[j].valueFormatter = this._convFunction.StringFormat
+              }
+              // this._gridFunction.FooterKey = this.FooterKey
+            }
+
+            jsonData["children"] = tempData
+            tempData = []
+            ViewParaRowData.push(jsonData)
+          }
+
+          this.columnDefs = ViewParaRowData
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: JSON.stringify(VPRes.data),
+          })
+        }
+      } catch (error) {
+        console.log(error)
+        this.toastr.error(error)
+      }
+    })
+  }
+
+  rowSpy(params) {
+    let SubData = []
+    this.gridApi1.forEachNode(function (rowNode, index) {
+      SubData.push(rowNode.data);
+    });
+
+    if (SubData.length != 0 && params.colDef.field == "TOTAL") {
+      if (params.node.rowIndex == 0) {
+        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
+        if (params.data.TOTAL == SubData[params.node.rowIndex].TOTAL) {
+          let mergeIndex = 0
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.TOTAL == SubData[i].TOTAL) {
+              mergeIndex += 1
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      } else {
+        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
+        if (params.data.TOTAL != SubData[previousIndex].TOTAL) {
+          let mergeIndex = 0
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.TOTAL == SubData[i].TOTAL) {
+              mergeIndex += 1
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      }
+    } else if (SubData.length != 0 && params.colDef.field == "RCTS") {
+      if (params.node.rowIndex == 0) {
+        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
+        if (params.data.RCTS == SubData[params.node.rowIndex].RCTS) {
+          let mergeIndex = 0
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.RCTS == SubData[i].RCTS) {
+              mergeIndex += 1
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      } else {
+        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
+        if (params.data.RCTS != SubData[previousIndex].RCTS) {
+          let mergeIndex = 0
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.RCTS == SubData[i].RCTS) {
+              mergeIndex += 1
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      }
+    }
+    this.gridApi1.refreshCells({ force: true })
   }
 
   TimeFormat(params) {
@@ -516,5 +722,35 @@ export class PricingWrkViewComponent implements OnInit {
       }
     );
   }
-
+  getContextMenuItems(params) {
+    let inputText = '';
+    if (params.context.thisComponent.ISFILTER == true) {
+      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck" checked>`;
+    } else {
+      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck">`;
+    }
+    var result = [
+      {
+        // custom item
+        name: inputText,
+        action: () => {
+          params.context.thisComponent.ISFILTER = !params.context.thisComponent.ISFILTER
+          var tempColumnDefs = params.context.thisComponent.gridApi1.getColumnDefs();
+          tempColumnDefs.map((grpHeader) => {
+            grpHeader.children.map((ClmHeader) => {
+              ClmHeader.suppressMenu = !ClmHeader.suppressMenu
+            })
+          })
+          params.context.thisComponent.columnDefs1 = tempColumnDefs
+        }
+        // cssClasses: ['redFont', 'bold'],
+      },
+      "copy",
+      "copyWithHeaders",
+      "paste",
+      "separator",
+      "export"
+    ];
+    return result;
+  }
 }

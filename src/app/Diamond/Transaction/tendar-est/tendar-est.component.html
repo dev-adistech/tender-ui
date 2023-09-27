@@ -145,7 +145,7 @@
                       [(ngModel)]="PKTNAME" disabled name="Code" autocomplete="off" />
                     <input type="text"
                       style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      disabled="" [(ngModel)]="PKTSRNO" name="Code" autocomplete="off" />
+                      [disabled]="SRNODIS" [(ngModel)]="PKTSRNO" name="Code" autocomplete="off" (blur)="SRNOADD()" />
                     <input type="text"
                       style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
                       disabled [(ngModel)]="PKTWEIGHT" name="Code" autocomplete="off" />

@@ -109,6 +109,7 @@ export class TendarEstComponent implements OnInit {
   FLOCODE: any = ''
   FINALAMT1:any = ''
   FLOCODEDIS: boolean = false
+  SRNODIS: boolean = false
   butDisabled: any = ''
 
   MacColControl: FormControl;
@@ -2282,6 +2283,206 @@ export class TendarEstComponent implements OnInit {
     }
 
   }
+  SRNOADD(){
+    this.TendarEstServ.TendarPrdDetDisp({
+      COMP_CODE: this.COMP_CODE,
+      DETID: this.DETID,
+      SRNO: this.PKTSRNO,
+      TYPE:'EST'
+    }).subscribe((FillRes) => {
+      try {
+        if (FillRes.success == true) {
+          this.HIDEGRID = false
+
+          let ApproveObj = {
+            COMP_CODE: this.COMP_CODE,
+            DETID: this.DETID,
+            SRNO: this.PKTSRNO,
+            TEN_NAME: this.T_NAME,
+            ISAPPROVE: true,
+            AUSER: this.decodedTkn.UserId
+          }
+          this.TendarEstServ.TendarApprove(ApproveObj).subscribe((SaveRes) => {
+            try {
+              if (SaveRes.success == true) {
+                this.spinner.hide();
+                let NewObj = FillRes.data
+                NewObj.ISAPPROVE = true
+                NewObj.AUSER = this.decodedTkn.UserId
+                this.gridApi.setData(NewObj)
+                this.gridApi.refreshCells({ force: true })
+              } else {
+                this.spinner.hide();
+                // Swal.fire({
+                //   icon: "error",
+                //   title: "Oops...",
+                //   text: JSON.stringify(SaveRes.data),
+                // });
+                return;
+                // return;
+              }
+              
+            }catch{
+                
+            }
+          });
+        
+
+          this.spinner.hide();
+          this.DOCKData = FillRes.data[0][0]
+          this.TENSION = FillRes.data[0][0].T_CODE
+          this.TENDAR_NAME = FillRes.data[0][0].TEN_NAME
+          this.PKTSRNO = FillRes.data[0][0].SRNO
+          if(FillRes.data[0][0].PUSER){
+            this.PKTNAME = FillRes.data[0][0].PUSER
+          }else{
+            this.PKTNAME = this.decodedTkn.UserId
+          }
+          this.PKTWEIGHT = FillRes.data[0][0].I_CARAT
+          this.PKTRESERVE = FillRes.data[0][0].RESRVE
+          this.PKTPER = FillRes.data[0][0].PERCTS
+          this.PKTPER = FillRes.data[0][0].PERCTS
+          this.PKTSRW = FillRes.data[0][0].SRW
+          this.FINAL1 = FillRes.data[0][0].FFLAT1
+          this.FINAL2 = FillRes.data[0][0].FFLAT2
+          this.FINALME = FillRes.data[0][0].FMED
+          this.FINALHE = FillRes.data[0][0].FHIGH
+          this.DN = FillRes.data[0][0].DNC_CODE
+          this.USER1 = FillRes.data[0][0].I1C_CODE
+          this.USER2 = FillRes.data[0][0].I2C_CODE
+          this.USER3 = FillRes.data[0][0].I3C_CODE
+          this.RESULT1 = FillRes.data[0][0].RFLAT1
+          this.RESULT2 = FillRes.data[0][0].RFLAT2
+          this.RESULTME = FillRes.data[0][0].RMED
+          this.RESULTHE = FillRes.data[0][0].RHIGH
+          this.FLO1 = FillRes.data[0][0].FLNFLAT1
+          this.FLO2 = FillRes.data[0][0].FLNFLAT2
+          this.FLOME = FillRes.data[0][0].FLNMED
+          this.FLOHE = FillRes.data[0][0].FLNHIGH
+          this.MacFLO1 = FillRes.data[0][0].MFLFLAT1
+          this.MacFLO2 = FillRes.data[0][0].MFLFLAT2
+          this.MacFLOME = FillRes.data[0][0].MFLMED
+          this.MacFLOHE = FillRes.data[0][0].MFLHIGH
+          this.MacCom1 = FillRes.data[0][0].CFLAT1
+          this.MacCom2 = FillRes.data[0][0].CFLAT2
+          this.MacComME = FillRes.data[0][0].CMED
+          this.MacComHE = FillRes.data[0][0].CHIGH
+          this.ROUNDC1 = FillRes.data[0][0].RC_CODE
+          this.R1 = FillRes.data[0][0].R1C_CODE
+          this.R2 = FillRes.data[0][0].R2C_CODE
+          this.FANCY1 = FillRes.data[0][0].FC_CODE
+          this.F1 = FillRes.data[0][0].F1C_CODE
+          this.F2 = FillRes.data[0][0].F2C_CODE
+          this.FINALAMT = FillRes.data[0][0].FAMT
+          this.FINALAMT1 = FillRes.data[0][0].FAMT
+          this.LS = FillRes.data[0][0].LS
+          this.FINALBID = FillRes.data[0][0].FBID
+          this.FLOCODE = FillRes.data[0][0].FL_CODE
+          this.ADIS = FillRes.data[0][0].ADIS
+
+          this.gridApi1.setRowData(FillRes.data[1])
+          this.GridTempData = FillRes.data[1]
+
+          let newdata = []
+          this.gridApi1.forEachNode(function (rowNode, index) {
+            newdata.push(rowNode.data);
+          });
+
+          this.disabledata = false
+          for (let i = 0; i < newdata.length; i++) {
+            if (newdata[i].IUSER) {
+              if (newdata[i].IUSER === this.DOCKData['AUSER']) {
+                this.disabledataArray = ''
+                this.disabledata = true
+                this.disabledataArray = this.DOCKData
+                if (this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
+                  this.FLOCODEDIS = true
+                }
+              }
+            }
+          }
+
+    let li = this.lienzo1.nativeElement;
+    li.width = window.innerWidth - 400;
+    // this.CliCKEDDATA = eve.data
+    let NewObj = {
+      COMP_CODE: this.COMP_CODE,
+      DETID:this.DETID,
+      SRNO: this.PKTSRNO,
+    }
+    this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+      try{
+        if(NewRes.success == true){
+          this.NEWIMAGE = NewRes.data[0].PRN
+          const imageUrl = this.NEWIMAGE;
+
+        fetch(imageUrl)
+      .then(response => response.blob())
+      .then(blob => createImageBitmap(blob))
+      .then(imageBitmap => {
+        // Draw the ImageBitmap on the canvas
+        const canvas = document.getElementById('lienzo1') as HTMLCanvasElement;
+        const context = canvas.getContext('2d');
+        canvas.width = imageBitmap.width;
+        canvas.height = imageBitmap.height;
+        context.drawImage(imageBitmap, 0, 0);
+      })
+      .catch(error => {
+        console.error('Error fetching or drawing image:', error);
+      });
+        }
+      } catch (error){
+        this.spinner.hide()
+      }
+    })
+
+          if(this.DOCKData['AUSER'] !== this.decodedTkn.UserId && this.decodedTkn.U_CAT == 'U'){
+            this.disabledata = true
+            this.FLOCODEDIS = true
+          }
+
+          if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S'){
+            this.disabledata = false 
+            this.FLOCODEDIS = false
+          }
+
+          const agBodyViewport: HTMLElement =
+            this.elementRef.nativeElement.querySelector(".ag-body-viewport");
+          const agBodyHorizontalViewport: HTMLElement =
+            this.elementRef.nativeElement.querySelector(
+              ".ag-body-horizontal-scroll-viewport"
+            );
+          if (agBodyViewport) {
+            const psV = new PerfectScrollbar(agBodyViewport);
+            psV.update();
+          }
+          if (agBodyHorizontalViewport) {
+            const psH = new PerfectScrollbar(agBodyHorizontalViewport);
+            psH.update();
+          }
+          if (agBodyViewport) {
+            const ps = new PerfectScrollbar(agBodyViewport);
+            const container = document.querySelector(".ag-body-viewport");
+            ps.update();
+          }
+          this.DOCKON = false
+        } else {
+          this.spinner.hide();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: JSON.stringify(FillRes.data.originalError.info.message),
+          });
+          this.GridClear()
+        }
+      } catch (error) {
+        this.spinner.hide();
+        console.log(error)
+        this.toastr.error(error);
+      }
+    });
+  }
+  
   MainGridOpen: any;
   async onGridRowClicked(eve) {
     const target = eve.event.target;
@@ -2948,6 +3149,8 @@ export class TendarEstComponent implements OnInit {
 
       for(let i=0;i< FinalGrid.length;i++){
         if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG){
+          FinalGrid[i].AMT = NewSum
+          FinalGrid[i].RATE = FinalValue
           LastSum += NewSum
         }else if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total'){
           let carat1 = FinalGrid[i].CARAT
@@ -2977,7 +3180,7 @@ export class TendarEstComponent implements OnInit {
       for(let i=0; i<FinalGrid.length;i++){
         for(let j=0;j<TotalValue.length;j++){
           if(TotalValue[j].data['PLANNO']===FinalGrid[i].PLANNO  && FinalGrid[i].PTAG !== TotalValue[j].data['PTAG'] && FinalGrid[i].PLANNO !== params.data.PLANNO){
-            let carat1 = FinalGrid[i].CARAT
+          let carat1 = FinalGrid[i].CARAT
           let orap1 = FinalGrid[i].ORAP
           let MperValue1
           if(parseFloat(FinalGrid[i].MPER)!== 0 && parseFloat(FinalGrid[i].MPER) !== 100){
@@ -3026,6 +3229,20 @@ export class TendarEstComponent implements OnInit {
           }
         }
       }
+      let TotalSumAmt = 0
+      let TotalSumRate = 0
+      for(let i=0;i< FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].PTAG !== "Total"){
+          TotalSumAmt += FinalGrid[i].AMT
+          TotalSumRate += FinalGrid[i].RATE
+        }
+      } 
+      for(let i=0;i< FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].PTAG === "Total"){
+          FinalGrid[i].AMT = TotalSumAmt
+          FinalGrid[i].RATE = TotalSumAmt / FinalGrid[i].CARAT
+        }
+      } 
       let NewValue = (this.ADIS/100)*this.FINALAMT
       let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
       this.FINALAMT = FinalValue1.toFixed(2)
@@ -3052,6 +3269,8 @@ export class TendarEstComponent implements OnInit {
 
       for(let i=0;i< FinalGrid.length;i++){
         if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG){
+          FinalGrid[i].AMT = NewSum
+          FinalGrid[i].RATE = FinalValue
           LastSum += NewSum
         }else if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total'){
           let carat1 = FinalGrid[i].CARAT
@@ -3139,6 +3358,20 @@ export class TendarEstComponent implements OnInit {
       // let NewValue = (this.ADIS/100)*this.PKTPER
       // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
       // this.FINALBID =FinalValue1.toFixed(2)
+      let TotalSumAmt = 0
+      let TotalSumRate = 0
+      for(let i=0;i< FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].PTAG !== "Total"){
+          TotalSumAmt += FinalGrid[i].AMT
+          TotalSumRate += FinalGrid[i].RATE
+        }
+      } 
+      for(let i=0;i< FinalGrid.length;i++){
+        if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].PTAG === "Total"){
+          FinalGrid[i].AMT = TotalSumAmt
+          FinalGrid[i].RATE = TotalSumAmt / FinalGrid[i].CARAT
+        }
+      }
       this.gridApi1.refreshCells({ force: true });
     }
       return
@@ -3282,6 +3515,8 @@ export class TendarEstComponent implements OnInit {
       
             for(let i=0;i< FinalGrid.length;i++){
               if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG === params.data.PTAG){
+                _GridRowData[i].AMT = NewSum
+                _GridRowData[i].RATE = FinalValue
                 LastSum += NewSum
               }else if (FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].SRNO === params.data.SRNO && FinalGrid[i].PTAG !== 'Total'){
                 let carat1 = FinalGrid[i].CARAT
@@ -3370,6 +3605,20 @@ export class TendarEstComponent implements OnInit {
             // let NewValue = (this.ADIS/100)*this.PKTPER
             // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
             // this.FINALBID =FinalValue1.toFixed(2)
+            let TotalSumAmt = 0
+            let TotalSumRate = 0
+            for(let i=0;i< FinalGrid.length;i++){
+              if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].PTAG !== "Total"){
+                TotalSumAmt += FinalGrid[i].AMT
+                TotalSumRate += FinalGrid[i].RATE
+              }
+            } 
+            for(let i=0;i< FinalGrid.length;i++){
+              if(FinalGrid[i].PLANNO === params.data.PLANNO && FinalGrid[i].PTAG === "Total"){
+                FinalGrid[i].AMT = TotalSumAmt
+                FinalGrid[i].RATE = TotalSumAmt / FinalGrid[i].CARAT
+              }
+            } 
             this.gridApi1.refreshCells({ force: true });
 
           }
@@ -3438,6 +3687,7 @@ export class TendarEstComponent implements OnInit {
       try {
         if (SaveRes.success == true) {
           this.spinner.hide();
+          this.SRNODIS = true
           // this.toastr.success("Save successfully.");
         } else {
           this.spinner.hide();
@@ -3572,6 +3822,7 @@ export class TendarEstComponent implements OnInit {
         if(SaveRes.success == true){
           this.spinner.hide()
           this.toastr.success("Save sucesfully")
+          this.SRNODIS = true
         }else{
           this.spinner.hide();
           Swal.fire({
@@ -5382,6 +5633,8 @@ export class TendarEstComponent implements OnInit {
               
             }
             if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO === parseInt(RapObj.SRNO) && _GridRowData[i].PTAG == RapObj.PTAG) {
+              _GridRowData[i].AMT = NewSum
+              _GridRowData[i].RATE = FinalValue
               LastSum += NewSum
             }else if (_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].SRNO === parseInt(RapObj.SRNO) && _GridRowData[i].PTAG !== 'Total'){
               let carat1 =_GridRowData[i].CARAT
@@ -5470,7 +5723,22 @@ export class TendarEstComponent implements OnInit {
           let NewBid = this.FINALAMT / this.PKTWEIGHT
           this.FINALBID =NewBid.toFixed(2)
 
-          // this.gridApi1.refreshCells({ force: true })
+          let TotalSumAmt = 0
+      let TotalSumRate = 0
+      for(let i=0;i< _GridRowData.length;i++){
+        if(_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].PTAG !== 'Total'){
+          TotalSumAmt += _GridRowData[i].AMT
+          TotalSumRate += _GridRowData[i].RATE
+        }
+      } 
+      for(let i=0;i< _GridRowData.length;i++){
+        if(_GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && _GridRowData[i].PTAG === 'Total'){
+          _GridRowData[i].AMT = TotalSumAmt
+          _GridRowData[i].RATE = TotalSumAmt / _GridRowData[i].CARAT
+        }
+      } 
+
+          this.gridApi1.refreshCells({ force: true })
         }
       } catch (err) {
         console.log(err);
@@ -5540,7 +5808,8 @@ export class TendarEstComponent implements OnInit {
       this.TendarEstServ.TendarPrdDetDisp({
         COMP_CODE: this.COMP_CODE,
         DETID: eve.data.DETID,
-        SRNO: eve.data.SRNO
+        SRNO: eve.data.SRNO,
+        TYPE:'DOCK'
       }).subscribe((FillRes) => {
         try {
           if (FillRes.success == true) {
@@ -5591,6 +5860,7 @@ export class TendarEstComponent implements OnInit {
             this.F1 = FillRes.data[0][0].F1C_CODE
             this.F2 = FillRes.data[0][0].F2C_CODE
             this.FINALAMT = FillRes.data[0][0].FAMT
+            this.FINALAMT1 = FillRes.data[0][0].FAMT
             this.LS = FillRes.data[0][0].LS
             this.FINALBID = FillRes.data[0][0].FBID
             this.FLOCODE = FillRes.data[0][0].FL_CODE
@@ -5687,7 +5957,7 @@ export class TendarEstComponent implements OnInit {
             Swal.fire({
               icon: "error",
               title: "Oops...",
-              text: JSON.stringify(FillRes.data),
+              text: JSON.stringify(FillRes.data.originalError.info.message),
             });
           }
         } catch (error) {
