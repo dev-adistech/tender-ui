@@ -73,7 +73,8 @@ import { BVViewComponent } from './Diamond/View/b-v-view/b-v-view.component';
 import { VideoShowComponent } from './Diamond/Transaction/tendar-est/video-show/video-show.component';
 import { BidDataComponent } from './Diamond/View/bid-data/bid-data.component';
 import { ShdMastComponent } from './Diamond/Master/shd-mast/shd-mast.component';
-import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component'
+import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component';
+import { LotMappingComponent } from './Diamond/Transaction/lot-mapping/lot-mapping.component'
 
 
 @NgModule({
@@ -133,6 +134,7 @@ import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component'
 		BidDataComponent,
 		ShdMastComponent,
 		RefMastComponent,
+		LotMappingComponent,
 	],
 	imports: [
 		BrowserModule,

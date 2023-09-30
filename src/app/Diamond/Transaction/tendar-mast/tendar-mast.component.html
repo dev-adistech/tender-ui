@@ -113,10 +113,486 @@
     <article class="aggrid-wrapper">
       <ag-grid-angular [style]="agGridStyles1" style="margin-bottom: 9%;" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef1"
         [columnDefs]="columnDefs1" (gridReady)="onGridReady1($event)"  [suppressMultiRangeSelection]="true"[rowSelection]="rowSelection" [enableRangeSelection]="true" [animateRows]="true"
-        (rowClicked)='onGridRowClicked1($event)' [gridOptions]="gridOptions1">
+        (rowClicked)='onGridRowClicked1($event)' (cellDoubleClicked)="onCellDoubleClicked1($event)" [gridOptions]="gridOptions1">
       </ag-grid-angular>
     </article>
   </section>
+  <section class="brk-details" *ngIf="ComBO">
+    <div class="brk-flex">
+      <div style="max-width: 1087px;">
+        <div class="container-name" style="display: flex;">
+          <mat-label style="width: 150px;border:1px solid black;border-bottom:none;border-right: none;">TENDER NAME:-
+          </mat-label>
+          <input type="text" [style]="TendarStyle" [disabled]="TENDARDIS" [(ngModel)]="TENDAR_NAME" disabled
+            name="Code" autocomplete="off" class="tenderTxt" />
+          <!-- </mat-form-field> -->
+        </div>
+        <!-- <div class="container-mainheader"> -->
+        <!-- <div class="container-header" style="display: -webkit-box;"> -->
+        <div class="row m-0" id="tys">
+          <div class="deskop_div p-0" [ngClass]="{'my_class': DOCKON === true}">
+            <div class="container-name" [style]="ContainWidth" [ngClass]="dummay_variable">
+              <div style="display: flex;">
+                <mat-label style="border:1px solid black;padding: 1px 16px; text-align: center;border-right:none;">
+                  User Id</mat-label>
+                <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">
+                  SRNO</mat-label>
+                <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">
+                  WEIGHT</mat-label>
+                <mat-label style="border:1px solid black;padding: 1px 60px; text-align: center;border-right:none;">
+                  RESRVE</mat-label>
+                <mat-label style="border:1px solid black;padding: 1px 40px; text-align: center;border-right:none;">PER
+                  CTS</mat-label>
+                <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">
+                  S.R.W</mat-label>
+                <!-- <mat-label style="border:1px solid black;padding: 1px 29.5px; text-align: center;border-right:none;"> </mat-label> -->
+                <input type="text" style="border:1px solid black;width: 60px;height: 25px;border-right:none;" disabled
+                  name="Code" autocomplete="off" />
+                <mat-label style="border:1px solid black;padding: 1px 30px; text-align: left;border-right:none;">FLOR
+                </mat-label>
+                <mat-label style="border:1px solid black;padding: 1px 13px; text-align: left;">LS</mat-label>
+                <mat-label
+                  style="border:1px solid black;padding: 1px 23.9px; text-align: left;border-left:none;">
+                  TENSION</mat-label>
+              </div>
+              <div style="display: flex;">
+
+                <input type="text"
+                  style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  [(ngModel)]="PKTNAME" disabled name="Code" autocomplete="off" />
+                <input type="text"
+                  style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  disabled [(ngModel)]="PKTSRNO" name="Code" autocomplete="off" (blur)="SRNOADD()" />
+                <input type="text"
+                  style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  disabled [(ngModel)]="PKTWEIGHT" name="Code" autocomplete="off" />
+                <input type="text"
+                  style="border:1px solid black;width: 171px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  [(ngModel)]="PKTRESERVE" [disabled]="PKTRESERVEDIS" name="Code" autocomplete="off" />
+                <input type="text"
+                  style="border:1px solid black;width: 135px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  disabled [(ngModel)]="PKTPER" name="Code" autocomplete="off" />
+                <input type="text"
+                  style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  [(ngModel)]="PKTSRW" name="Code" [disabled]="PKTSRWDIS" autocomplete="off" />
+                <input type="text"
+                  style="border:1px solid black;width: 60px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  disabled name="Code" autocomplete="off" />
+                <select
+                  style="border: 1px solid black; text-align: center; width: 95px; height: 25px;border-top: none;position: relative;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOCODE" [disabled]="FLOCODEDIS">
+                  <option *ngFor="let cl of filteredSzs | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <mat-checkbox class="example-margin"
+                  style="border: 1px solid black; padding: 1px 13px;border-left: none; border-top:none;border-right: none;"
+                  [(ngModel)]="LS" [disabled]="LS"></mat-checkbox>
+
+                <!-- <input type="text" style="border:1px solid black;width: 63px;height: 25px;border-right:none;border-top:none;position: relative" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 108px;height: 25px;border-top:none;position: relative;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="TENSION" [disabled]="TENSIONDIS">
+                  <option *ngFor="let cl of filteredTension | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div style="display: flex;align-items: center;border-right:1px solid black">
+                <input type="text"
+                  style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none"
+                  name="Code" disabled autocomplete="off" />
+                <mat-label
+                  style="border:1px solid black;padding: 2px 15px; text-align: center;border-right:none;border-top:none">
+                  FLAT 1</mat-label>
+                <mat-label
+                  style="border:1px solid black;padding: 2px 22.7px; text-align: center;border-right:none;border-top:none">
+                  FLAT 2</mat-label>
+                <mat-label
+                  style="border:1px solid black;padding: 2px 19.7px; text-align: center;border-right:none;border-top:none">
+                  MEDUIM</mat-label>
+                <mat-label
+                  style="border:1px solid black;padding: 2px 12.8px; text-align: center;border-right:none;border-top:none">
+                  HEIGHT</mat-label>
+                <mat-label
+                  style="border:1px solid black;padding: 2px 25px; text-align: center;border-right:none;border-top:none">
+                  DN</mat-label>
+                <mat-label
+                  style="border:1px solid black;padding: 2px 9px; text-align: center;border-right:none;border-top:none">
+                  USER 1</mat-label>
+                <mat-label
+                  style="border:1px solid black;padding: 2px 14px; text-align: center;border-right:none;border-top:none">
+                  USER 2</mat-label>
+                <mat-label style="border:1px solid black;padding: 2px 6.8px; text-align: center;border-top:none">USER
+                  3</mat-label>
+              </div>
+              <div style="display: flex;align-items: center;border-right:1px solid black">
+
+                <mat-label
+                  style="border:1px solid black;padding: 2px 15px; text-align: center;border-right:none;border-top:none;">
+                  FINAL:-</mat-label>
+                <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FINAL1" [disabled]="FINAL1DIS">
+                  <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <!-- <input type="text" style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FINAL2" [disabled]="FINAL2DIS">
+                  <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <!-- <input type="text" style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FINALME" [disabled]="FINALMEDIS">
+                  <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <!-- <input type="text" style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FINALHE" [disabled]="FINALHEDIS">
+                  <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <!-- <input type="text" style="border:1px solid black;width: 70px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 70px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="DN" [disabled]="DNDIS">
+                  <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <!-- <input type="text" style="border:1px solid black;width: 65px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 65px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="USER1" [disabled]="USER1DIS">
+                  <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select
+                  style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="USER2" [disabled]="USER2DIS">
+                  <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+                <!-- <input type="text" style="border:1px solid black;width: 62px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                <select style="border:1px solid black;width: 61px;height: 25px;border-top:none;text-align: center;"
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="USER3" [disabled]="USER3DIS">
+                  <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                    {{ cl.name }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="row">
+                <div style="display: flex;">
+                  <div style="display: flex; flex-direction: column;">
+
+                    <div class="sample" style="display: flex;">
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 10px; text-align: center;border-right:none;border-top:none;">
+                        RESULT:-</mat-label>
+                      <select
+                        style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="RESULT1"
+                        [disabled]="RESULT1DIS">
+                        <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <select
+                        style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="RESULT2"
+                        [disabled]="RESULT2DIS">
+                        <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="RESULTME"
+                        [disabled]="RESULTMEDIS">
+                        <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="RESULTHE"
+                        [disabled]="RESULTHEDIS">
+                        <option *ngFor="let cl of filteredMacColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div style="display: flex;">
+
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 10px; text-align: center;border-top:none;border-right: none;">
+                        FLO NO:-</mat-label>
+                      <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 74.5px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO1"
+                        [disabled]="FLO1DIS">
+                        <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLO2"
+                        [disabled]="FLO2DIS">
+                        <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOME"
+                        [disabled]="FLOMEDIS">
+                        <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+
+                      <select
+                        style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOHE"
+                        [disabled]="FLOHEDIS">
+                        <option *ngFor="let cl of filteredFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <mat-label
+                    style="border:1px solid black; text-align: center;border-right:none;border-top:none;border-bottom:none; padding: 25px 34.6px;">
+                  </mat-label>
+                  <div class="subclass">
+                    <div class="subhclass" style="display: flex;">
+                      <mat-label
+                        style="border:1px solid black; text-align: center;border-right:none;border-top:none;height:50px;padding: 11px 5px;">
+                        ROUND:-</mat-label>
+                      <select
+                        style="border: 1px solid black; text-align: center; width: 74px; height:50px; border-right: none; border-top: none;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="ROUNDC1"
+                        [disabled]="ROUNDC1DIS">
+                        <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- <div class="col-lg-5"> -->
+                  <div style="display: flex;flex-direction: column;">
+
+                    <div class="newClass" style="display: flex;height: 25px;">
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 18px; text-align: center;border-right:none;border-top:none;">
+                        T1:-</mat-label>
+                      <select
+                        style="border:1px solid black;width: 245px;height: 25px;position: relative;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="R1" [disabled]="R1DIS">
+                        <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div style="display: flex;">
+
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 17.9px; text-align: center;border-right:none;border-top:none;">
+                        T2:-</mat-label>
+                      <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 245px;border-top:none;height: 25px;position: relative;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="R2" [disabled]="R2DIS">
+                        <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+
+                <div style="display: flex;">
+                  <div style="display: flex; flex-direction: column;">
+
+                    <div class="sample" style="display: flex;">
+
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 2.5px; text-align: center;border-top:none;border-right: none; font-size: 13px;">
+                        MACH FLO:-</mat-label>
+                      <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacFLO1"
+                        [disabled]="MacFLO1DIS">
+                        <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacFLO2"
+                        [disabled]="MacFLO2DIS">
+                        <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacFLOME"
+                        [disabled]="MacFLOMEDIS">
+                        <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacFLOHE"
+                        [disabled]="MacFLOHEDIS">
+                        <option *ngFor="let cl of filteredMacFLO | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div style="display: flex;">
+
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 3px; text-align: center;border-top:none;border-right: none;">
+                        COMMENT</mat-label>
+                      <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacCom1"
+                        [disabled]="MacCom1DIS">
+                        <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
+                          {{ cl.code }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacCom2"
+                        [disabled]="MacCom2DIS">
+                        <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
+                          {{ cl.code }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 95px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacComME"
+                        [disabled]="MacComMEDIS">
+                        <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
+                          {{ cl.code }}
+                        </option>
+                      </select>
+                      <!-- <input type="text" style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 76px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="MacComHE"
+                        [disabled]="MacComHEDIS">
+                        <option *ngFor="let cl of filteredMacCom | async" [ngValue]="cl.code">
+                          {{ cl.code }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <mat-label
+                    style="border:1px solid black; text-align: center;border-right:none;border-top:none; padding: 24.7px 34.6px;">
+                  </mat-label>
+                  <div class="subclass">
+                    <div class="subhclass" style="display: flex;">
+                      <mat-label
+                        style="border:1px solid black; text-align: center;border-right:none;border-top:none;height:50px;padding: 12px 6.5px;">
+                        FANCY:-</mat-label>
+                      <!-- <input type="text" style="border:1px solid black;width: 74px;height:50px;border-right:none;border-top:none;" name="Code" autocomplete="off" /> -->
+                      <select
+                        style="border:1px solid black;width: 74px;height:50px;border-right:none;border-top:none;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FANCY1"
+                        [disabled]="FANCY1DIS">
+                        <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <!-- <div class="col-lg-5"> -->
+                  <div style="display: flex;flex-direction: column;">
+
+                    <div class="newClass" style="display: flex;height: 25px;">
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 17.9px; text-align: center;border-right:none;border-top:none;">
+                        T1:-</mat-label>
+                      <select
+                        style="border:1px solid black;width: 245px;border-top:none;position: relative;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="F1" [disabled]="F1DIS">
+                        <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div style="display: flex;">
+
+                      <mat-label
+                        style="border:1px solid black;padding: 2px 18px; text-align: center;border-right:none;border-top:none;">
+                        T2:-</mat-label>
+                      <select
+                        style="border:1px solid black;width: 245px;border-top:none;height: 25px;position: relative;text-align: center;"
+                        name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="F2" [disabled]="F2DIS">
+                        <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
+                          {{ cl.name }}
+                        </option>
+                      </select>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="NewBttn">
+      <button class="btn theme-btn" matTooltip="Save" matTooltipClass="custom-tooltip" (click)="COMBOSAVE()">
+        <svg class="icon icon-save">
+          <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+        </svg>
+      </button>
+      <button class="btn theme-btn" matTooltip="Close" matTooltipClass="custom-tooltip" (click)="COMBOCLOSE()">
+        <svg class="icon icon-close">
+          <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+        </svg>
+      </button>
+    </div>
+      </div>
+      </section>
 </div>
 <ngx-spinner>
   <p style="color: white;">Loading...</p>

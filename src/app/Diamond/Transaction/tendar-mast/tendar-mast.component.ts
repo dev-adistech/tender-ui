@@ -12,6 +12,7 @@ import { FormControl } from "@angular/forms";
 import { TendarEstService } from "src/app/Service/Rap/tendar-est.service";
 import { Observable } from "rxjs";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { map, startWith } from "rxjs/operators";
 declare var $: any;
 
 @Component({
@@ -31,6 +32,96 @@ export class TendarMastComponent implements OnInit {
   decodedMast = JSON.parse(
     this.EncrDecrServ.get(localStorage.getItem("unfam1"))
   );
+
+  LS: boolean = false
+  R1: any = ''
+  R2: any = ''
+  F1: any = ''
+  F2: any = ''
+  DN: any = ''
+  USER1: any = ''
+  USER2: any = ''
+  USER3: any = ''
+  FANCY1: any = ''
+  ROUNDC1: any = ''
+  COLORArr = []
+  filteredColor: Observable<any[]>;
+  ColControl: FormControl;
+  FINALBID: any = ''
+  FINALAMT: any = ''
+  ADIS: any = ''
+  FLOCODE: any = ''
+  FINALAMT1:any = ''
+  FLOCODEDIS: boolean = false
+  SRNODIS: boolean = false
+  butDisabled: any = ''
+
+  MacColControl: FormControl;
+  MacColor: any = []
+  filteredMacColor: Observable<any[]>;
+  FINAL1: any = ''
+  FINAL2: any = ''
+  FINALME: any = ''
+  FINALHE: any = ''
+  RESULT1: any = ''
+  RESULT2: any = ''
+  RESULTME: any = ''
+  RESULTHE: any = ''
+
+  FloControl: FormControl;
+  FLONO: any = []
+  filteredFLO: Observable<any[]>;
+  FLO1: any = ''
+  FLO2: any = ''
+  FLOME: any = ''
+  FLOHE: any = ''
+
+  MacFloControl: FormControl;
+  MacFLONO: any = []
+  filteredMacFLO: Observable<any[]>;
+  MacFLO1: any = ''
+  MacFLO2: any = ''
+  MacFLOME: any = ''
+  MacFLOHE: any = ''
+
+  MacComControl: FormControl;
+  MacComm: any = []
+  filteredMacCom: Observable<any[]>;
+  MacCom1: any = ''
+  MacCom2: any = ''
+  MacComME: any = ''
+  MacComHE: any = ''
+
+  PKTNAME: any = ''
+  PKTSRNO: any = ''
+  PKTWEIGHT: any = ''
+  PKTRESERVE: any = ''
+  PKTPER: any = ''
+  PKTSRW: any = ''
+  PKTSRW1: any = ''
+  FLAT1: any = ''
+  FLAT2: any = ''
+
+  TensionControl: FormControl;
+  TenArr: any = []
+  filteredTension: Observable<any[]>;
+  TENSION: any = ''
+  DOCKData: any[] = []
+
+  TENDAR_NAME: any = ''
+
+  allSzs: any[] = []
+  filteredSzs: Observable<any[]>;
+  szControl: FormControl;
+  selectedSz: any = ''
+
+
+  TendarStyle:string=`width: calc(100% - 150px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+  AreaBoxStyle:string=`border:1px solid black;width: 100%;resize: none;height:100%`;
+  ContainWidth:string=`width:100%`;
+  BlankBoxStyle:string=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;height: 100%;`;
+  HearderBoxStyle:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
+  HearderBoxStyle1:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none;border-top:none`;
 
   DEPTArr: any = [];
   COMP_CODE: any = "";
@@ -54,9 +145,48 @@ export class TendarMastComponent implements OnInit {
 
   HIDEPOPUP:boolean=false
 
+  ComBO:boolean=false
+
   DETID2: any = "";
 
   EVEDATA:any=[]
+
+  PKTRESERVEDIS:boolean=false
+  FINAL2DIS:boolean=false
+  FINAL1DIS:boolean=false
+  DNDIS:boolean=false
+  FINALHEDIS:boolean=false
+  FINALMEDIS:boolean=false
+  USER1DIS:boolean=false
+  USER2DIS:boolean=false
+  USER3DIS:boolean=false
+  RESULT1DIS:boolean=false
+  RESULT2DIS:boolean=false
+  RESULTMEDIS:boolean=false
+  RESULTHEDIS:boolean=false
+  FLO1DIS:boolean=false
+  FLO2DIS:boolean=false
+  FLOMEDIS:boolean=false
+  FLOHEDIS:boolean=false
+  R1DIS:boolean=false
+  R2DIS:boolean=false
+  ROUNDC1DIS:boolean=false
+  FANCY1DIS:boolean=false
+  MacComMEDIS:boolean=false
+  MacComHEDIS:boolean=false
+  MacCom1DIS:boolean=false
+  MacCom2DIS:boolean=false
+  MacFLOMEDIS:boolean=false
+  MacFLOHEDIS:boolean=false
+  MacFLO1DIS:boolean=false
+  MacFLO2DIS:boolean=false
+  FLOCODEDIS1:boolean=false
+  F1DIS:boolean=false
+  F2DIS:boolean=false
+  FINALAMTDIS:boolean=false
+  TENSIONDIS:boolean=false
+  PKTSRWDIS:boolean=false
+  TENDARDIS:boolean=false
 
   public columnDefs;
   public gridApi;
@@ -96,6 +226,13 @@ export class TendarMastComponent implements OnInit {
     this.TendarNumber = new FormControl();
     this.TendarDate = new FormControl();
     this.SRNOForm = new FormControl();
+    this.szControl = new FormControl();
+    this.ColControl = new FormControl();
+    this.MacColControl = new FormControl();
+    this.FloControl = new FormControl();
+    this.MacFloControl = new FormControl();
+    this.MacComControl = new FormControl();
+    this.TensionControl = new FormControl();
     let op = this;
     this.columnDefs = [
       {
@@ -272,6 +409,95 @@ export class TendarMastComponent implements OnInit {
     this.ALLOWINS = this.PER[0].INS;
     this.ALLOWUPD = this.PER[0].UPD;
     this.PASS = this.PER[0].PASS;
+
+    let C_arr = this.decodedMast[12].map((item) => {
+      return { code: item.C_CODE, name: item.C_NAME };
+    });
+    this.COLORArr = [[{ code: 0, name: '---' }, ...C_arr]]
+
+    let MC_arr = this.decodedMast[17].map((item) => {
+      return { code: item.MC_CODE, name: item.MC_NAME };
+    });
+
+    this.MacColor = [[{ code: 0, name: '---' }, ...MC_arr]]
+
+    let FLO_arr = this.decodedMast[19].map((item) => {
+      return { code: item.NFL_CODE, name: item.NFL_NAME };
+    });
+    this.FLONO = [[{ code: 0, name: '---' }, ...FLO_arr]]
+
+    let MacFLO_arr = this.decodedMast[18].map((item) => {
+      return { code: item.MFL_CODE, name: item.MFL_NAME };
+    });
+    this.MacFLONO = [[{ code: 0, name: '---' }, ...MacFLO_arr]]
+
+    let F_arr = this.decodedMast[7].map((item) => {
+      return { code: item.FL_CODE, name: item.FL_NAME };
+    });
+    this.allSzs = [[{ code: 0, name: '---' }, ...F_arr]]
+
+    let Com_arr = this.decodedMast[20].map((item) => {
+      return { code: item.MCOM_NAME, name:item.MCOM_NAME };
+    });
+
+    this.MacComm = [[{ code: 0 ,name: '---'  }, ...Com_arr]]
+
+    let Tension_arr = this.decodedMast[16].map((item) => {
+      return { code: item.T_CODE, name: item.T_NAME };
+    });
+    this.TenArr = [[{ code: 0 ,name: '---' }, ...Tension_arr]]
+
+    this.filteredSzs = this.szControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._filter(value))
+    );
+    this.filteredColor = this.ColControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._Colfilter(value))
+    );
+    this.filteredMacColor = this.MacColControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._MacColfilter(value))
+    );
+    this.filteredFLO = this.FloControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._FLOfilter(value))
+    );
+    this.filteredMacFLO = this.MacFloControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._MacFLOfilter(value))
+    );
+    this.filteredMacCom = this.MacComControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._MacComfilter(value))
+    );
+    this.filteredTension = this.TensionControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._Tensionfilter(value))
+    );
+  }
+
+  private _filter(value: string): any[] {
+    return this.allSzs[0].filter(sz => sz.name);
+  }
+
+  private _Colfilter(value: string): any[] {
+    return this.COLORArr[0].filter(sz => sz.name);
+  }
+  private _MacColfilter(value: string): any[] {
+    return this.MacColor[0].filter(sz => sz.name);
+  }
+  private _FLOfilter(value: string): any[] {
+    return this.FLONO[0].filter(sz => sz.name);
+  }
+  private _MacFLOfilter(value: string): any[] {
+    return this.MacFLONO[0].filter(sz => sz.name);
+  }
+  private _MacComfilter(value: string): any[] {
+    return this.MacComm[0].filter(sz => sz.name);
+  }
+  private _Tensionfilter(value: string): any[] {
+    return this.TenArr[0].filter(sz => sz.name);
   }
 
   GETNAME() {
@@ -769,6 +995,332 @@ export class TendarMastComponent implements OnInit {
         this.toastr.error(err);
       }
     });
+  }
+
+  COMBOSAVE(){
+
+    let saveOBJ1 = {
+      COMP_CODE: this.COMP_CODE,
+      DETID: this.EVEDATA.DETID,
+      SRNO: this.PKTSRNO ? this.PKTSRNO : 0,
+      RESRVE: this.PKTRESERVE ? this.PKTRESERVE : 0,
+      PERCTS: this.PKTPER ? this.PKTPER : 0,
+      SRW: this.PKTSRW ? this.PKTSRW : '',
+      FL_CODE: this.FLOCODE ? this.FLOCODE : 0,
+      FBID: this.FINALBID ? this.FINALBID : 0,
+      T_CODE: this.TENSION ? this.TENSION : '',
+      LS: this.LS ? this.LS : 0,
+      FFLAT1: this.FINAL1 ? this.FINAL1 : '',
+      FFLAT2: this.FINAL2 ? this.FINAL2 : '',
+      FMED: this.FINALME ? this.FINALME : '',
+      FHIGH: this.FINALHE ? this.FINALHE : '',
+      RFLAT1: this.RESULT1 ? this.RESULT1 : '',
+      RFLAT2: this.RESULT2 ? this.RESULT2 : '',
+      RMED: this.RESULTME ? this.RESULTME : '',
+      RHIGH: this.RESULTHE ? this.RESULTHE : '',
+      MFLFLAT1: this.MacFLO1 ? this.MacFLO1 : '',
+      MFLFLAT2: this.MacFLO2 ? this.MacFLO2 : '',
+      MFLMED: this.MacFLOME ? this.MacFLOME : '',
+      MFLHIGH: this.MacFLOHE ? this.MacFLOHE : '',
+      FLNFLAT1: this.FLO1 ? this.FLO1 : '',
+      FLNFLAT2: this.FLO2 ? this.FLO2 : '',
+      FLNMED: this.FLOME ? this.FLOME : '',
+      FLNHIGH: this.FLOHE ? this.FLOHE : '',
+      CFLAT1: this.MacCom1 ? this.MacCom1 : '',
+      CFLAT2: this.MacCom2 ? this.MacCom2 : '',
+      CMED: this.MacComME ? this.MacComME : '',
+      CHIGH: this.MacComHE ? this.MacComHE : '',
+      DNC_CODE: this.DN ? this.DN : 0,
+      I1C_CODE: this.USER1 ? this.USER1 : 0,
+      I2C_CODE: this.USER2 ? this.USER2 : 0,
+      I3C_CODE: this.USER3 ? this.USER3 : 0,
+      RC_CODE: this.ROUNDC1 ? this.ROUNDC1 : 0,
+      R1C_CODE: this.R1 ? this.R1 : 0,
+      R2C_CODE: this.R2 ? this.R2 : 0,
+      FC_CODE: this.FANCY1 ? this.FANCY1 : 0,
+      F1C_CODE: this.F1 ? this.F1 : 0,
+      F2C_CODE: this.F2 ? this.F2 : 0,
+      PUSER: this.decodedTkn.UserId,
+      TEN_NAME: this.T_NAME,
+      ADIS:this.ADIS ? this.ADIS:0,
+      FAMT:this.FINALAMT ? this.FINALAMT:0
+    }
+    console.log(saveOBJ1)
+    this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
+      try {
+        if (SaveRes.success == true) {
+          this.spinner.hide();
+          this.toastr.success("Save successfully.");
+        } else {
+          this.spinner.hide();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: JSON.stringify(SaveRes.data),
+          });
+          return;
+        }
+      } catch (err) {
+        this.spinner.hide();
+        this.toastr.error(err);
+        return;
+      }
+    });
+  }
+
+  COMBOCLOSE(){
+    this.ComBO = false
+
+    this.TENSION = ''
+    this.TENDAR_NAME = ''
+    this.PKTSRNO = ''
+    this.PKTNAME = ''
+    this.PKTWEIGHT = ''
+    this.PKTRESERVE = ''
+    this.PKTPER = ''
+    this.PKTPER = ''
+    this.PKTSRW = ''
+    this.FINAL1 = ''
+    this.FINAL2 = ''
+    this.FINALME = ''
+    this.FINALHE = ''
+    this.DN = ''
+    this.USER1 = ''
+    this.USER2 = ''
+    this.USER3 = ''
+    this.RESULT1 = ''
+    this.RESULT2 = ''
+    this.RESULTME = ''
+    this.RESULTHE = ''
+    this.FLO1 = ''
+    this.FLO2 = ''
+    this.FLOME = ''
+    this.FLOHE = ''
+    this.MacFLO1 = ''
+    this.MacFLO2 = ''
+    this.MacFLOME = ''
+    this.MacFLOHE = ''
+    this.MacCom1 = ''
+    this.MacCom2 = ''
+    this.MacComME = ''
+    this.MacComHE = ''
+    this.ROUNDC1 = ''
+    this.R1 = ''
+    this.R2 = ''
+    this.FANCY1 = ''
+    this.F1 = ''
+    this.F2 = ''
+    this.LS = false
+    this.FINALBID = ''
+    this.FLOCODE = ''
+    this.FINALAMT = ''
+
+    this.PKTRESERVEDIS = false
+    this.FINAL2DIS = false
+    this.FINAL1DIS = false
+    this.DNDIS = false
+    this.FINALHEDIS = false
+    this.FINALMEDIS = false
+    this.USER1DIS = false
+    this.USER2DIS = false
+    this.USER3DIS = false
+    this.RESULT1DIS = false
+    this.RESULT2DIS = false
+    this.RESULTMEDIS = false
+    this.RESULTHEDIS = false
+    this.FLO1DIS = false
+    this.FLO2DIS = false
+    this.FLOMEDIS = false
+    this.FLOHEDIS = false
+    this.R1DIS = false
+    this.R2DIS = false
+    this.ROUNDC1DIS = false
+    this.FANCY1DIS = false
+    this.MacComMEDIS = false
+    this.MacComHEDIS = false
+    this.MacCom1DIS = false
+    this.MacCom2DIS = false
+    this.MacFLOMEDIS = false
+    this.MacFLOHEDIS = false
+    this.MacFLO1DIS = false
+    this.MacFLO2DIS = false
+    this.FLOCODEDIS1 = false
+    this.F1DIS = false
+    this.F2DIS = false
+    this.FINALAMTDIS = false
+    this.TENSIONDIS = false
+    this.PKTSRWDIS = false
+    this.TENDARDIS = false
+
+  }
+
+  onCellDoubleClicked1(eve){
+    console.log(eve)
+    this.ComBO = true
+
+    if(eve.data.TEN_NAME){
+      this.TENDAR_NAME = eve.data.TEN_NAME
+      this.TENDARDIS = true
+    }
+    if(eve.data.T_CODE){
+      this.TENSION = eve.data.T_CODE
+      this.TENSIONDIS = true
+    }
+    this.PKTSRNO = eve.data.SRNO
+    if(eve.data.PUSER){
+      this.PKTNAME = eve.data.PUSER
+    }else{
+      this.PKTNAME = this.decodedTkn.UserId
+    }
+    this.PKTWEIGHT = eve.data.I_CARAT
+    if(eve.data.RESRVE){
+      this.PKTRESERVE = eve.data.RESRVE
+      this.PKTRESERVEDIS= true
+    }
+    this.PKTPER = eve.data.PERCTS
+    this.PKTPER = eve.data.PERCTS
+    if(eve.data.SRW){
+      this.PKTSRW = eve.data.SRW
+      this.PKTSRWDIS = true
+    }
+    if(eve.data.FFLAT1){
+      this.FINAL1 = eve.data.FFLAT1
+      this.FINAL1DIS = true
+    }
+    if(eve.data.FFLAT2){
+      this.FINAL2 = eve.data.FFLAT2
+      this.FINAL2DIS= true
+    }
+    if(eve.data.FMED){
+      this.FINALME = eve.data.FMED
+      this.FINALMEDIS = true
+    }
+    if(eve.data.FHIGH){
+      this.FINALHE = eve.data.FHIGH
+      this.FINALHEDIS = true
+    }
+    if(eve.data.DNC_CODE){
+      this.DN = eve.data.DNC_CODE
+      this.DNDIS = true
+    }
+    if(eve.data.I1C_CODE){
+      this.USER1 = eve.data.I1C_CODE
+      this.USER1DIS = true
+    }
+    if(eve.data.I2C_CODE){
+      this.USER2 = eve.data.I2C_CODE
+      this.USER2DIS = true
+    }
+    if(eve.data.I3C_CODE){
+      this.USER3 = eve.data.I3C_CODE
+      this.USER3DIS = true
+    }
+    if(eve.data.RFLAT1){
+      this.RESULT1 = eve.data.RFLAT1
+      this.RESULT1DIS = true
+    }
+    if(eve.data.RFLAT2){
+      this.RESULT2 = eve.data.RFLAT2
+      this.RESULT2DIS = true
+    }
+    if(eve.data.RMED){
+      this.RESULTME = eve.data.RMED
+      this.RESULTMEDIS = true
+    }
+    if(eve.data.RHIGH){
+      this.RESULTHE = eve.data.RHIGH
+      this.RESULTHEDIS = true
+    }
+    if(eve.data.FLNFLAT1){
+      this.FLO1 = eve.data.FLNFLAT1
+      this.FLO1DIS = true
+    }
+    if(eve.data.FLNFLAT2){
+      this.FLO2 = eve.data.FLNFLAT2
+      this.FLO2DIS = true
+    }
+    if(eve.data.FLNMED){
+      this.FLOME = eve.data.FLNMED
+      this.FLOMEDIS = true
+    }
+    if(eve.data.FLNHIGH){
+      this.FLOHE = eve.data.FLNHIGH
+      this.FLOHEDIS = true
+    }
+    if(eve.data.MFLFLAT1){
+      this.MacFLO1 = eve.data.MFLFLAT1
+      this.MacFLO1DIS = true
+    }
+    if(eve.data.MFLFLAT2){
+      this.MacFLO2 = eve.data.MFLFLAT2
+      this.MacFLO2DIS = true
+    }
+    if(eve.data.MFLMED){
+      this.MacFLOME = eve.data.MFLMED
+      this.MacFLOMEDIS = true
+    }
+    if(eve.data.MFLHIGH){
+      this.MacFLOHE = eve.data.MFLHIGH
+      this.MacFLOHEDIS = true
+    }
+    if(eve.data.CFLAT1){
+      this.MacCom1 = eve.data.CFLAT1
+      this.MacCom1DIS = true
+    }
+    if(eve.data.CFLAT2){
+      this.MacCom2 = eve.data.CFLAT2
+      this.MacCom2DIS = true
+    }
+    if(eve.data.CMED){
+      this.MacComME = eve.data.CMED
+      this.MacComMEDIS = true
+    }
+    if(eve.data.CHIGH){
+      this.MacComHE = eve.data.CHIGH
+      this.MacComHEDIS = true
+    }
+    if(eve.data.RC_CODE){
+      this.ROUNDC1 = eve.data.RC_CODE
+      this.ROUNDC1DIS = true
+    }
+    if(eve.data.R1C_CODE){
+      this.R1 = eve.data.R1C_CODE
+      this.R1DIS = true
+    }
+    if(eve.data.R2C_CODE){
+      this.R2 = eve.data.R2C_CODE
+      this.R2DIS = true
+    }
+    if(eve.data.FC_CODE){
+      this.FANCY1 = eve.data.FC_CODE
+      this.FANCY1DIS = true
+    }
+    if(eve.data.F1C_CODE){
+      this.F1 = eve.data.F1C_CODE
+      this.F1DIS = true
+    }
+    if(eve.data.F2C_CODE){
+      this.F2 = eve.data.F2C_CODE
+      this.F2DIS = true
+    }
+    if(eve.data.FAMT){
+      this.FINALAMT = eve.data.FAMT
+      this.FINALAMTDIS = true
+    }
+    if(eve.data.FAMT){
+      this.FINALAMT1 = eve.data.FAMT
+      this.FINALAMT1 = true
+    }
+    if(eve.data.LS){
+      this.LS = eve.data.LS
+      
+    }
+    if(eve.data.FL_CODE){
+      this.FLOCODE = eve.data.FL_CODE
+      this.FLOCODEDIS = true
+    }
+    this.ADIS = eve.data.ADIS
+    this.FINALBID = eve.data.FBID
   }
 
   onGridRowClicked1(eve: any) {

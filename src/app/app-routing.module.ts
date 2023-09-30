@@ -49,6 +49,7 @@ import { DepthMastComponent } from './Diamond/Master/depth-mast/depth-mast.compo
 import { RatioMastComponent } from './Diamond/Master/ratio-mast/ratio-mast.component';
 import { ShdMastComponent } from './Diamond/Master/shd-mast/shd-mast.component';
 import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component';
+import { LotMappingComponent } from './Diamond/Transaction/lot-mapping/lot-mapping.component';
 
 
 const routes: Routes = [
@@ -95,6 +96,7 @@ const routes: Routes = [
   // Transaction
   { path: 'TenCom', component: TendarComComponent, canActivate: [AuthGuard] },
   { path: 'TenMast', component: TendarMastComponent, canActivate: [AuthGuard] },
+  { path: 'LotMap', component: LotMappingComponent, canActivate: [AuthGuard] },
 
   //config
   { path: 'UserCat', component: UserCatComponent, canActivate: [AuthGuard] },

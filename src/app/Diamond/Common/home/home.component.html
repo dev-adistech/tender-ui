@@ -158,6 +158,13 @@
                 Tendar Estimation
               </li>
             </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('LotMappingComponent')"
+                (click)="addiFrameTabs('Lot Mapping', '/LotMap')">
+                <img src="../../../../assets/img/Transaction/lotmap.png" alt="" />
+                Lot Mapping
+              </li>
+              </div>
           </div>
           <p class="sub-menu__section-name">Pointer</p>
         </div>

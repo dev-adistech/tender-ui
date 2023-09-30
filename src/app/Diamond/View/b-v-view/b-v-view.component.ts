@@ -58,6 +58,8 @@ export class BVViewComponent implements OnInit {
 
 
   disabledata: boolean = false
+  ADISDISABLE: boolean = true
+  SAVEBTNSHOW: boolean = true
   disabledataArray: any = []
 
   LS:boolean = false
@@ -211,6 +213,13 @@ export class BVViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.decodedTkn.UserId == 'DN'){
+      this.ADISDISABLE = false
+      this.SAVEBTNSHOW = true
+    }else {
+      this.ADISDISABLE = true
+      this.SAVEBTNSHOW = false
+    }
     this.DEPTArr = this.decodedMast[2].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
@@ -798,7 +807,6 @@ export class BVViewComponent implements OnInit {
         }
       }
         }
-        console.log(op.rowData)
         // op.gridApi.refreshCells({ force: true });
   
         op.findrap1(NewCode)
@@ -1447,37 +1455,21 @@ export class BVViewComponent implements OnInit {
                     if (params.node.rowPinned != "bottom") {
                       if(params.data['PTAG'] !== 'Total'){
                       if (params.data[VPRes.data[i].FIELDNAME] == 1) {
-                        if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
-                          return (
-                            '<input type="checkbox" data-action-type="' +
-                            "PLNSEL" +
-                            '" checked>'
-                          );
-                        } else {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
                             '" checked disabled>'
                           );
-                        }
                       } else {
-                        if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
-                          return (
-                            '<input type="checkbox" data-action-type="' +
-                            "PLNSEL" +
-                            '" >'
-                          );
-                        } else {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
                             '" disabled>'
                           );
-                        }
-                      }
                     }
                   }
                   }
+                }
                 },
               });
             } else {
@@ -2790,60 +2782,6 @@ export class BVViewComponent implements OnInit {
     }
   }
 
-  // FillViewPara() {
-  //   this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'BVView' }).subscribe((VPRes) => {
-  //     try {
-  //       if (VPRes.success == 1) {
-  //         let GroupData = this.groupByArray(VPRes.data, "GROUPKEY")
-  //         let ViewParaRowData = []
-  //         for (let i = 0; i < GroupData.length; i++) {
-  //           let jsonData = {}
-  //           jsonData["headerName"] = GroupData[i].GROUPKEY
-  //           jsonData["headerClass"] = "header-align-center"
-  //           let tempData = []
-
-  //           for (let j = 0; j < GroupData[i].Data.length; j++) {
-  //             tempData.push({
-  //               headerName: GroupData[i].Data[j].DISPNAME,
-  //               headerClass: GroupData[i].Data[j].HEADERALIGN,
-  //               field: GroupData[i].Data[j].FIELDNAME,
-  //               width: GroupData[i].Data[j].COLWIDTH,
-  //               cellStyle: {
-  //                 "text-align": GroupData[i].Data[j].CELLALIGN,
-  //                 "background-color": GroupData[i].Data[j].BACKCOLOR,
-  //                 "color":GroupData[i].Data[j].FONTCOLOR
-  //               },
-  //               resizable: GroupData[i].Data[j].ISRESIZE,
-  //               GROUPKEY: GroupData[i].Data[j].GROUPKEY,
-  //               hide: GroupData[i].Data[j].DISP == false ? true : false,
-  //               pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
-  //               suppressMenu: true,
-  //             })
-
-  //             if(GroupData[i].Data[j].FIELDNAME === "MPER"){
-  //               tempData[j].editable = this.decodedTkn.U_CAT === 'P' ? true : false
-  //             }
-  //           }
-
-  //           jsonData["children"] = tempData
-  //           tempData = []
-  //           ViewParaRowData.push(jsonData)
-  //         }
-
-  //         this.columnDefs = ViewParaRowData
-  //       } else {
-  //         Swal.fire({
-  //           icon: "error",
-  //           title: "Oops...",
-  //           text: JSON.stringify(VPRes.data),
-  //         })
-  //       }
-  //     } catch (error) {
-  //       console.log(error)
-  //       this.toastr.error(error)
-  //     }
-  //   })
-  // }
   groupByArray(xs, GROUPKEY) {
     return xs.reduce(function (rv, x) {
       let _GROUPKEY = GROUPKEY instanceof Function ? GROUPKEY(x) : x[GROUPKEY]
@@ -2974,10 +2912,6 @@ export class BVViewComponent implements OnInit {
   }
 
   findrap1(RapObj) {
-    // let _GridRowData = [];
-    let SubData = [];
-    let FinalGrid = [];
-
     if (!RapObj.S_CODE) {
       return;
     }
@@ -3025,16 +2959,7 @@ export class BVViewComponent implements OnInit {
       try {
         if (RapRes.success == true) {
 
-
           let oldRapObj = JSON.parse(RapObj.DATA);
-
-          let newdata = []
-          let CARATSUM = 0
-          let RATESUM = 0
-          let AMTSUM = 0
-          let PERMUL = 0
-          let CrtSUM = 0
-          let NewCrtSUM = 0
           let PTAGROW = []
           let PTAGRO = []
           for (let i = 0; i < this._GridRowData.length; i++) {
@@ -3056,206 +2981,405 @@ export class BVViewComponent implements OnInit {
             }
           }
         }
-          // for (let i = 0; i < this._GridRowData.length; i++) {
-          //   if (this._GridRowData[i].SRNO === oldRapObj.SRNO && this._GridRowData[i].PLANNO === oldRapObj.PLANNO && this._GridRowData[i].PTAG === oldRapObj.PTAG) {
-          //     this._GridRowData[i].ORAP = RapRes.data[0][0].AMT;
-          //     this._GridRowData[i].RATE = RapRes.data[1][0][''];
-          //     this._GridRowData[i].RTYPE = RapRes.data[2][0][""];
-          //     this._GridRowData[i].AMT = this._GridRowData[i].RATE * this._GridRowData[i].CARAT;
-          //     this._GridRowData[i].PER = 100 - (this._GridRowData[i].RATE / this._GridRowData[i].ORAP) * 100;
-          //     this._GridRowData[i].S_CODE = RapObj.S_CODE;
-          //     this._GridRowData[i].Q_CODE = RapObj.Q_CODE;
-          //     this._GridRowData[i].C_CODE = RapObj.C_CODE;
-          //     this._GridRowData[i].CT_CODE = RapObj.CT_CODE;
-          //     this._GridRowData[i].FL_CODE = RapObj.FL_CODE;
-          //     this._GridRowData[i].LB_CODE = RapObj.LB_CODE;
-          //     this._GridRowData[i].IN_CODE = RapObj.IN_CODE;
-          //   } if (this._GridRowData[i].SRNO === oldRapObj.SRNO && this._GridRowData[i].PLANNO === oldRapObj.PLANNO && this._GridRowData[i].PTAG !== 'Total') {
-          //     NewCrtSUM += parseFloat(this._GridRowData[i].CARAT)
-          //     if (this._GridRowData[i].SRNO === oldRapObj.SRNO && this._GridRowData[i].PLANNO === oldRapObj.PLANNO && this._GridRowData[i].PTAG === oldRapObj.PTAG) {
-          //       if (NewCrtSUM > this.PKTWEIGHT) {
-          //         this._GridRowData[i].CARAT = 0.000
-          //         this._GridRowData[i].S_CODE = 0
-          //         this._GridRowData[i].C_CODE = 0
-          //         this._GridRowData[i].Q_CODE = 0
-          //         this._GridRowData[i].LB_CODE = 0
-          //         this._GridRowData[i].ML_CODE = 0
-          //         this._GridRowData[i].RAT_CODE = 0
-          //         this._GridRowData[i].GRD_CODE = 0
-          //         this._GridRowData[i].ORAP = 0
-          //         this._GridRowData[i].RATE = 0
-          //         this._GridRowData[i].AMT = 0
-          //         this._GridRowData[i].PER = 0
-          //         this._GridRowData[i].ORAP = 0
-          //         this._GridRowData[i].RATE = 0
-          //         this._GridRowData[i].AMT = 0
-          //         this._GridRowData[i].PER = 0
-          //         this._GridRowData[i].CARAT = 0.00
-          //       }
-          //     }
-
-          //     CARATSUM += this._GridRowData[i].ORAP
-          //     AMTSUM += this._GridRowData[i].AMT
-          //     CrtSUM += parseFloat(this._GridRowData[i].CARAT)
-          //     RATESUM += (AMTSUM / CrtSUM)
-          //     PERMUL += (this._GridRowData[i].ORAP * parseFloat(this._GridRowData[i].CARAT))
-          //     this._GridRowData[i].IUSER = this.decodedTkn.UserId
-          //   }
-
-          //   let Total = ''
-          //   if (this._GridRowData[i].SRNO === oldRapObj.SRNO && this._GridRowData[i].PLANNO === oldRapObj.PLANNO && this._GridRowData[i].PTAG === 'Total') {
-          //     this._GridRowData[i].ORAP = (PERMUL / CrtSUM)
-          //     this._GridRowData[i].RATE = (AMTSUM / CrtSUM)
-          //     this._GridRowData[i].AMT = AMTSUM
-          //     this._GridRowData[i].PER = 100 - (this._GridRowData[i].RATE / this._GridRowData[i].ORAP) * 100;
-          //     this._GridRowData[i].CARAT = CrtSUM
-          //     Total = this._GridRowData[i].CARAT
-          //   }
-          //   if (this._GridRowData[i].PTAG == "Total") {
-          //     PTAGROW.push(this._GridRowData[i])
-          //   }
-          // }
-      //     this.gridApi.refreshCells({ force: true })
-          
-      //     let newArray = 0
-      //     let carat = 0
-      //     let orap = 0
-      //     let MperValue = 0
-      //     let FinalValue = 0
-      //     let NewSum = 0
-
-      //     let LastSum = 0
-      //     for (let i = 0; i < this._GridRowData.length; i++) {
-      //       if (this._GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && this._GridRowData[i].SRNO === parseInt(RapObj.SRNO) && this._GridRowData[i].PTAG === RapObj.PTAG) {
-      //         carat =this._GridRowData[i].CARAT
-      //         orap = this._GridRowData[i].ORAP
-      //         if(parseFloat(this._GridRowData[i].MPER) !== 0 && parseFloat(this._GridRowData[i].MPER) !== 100){
-      //           MperValue = this._GridRowData[i].MPER
-      //         }else {
-      //           MperValue = this._GridRowData[i].PER
-      //         }
-      //         newArray = (MperValue / 100) * orap
-      //         FinalValue = orap - newArray
-      //         NewSum = FinalValue * carat
-              
-      //       }
-      //       if (this._GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && this._GridRowData[i].SRNO === parseInt(RapObj.SRNO) && this._GridRowData[i].PTAG == RapObj.PTAG) {
-      //         this._GridRowData[i].AMT = NewSum
-      //         this._GridRowData[i].RATE = FinalValue
-      //         LastSum += NewSum
-      //       }else if (this._GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && this._GridRowData[i].SRNO === parseInt(RapObj.SRNO) && this._GridRowData[i].PTAG !== 'Total'){
-      //         let carat1 =this._GridRowData[i].CARAT
-      //         let orap1 = this._GridRowData[i].ORAP
-      //         let MperValue1
-      //         if(parseFloat(this._GridRowData[i].MPER) !== 0 && parseFloat(this._GridRowData[i].MPER) !== 100){
-      //           MperValue1 = this._GridRowData[i].MPER
-      //         }else {
-      //           MperValue1 = this._GridRowData[i].PER
-      //         }
-      //          let newArray1 = (MperValue1 / 100) * orap1
-      //         let FinalValue1 = orap1- newArray1
-      //         let NewSum1 = FinalValue1 * carat1
-      //         LastSum += NewSum1
-      //       }
-      //     }
-          
-      //     let totalSum =[]
-      //     let FINALAMT=0
-      //     for(let i=0;i<this._GridRowData.length;i++){
-      //       if (this._GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && this._GridRowData[i].SRNO == parseInt(RapObj.SRNO) && this._GridRowData[i].PTAG === 'Total') {
-      //         totalSum.push({NEWAMT:LastSum,data:this._GridRowData[i]})
-      //       } else if(this._GridRowData[i].PTAG === 'Total'){
-      //         totalSum.push({NEWAMT:this._GridRowData[i].AMT,data:this._GridRowData[i]})
-      //       }
-      //     }
-      //     let LastSum1 =0
-      //     for(let i=0; i<this._GridRowData.length;i++){
-      //       for(let j=0;j<totalSum.length;j++){
-      //         if(totalSum[j].data['PLANNO']===this._GridRowData[i].PLANNO  && this._GridRowData[i].PTAG !== totalSum[j].data['PTAG'] && this._GridRowData[i].PLANNO !== RapObj.PLANNO){
-      //           let carat1 = this._GridRowData[i].CARAT
-      //         let orap1 = this._GridRowData[i].ORAP
-      //         let MperValue1
-      //         if(parseFloat(this._GridRowData[i].MPER)!== 0 && parseFloat(this._GridRowData[i].MPER) !== 100){
-      //           MperValue1 = this._GridRowData[i].MPER
-      //         }else {
-      //           MperValue1 = this._GridRowData[i].PER
-      //         }
-      //         let newArray1 = (MperValue1 / 100) * orap1
-      //         let FinalValue1 = orap1 - newArray1
-      //         let NewSum1 = FinalValue1 * carat1
-      //         LastSum1 += NewSum1
-      //         } else if (totalSum[j].data['PLANNO']===this._GridRowData[i].PLANNO && this._GridRowData[i].PLANNO !== RapObj.PLANNO){
-      //           totalSum[j].NEWAMT = LastSum1
-      //           totalSum[j].data['PLNSEL'] = this._GridRowData[i].PLNSEL
-      //           LastSum1 =0
-      //         }
-      //       }
-      //     }
-
-      //     let highestRate = 0;
-      // let highAmt = -Infinity
-      // if(RapObj.PLNSEL == 'true'){
-      //   for(let i=0;i<totalSum.length;i++){
-      //     if(totalSum[i].data['PLANNO'] === parseInt(RapObj.PLANNO) && totalSum[i].data['SRNO'] === parseInt(RapObj.SRNO)){
-      //       highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
-      //       this.PKTPER = highestRate.toFixed(2)
-      //       this.FINALAMT = totalSum[i].NEWAMT.toFixed(2)
-      //       this.FINALAMT1 = totalSum[i].NEWAMT.toFixed(2)
-      //     }
-      //   }
-      // } else {
-      //   for(let i=0;i<totalSum.length;i++){
-      //     if(totalSum[i].data['PLNSEL'] === true){
-      //       highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
-      //       this.PKTPER = highestRate.toFixed(2)
-      //       this.FINALAMT = totalSum[i].NEWAMT.toFixed(2)
-      //       this.FINALAMT1 = totalSum[i].NEWAMT.toFixed(2)
-      //       break
-      //     }else{
-      //       if (totalSum[i].NEWAMT > highAmt) {
-      //         highAmt = totalSum[i].NEWAMT
-      //         highestRate = totalSum[i].NEWAMT / totalSum[i].data['CARAT']
-      //         this.PKTPER = highestRate.toFixed(2)
-      //         this.FINALAMT = highAmt.toFixed(2)
-      //         this.FINALAMT1 = highAmt.toFixed(2)
-      //       }
-      //     }
-      //   }
-      // }
-
-      //     let NewValue = (this.ADIS/100)*this.FINALAMT
-      //     let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
-      //     this.FINALAMT = FinalValue1.toFixed(2)
-
-      //     let NewBid = this.FINALAMT / this.PKTWEIGHT
-      //     this.FINALBID =NewBid.toFixed(2)
-
-      //     let TotalSumAmt = 0
-      // let TotalSumRate = 0
-      // for(let i=0;i< this._GridRowData.length;i++){
-      //   if(this._GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && this._GridRowData[i].PTAG !== 'Total'){
-      //     TotalSumAmt += this._GridRowData[i].AMT
-      //     TotalSumRate += this._GridRowData[i].RATE
-      //   }
-      // } 
-      // for(let i=0;i< this._GridRowData.length;i++){
-      //   if(this._GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) && this._GridRowData[i].PTAG === 'Total'){
-      //     this._GridRowData[i].AMT = TotalSumAmt
-      //     this._GridRowData[i].RATE = TotalSumAmt / this._GridRowData[i].CARAT
-      //   }
-      // }
-     
       for(let i=0; i < this.rowData.length ; i++){
-        this.rowData[i].GRID_DATA = this.GetRowData(PTAGRO['DETID'], PTAGRO['SRNO'], PTAGRO['COMP_CODE'],PTAGROW)
-        break
+        if(this.rowData[i].SRNO === PTAGRO['SRNO']){
+          this.rowData[i].GRID_DATA = this.GetRowData(PTAGRO['DETID'], PTAGRO['SRNO'], PTAGRO['COMP_CODE'],PTAGROW)
+          break
+        }
       }
-
-          // this.gridApi.refreshCells({ force: true })
+      let NewAmtSum = 0
+      for(let i=0;i< this.rowData.length;i++){
+        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){
+            let carat = this.rowData[i].GRID_DATA[j].CARAT
+            let Orap = this.rowData[i].GRID_DATA[j].ORAP
+            let Mvalue
+            let newArray
+            let FinalValue = 0
+            let NewSum = 0
+            if(parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100){
+              Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+            }else{
+              Mvalue =this.rowData[i].GRID_DATA[j].PER
+            }
+            newArray = (Mvalue / 100) * Orap
+            FinalValue = Orap - newArray
+            NewSum = FinalValue * carat
+            this.rowData[i].GRID_DATA[j].RATE = FinalValue
+            this.rowData[i].GRID_DATA[j].AMT = NewSum
+            NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+          }
+        }
+      }
+      for(let i=0;i<this.rowData.length;i++){
+        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
+            this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+            this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+            let FINAL = (this.rowData[i].ADIS /100)*NewAmtSum
+            let ADISDIS = FINAL + NewAmtSum
+            this.rowData[i].FAMT = ADISDIS.toFixed(2)
+            this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+          }
+        }
+      }
         }
       } catch (err) {
         console.log(err);
       }
     });
 
+  }
+  FindRap(eve){
+    if(eve.colDef.field === 'MPER'){
+    let NewData = []
+    for(let i=0;i< this.rowData.length;i++){
+      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG == eve.data.PTAG){
+          this.rowData[i].GRID_DATA[j].MPER = eve.data.MPER
+        }
+      }
+    }
+    let FinalArray = []
+    for(let i=0;i< this.rowData.length;i++){
+      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){
+          let carat = this.rowData[i].GRID_DATA[j].CARAT
+          let Orap = this.rowData[i].GRID_DATA[j].ORAP
+          let Mvalue
+          let newArray
+          let FinalValue = 0
+          let NewSum = 0
+          if(parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100){
+            Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+          }else{
+            Mvalue =this.rowData[i].GRID_DATA[j].PER
+          }
+          newArray = (Mvalue / 100) * Orap
+          FinalValue = Orap - newArray
+          NewSum = FinalValue * carat
+
+          this.rowData[i].GRID_DATA[j].RATE = FinalValue
+          this.rowData[i].GRID_DATA[j].AMT = NewSum
+        }
+      }
+    }
+    let NewAmtSum = 0
+    for(let i=0;i< this.rowData.length;i++){
+      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){ 
+          NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+        }
+      }
+    }
+    for(let i=0;i< this.rowData.length;i++){
+      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
+          this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+          this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+          let FINAL = (parseFloat(this.rowData[i].ADIS) /100)*NewAmtSum
+          let ADISDIS = FINAL + NewAmtSum
+          this.rowData[i].FAMT = ADISDIS.toFixed(2)
+          this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+          FinalArray.push(this.rowData[i].GRID_DATA[j])
+        }else {
+          FinalArray.push(this.rowData[i].GRID_DATA[j])
+        }
+      }
+    }
+    for(let i=0; i < this.rowData.length ; i++){
+      if(this.rowData[i].SRNO === eve.data.SRNO){
+        this.rowData[i].GRID_DATA = this.GetRowData(eve.data.DETID, eve.data.SRNO ,eve.data.COMP_CODE,FinalArray)
+        break
+      }
+    }
+  }else {
+    if (!eve.data.S_CODE) {
+      return;
+    }
+    if (!eve.data.Q_CODE) {
+      return;
+    }
+    if (!eve.data.C_CODE) {
+      return;
+    }
+    if (!parseFloat(eve.data.CARAT)) {
+      return;
+    }
+    if (!eve.data.CT_CODE) {
+      return;
+    }
+    if (!eve.data.FL_CODE) {
+      return;
+    }
+    if (!eve.data.LB_CODE) {
+      return;
+    }
+    if (!eve.data.IN_CODE) {
+      return;
+    }
+    if (!eve.data.ML_CODE) {
+      return;
+    }
+    let RapObj = {
+      S_CODE: eve.data.S_CODE,
+      Q_CODE: eve.data.Q_CODE,
+      C_CODE: eve.data.C_CODE,
+      CARAT: eve.data.CARAT,
+      CUT_CODE: eve.data.CT_CODE,
+      FL_CODE: eve.data.FL_CODE,
+      IN_CODE: eve.data.IN_CODE,
+      RTYPE: eve.data.LB_CODE,
+      MPER: eve.data.MPER,
+      ML_CODE: eve.data.ML_CODE,
+      SH_CODE:eve.data.SH_CODE,
+      REF_CODE:eve.data.REF_CODE,
+      RAPTYPE:eve.data.RAPTYPE,
+    };
+
+    this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
+      try {
+          let PTAGROW = []
+          let PTAGRO = []
+          let CrtSum =0
+            for (let j = 0; j < this.rowData.length;j++) {
+            for (let k = 0; k < this.rowData[j].GRID_DATA.length;k++) {
+              if (this.rowData[j].GRID_DATA[k].SRNO == eve.data.SRNO && this.rowData[j].GRID_DATA[k].PTAG !== 'Total') {
+                CrtSum += parseFloat(this.rowData[j].GRID_DATA[k].CARAT)
+              }
+            }
+          }
+          for (let j = 0; j < this.rowData.length;j++) {
+            for (let k = 0; k < this.rowData[j].GRID_DATA.length;k++) {
+              if (this.rowData[j].GRID_DATA[k].SRNO == eve.data.SRNO && this.rowData[j].GRID_DATA[k].PTAG == eve.data.PTAG) {
+                if(CrtSum > this.rowData[j].I_CARAT){
+                  this.rowData[j].GRID_DATA[k].CARAT = 0.00
+                  this.toastr.warning('Your Carat Was Greater Than Weight')
+                }
+              }
+            }
+          }
+          for (let i = 0; i < this._GridRowData.length; i++) {
+            for (let j = 0; j < this.rowData.length;j++) {
+            for (let k = 0; k < this.rowData[j].GRID_DATA.length;k++) {
+              if (this._GridRowData[i].PLANNO === eve.data.PLANNO && this._GridRowData[i].SRNO == eve.data.SRNO && this._GridRowData[i].PTAG === eve.data.PTAG) {
+                if(eve.data.PLANNO === this.rowData[j].GRID_DATA[k].PLANNO && eve.data.SRNO === this.rowData[j].SRNO  && eve.data.PTAG == this.rowData[j].GRID_DATA[k].PTAG){
+                  this.rowData[j].GRID_DATA[k].ORAP = RapRes.data[0][0].AMT;
+                  this.rowData[j].GRID_DATA[k].RATE = RapRes.data[1][0][''];
+                  this.rowData[j].GRID_DATA[k].RTYPE = RapRes.data[2][0][''];
+                  this.rowData[j].GRID_DATA[k].AMT = this.rowData[j].GRID_DATA[k].RATE * this.rowData[j].GRID_DATA[k].CARAT;
+                  this.rowData[j].GRID_DATA[k].PER = 100 - (this.rowData[j].GRID_DATA[k].RATE / this.rowData[j].GRID_DATA[k].ORAP) * 100;
+                  PTAGROW.push(this.rowData[j].GRID_DATA[k])
+                  PTAGRO = this.rowData[j]
+                }else{
+                  PTAGROW.push(this.rowData[j].GRID_DATA[k])
+                }
+              }
+            }
+          }
+        }
+      for(let i=0; i < this.rowData.length ; i++){
+        if(this.rowData[i].SRNO === PTAGRO['SRNO']){
+          this.rowData[i].GRID_DATA = this.GetRowData(PTAGRO['DETID'], PTAGRO['SRNO'], PTAGRO['COMP_CODE'],PTAGROW)
+          break
+        }
+      }
+      let NewAmtSum = 0
+      for(let i=0;i< this.rowData.length;i++){
+        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){
+            let carat = this.rowData[i].GRID_DATA[j].CARAT
+            let Orap = this.rowData[i].GRID_DATA[j].ORAP
+            let Mvalue
+            let newArray
+            let FinalValue = 0
+            let NewSum = 0
+            if(parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100){
+              Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+            }else{
+              Mvalue =this.rowData[i].GRID_DATA[j].PER
+            }
+            newArray = (Mvalue / 100) * Orap
+            FinalValue = Orap - newArray
+            NewSum = FinalValue * carat
+            this.rowData[i].GRID_DATA[j].RATE = FinalValue
+            this.rowData[i].GRID_DATA[j].AMT = NewSum
+            NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+          }
+        }
+      }
+      for(let i=0;i<this.rowData.length;i++){
+        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
+          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
+            this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+            this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+            let FINAL = (this.rowData[i].ADIS /100)*NewAmtSum
+            let ADISDIS = FINAL + NewAmtSum
+            this.rowData[i].FAMT = ADISDIS.toFixed(2)
+            this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+          }
+        }
+      }
+      }catch (err){
+        console.log(err)
+      }
+    })
+  }
+  }
+
+  ADISCHANGE(eve,item){
+    let NewAMT = 0
+    for(let i=0 ;i<item.GRID_DATA.length;i++){
+    for(let j=0 ;j<this.rowData.length;j++){
+      if(item.GRID_DATA[i].PTAG === 'Total' && item.SRNO === this.rowData[j].SRNO){
+        NewAMT = item.GRID_DATA[i].AMT
+        if(parseFloat(item.ADIS)){
+          let FINAL = (parseFloat(item.ADIS) /100)*NewAMT
+          let FinalADIS = FINAL + NewAMT
+          this.rowData[j].FAMT = FinalADIS.toFixed(2)
+          this.rowData[j].FBID = (FinalADIS / this.rowData[j].I_CARAT).toFixed(2)
+        }else {
+          this.rowData[j].FAMT = NewAMT.toFixed(2)
+          this.rowData[j].FBID = (NewAMT / this.rowData[j].I_CARAT).toFixed(2)
+        }
+      }
+    }
+  }
+}
+  Save(item){
+    let saveOBJ1 = {
+      COMP_CODE: item.COMP_CODE,
+      DETID: item.DETID,
+      SRNO: item.SRNO ? item.SRNO : 0,
+      RESRVE: item.RESRVE ? item.RESRVE : 0,
+      PERCTS: item.PERCTS ? item.PERCTS : 0,
+      SRW: item.SRW ? item.SRW : '',
+      FL_CODE: item.FL_CODE ? item.FL_CODE : 0,
+      FBID: item.FBID ? item.FBID : 0,
+      T_CODE: item.T_CODE ? item.T_CODE : '',
+      LS: item.LS ? item.LS : 0,
+      FFLAT1: item.FFLAT1 ? item.FFLAT1 : '',
+      FFLAT2: item.FFLAT2 ? item.FFLAT2 : '',
+      FMED: item.FMED ? item.FMED : '',
+      FHIGH: item.FHIGH ? item.FHIGH : '',
+      RFLAT1: item.RFLAT1 ? item.RFLAT1 : '',
+      RFLAT2: item.RFLAT2 ? item.RFLAT2 : '',
+      RMED: item.RMED ? item.RMED : '',
+      RHIGH: item.RHIGH ? item.RHIGH : '',
+      MFLFLAT1: item.MFLFLAT1 ? item.MFLFLAT1 : '',
+      MFLFLAT2: item.MFLFLAT2 ? item.MFLFLAT2 : '',
+      MFLMED: item.MFLMED ? item.MFLMED : '',
+      MFLHIGH: item.MFLHIGH ? item.MFLHIGH : '',
+      FLNFLAT1: item.FLNFLAT1 ? item.FLNFLAT1 : '',
+      FLNFLAT2: item.FLNFLAT2 ? item.FLNFLAT2 : '',
+      FLNMED: item.FLNMED ? item.FLNMED : '',
+      FLNHIGH: item.FLNHIGH ? item.FLNHIGH : '',
+      CFLAT1: item.CFLAT1 ? item.CFLAT1 : '',
+      CFLAT2: item.CFLAT2 ? item.CFLAT2 : '',
+      CMED: item.CMED ? item.CMED : '',
+      CHIGH: item.CHIGH ? item.CHIGH : '',
+      DNC_CODE: item.DNC_CODE ? item.DNC_CODE : 0,
+      I1C_CODE: item.I1C_CODE ? item.I1C_CODE : 0,
+      I2C_CODE: item.I2C_CODE ? item.I2C_CODE : 0,
+      I3C_CODE: item.I3C_CODE ? item.I3C_CODE : 0,
+      RC_CODE: item.RC_CODE ? item.RC_CODE : 0,
+      R1C_CODE: item.R1C_CODE ? item.R1C_CODE : 0,
+      R2C_CODE: item.R2C_CODE ? item.R2C_CODE : 0,
+      FC_CODE: item.FC_CODE ? item.FC_CODE : 0,
+      F1C_CODE: item.F1C_CODE ? item.F1C_CODE : 0,
+      F2C_CODE: item.F2C_CODE ? item.F2C_CODE : 0,
+      PUSER: this.decodedTkn.UserId,
+      TEN_NAME: item.TEN_NAME,
+      ADIS:item.ADIS ? item.ADIS:0,
+      FAMT:item.FAMT ? item.FAMT:0,
+    }
+    this.spinner.show()
+    this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
+      try {
+        if (SaveRes.success == true) {
+          this.spinner.hide();
+        } else {
+          this.spinner.hide();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: JSON.stringify(SaveRes.data),
+          });
+          return;
+        }
+      } catch (err) {
+        this.spinner.hide();
+        this.toastr.error(err);
+        return;
+      }
+    });
+
+    let NewData = item.GRID_DATA
+
+    let SubData =[]
+
+    for(let i=0;i<NewData.length;i++){
+      if(NewData[i].PTAG !== 'Total'){
+        SubData.push(NewData[i])
+      }
+    }
+
+    let PerArr = [];
+    for (let i = 0; i < SubData.length; i++) {
+      let SaveObj = {
+        COMP_CODE: SubData[i].COMP_CODE ? SubData[i].COMP_CODE : "",
+        DETID: SubData[i].DETID ? SubData[i].DETID : 0,
+        T_DATE: SubData[i].T_DATE ? SubData[i].T_DATE : null,
+        SRNO: SubData[i].SRNO ? SubData[i].SRNO : 0,
+        PLANNO: SubData[i].PLANNO ? SubData[i].PLANNO : 0,
+        PTAG: SubData[i].PTAG ? SubData[i].PTAG : "",
+        I_CARAT: SubData[i].I_CARAT ? SubData[i].I_CARAT : 0,
+        S_CODE: SubData[i].S_CODE ? SubData[i].S_CODE : "",
+        C_CODE: SubData[i].C_CODE ? SubData[i].C_CODE : 0,
+        Q_CODE: SubData[i].Q_CODE ? SubData[i].Q_CODE : 0,
+        CARAT: SubData[i].CARAT ? SubData[i].CARAT : 0,
+        CT_CODE: SubData[i].CT_CODE ? SubData[i].CT_CODE : 0,
+        FL_CODE: SubData[i].FL_CODE ? SubData[i].FL_CODE : 0,
+        LB_CODE: SubData[i].LB_CODE ? SubData[i].LB_CODE : "",
+        IN_CODE: SubData[i].IN_CODE ? SubData[i].IN_CODE : 0,
+        ADNO: SubData[i].ADNO ? SubData[i].ADNO : 0,
+        PLNSEL: SubData[i].PLNSEL,
+        RTYPE: SubData[i].RTYPE ? SubData[i].RTYPE : "",
+        ORAP: SubData[i].ORAP ? SubData[i].ORAP : 0,
+        RATE: SubData[i].RATE ? SubData[i].RATE : 0,
+        OTAG: SubData[i].OTAG ? SubData[i].OTAG : "",
+        IUSER: SubData[i].IUSER ? SubData[i].IUSER : '',
+        ML_CODE: SubData[i].ML_CODE ? SubData[i].ML_CODE : 0,
+        DEP_CODE: SubData[i].DEP_CODE ? SubData[i].DEP_CODE : 0,
+        RAT_CODE: SubData[i].RAT_CODE ? SubData[i].RAT_CODE : 0,
+        GRD_CODE: SubData[i].GRD_CODE ? SubData[i].GRD_CODE : 0,
+        MPER: SubData[i].MPER ? SubData[i].MPER : 0,
+        SH_CODE: SubData[i].SH_CODE ? SubData[i].SH_CODE : 0,
+        REF_CODE: SubData[i].REF_CODE ? SubData[i].REF_CODE : 0,
+        RAPTYPE: SubData[i].RAPTYPE ? SubData[i].RAPTYPE : '',
+      };
+      PerArr.push(SaveObj);
+    }
+    this.spinner.show()
+    this.TendarEstServ.TendarPrdDetSave(PerArr).subscribe((SaveRes) => {
+      try{
+        if(SaveRes.success == true){
+          this.spinner.hide()
+          this.toastr.success("Save sucesfully")
+        }else{
+          this.spinner.hide();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: JSON.stringify(SaveRes.data),
+          });
+          return;
+        }
+      } catch (err) {
+        this.spinner.hide();
+        this.toastr.error(err);
+        return;
+      }
+    });
   }
 }

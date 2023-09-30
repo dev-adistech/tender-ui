@@ -39,14 +39,21 @@
 
       <article class="aggrid-wrapper" style="width: 100%;">
 
-    <div style="max-width: 1140px;" >
+    <div style="max-width: 1140px;position: relative;" >
       <div class="container-name" style="display: flex;">
 
         <mat-label style="width: 150px;border:1px solid black;border-bottom:none;border-right: none;">TENDER NAME:-
         </mat-label>
         <input type="text"
           style="width: calc(100% - 128px);height: 25px;font-size: 17px;border:1px solid black;border-bottom:none;"
-          [(ngModel)]="item.TEN_NAME" />
+          [(ngModel)]="item.TEN_NAME" disabled />
+      </div>
+      <div class="saveButton" style="position: absolute;right: 0%;top: 0%;" *ngIf="SAVEBTNSHOW">
+        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip" (click)="Save(item)">
+          <svg class="icon icon-save">
+            <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+          </svg>
+        </button>
       </div>
       <div class="row m-0" id="tys">
         <div class="deskop_div p-0" [ngClass]="{'my_class': DOCKON === true}">
@@ -484,17 +491,16 @@
               <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" [(ngModel)] ="item.FAMT" autocomplete="off" class="tenderTxt  ws"></textarea>
               <div style="display: flex;height: calc(100% - 7%);">
               <mat-label style="border:1px solid black; text-align: center;border-right:none;border-top:none;padding: 3px 31px;padding-bottom: 15px;">Aditional Discount</mat-label>
-              <input [style]="ContainWidth" [(ngModel)]="item.ADIS" disabled />
+              <input class="tenderTxt" [style]="ContainWidth" [(ngModel)]="item.ADIS" [disabled]="ADISDISABLE" (ngModelChange)="ADISCHANGE($event,item)" />
             </div>
           </div>
         </div>
       </div>
     </div>
-
     <div class="newGrid memo-ent-grid">
         <ag-grid-angular class="ag-theme-alpine" style="width: calc(100% - 2%); height: 40vh; min-width: 1140px;"
         [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [getRowStyle]="getRowStyle" (gridReady)="onGridReady($event)"
-        [rowData]="item.GRID_DATA" [animateRows]="true">
+        [rowData]="item.GRID_DATA" [animateRows]="true" (cellValueChanged)="FindRap($event)">
       </ag-grid-angular>
       </div>
       </article>

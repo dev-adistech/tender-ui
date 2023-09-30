@@ -108,6 +108,20 @@
 	grid-column: 1 / span 1;
 }
 
+input[type=text]:focus {
+	outline: none !important;
+  outline-style: none !important;
+  box-shadow: none !important;
+  border-color: black !important;
+  /* border-radius:0px !important ; */
+  }
+  .tenderTxt:focus {
+	outline: none !important;
+  outline-style: none !important;
+  box-shadow: none !important;
+  border-color: black !important;
+  /* border-radius:0px !important ; */
+  }
 .emp-name {
 	grid-row: 4 / span 1;
 	grid-column: 2 / span 1;

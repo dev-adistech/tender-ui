@@ -223,7 +223,10 @@ export class HomeComponent implements OnInit {
       this.masterMachine = false;
     }
 
-    if (this.CheckFormPermission('TendarEstComponent') ||this.CheckFormPermission('TendarComComponent') || this.CheckFormPermission('TendarMastComponent')) {
+    if (this.CheckFormPermission('TendarEstComponent') 
+    ||this.CheckFormPermission('TendarComComponent') 
+    ||this.CheckFormPermission('LotMappingComponent') 
+  || this.CheckFormPermission('TendarMastComponent')) {
       this.transactionPointer = true;
     } else {
       this.transactionPointer = false;

@@ -1,0 +1,42 @@
+<section class="form-container glass-light">
+    <article class="fields-wrapper">
+    <ng-select class="autoComplete" placeholder="Company Code*" style="width: 6rem;" appearance="outline"
+      autocomplete="off" [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID();LoadGridData()">
+      <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
+    </ng-select>
+
+    <mat-form-field appearance="outline" style="width: 6rem;">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
+    </mat-form-field>
+
+    <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 6rem;" appearance="outline"
+      autocomplete="off" [(ngModel)]="DETID" (ngModelChange)="GETDATE();LoadGridData()">
+      <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}}</ng-option>
+    </ng-select>
+
+    <mat-form-field appearance="outline" style="width: 6rem;">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_NAME" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 8rem;">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" #fdate onfocus="this.select();" disabled />
+      <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()"></mat-datepicker-toggle>
+      <mat-datepicker #ID1></mat-datepicker>
+    </mat-form-field>
+</article>
+    <article class="aggrid-wrapper">
+        <ag-grid-angular style="width: 512px; height: 70vh" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef"
+          (scroll)="scrollHandler($event)" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"  
+          (rowClicked)='onGridRowClicked($event)'>
+        </ag-grid-angular>
+      </article>
+      <article class="password-wrapper">
+        <mat-form-field class='mt-2 password' appearance="outline">
+          <input type="password" matInput name="Password" autocomplete="off" [(ngModel)]="PASSWORD"
+            (ngModelChange)="CHANGEPASSWORD();" />
+        </mat-form-field>
+      </article>
+</section>
