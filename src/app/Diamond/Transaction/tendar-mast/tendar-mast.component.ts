@@ -29,9 +29,7 @@ export class TendarMastComponent implements OnInit {
 
   decodeHelper = new JwtHelperService();
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem("token"));
-  decodedMast = JSON.parse(
-    this.EncrDecrServ.get(localStorage.getItem("unfam1"))
-  );
+  decodedMast = JSON.parse(this.EncrDecrServ.get(localStorage.getItem("unfam1")));
 
   LS: boolean = false
   R1: any = ''
@@ -311,13 +309,11 @@ export class TendarMastComponent implements OnInit {
           let a = '<span class="det_val">';
           if (op.PASS == op.PASSWORD) {
             if (op.ALLOWUPD) {
-              // a = a + '<i class="icon-edit grid-icon" data-action-type="EditData" style="cursor: pointer;margin-right: 5px;" ></i>';
               a =
                 a +
                 '<svg class="grid-icon icon-edit" data-action-type="EditData" > <use data-action-type="EditData" xlink: href = "assets/symbol-defs.svg#icon-edit" > </use> </svg>';
             }
             if (op.ALLOWDEL) {
-              // a = a + '<i class="icon-delete grid-icon" data-action-type="DeleteData" style="cursor: pointer;margin-left: 5px;"></i>';
               a =
                 a +
                 '<svg class="grid-icon icon-delete" data-action-type="DeleteData" > <use data-action-type="DeleteData" xlink: href = "assets/symbol-defs.svg#icon-delete" > </use> </svg>';
@@ -379,8 +375,6 @@ export class TendarMastComponent implements OnInit {
       },
     }
     this.gridOptions1 = {
-      // columnDefs: this.columnDefs,
-      // rowData: this.rowData,
       enableSorting: false,
       enableFilter: false,
       context: { thisComponent: this },
@@ -523,7 +517,6 @@ export class TendarMastComponent implements OnInit {
   onGridReady1(params) {
     this.gridApi1 = params.api;
     this.gridColumnApi1 = params.columnApi;
-    // this.LoadGridData1();
   }
 
   UploadDirect(){
@@ -1487,7 +1480,6 @@ export class TendarMastComponent implements OnInit {
   }
 
   nextenter(element: any, id: any) {
-    // if (e.keyCode == 13) {
     if (element) {
       setTimeout(() => {
         this[element].closePanel();

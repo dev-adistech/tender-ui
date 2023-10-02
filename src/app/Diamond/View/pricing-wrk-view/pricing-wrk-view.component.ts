@@ -554,7 +554,6 @@ export class PricingWrkViewComponent implements OnInit {
         }
       }
     }
-    this.gridApi1.refreshCells({ force: true })
   }
 
   TimeFormat(params) {
