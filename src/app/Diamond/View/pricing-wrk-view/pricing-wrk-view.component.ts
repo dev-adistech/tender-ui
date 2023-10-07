@@ -70,6 +70,7 @@ export class PricingWrkViewComponent implements OnInit {
 
   FooterKey = []
   ISFILTER: boolean = false
+  GRIDON:boolean = false
 
   constructor(
     public dialog: MatDialog,
@@ -84,24 +85,7 @@ export class PricingWrkViewComponent implements OnInit {
     private ViewParaMastServ : ViewParaMastService
   ) { 
     this.touchStartTime=0
-    // this.columnDefs = [
-    //   {
-    //     headerName: "Date",
-    //     field: "T_DATE",
-    //     cellStyle: { "text-align": "center" },
-    //     headerClass: "text-center",
-    //     width: 126,
-    //     cellRenderer: this.DateFormat.bind(this),
-    //   },
-    //   {
-    //     headerName: "Pcs",
-    //     field: "PCS",
-    //     cellStyle: { "text-align": "center" },
-    //     headerClass: "text-center",
-    //     width: 62,
-    //   },
-    // ]
-
+   
     this.getRowStyle = function (params) {
       if (params.data) {
         if (params.node.rowPinned === 'bottom') {
@@ -141,6 +125,13 @@ export class PricingWrkViewComponent implements OnInit {
       return "";
     }
   }
+  DockClick(){
+    if(this.GRIDON === false){
+      this.GRIDON = true
+    }else {
+      this.GRIDON = false
+    }
+  }
 
   ngOnInit(): void {
     this.Shapes = this.decodedMast[15].map(item => {
@@ -164,6 +155,7 @@ export class PricingWrkViewComponent implements OnInit {
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
       T_CARAT:this.T_CARAT ? this.T_CARAT:0,
     }
+    this.GRIDON = false
     this.ViewServ.PricingWrkDisp(NewObj).subscribe(
       (FillRes) => {
         try {
@@ -751,5 +743,50 @@ export class PricingWrkViewComponent implements OnInit {
       "export"
     ];
     return result;
+  }
+
+  oncellValueChanged(eve){
+    let SubData = []
+    this.gridApi1.forEachNode(function (rowNode, index) {
+      SubData.push(rowNode.data);
+    });
+    let MERGEDATA =[]
+    for(let i=0;i<SubData.length;i++){
+      if(SubData[i].TOTAL == eve.data.TOTAL && SubData[i].RCTS === eve.data.RCTS){
+        MERGEDATA.push(SubData[i])
+      }
+    }
+    let NewAMT = 0
+    for(let i=0;i<MERGEDATA.length;i++){
+      if(MERGEDATA[i].PLN == eve.data.PLN){
+        let carat = MERGEDATA[i].CARAT
+        let Orap = MERGEDATA[i].ORAP
+        let Mprevalue
+        if(parseFloat(MERGEDATA[i].MPER)){
+          Mprevalue = parseFloat(MERGEDATA[i].MPER)
+        }else{
+          Mprevalue = MERGEDATA[i].PER
+        }
+        let newArray
+        let FinalValue = 0
+        let NewSum = 0
+        newArray = (Mprevalue / 100) * Orap
+        FinalValue = Orap - newArray
+        NewSum = FinalValue * carat
+        MERGEDATA[i].RATE = FinalValue
+        MERGEDATA[i].AMT = NewSum
+        NewAMT += NewSum
+      }else{
+        NewAMT += MERGEDATA[i].AMT
+      }
+    }
+    console.log(NewAMT)
+    for(let i=0;i<MERGEDATA.length;i++){
+      MERGEDATA[i].TOTAL = NewAMT
+      let NewPer = 0
+      NewPer = MERGEDATA[i].TOTAL / MERGEDATA[i].I_CARAT
+      MERGEDATA[i].RCTS = NewPer.toFixed(0)
+    }
+    this.gridApi1.refreshCells({ force: true })
   }
 }

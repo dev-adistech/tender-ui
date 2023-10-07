@@ -3011,13 +3011,18 @@ export class BVViewComponent implements OnInit {
           }
         }
       }
+      let ADISDIS = 0
       for(let i=0;i<this.rowData.length;i++){
         for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
           if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
             this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
             this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
             let FINAL = (this.rowData[i].ADIS /100)*NewAmtSum
-            let ADISDIS = FINAL + NewAmtSum
+            // if(`${this.rowData[i].ADIS}`.includes('+')){
+              ADISDIS = NewAmtSum + FINAL
+            // }else{
+            //    ADISDIS = NewAmtSum - FINAL
+            // }
             this.rowData[i].FAMT = ADISDIS.toFixed(2)
             this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
           }
@@ -3072,13 +3077,19 @@ export class BVViewComponent implements OnInit {
         }
       }
     }
+    let ADISDIS = 0
     for(let i=0;i< this.rowData.length;i++){
       for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
         if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
           this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
           this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
           let FINAL = (parseFloat(this.rowData[i].ADIS) /100)*NewAmtSum
-          let ADISDIS = FINAL + NewAmtSum
+          
+          // if(`${this.rowData[i].ADIS}`.includes('+')){
+            ADISDIS = NewAmtSum + FINAL
+          // }else{
+          //   ADISDIS = NewAmtSum - FINAL
+          // }
           this.rowData[i].FAMT = ADISDIS.toFixed(2)
           this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
           FinalArray.push(this.rowData[i].GRID_DATA[j])
@@ -3208,13 +3219,18 @@ export class BVViewComponent implements OnInit {
           }
         }
       }
+      let ADISDIS
       for(let i=0;i<this.rowData.length;i++){
         for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
           if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
             this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
             this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
             let FINAL = (this.rowData[i].ADIS /100)*NewAmtSum
-            let ADISDIS = FINAL + NewAmtSum
+            // if(`${this.rowData[i].ADIS}`.includes('+')){
+              ADISDIS = NewAmtSum + FINAL
+            // }else{
+            //    ADISDIS = NewAmtSum - FINAL
+            // }
             this.rowData[i].FAMT = ADISDIS.toFixed(2)
             this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
           }
@@ -3229,13 +3245,18 @@ export class BVViewComponent implements OnInit {
 
   ADISCHANGE(eve,item){
     let NewAMT = 0
+    let FinalADIS = 0
     for(let i=0 ;i<item.GRID_DATA.length;i++){
     for(let j=0 ;j<this.rowData.length;j++){
       if(item.GRID_DATA[i].PTAG === 'Total' && item.SRNO === this.rowData[j].SRNO){
         NewAMT = item.GRID_DATA[i].AMT
         if(parseFloat(item.ADIS)){
           let FINAL = (parseFloat(item.ADIS) /100)*NewAMT
-          let FinalADIS = FINAL + NewAMT
+          // if(item.ADIS.includes('+')){
+            FinalADIS =  NewAMT + FINAL
+          // }else{
+          //   FinalADIS =  NewAMT - FINAL
+          // }
           this.rowData[j].FAMT = FinalADIS.toFixed(2)
           this.rowData[j].FBID = (FinalADIS / this.rowData[j].I_CARAT).toFixed(2)
         }else {

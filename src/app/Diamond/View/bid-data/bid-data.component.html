@@ -36,9 +36,9 @@
         </div>
 
         <div class="memo-ent-grid">
-            <ag-grid-angular class="ag-theme-alpine select-color" style="width: 23%; height: calc(100vh - 85px);margin-top: 20px;"
+            <ag-grid-angular class="ag-theme-alpine select-color" style="width: calc(100vw - 10vw); height: calc(100vh - 85px);margin-top: 20px;"
               [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
-              [animateRows]="true">
+              [animateRows]="true" [getContextMenuItems]="getContextMenuItems" [gridOptions]="gridOptions">
             </ag-grid-angular>
         </div>
     </div>

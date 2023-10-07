@@ -76,6 +76,7 @@ export class TendarEstComponent implements OnInit {
   FooterValue = [];
   GridFooter: any[] = [];
   ADISDISABLE:boolean = false
+  ALLGRIDDISABLE:boolean = false
 
   S_CODE: any = [];
   C_NAME: any = [];
@@ -505,7 +506,7 @@ export class TendarEstComponent implements OnInit {
     });
   }
   MPERDISABLE(params) {
-    if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
+    if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') && this.ALLGRIDDISABLE == false) {
       return true
     } else {
       return false
@@ -517,7 +518,7 @@ export class TendarEstComponent implements OnInit {
     if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
       this.FLOCODEDIS = true
       return false
-    } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER && params.data.PTAG !== "Total" || this.decodedTkn.UserId === 'DN') {
+    } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER && params.data.PTAG !== "Total" || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
       return true
     } else {
       this.FLOCODEDIS = false
@@ -567,7 +568,7 @@ export class TendarEstComponent implements OnInit {
         template += '</select>';
         return template;
       } else
-        if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+        if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
           let template = `
           <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
           <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -690,7 +691,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -813,7 +814,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -937,7 +938,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1059,7 +1060,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1181,7 +1182,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1303,7 +1304,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1426,7 +1427,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1549,7 +1550,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1672,7 +1673,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1795,7 +1796,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1918,7 +1919,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2040,7 +2041,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -2163,7 +2164,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if (params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
         <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -3091,14 +3092,16 @@ export class TendarEstComponent implements OnInit {
     }
 
     let NewValue = (this.ADIS/100)*this.FINALAMT
-    let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+    let FinalValue1 = 0
+    // if(`${this.ADIS}`.includes('+')){
+      FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+    // }else{
+      // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+    // }
     this.FINALAMT = FinalValue1.toFixed(2)
 
-    let NewBid = this.FINALAMT / this.PKTWEIGHT
-    this.FINALBID =NewBid.toFixed(2)
-      // let NewValue = (this.ADIS/100)*this.PKTPER
-      // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-      // this.FINALBID =FinalValue1.toFixed(2)
+      let NewBid = this.FINALAMT / this.PKTWEIGHT
+      this.FINALBID =NewBid.toFixed(2)
       params.node.setData(dataObj);
       params.api.refreshCells({ force: true });
     }
@@ -3107,8 +3110,13 @@ export class TendarEstComponent implements OnInit {
   
   ADISCHANGE(params){
     if(parseFloat(params)){
+    let FinalValue = 0
     let NewValue = (parseFloat(params)/100)*parseFloat(this.FINALAMT1)
-    let FinalValue = parseFloat(this.FINALAMT1) + NewValue
+    // if(params.includes('+')){
+      FinalValue = parseFloat(this.FINALAMT1) + NewValue
+    // }else{
+      // FinalValue = parseFloat(this.FINALAMT1) - NewValue
+    // }
     this.FINALAMT = FinalValue
     let FinalBidAMT =  this.FINALAMT / this.PKTWEIGHT
     this.FINALBID =FinalBidAMT.toFixed(2)
@@ -3244,7 +3252,13 @@ export class TendarEstComponent implements OnInit {
         }
       } 
       let NewValue = (this.ADIS/100)*this.FINALAMT
-      let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+      // let FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+      let FinalValue1 = 0
+      // if(`${this.ADIS}`.includes('+')){
+        FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+      // }else{
+        // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+      // }
       this.FINALAMT = FinalValue1.toFixed(2)
 
       let NewBid = this.FINALAMT / this.PKTWEIGHT
@@ -3350,7 +3364,13 @@ export class TendarEstComponent implements OnInit {
         }
       }
       let NewValue = (this.ADIS/100)*this.FINALAMT
-      let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+      // let FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+      let FinalValue1 = 0
+      // if(`${this.ADIS}`.includes('+')){
+        FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+      // }else{
+        // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+      // }
       this.FINALAMT = FinalValue1.toFixed(2)
 
       let NewBid = this.FINALAMT / this.PKTWEIGHT
@@ -3597,7 +3617,13 @@ export class TendarEstComponent implements OnInit {
             }
             this.PKTPER = highestRate.toFixed(2)
             let NewValue = (this.ADIS/100)*this.FINALAMT
-            let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+            // let FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+            let FinalValue1 = 0
+            // if(`${this.ADIS}`.includes('+')){
+              FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+            // }else{
+              // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+            // }
             this.FINALAMT = FinalValue1.toFixed(2)
   
             let NewBid = this.FINALAMT / this.PKTWEIGHT
@@ -5717,7 +5743,13 @@ export class TendarEstComponent implements OnInit {
       }
 
           let NewValue = (this.ADIS/100)*this.FINALAMT
-          let FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+          let FinalValue1 = 0
+          // if(`${this.ADIS}`.includes('+')){
+            FinalValue1 = parseFloat(this.FINALAMT) + NewValue
+          // }else{
+            // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
+          // }
+          // let FinalValue1 = parseFloat(this.FINALAMT) - NewValue
           this.FINALAMT = FinalValue1.toFixed(2)
 
           let NewBid = this.FINALAMT / this.PKTWEIGHT
@@ -5930,6 +5962,13 @@ export class TendarEstComponent implements OnInit {
             if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S'){
               this.disabledata = false 
               this.FLOCODEDIS = false
+            }
+
+            for(let i=0;i<newdata.length;i++){
+              if(newdata[i].PLNSEL === true && this.decodedTkn.UserId !== 'DN'){
+                this.ALLGRIDDISABLE = true
+                break
+              }
             }
 
             const agBodyViewport: HTMLElement =

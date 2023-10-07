@@ -35,6 +35,7 @@ export class BidDataComponent implements OnInit {
   public gridApi;
   public gridColumnApi;
   public defaultColDef;
+  public gridOptions;
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -55,6 +56,11 @@ export class BidDataComponent implements OnInit {
         suppressMiniFilter: false,
         resetButton: true,
       },
+    }
+    this.gridOptions = {
+      enableSorting: false,
+      enableFilter: false,
+      context: { thisComponent: this }
     }
     this.FillViewPara()
    }
@@ -246,5 +252,36 @@ export class BidDataComponent implements OnInit {
         }
       }
     );
+  }
+  getContextMenuItems(params) {
+    let inputText = '';
+    if (params.context.thisComponent.ISFILTER == true) {
+      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck" checked>`;
+    } else {
+      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck">`;
+    }
+    var result = [
+      {
+        // custom item
+        name: inputText,
+        action: () => {
+          params.context.thisComponent.ISFILTER = !params.context.thisComponent.ISFILTER
+          var tempColumnDefs = params.context.thisComponent.gridApi.getColumnDefs();
+          tempColumnDefs.map((grpHeader) => {
+            grpHeader.children.map((ClmHeader) => {
+              ClmHeader.suppressMenu = !ClmHeader.suppressMenu
+            })
+          })
+          params.context.thisComponent.columnDefs = tempColumnDefs
+        }
+        // cssClasses: ['redFont', 'bold'],
+      },
+      "copy",
+      "copyWithHeaders",
+      "paste",
+      "separator",
+      "export"
+    ];
+    return result;
   }
 }
