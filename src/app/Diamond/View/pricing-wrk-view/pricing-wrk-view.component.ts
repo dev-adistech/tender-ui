@@ -72,6 +72,8 @@ export class PricingWrkViewComponent implements OnInit {
   ISFILTER: boolean = false
   GRIDON:boolean = false
 
+  GRIDDATA:any=[]
+
   constructor(
     public dialog: MatDialog,
     private EncrDecrServ: EncrDecrService,
@@ -143,6 +145,7 @@ export class PricingWrkViewComponent implements OnInit {
     this.Quality = this.decodedMast[5].map(item => {
       return {code: item.Q_CODE, name: item.Q_NAME.toString(),}
     });
+    this.LoadGridData()
   }
 
   onCellDoubleClick(eve){
@@ -283,7 +286,6 @@ export class PricingWrkViewComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.LoadGridData()
   }
   onGridReady1(params) {
     this.gridApi1 = params.api;
@@ -666,7 +668,7 @@ export class PricingWrkViewComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            this.gridApi.setRowData(FillRes.data);
+            this.GRIDDATA = FillRes.data
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =

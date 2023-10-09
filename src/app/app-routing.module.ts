@@ -50,6 +50,7 @@ import { RatioMastComponent } from './Diamond/Master/ratio-mast/ratio-mast.compo
 import { ShdMastComponent } from './Diamond/Master/shd-mast/shd-mast.component';
 import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component';
 import { LotMappingComponent } from './Diamond/Transaction/lot-mapping/lot-mapping.component';
+import { RoughColorAnaComponent } from './Diamond/View/rough-color-ana/rough-color-ana.component';
 
 
 const routes: Routes = [
@@ -110,6 +111,7 @@ const routes: Routes = [
   { path: 'PricingWrk', component: PricingWrkViewComponent, canActivate: [AuthGuard] },
   { path: 'BvView', component: BVViewComponent, canActivate: [AuthGuard] },
   { path: 'BidData', component: BidDataComponent, canActivate: [AuthGuard] },
+  { path: 'RougColorAna', component: RoughColorAnaComponent, canActivate: [AuthGuard] },
 
 ];
 

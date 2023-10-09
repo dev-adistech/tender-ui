@@ -41,4 +41,8 @@ export class ViewService {
     return this.http.post<any>('View/BidDataView', Data)
   }
 
+  ColAnalysis(Data: any): Observable<any> {
+    return this.http.post<any>('View/ColAnalysis', Data)
+  }
+
 }

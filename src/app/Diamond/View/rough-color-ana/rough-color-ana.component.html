@@ -1,0 +1,107 @@
+<div style="display: inline-flex; height: 646px; width: 100%;">
+    <section class="form-container"
+      style="width: calc(100% - 26px); place-content: baseline; display: flex; flex-direction: column;">
+      <article class="fields-wrapper" style="max-width:calc(100vw - 4vw);">
+  
+          <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Shape</mat-label>
+            <input matInput type="text" [(ngModel)]="S_CODE" (keydown.tab)="OpenLotPopup()" (click)="OpenLotPopup()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"  />
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Color</mat-label>
+            <input matInput type="text" [(ngModel)]="C_CODE" (keydown.tab)="OpenColor()" (click)="OpenColor()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }" />
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Clarity</mat-label>
+            <input matInput type="text" [(ngModel)]="Q_CODE" (keydown.tab)="OpenQua()" (click)="OpenQua()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Cut</mat-label>
+            <input matInput type="text" [(ngModel)]="CT_CODE" (keydown.tab)="OpenCut()" (click)="OpenCut()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Final</mat-label>
+            <input matInput type="text" [(ngModel)]="FINAL" (keydown.tab)="OpenFinal()" (click)="OpenFinal()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Result</mat-label>
+            <input matInput type="text" [(ngModel)]="RESULT"(keydown.tab)="OpenResult()" (click)="OpenResult()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Flo No</mat-label>
+            <input matInput type="text" [(ngModel)]="FLO"(keydown.tab)="OpenFloNo()" (click)="OpenFloNo()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 6rem;">
+            <mat-label>Machine Flo</mat-label>
+            <input matInput type="text" [(ngModel)]="MACFLO"(keydown.tab)="OpenMacFlo()" (click)="OpenMacFlo()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 6rem;">
+            <mat-label>Comment</mat-label>
+            <input matInput type="text" [(ngModel)]="MACCOM"(keydown.tab)="OpenMacCom()" (click)="OpenMacCom()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" style="width: 6rem;">
+            <mat-label>From Carat</mat-label>
+            <input matInput type="number" autocomplete="off" [(ngModel)]="F_CARAT"/>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline" style="width: 6rem;">
+            <mat-label>To Carat</mat-label>
+            <input matInput type="number" autocomplete="off" [(ngModel)]="T_CARAT"/>
+          </mat-form-field>
+  
+          <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData()">
+              <svg class="icon icon-show">
+                <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
+              </svg>
+            </button>
+            <button class="btn theme-btn" matTooltip='Show Video' tabindex="-1" matTooltipClass="custom-tooltip" (click)="Video()">
+              <img src="./../../../../assets/img/Pricing/play.png" style="width: 27.55px;height: 28.8px;">
+            </button>
+        </article>
+
+      <article class="aggrid-wrapper" style="display: flex; width: 100%;">
+          <div class="memo-ent-grid prc-view-grid  newGrid">
+            <ag-grid-angular style="width: calc(100vw - 3vw); height: calc(100vh - 9vh);" class="ag-theme-alpine" [defaultColDef]="defaultColDef"
+                [columnDefs]="columnDefs" [gridOptions]="gridOptions" [suppressMenuHide]="false" [rowMultiSelectWithClick]="true" [getContextMenuItems]="getContextMenuItems" 
+                [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle"
+                (gridReady)="onGridReady($event)" [suppressRowTransform]="true" [suppressMenuHide]="false" >
+              </ag-grid-angular>
+          </div>
+      </article>
+      <section class="brk-details" *ngIf="VIDEOON">
+        <div class="brk-flex">
+          <video style="width: 100%;height:100%" controls="controls">
+            <source [src]="videoSrc" type="video/mp4" autoplay>
+          </video>
+          <br>
+          <button class="btn theme-btn mr-2 ml-auto" matTooltip='close' matTooltipClass="custom-tooltip"
+                (click)="CLOSE()" style="width: 4%;height: 5%;">
+                <svg class="icon icon-close">
+                  <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+                </svg>
+          </button>
+        </div>
+        </section> 
+    </section>
+  </div>
+  <ngx-spinner>
+    <p style="color: white;"> Loading..</p>
+  </ngx-spinner>

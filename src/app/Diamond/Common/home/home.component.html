@@ -200,6 +200,13 @@
                 Bid Data
               </li>
             </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('RoughColorAnaComponent')"
+                (click)="addiFrameTabs('Rough Color Analysis View', '/RougColorAna')">
+                <img src="../../../../assets/img/View/analytics.png" alt="" />
+                Rough Color Analysis
+              </li>
+            </div>
           </div>
           <p class="sub-menu__section-name">Pointer</p>
         </div>

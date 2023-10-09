@@ -237,7 +237,7 @@ export class BidDataComponent implements OnInit {
               const container = document.querySelector(".ag-body-viewport");
               ps.update();
             }
-
+            this.spinner.hide()
           } else {
             this.spinner.hide();
             Swal.fire({

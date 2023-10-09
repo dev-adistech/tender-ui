@@ -51,6 +51,7 @@ import { ShdMastComponent } from '../../Master/shd-mast/shd-mast.component';
 import { RefMastComponent } from '../../Master/ref-mast/ref-mast.component';
 import Swal from 'sweetalert2';
 import { PerMastService } from 'src/app/Service/Config/per-mast.service';
+import { RoughColorAnaComponent } from '../../View/rough-color-ana/rough-color-ana.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -254,7 +255,10 @@ export class HomeComponent implements OnInit {
       this.configPersmission = false;
     }
 
-    if (this.CheckFormPermission('PricingWrkViewComponent') ||this.CheckFormPermission('BVViewComponent') ||this.CheckFormPermission('BidDataComponent') ) {
+    if (this.CheckFormPermission('PricingWrkViewComponent') 
+    ||this.CheckFormPermission('BVViewComponent') 
+    ||this.CheckFormPermission('RoughColorAnaComponent') 
+    ||this.CheckFormPermission('BidDataComponent') ) {
       this.viewPointer = true;
     } else {
       this.viewPointer = false;
@@ -426,6 +430,9 @@ export class HomeComponent implements OnInit {
         break;
       case "Pricing Work":
         this.ComponentName = PricingWrkViewComponent;
+        break;
+      case "Rough Color Analysis":
+        this.ComponentName = RoughColorAnaComponent;
         break;
       case "B V ":
         this.ComponentName = BVViewComponent;

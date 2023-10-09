@@ -355,7 +355,7 @@ export class TendarEstComponent implements OnInit {
                     if (params.node.rowPinned != "bottom") {
                       if(params.data['PTAG'] !== 'Total'){
                       if (params.data[VPRes.data[i].FIELDNAME] == 1) {
-                        if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
+                        if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S')&& this.ALLGRIDDISABLE == false) {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
@@ -369,7 +369,7 @@ export class TendarEstComponent implements OnInit {
                           );
                         }
                       } else {
-                        if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') {
+                        if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S')&& this.ALLGRIDDISABLE == false) {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
@@ -2314,13 +2314,7 @@ export class TendarEstComponent implements OnInit {
                 this.gridApi.refreshCells({ force: true })
               } else {
                 this.spinner.hide();
-                // Swal.fire({
-                //   icon: "error",
-                //   title: "Oops...",
-                //   text: JSON.stringify(SaveRes.data),
-                // });
                 return;
-                // return;
               }
               
             }catch{
@@ -2857,25 +2851,6 @@ export class TendarEstComponent implements OnInit {
           this.spinner.hide();
           this.GRIDDATA = FillRes.data
           this.SECONDDATA = FillRes.data
-          // const agBodyViewport: HTMLElement =
-          //   this.elementRef.nativeElement.querySelector(".ag-body-viewport");
-          // const agBodyHorizontalViewport: HTMLElement =
-          //   this.elementRef.nativeElement.querySelector(
-          //     ".ag-body-horizontal-scroll-viewport"
-          //   );
-          // if (agBodyViewport) {
-          //   const psV = new PerfectScrollbar(agBodyViewport);
-          //   psV.update();
-          // }
-          // if (agBodyHorizontalViewport) {
-          //   const psH = new PerfectScrollbar(agBodyHorizontalViewport);
-          //   psH.update();
-          // }
-          // if (agBodyViewport) {
-          //   const ps = new PerfectScrollbar(agBodyViewport);
-          //   const container = document.querySelector(".ag-body-viewport");
-          //   ps.update();
-          // }
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -3933,7 +3908,6 @@ export class TendarEstComponent implements OnInit {
     document.getElementById("mySidebar").style.display = "none";
   }
   async ngOnInit() {
-    console.log(this.decodedMast)
     if(this.decodedTkn.UserId === 'DN'){
       this.ADISDISABLE = false
     }else {
