@@ -72,23 +72,23 @@
                 <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
               </svg>
             </button>
-            <button class="btn theme-btn" matTooltip='Show Video' tabindex="-1" matTooltipClass="custom-tooltip" (click)="Video()">
+            <!-- <button class="btn theme-btn" matTooltip='Show Video' tabindex="-1" matTooltipClass="custom-tooltip" (click)="Video()">
               <img src="./../../../../assets/img/Pricing/play.png" style="width: 27.55px;height: 28.8px;">
-            </button>
+            </button> -->
         </article>
 
       <article class="aggrid-wrapper" style="display: flex; width: 100%;">
           <div class="memo-ent-grid prc-view-grid  newGrid">
             <ag-grid-angular style="width: calc(100vw - 3vw); height: calc(100vh - 9vh);" class="ag-theme-alpine" [defaultColDef]="defaultColDef"
                 [columnDefs]="columnDefs" [gridOptions]="gridOptions" [suppressMenuHide]="false" [rowMultiSelectWithClick]="true" [getContextMenuItems]="getContextMenuItems" 
-                [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle"
+                [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle" (cellClicked)="OnCellClick($event)"
                 (gridReady)="onGridReady($event)" [suppressRowTransform]="true" [suppressMenuHide]="false" >
               </ag-grid-angular>
           </div>
       </article>
       <section class="brk-details" *ngIf="VIDEOON">
         <div class="brk-flex">
-          <video style="width: 100%;height:100%" controls="controls">
+          <video controls="controls">
             <source [src]="videoSrc" type="video/mp4" autoplay>
           </video>
           <br>

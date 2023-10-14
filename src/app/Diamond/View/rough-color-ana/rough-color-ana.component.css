@@ -35,7 +35,8 @@ input:disabled{
 	border: 1px solid black;
 	border-radius: 5px;
 	background: var(--color-bg);
-	width: 65%;
+	max-width: 60%;
+	/* max-height: 85%; */
 	padding: 0.5rem;
 }
 
@@ -295,6 +296,12 @@ input[type=text]:focus {
 	height: 113px;
 }
 
+.cell-span1 {
+    background: #ffffff;
+  }
+  .cell-center {
+    text-align: center;
+  }
 @media (max-width: 1600px) {
 	.slide-grid-tablet {
 		position: absolute;

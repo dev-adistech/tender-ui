@@ -236,23 +236,50 @@ export class RoughColorAnaComponent implements OnInit {
             let tempData = []
 
             for (let j = 0; j < GroupData[i].Data.length; j++) {
-              tempData.push({
-                headerName: GroupData[i].Data[j].DISPNAME,
-                headerClass: GroupData[i].Data[j].HEADERALIGN,
-                field: GroupData[i].Data[j].FIELDNAME,
-                width: GroupData[i].Data[j].COLWIDTH,
-                cellStyle: {
-                  "text-align": GroupData[i].Data[j].CELLALIGN,
-                  "background-color": GroupData[i].Data[j].BACKCOLOR,
-                  "color":GroupData[i].Data[j].FONTCOLOR
-                },
-                resizable: GroupData[i].Data[j].ISRESIZE,
-                
-                GROUPKEY: GroupData[i].Data[j].GROUPKEY,
-                hide: GroupData[i].Data[j].DISP == false ? true : false,
-                pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
-                suppressMenu: true,
-              })
+              if (GroupData[i].Data[j].FIELDNAME == 'LINK') {
+                tempData.push({
+                  headerName: 'Link',
+                  cellStyle: { 'text-align': 'center' },
+                  cellRenderer: function (params) {
+                    if (params.node.rowPinned != "bottom") {
+                      if (!params.data.LINK) {
+                        return null;
+                      }
+                      return '<i class="icon-video grid-icon" data-action-type="OpenVideo" style="cursor: pointer;" ></i>';
+                    }
+                  },
+                  headerClass: "text-center",
+                  editable: false,
+                  width: 60,
+                  rowSpan: this.rowSpy.bind(this),
+                  suppressMenu: true,
+                  cellClass: function (params) {
+                      if (params.node.rowPinned != 'bottom') {
+                        if (params.colDef.headerName == 'Link') {
+                          return 'cell-span1 cell-center'
+                        }
+                      }
+                    }
+                })
+              }else{
+                tempData.push({
+                  headerName: GroupData[i].Data[j].DISPNAME,
+                  headerClass: GroupData[i].Data[j].HEADERALIGN,
+                  field: GroupData[i].Data[j].FIELDNAME,
+                  width: GroupData[i].Data[j].COLWIDTH,
+                  cellStyle: {
+                    "text-align": GroupData[i].Data[j].CELLALIGN,
+                    "background-color": GroupData[i].Data[j].BACKCOLOR,
+                    "color":GroupData[i].Data[j].FONTCOLOR
+                  },
+                  resizable: GroupData[i].Data[j].ISRESIZE,
+                  
+                  GROUPKEY: GroupData[i].Data[j].GROUPKEY,
+                  hide: GroupData[i].Data[j].DISP == false ? true : false,
+                  pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
+                  suppressMenu: true,
+                })
+              }
             }
 
             jsonData["children"] = tempData
@@ -273,6 +300,46 @@ export class RoughColorAnaComponent implements OnInit {
         this.toastr.error(error)
       }
     })
+  }
+  rowSpy(params) {
+    let SubData = []
+    this.gridApi.forEachNode(function (rowNode, index) {
+      SubData.push(rowNode.data);
+    });
+
+    if (SubData.length != 0 && params.colDef.headerName == "Link") {
+      if (params.node.rowIndex == 0) {
+        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
+        if (params.data.LINK == SubData[params.node.rowIndex].LINK) {
+          let mergeIndex = 0
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.LINK == SubData[i].LINK) {
+              mergeIndex += 1
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      } else {
+        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
+        if (params.data.LINK != SubData[previousIndex].LINK) {
+          let mergeIndex = 0
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.LINK == SubData[i].LINK) {
+              mergeIndex += 1
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      }
+    }
   }
   LoadGridData(){
     let FillObj ={
@@ -361,8 +428,19 @@ export class RoughColorAnaComponent implements OnInit {
     ];
     return result;
   }
+  OnCellClick(eve){
+    const target = eve.event.target;
+    if (target !== undefined) {
+    const actionType = target.getAttribute("data-action-type");
+    if(actionType === 'OpenVideo'){
+      this.VIDEOON = true
+      this.videoSrc = eve.data.LINK
+    }
+  }
+  }
   CLOSE(){
     this.VIDEOON = false
+    this.videoSrc = ''
   }
   Video(){
     this.VIDEOON = true
