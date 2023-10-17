@@ -157,6 +157,7 @@ export class PricingWrkViewComponent implements OnInit {
       Q_CODE:this.Q_CODE ? this.Q_CODE:'',
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
       T_CARAT:this.T_CARAT ? this.T_CARAT:0,
+      COMP_CODE:eve.data.COMP_CODE ? eve.data.COMP_CODE:'',
     }
     this.GRIDON = false
     this.ViewServ.PricingWrkDisp(NewObj).subscribe(
