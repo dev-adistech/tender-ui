@@ -2,7 +2,25 @@
     <section class="form-container"
       style="width: calc(100% - 26px); place-content: baseline; display: flex; flex-direction: column;">
       <article class="fields-wrapper" style="max-width:calc(100vw - 4vw);">
+        <ng-select class="autoComplete" placeholder="Company Code" style="width: 7rem;" appearance="outline"
+          autocomplete="off" [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME()">
+          <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
+        </ng-select>
   
+        <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-label>Name</mat-label>
+          <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
+        </mat-form-field>
+
+        <ng-select class="autoComplete" placeholder="Lab" style="width: 7rem;" appearance="outline"
+        autocomplete="off" [(ngModel)]="LAB">
+        <ng-option *ngFor="let dept of Labs" [value]="dept.code">{{dept.code}}</ng-option>
+        </ng-select>
+          <!-- <mat-form-field appearance="outline" style="width: 5rem;">
+            <mat-label>Lab</mat-label>
+            <input matInput type="text" [(ngModel)]="LAB" (click)="OpenLab()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"  />
+          </mat-form-field> -->
           <mat-form-field appearance="outline" style="width: 5rem;">
             <mat-label>Shape</mat-label>
             <input matInput type="text" [(ngModel)]="S_CODE" (click)="OpenLotPopup()"
@@ -70,6 +88,11 @@
           <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData()">
               <svg class="icon icon-show">
                 <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
+              </svg>
+            </button>
+            <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="Clear()">
+              <svg class="icon icon-clear">
+                <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
               </svg>
             </button>
             <!-- <button class="btn theme-btn" matTooltip='Show Video' tabindex="-1" matTooltipClass="custom-tooltip" (click)="Video()">

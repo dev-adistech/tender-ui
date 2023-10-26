@@ -52,6 +52,7 @@ import { RefMastComponent } from '../../Master/ref-mast/ref-mast.component';
 import Swal from 'sweetalert2';
 import { PerMastService } from 'src/app/Service/Config/per-mast.service';
 import { RoughColorAnaComponent } from '../../View/rough-color-ana/rough-color-ana.component';
+import { ParcelViewComponent } from '../../View/parcel-view/parcel-view.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -258,6 +259,7 @@ export class HomeComponent implements OnInit {
     if (this.CheckFormPermission('PricingWrkViewComponent') 
     ||this.CheckFormPermission('BVViewComponent') 
     ||this.CheckFormPermission('RoughColorAnaComponent') 
+    ||this.CheckFormPermission('ParcelViewComponent') 
     ||this.CheckFormPermission('BidDataComponent') ) {
       this.viewPointer = true;
     } else {
@@ -433,6 +435,9 @@ export class HomeComponent implements OnInit {
         break;
       case "Rough Color Analysis":
         this.ComponentName = RoughColorAnaComponent;
+        break;
+      case "Parcel View":
+        this.ComponentName = ParcelViewComponent;
         break;
       case "B V ":
         this.ComponentName = BVViewComponent;

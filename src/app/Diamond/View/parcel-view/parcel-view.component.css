@@ -1,0 +1,176 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .first-span {
+    width: 50%;
+  }
+  
+  .second-span {
+    width: 50%;
+  }
+
+  .rap-excel__container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .rap-excel__container h1 {
+    margin: 0;
+    background: var(--color-accent);
+    color: var(--color-white);
+    text-align: center;
+  }
+  
+  .rap-excel__row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0 0.5rem;
+  }
+  
+  .rap-excel__row mat-form-field {
+    width: 8rem;
+  }
+  
+  .rap-excel__row button {
+    padding: 5px;
+  }
+  
+  .cell-span1 {
+    background: #ffffff;
+  }
+  
+  .ag-cell.ag-cell-not-inline-editing.ag-cell-auto-height.cell-span1.ag-cell-value {
+    border: 0.5px solid grey;
+  }
+  
+  .cell-center {
+    text-align: center;
+  }
+  
+  .print-btn {
+    margin-left: 10px;
+  }
+  
+  .dock__summary {
+    height: 87vh;
+    width: inherit;
+    position: absolute;
+    background: #0000008a;
+    display: grid;
+    place-items: center;
+  }
+  
+  .dock_prc__container {
+    position: relative;
+    /* height: 85vh; */
+    height: inherit;
+    padding: 0.5rem;
+  
+    z-index: 1;
+  
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background-color: var(--color-bg);
+    grid-gap: 0.5rem;
+    width: 100%;
+  }
+  
+  input[type=text]:focus {
+    outline: none !important;
+    outline-style: none !important;
+    box-shadow: none !important;
+    border-color: black !important;
+    /* border-radius:0px !important ; */
+    }
+    .tenderTxt:focus {
+    outline: none !important;
+    outline-style: none !important;
+    box-shadow: none !important;
+    border-color: black !important;
+    /* border-radius:0px !important ; */
+    }
+  .tenderSelect:focus {
+    outline: none !important;
+    outline-style: none !important;
+    box-shadow: none !important;
+    border-color: black !important;
+    /* border-radius:0px !important ; */
+    }
+  
+    select {
+    /* for Firefox */
+    -moz-appearance: none;
+    /* for Chrome */
+    -webkit-appearance: none;
+    }
+    
+    /* For IE10 */
+    select::-ms-expand {
+    display: none;
+    }
+    #ty{
+    display: none;
+  }
+  .container-name_1{
+    display: none !important;
+  }
+  
+  .option{
+    text-align: center !important;
+      padding: 20px 10px !important;
+  
+  }
+  
+  
+  .tander-mainCon {
+    width: 100%;
+  
+  }
+  
+  .deskop_div {
+    width: 924px;
+  /* background-color: #fff; */
+    
+  }
+  
+  .deskop_footer_bid {
+      width: calc(100% - 924px);
+  }
+  
+  .find-area {
+    height: 113px;
+  }
+  
+  @media (max-width: 1600px) {
+    .slide-grid-tablet {
+      position: absolute;
+      z-index: 99;
+    }
+  }
+  
+  @media (max-width: 1034px) {
+    .find-area {
+      height: 93px;
+    }
+  
+    .final_name {
+      font-size: 12px;
+    }
+  }
+  
+  input:disabled{
+    background-color:#ffffff;
+    color: black;
+  }
+  .tenderTxt:disabled{
+    background-color:#ffffff;
+    color: black;
+  }
+  
+  
+  
+  

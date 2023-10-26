@@ -25,8 +25,16 @@ export class ViewService {
     return this.http.post<any>('View/PricingWrk', Data)
   }
 
+  ParcelgWrk(Data: any): Observable<any> {
+    return this.http.post<any>('View/ParcelgWrk', Data)
+  }
+
   PricingWrkDisp(Data: any): Observable<any> {
     return this.http.post<any>('View/PricingWrkDisp', Data)
+  }
+
+  ParcelWrkDisp(Data: any): Observable<any> {
+    return this.http.post<any>('View/ParcelWrkDisp', Data)
   }
 
   PricingWrkMperSave(Data: any): Observable<any> {

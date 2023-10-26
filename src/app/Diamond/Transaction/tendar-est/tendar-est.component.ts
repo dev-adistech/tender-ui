@@ -5280,7 +5280,7 @@ export class TendarEstComponent implements OnInit {
     this.TendarEstServ.TendarVidDisp(Obj).subscribe((Res) => {
       try {
         if (Res.success == true) {
-          let newurl = Res.data[0].URL
+          let newurl = Res.data[0].SECURE_URL
           window.open(newurl, '_blank');
         }
       } catch{

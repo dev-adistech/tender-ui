@@ -1,0 +1,94 @@
+<div style="display: inline-flex; height: 646px; width: 100%;">
+
+    <button class="btn" matTooltip="Docks" matTooltipClass="custom-tooltip"
+      style="background-color: '#e5adf0'; width: 1%;" (click)="DockClick()">
+      <p style="margin: 0 -4px 10px;">P</p>
+      <p style="margin: 0 -4px 10px;">a</p>
+      <p style="margin: 0 -4px 10px;">r</p>
+      <p style="margin: 0 -4px 10px;">c</p>
+      <p style="margin: 0 -4px 10px;">e</p>
+      <p style="margin: 0 -4px 10px;">l</p>
+    </button>
+    <section class="form-container"
+      style="width: calc(100% - 26px); place-content: baseline; display: flex; flex-direction: column;">
+      <article class="fields-wrapper">
+        <mat-form-field appearance="outline">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="ID1" [(ngModel)]="F_DATE" #fdate onfocus="this.select();"/>
+            <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()"></mat-datepicker-toggle>
+            <mat-datepicker #ID1></mat-datepicker>
+          </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="ID2" [(ngModel)]="T_DATE" #Tdate onfocus="this.select();"/>
+            <mat-datepicker-toggle matSuffix [for]="ID2" (click)="ID2.open()"></mat-datepicker-toggle>
+            <mat-datepicker #ID2></mat-datepicker>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>S Code </mat-label>
+            <input matInput type="text" [(ngModel)]="S_CODE" (keydown.tab)="OpenLotPopup()" (click)="OpenLotPopup()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"  />
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>C Code </mat-label>
+            <input matInput type="text" [(ngModel)]="C_CODE" (keydown.tab)="OpenColor()" (click)="OpenColor()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }" />
+          </mat-form-field>
+          
+          <mat-form-field appearance="outline">
+            <mat-label>Q Code </mat-label>
+            <input matInput type="text" [(ngModel)]="Q_CODE" (keydown.tab)="OpenQua()" (click)="OpenQua()"
+              name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>From Carat</mat-label>
+            <input matInput type="number" autocomplete="off" [(ngModel)]="F_CARAT"/>
+          </mat-form-field>
+  
+          <mat-form-field appearance="outline">
+            <mat-label>To Carat</mat-label>
+            <input matInput type="number" autocomplete="off" [(ngModel)]="T_CARAT"/>
+          </mat-form-field>
+  
+        <!-- <article class="btn-wrapper"> -->
+          <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData1();LoadGridData();">
+              <svg class="icon icon-show">
+                <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
+              </svg>
+            </button>
+            <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="Clear()">
+              <svg class="icon icon-clear">
+                <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
+              </svg>
+            </button>
+        <!-- </article> -->
+        </article>
+  
+  
+      <article class="aggrid-wrapper" style="display: flex; width: 100%;">
+        <div class="memo-ent-grid prc-view-grid  etg-view__container disable-dbl-tap-zoom slide-grid-tablet" *ngIf="GRIDON">
+          <ag-grid-angular *ngIf="GRIDON"  class="ag-theme-alpine" style="width: calc(100vw - 74vw); height: calc(100vh - 11vh);" [defaultColDef]="defaultColDef"
+                [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [rowData]="GRIDDATA" (cellClicked)="onCellDoubleClick($event)">
+              </ag-grid-angular>
+        </div>
+        <article class="aggrid-wrapper" style="width: 100%;">
+          <div class="memo-ent-grid prc-view-grid  newGrid">
+            <ag-grid-angular style="margin-left: 15px;width: calc(100vw - 5vw); height: calc(100vh - 11vh);" class="ag-theme-alpine" [defaultColDef]="defaultColDef1"
+                [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" [suppressMenuHide]="false" [rowMultiSelectWithClick]="true" [getContextMenuItems]="getContextMenuItems" 
+                [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle" [pinnedBottomRowData]="pinnedBottomRowData"  
+                (gridReady)="onGridReady1($event)" [suppressRowTransform]="true" [suppressMenuHide]="false" >
+              </ag-grid-angular>
+          </div>
+        </article>
+      </article>
+    </section>
+  
+  </div>
+  <ngx-spinner>
+    <p style="color: white;"> Loading..</p>
+  </ngx-spinner>
+  

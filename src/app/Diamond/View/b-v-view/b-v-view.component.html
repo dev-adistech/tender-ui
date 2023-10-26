@@ -500,7 +500,7 @@
     <div class="newGrid memo-ent-grid">
         <ag-grid-angular class="ag-theme-alpine" style="width: calc(100% - 2%); height: 40vh; min-width: 1140px;"
         [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [getRowStyle]="getRowStyle" (gridReady)="onGridReady($event)"
-        [rowData]="item.GRID_DATA" [animateRows]="true" (cellValueChanged)="FindRap($event)">
+        [rowData]="item.GRID_DATA" [animateRows]="true" (cellValueChanged)="FindRap($event)" (cellDoubleClicked)="oncellClick($event)">
       </ag-grid-angular>
       </div>
       </article>

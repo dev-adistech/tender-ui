@@ -37,6 +37,9 @@ export class RoughColorAnaComponent implements OnInit {
   S_CODE:any=''
   Shapes: Code[] = [];
   
+  LAB:any=''
+  Labs: Code[] = [];
+  
   C_CODE:any =''
   Colors:Code[]=[];
 
@@ -61,6 +64,10 @@ export class RoughColorAnaComponent implements OnInit {
 
   F_CARAT:any=''
   T_CARAT:any=''
+
+  DEPTArr: any = [];
+  COMP_CODE: any = "";
+  COMP_NAME: any = "";
 
   public columnDefs;
   public pinnedBottomRowData
@@ -140,8 +147,21 @@ export class RoughColorAnaComponent implements OnInit {
     this.Comment = this.decodedMast[20].map(item => {
       return {code: item.MCOM_NAME, name:item.MCOM_NAME.toString(),}
     });
+    this.DEPTArr = this.decodedMast[2].map((item) => {
+      return { code: item.COMP_CODE, name: item.COMP_NAME };
+    });
+    this.Labs = this.decodedMast[28].map((item) => {
+      return { code: item.LAB};
+    });
   }
 
+  OpenLab() {
+    const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Labs, CODE: this.LAB, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
+    $("#Close").click();
+    PRF.afterClosed().subscribe(result => {
+      this.LAB = result
+    });
+  }
   OpenLotPopup() {
     const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Shapes, CODE: this.S_CODE, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
     $("#Close").click();
@@ -341,9 +361,26 @@ export class RoughColorAnaComponent implements OnInit {
       }
     }
   }
+  Clear(){
+  this.S_CODE = ''
+  this.C_CODE = ''
+  this.Q_CODE = ''
+  this.CT_CODE = ''
+  this.F_CARAT = ''
+  this.T_CARAT = ''
+  this.FINAL = ''
+  this.RESULT = ''
+  this.FLO = ''
+  this.MACFLO = ''
+  this.MACCOM = ''
+  this.COMP_CODE = ''
+  this.COMP_NAME = ''
+  this.LAB=''
+  this.gridApi.setRowData([])
+  }
   LoadGridData(){
     let FillObj ={
-      COMP_CODE:'',
+      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:'',
       DETID:0,
       S_CODE:this.S_CODE ? this.S_CODE :'',
       C_CODE:this.C_CODE ? this.C_CODE :'',
@@ -356,6 +393,7 @@ export class RoughColorAnaComponent implements OnInit {
       FLNO:this.FLO ? this.FLO :'',
       MACHFL:this.MACFLO ? this.MACFLO :'',
       COMENT:this.MACCOM ? this.MACCOM :'',
+      LAB:this.LAB ? this.LAB:''
     }
     this.spinner.show();
     this.ViewServ.ColAnalysis(FillObj).subscribe(
@@ -444,5 +482,18 @@ export class RoughColorAnaComponent implements OnInit {
   }
   Video(){
     this.VIDEOON = true
+  }
+  GETNAME() {
+    if (this.COMP_CODE) {
+      if (this.DEPTArr.filter((x) => x.code == this.COMP_CODE).length != 0) {
+        this.COMP_NAME = this.DEPTArr.filter(
+          (x) => x.code == this.COMP_CODE
+        )[0].name;
+      } else {
+        this.COMP_NAME = "";
+      }
+    } else {
+      this.COMP_NAME = "";
+    }
   }
 }

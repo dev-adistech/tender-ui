@@ -206,6 +206,11 @@
                 <img src="../../../../assets/img/View/analytics.png" alt="" />
                 Rough Color Analysis
               </li>
+              <li *ngIf="CheckFormPermission('ParcelViewComponent')"
+                (click)="addiFrameTabs('Parcel View', '/ParcelView')">
+                <img src="../../../../assets/img/View/parcel.png" alt="" />
+                Parcel View
+              </li>
             </div>
           </div>
           <p class="sub-menu__section-name">Pointer</p>

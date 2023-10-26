@@ -128,6 +128,7 @@ export class TendarMastComponent implements OnInit {
   T_NAME: any = "";
   T_DATE: any = null;
   ISACTIVE: boolean = false;
+  ISMIX: boolean = false;
 
   ALLOWINS: boolean = false;
   ALLOWDEL: boolean = false;
@@ -291,6 +292,20 @@ export class TendarMastComponent implements OnInit {
             return '<input type="checkbox" data-action-type="COVER" checked  disabled>';
           } else {
             return '<input type="checkbox" data-action-type="COVER" disabled>';
+          }
+        }
+      },
+      {
+        headerName: "Mix",
+        field: "ISMIX",
+        cellStyle: { "text-align": "center" },
+        headerClass: "text-center",
+        width: 65,
+        cellRenderer: (params)=>{
+          if (params.data.ISMIX == true) {
+            return '<input type="checkbox" data-action-type="MIX" checked  disabled>';
+          } else {
+            return '<input type="checkbox" data-action-type="MIX" disabled>';
           }
         }
       },
@@ -946,7 +961,8 @@ export class TendarMastComponent implements OnInit {
       DETID: this.DETID ? this.DETID : "",
       IUSER: this.decodedTkn.UserId,
       T_NAME:this.T_NAME,
-      ISACTIVE:this.ISACTIVE ? this.ISACTIVE :false
+      ISACTIVE:this.ISACTIVE ? this.ISACTIVE :false,
+      ISMIX:this.ISMIX ? this.ISMIX :false
     };
 
     this.spinner.show();
@@ -1473,6 +1489,7 @@ export class TendarMastComponent implements OnInit {
         (this.T_NAME = eve.data.T_NAME ? eve.data.T_NAME : ""),
         (this.DETID = eve.data.DETID ? eve.data.DETID : 0);
         this.ISACTIVE = eve.data.ISACTIVE ? eve.data.ISACTIVE:false
+        this.ISMIX = eve.data.ISMIX ? eve.data.ISMIX:false
         this.Tendar.disable()
         setTimeout(() => { this.TName.nativeElement.focus() }, 0)
       }
