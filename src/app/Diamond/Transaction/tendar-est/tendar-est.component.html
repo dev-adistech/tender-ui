@@ -1,6 +1,6 @@
 <div style="display: inline-flex; height: 646px; width: 100%;">
 
-    <button class="btn" matTooltip="Docks" matTooltipClass="custom-tooltip"
+    <button class="btn" matTooltip="Docks" matTooltipClass="custom-tooltip" *ngIf="BUTTONHIDE"
       style="background-color: '#e5adf0'; width: 1%;" (click)="DockON()">
       <p style="margin: 0 -4px 10px;">T</p>
       <p style="margin: 0 -4px 10px;">e</p>
@@ -190,7 +190,7 @@
                       style="border:1px solid black;padding: 2px 15px; text-align: center;border-right:none;border-top:none">
                       FLAT 1</mat-label>
                     <mat-label
-                      style="border:1px solid black;padding: 2px 22.7px; text-align: center;border-right:none;border-top:none">
+                      style="border:1px solid black;padding: 2px 22.5px; text-align: center;border-right:none;border-top:none">
                       FLAT 2</mat-label>
                     <mat-label
                       style="border:1px solid black;padding: 2px 19.7px; text-align: center;border-right:none;border-top:none">
@@ -213,7 +213,7 @@
                   <div style="display: flex;align-items: center;">
   
                     <mat-label
-                      style="border:1px solid black;padding: 2px 15px; text-align: center;border-right:none;border-top:none;">
+                      style="border:1px solid black;padding: 2px 14.7px; text-align: center;border-right:none;border-top:none;">
                       FINAL:-</mat-label>
                     <!-- <input type="text" style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none" name="Code" autocomplete="off" /> -->
                     <select
@@ -403,7 +403,7 @@
                             style="border:1px solid black;padding: 2px 18px; text-align: center;border-right:none;border-top:none;">
                             T1:-</mat-label>
                           <select
-                            style="border:1px solid black;width: 245px;border-right:none;height: 25px;position: relative;text-align: center;"
+                            style="border:1px solid black;width: 244px;border-right:none;height: 25px;position: relative;text-align: center;"
                             name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="R1" [disabled]="FLOCODEDIS">
                             <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                               {{ cl.name }}
@@ -417,7 +417,7 @@
                             T2:-</mat-label>
                           <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative" name="Code" autocomplete="off" /> -->
                           <select
-                            style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative;text-align: center;"
+                            style="border:1px solid black;width: 244px;border-right:none;border-top:none;height: 25px;position: relative;text-align: center;"
                             name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="R2" [disabled]="FLOCODEDIS">
                             <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                               {{ cl.name }}
@@ -553,7 +553,7 @@
                             T1:-</mat-label>
                           <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;position: relative" name="Code" autocomplete="off" /> -->
                           <select
-                            style="border:1px solid black;width: 245px;border-right:none;border-top:none;position: relative;text-align: center;"
+                            style="border:1px solid black;width: 244px;border-right:none;border-top:none;position: relative;text-align: center;"
                             name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="F1" [disabled]="FLOCODEDIS">
                             <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                               {{ cl.name }}
@@ -567,7 +567,7 @@
                             T2:-</mat-label>
                           <!-- <input type="text" style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative" name="Code" autocomplete="off" /> -->
                           <select
-                            style="border:1px solid black;width: 245px;border-right:none;border-top:none;height: 25px;position: relative;text-align: center;"
+                            style="border:1px solid black;width: 244px;border-right:none;border-top:none;height: 25px;position: relative;text-align: center;"
                             name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="F2" [disabled]="FLOCODEDIS">
                             <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                               {{ cl.name }}
@@ -607,8 +607,21 @@
             </ag-grid-angular>
           </div>
         </article>
-  
       </article>
+      <section class="brk-details" *ngIf="VIDEOON">
+        <div class="brk-flex">
+          <video controls="controls" style="max-height: calc(100vh - 27vh);">
+            <source [src]="videoSrc" type="video/mp4" autoplay>
+          </video>
+          <br>
+          <button class="btn theme-btn mr-2 ml-auto" matTooltip='close' matTooltipClass="custom-tooltip"
+                (click)="CLOSE()" style="width: 4%;height: 5%;">
+                <svg class="icon icon-close">
+                  <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+                </svg>
+          </button>
+        </div>
+        </section> 
     </section>
   
   </div>

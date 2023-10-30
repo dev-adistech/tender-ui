@@ -17,8 +17,8 @@ export class VideoShowComponent implements OnInit {
   recordVideoElement: HTMLVideoElement;
 
   data:any[] = []
-  videoSrc: string = '';
-  uploadVideong:boolean = true
+  videoSrc: string = "";
+  uploadVideong:boolean = false
   constructor(
     private http: HttpClient,
     private TendarEstServ: TendarEstService,
@@ -37,6 +37,7 @@ export class VideoShowComponent implements OnInit {
     this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
       try{
         if(NewRes.success == true){  
+          this.uploadVideong = true
         this.videoSrc = NewRes.data[0]['VID'];
         }
       } catch (error){
@@ -52,6 +53,7 @@ export class VideoShowComponent implements OnInit {
   }
 
   CLOSE(){
+    this.uploadVideong = false
     this._mdr.close()
   }
 

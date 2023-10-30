@@ -216,17 +216,38 @@ export class BVViewComponent implements OnInit {
   }
 
   oncellClick(eve){
-    const dialogRef = this.dialog.open(BvViewDetComponent, {
-      panelClass: "marker-acc-view-det-dialog",
-      autoFocus: false,
-      minWidth: "90vw",
-      width: "100% !important",
-      height: "calc(100vh - 16%)",
-      data: eve.data
+    let Data = []
+    this.TendarEstServ.TendarPrdDetDisp({
+      COMP_CODE: eve.data.COMP_CODE,
+      DETID: eve.data.DETID,
+      SRNO: eve.data.SRNO,
+      TYPE:'BV'
+    }).subscribe((FillRes) => {
+      try {
+        if (FillRes.success == true) {
+          this.spinner.hide()
+          Data.push(FillRes.data)
+          localStorage.setItem("TendarEstComponent", JSON.stringify(Data[0]));
+          const dialogRef = this.dialog.open(BvViewDetComponent, {
+            panelClass: "marker-acc-view-det-dialog",
+            autoFocus: false,
+            minWidth: "90vw",
+            width: "100% !important",
+            height: "calc(100vh - 16%)",
+            data: Data
+          })
+      
+        }else{
+          this.spinner.hide()
+          this.toastr.error('Data Not Found')
+        }
+      }catch{
+        this.spinner.hide()
+        this.toastr.error('Data Not Found')
+      }
     })
-
     $("#Close").click()
-    dialogRef.afterClosed().subscribe((result) => { })
+    // dialogRef.afterClosed().subscribe((result) => { })
   }
 
   ngOnInit(): void {

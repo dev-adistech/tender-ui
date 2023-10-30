@@ -18,10 +18,12 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { FormControl } from "@angular/forms";
 import { map, startWith } from "rxjs/operators";
 import { MiniPaintComponent } from "./mini-paint/mini-paint.component";
-import { MatDialog } from "@angular/material/dialog";
+import { MAT_DIALOG_DATA, MatDialog } from "@angular/material/dialog";
 import { WebCamComponent } from "./web-cam/web-cam.component";
 import { ImageUploadComponent } from "./image-upload/image-upload.component";
 import { VideoShowComponent } from "./video-show/video-show.component";
+import { ActivatedRoute } from "@angular/router";
+import { BvViewDetComponent } from "../../View/b-v-view/bv-view-det/bv-view-det.component";
 declare let $: any;
 
 @Component({
@@ -45,6 +47,12 @@ export class TendarEstComponent implements OnInit {
   T_NAME: any = "";
   ADIS: any = "";
   T_DATE: any = null;
+  BUTTONHIDE:boolean = true
+  BVDATA:any = []
+
+  VIDEOON:boolean=false
+
+  @ViewChild(BvViewDetComponent) BvViewDetComponent: any;
 
   public columnDefs;
   public gridApi;
@@ -172,6 +180,7 @@ export class TendarEstComponent implements OnInit {
   filteredTension: Observable<any[]>;
   TENSION: any = ''
   DOCKData: any[] = []
+  videoSrc: any = ''
 
   TENDAR_NAME: any = ''
 
@@ -185,7 +194,7 @@ export class TendarEstComponent implements OnInit {
   CliCKEDDATA:any=''
 
   agGridWidth: number = 0;
-  agGridStyles: string = `width: 100%;height: calc(100vh - 469px); margin-bottom: 9%;`;
+  agGridStyles: string = `width: 100%;height: calc(100vh - 70vh); margin-bottom: 9%;`;
   DOCKON:boolean = false
 
   dummay_variable:any='newdivadd_variable'
@@ -240,7 +249,10 @@ export class TendarEstComponent implements OnInit {
     private _FrmOpePer: FrmOpePer,
     private dialog: MatDialog,
     private http: HttpClient,
+    private route: ActivatedRoute
+    // @Inject(MAT_DIALOG_DATA) public dataMain: any
   ) {
+    // console.log("245",dataMain)
     this.szControl = new FormControl();
     this.ColControl = new FormControl();
     this.MacColControl = new FormControl();
@@ -294,7 +306,68 @@ export class TendarEstComponent implements OnInit {
       }
       return {};
     }
+    const MakHistoryData = JSON.parse(localStorage.getItem('TendarEstComponent'))
+    if (MakHistoryData) {
+      console.log('303',MakHistoryData)
+      this.COMP_CODE = MakHistoryData[0][0].COMP_CODE
+      this.COMP_NAME = MakHistoryData[0][0].TEN_NAME
+      this.DETID = MakHistoryData[0][0].DETID
+      this.DOCKData = MakHistoryData[0][0]
+          this.TENSION = MakHistoryData[0][0].T_CODE
+          this.TENDAR_NAME = MakHistoryData[0][0].TEN_NAME
+          this.PKTSRNO = MakHistoryData[0][0].SRNO
+          if(MakHistoryData[0][0].PUSER){
+            this.PKTNAME = MakHistoryData[0][0].PUSER
+          }else{
+            this.PKTNAME = this.decodedTkn.UserId
+          }
+          this.PKTWEIGHT = MakHistoryData[0][0].I_CARAT
+          this.PKTRESERVE = MakHistoryData[0][0].RESRVE
+          this.PKTPER = MakHistoryData[0][0].PERCTS
+          this.PKTPER = MakHistoryData[0][0].PERCTS
+          this.PKTSRW = MakHistoryData[0][0].SRW
+          this.FINAL1 = MakHistoryData[0][0].FFLAT1
+          this.FINAL2 = MakHistoryData[0][0].FFLAT2
+          this.FINALME = MakHistoryData[0][0].FMED
+          this.FINALHE = MakHistoryData[0][0].FHIGH
+          this.DN = MakHistoryData[0][0].DNC_CODE
+          this.USER1 = MakHistoryData[0][0].I1C_CODE
+          this.USER2 = MakHistoryData[0][0].I2C_CODE
+          this.USER3 = MakHistoryData[0][0].I3C_CODE
+          this.RESULT1 = MakHistoryData[0][0].RFLAT1
+          this.RESULT2 = MakHistoryData[0][0].RFLAT2
+          this.RESULTME = MakHistoryData[0][0].RMED
+          this.RESULTHE = MakHistoryData[0][0].RHIGH
+          this.FLO1 = MakHistoryData[0][0].FLNFLAT1
+          this.FLO2 = MakHistoryData[0][0].FLNFLAT2
+          this.FLOME = MakHistoryData[0][0].FLNMED
+          this.FLOHE = MakHistoryData[0][0].FLNHIGH
+          this.MacFLO1 = MakHistoryData[0][0].MFLFLAT1
+          this.MacFLO2 = MakHistoryData[0][0].MFLFLAT2
+          this.MacFLOME = MakHistoryData[0][0].MFLMED
+          this.MacFLOHE = MakHistoryData[0][0].MFLHIGH
+          this.MacCom1 = MakHistoryData[0][0].CFLAT1
+          this.MacCom2 = MakHistoryData[0][0].CFLAT2
+          this.MacComME = MakHistoryData[0][0].CMED
+          this.MacComHE = MakHistoryData[0][0].CHIGH
+          this.ROUNDC1 = MakHistoryData[0][0].RC_CODE
+          this.R1 = MakHistoryData[0][0].R1C_CODE
+          this.R2 = MakHistoryData[0][0].R2C_CODE
+          this.FANCY1 = MakHistoryData[0][0].FC_CODE
+          this.F1 = MakHistoryData[0][0].F1C_CODE
+          this.F2 = MakHistoryData[0][0].F2C_CODE
+          this.FINALAMT = MakHistoryData[0][0].FAMT
+          this.FINALAMT1 = MakHistoryData[0][0].FAMT
+          this.LS = MakHistoryData[0][0].LS
+          this.FINALBID = MakHistoryData[0][0].FBID
+          this.FLOCODE = MakHistoryData[0][0].FL_CODE
+          this.ADIS = MakHistoryData[0][0].ADIS
+          this.BVDATA = MakHistoryData[1]
+          // this.gridApi.setRowData(MakHistoryData[1])
+      this.BUTTONHIDE = false
+    }
 
+    localStorage.removeItem('TendarEstComponent')
   }
 
   private _filter(value: string): any[] {
@@ -328,6 +401,7 @@ export class TendarEstComponent implements OnInit {
   onGridReady1(params) {
     this.gridApi1 = params.api;
     this.gridColumnApi1 = params.columnApi;
+    this.gridApi1.setRowData(this.BVDATA)
     // this.LoadGridData();
   }
 
@@ -506,7 +580,7 @@ export class TendarEstComponent implements OnInit {
     });
   }
   MPERDISABLE(params) {
-    if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') && this.ALLGRIDDISABLE == false) {
+    if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') && this.ALLGRIDDISABLE == false && params.data.PTAG !== "Total") {
       return true
     } else {
       return false
@@ -518,7 +592,7 @@ export class TendarEstComponent implements OnInit {
     if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
       this.FLOCODEDIS = true
       return false
-    } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER && params.data.PTAG !== "Total" || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
+    } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false && params.data.PTAG !== "Total") {
       return true
     } else {
       this.FLOCODEDIS = false
@@ -3913,8 +3987,6 @@ export class TendarEstComponent implements OnInit {
     }else {
       this.ADISDISABLE = true
     }
-    this.FillViewPara1()
-    this.FillViewPara();
     this.PER = await this._FrmOpePer.UserFrmOpePer("TendarMastComponent");
     this.ALLOWDEL = this.PER[0].DEL;
     this.ALLOWINS = this.PER[0].INS;
@@ -4035,6 +4107,8 @@ export class TendarEstComponent implements OnInit {
       map(value => this._Tensionfilter(value))
     );
 
+    this.FillViewPara1()
+    this.FillViewPara();
     let op = this
 
 
@@ -5290,17 +5364,25 @@ export class TendarEstComponent implements OnInit {
   }
 
   ShowVideo() {
-    const dialogRef = this.dialog.open(VideoShowComponent, {
-      panelClass: "saw-mac-pro-det-dialog",
-      autoFocus: false,
-      minWidth: "30%",
-      width: "35%",
-      disableClose: true,
-      data: this.DOCKData
+    let NewObj = {
+      COMP_CODE: this.DOCKData['COMP_CODE'],
+      DETID:this.DOCKData['DETID'],
+      SRNO: this.DOCKData['SRNO'],
+    }
+    this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+      try{
+        if(NewRes.success == true){
+        this.VIDEOON = true
+        this.videoSrc = NewRes.data[0]['VID'];
+        }
+      } catch (error){
+        this.spinner.hide()
+      }
     })
-
-    $("#Close").click()
-    dialogRef.afterClosed().subscribe((result) => { })
+  }
+  CLOSE(){
+    this.videoSrc = ''
+    this.VIDEOON = false
   }
 
   onFileInputChange(event: Event) {

@@ -64,7 +64,7 @@ export class BvViewDetComponent implements OnInit {
     private _convFunction: ConverterFunctions,
     private datePipe: DatePipe,
     private TendarEstServ: TendarEstService,
-    @Inject(MAT_DIALOG_DATA) public dataMain: any
+    // @Inject(MAT_DIALOG_DATA) public dataMain: any
   ) {
     
     this.getRowStyle = function (params) {
@@ -73,7 +73,7 @@ export class BvViewDetComponent implements OnInit {
       }
     }
     this.FillViewPara()
-    this.LoadGridData()
+    // this.LoadGridData()
   }
   onGridReady(params) {
     this.gridApi = params.api;
@@ -2007,23 +2007,27 @@ export class BvViewDetComponent implements OnInit {
     }
   }
 
-  LoadGridData(){
-    this.TendarEstServ.TendarPrdDetDisp({
-      COMP_CODE: this.dataMain.COMP_CODE,
-      DETID: this.dataMain.DETID,
-      SRNO: this.dataMain.SRNO,
-      TYPE:'DOCK'
-    }).subscribe((FillRes) => {
-      try {
-        if (FillRes.success == true) {
-          console.log(FillRes.data)
-          this.gridApi.setRowData(FillRes.data[1])
-        }
-      }catch{
-
-      }
-    })
-  }
+  // LoadGridData(){
+  //   this.TendarEstServ.TendarPrdDetDisp({
+  //     COMP_CODE: this.dataMain.COMP_CODE,
+  //     DETID: this.dataMain.DETID,
+  //     SRNO: this.dataMain.SRNO,
+  //     TYPE:'BV'
+  //   }).subscribe((FillRes) => {
+  //     try {
+  //       if (FillRes.success == true) {
+  //         this.spinner.hide()
+  //         this.gridApi.setRowData(FillRes.data[1])
+  //       }else{
+  //         this.spinner.hide()
+  //         this.toastr.error('Data Not Found')
+  //       }
+  //     }catch{
+  //       this.spinner.hide()
+  //       this.toastr.error('Data Not Found')
+  //     }
+  //   })
+  // }
   ngOnInit(): void {
     this.C_NAME = this.decodedMast[12].map((item) => {
       return { code: item.C_CODE, name: item.C_NAME };

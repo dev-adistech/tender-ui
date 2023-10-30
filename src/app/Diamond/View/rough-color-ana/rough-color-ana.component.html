@@ -111,8 +111,8 @@
       </article>
       <section class="brk-details" *ngIf="VIDEOON">
         <div class="brk-flex">
-          <video controls="controls">
-            <source [src]="videoSrc" type="video/mp4" autoplay>
+          <video controls="controls" style="max-height: 90vh;" autoplay>
+            <source [src]="videoSrc" type="video/mp4">
           </video>
           <br>
           <button class="btn theme-btn mr-2 ml-auto" matTooltip='close' matTooltipClass="custom-tooltip"

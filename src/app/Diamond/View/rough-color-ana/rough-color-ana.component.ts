@@ -82,6 +82,11 @@ export class RoughColorAnaComponent implements OnInit {
   videoSrc:any=''
   VIDEOON:boolean = false
 
+  GridHeader = [];
+  FooterKey = [];
+  FooterValue = [];
+  GridFooter: any[] = [];
+
   constructor(
     public dialog: MatDialog,
     private EncrDecrServ: EncrDecrService,
@@ -92,6 +97,7 @@ export class RoughColorAnaComponent implements OnInit {
     private _gridFunction: GridFunctions,
     private _convFunction: ConverterFunctions,
     private toastr: ToastrService,
+    private datePipe: DatePipe,
     private ViewParaMastServ : ViewParaMastService
   ) { 
     this.defaultColDef = {
@@ -243,6 +249,109 @@ export class RoughColorAnaComponent implements OnInit {
       return rv
     }, [])
   }
+  // FillViewPara() {
+  //   this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'ColAnalysis' }).subscribe((VPRes) => {
+  //     try {
+  //       if (VPRes.success == 1) {
+  //         let GroupData = this.groupByArray(VPRes.data, "GROUPKEY")
+  //         let ViewParaRowData = []
+  //         for (let i = 0; i < GroupData.length; i++) {
+  //           let jsonData = {}
+  //           jsonData["headerName"] = GroupData[i].GROUPKEY
+  //           jsonData["headerClass"] = "header-align-center"
+  //           let tempData = []
+
+  //           for (let j = 0; j < GroupData[i].Data.length; j++) {
+  //             if (GroupData[i].Data[j].FIELDNAME == 'LINK') {
+  //               tempData.push({
+  //                 headerName: 'Link',
+  //                 cellStyle: { 'text-align': 'center' },
+  //                 cellRenderer: function (params) {
+  //                   if (params.node.rowPinned != "bottom") {
+  //                     if (!params.data.LINK) {
+  //                       return null;
+  //                     }
+  //                     return '<i class="icon-video grid-icon" data-action-type="OpenVideo" style="cursor: pointer;" ></i>';
+  //                   }
+  //                 },
+  //                 headerClass: "text-center",
+  //                 editable: false,
+  //                 width: 60,
+  //                 rowSpan: this.rowSpy.bind(this),
+  //                 suppressMenu: true,
+  //                 cellClass: function (params) {
+  //                     if (params.node.rowPinned != 'bottom') {
+  //                       if (params.colDef.headerName == 'Link') {
+  //                         return 'cell-span1 cell-center'
+  //                       }
+  //                     }
+  //                   }
+  //               })
+  //             }else{
+  //               tempData.push({
+  //                 headerName: GroupData[i].Data[j].DISPNAME,
+  //                 headerClass: GroupData[i].Data[j].HEADERALIGN,
+  //                 field: GroupData[i].Data[j].FIELDNAME,
+  //                 width: GroupData[i].Data[j].COLWIDTH,
+  //                 cellStyle: {
+  //                   "text-align": GroupData[i].Data[j].CELLALIGN,
+  //                   "background-color": GroupData[i].Data[j].BACKCOLOR,
+  //                   "color":GroupData[i].Data[j].FONTCOLOR
+  //                 },
+  //                 resizable: GroupData[i].Data[j].ISRESIZE,
+                  
+  //                 GROUPKEY: GroupData[i].Data[j].GROUPKEY,
+  //                 hide: GroupData[i].Data[j].DISP == false ? true : false,
+  //                 pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
+  //                 suppressMenu: true,
+  //               })
+  //             }
+  //             if (i == 0) {
+  //               this.FooterKey.push(VPRes.data[i].FIELDNAME);
+  //             }
+  //             if (VPRes.data[i].FORMAT == "#0") {
+  //               this.FooterKey.push(VPRes.data[i].FIELDNAME);
+  //               tempData[i].valueFormatter = this.NumberFormat;
+  //               tempData[i].aggFunc = "sum";
+  //             } else if (VPRes.data[i].FORMAT == "#0.00") {
+  //               this.FooterKey.push(VPRes.data[i].FIELDNAME);
+  //               tempData[i].valueFormatter = this.TwoFloatFormat;
+  //               tempData[i].aggFunc = "sum";
+  //             } else if (VPRes.data[i].FORMAT == "#0.000") {
+  //               this.FooterKey.push(VPRes.data[i].FIELDNAME);
+  //               tempData[i].valueFormatter = this.ThreeFloatFormat;
+  //               tempData[i].aggFunc = "sum";
+  //             } else if (VPRes.data[i].FORMAT == "DateFormat") {
+  //               tempData[i].cellRenderer = this.DateFormat.bind(this);
+  //               delete tempData[i].valueFormatter;
+  //             } else if (VPRes.data[i].FORMAT == "TimeFormat") {
+  //               tempData[i].cellRenderer = this.TimeFormat.bind(this);
+  //               delete tempData[i].valueFormatter;
+  //             } else {
+  //               tempData[i].valueFormatter = this.StringFormat;
+  //             }
+  //           }
+
+  //           jsonData["children"] = tempData
+  //           tempData = []
+  //           ViewParaRowData.push(jsonData)
+  //         }
+
+  //         this.columnDefs = ViewParaRowData
+  //       } else {
+  //         Swal.fire({
+  //           icon: "error",
+  //           title: "Oops...",
+  //           text: JSON.stringify(VPRes.data),
+  //         })
+  //       }
+  //     } catch (error) {
+  //       console.log(error)
+  //       this.toastr.error(error)
+  //     }
+  //   })
+  // }
+
   FillViewPara() {
     this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'ColAnalysis' }).subscribe((VPRes) => {
       try {
@@ -282,24 +391,69 @@ export class RoughColorAnaComponent implements OnInit {
                     }
                 })
               }else{
-                tempData.push({
-                  headerName: GroupData[i].Data[j].DISPNAME,
-                  headerClass: GroupData[i].Data[j].HEADERALIGN,
-                  field: GroupData[i].Data[j].FIELDNAME,
-                  width: GroupData[i].Data[j].COLWIDTH,
-                  cellStyle: {
-                    "text-align": GroupData[i].Data[j].CELLALIGN,
-                    "background-color": GroupData[i].Data[j].BACKCOLOR,
-                    "color":GroupData[i].Data[j].FONTCOLOR
-                  },
-                  resizable: GroupData[i].Data[j].ISRESIZE,
-                  
-                  GROUPKEY: GroupData[i].Data[j].GROUPKEY,
-                  hide: GroupData[i].Data[j].DISP == false ? true : false,
-                  pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
-                  suppressMenu: true,
-                })
+              tempData.push({
+                headerName: GroupData[i].Data[j].DISPNAME,
+                headerClass: GroupData[i].Data[j].HEADERALIGN,
+                field: GroupData[i].Data[j].FIELDNAME,
+                width: GroupData[i].Data[j].COLWIDTH,
+                cellStyle: {
+                  "text-align": GroupData[i].Data[j].CELLALIGN,
+                  "background-color": GroupData[i].Data[j].BACKCOLOR,
+                  "color":GroupData[i].Data[j].FONTCOLOR
+                },
+                resizable: GroupData[i].Data[j].ISRESIZE,
+                GROUPKEY: GroupData[i].Data[j].GROUPKEY,
+                hide: GroupData[i].Data[j].DISP == false ? true : false,
+                pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
+                rowSpan: this.rowSpy.bind(this),
+                suppressMenu: true,
+                // cellClass: function (params) {
+                //     if (params.node.rowPinned != 'bottom') {
+                //       if (params.colDef.field == 'TOTAL') {
+                //         return 'cell-span1 cell-center'
+                //       }
+                //       if (params.colDef.field == 'RCTS') {
+                //         return 'cell-span1 cell-center'
+                //       }
+                //       if (params.colDef.field == 'I_CARAT') {
+                //         return 'cell-span1 cell-center'
+                //       }
+                //     }
+                //   }
+              })
+            }
+
+              // if(GroupData[i].Data[j].FIELDNAME === "MPER"){
+              //   tempData[j].editable = this.decodedTkn.U_CAT === 'P' || this.decodedTkn.U_CAT === 'S'? true : false
+              // }
+
+              if (i == 0 && j == 0) {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
               }
+              if (GroupData[i].Data[j].FORMAT == "#0") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.NumberFormat
+                tempData[j].aggFunc = 'sum'
+              } else if (GroupData[i].Data[j].FORMAT == "#0.00") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.TwoFloatFormat
+                tempData[j].aggFunc = 'sum'
+
+              } else if (GroupData[i].Data[j].FORMAT == "#0.000") {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+                tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
+                tempData[j].aggFunc = 'sum'
+
+              } else if (GroupData[i].Data[j].FORMAT == "DateFormat") {
+                tempData[j].cellRenderer = this._convFunction.DateFormat.bind(this)
+                delete tempData[j].valueFormatter
+              } else if (GroupData[i].Data[j].FORMAT == "TimeFormat") {
+                tempData[j].cellRenderer = this._convFunction.TimeFormat.bind(this)
+                delete tempData[j].valueFormatter
+              } else {
+                tempData[j].valueFormatter = this._convFunction.StringFormat
+              }
+              this._gridFunction.FooterKey = this.FooterKey
             }
 
             jsonData["children"] = tempData
@@ -320,6 +474,55 @@ export class RoughColorAnaComponent implements OnInit {
         this.toastr.error(error)
       }
     })
+  }
+
+  DateFormat(params) {
+    if (params.value) {
+      return this.datePipe.transform(params.value, "dd-MM-yyyy");
+    } else {
+      return "";
+    }
+  }
+
+  TimeFormat(params) {
+    if (params.value) {
+      return this.datePipe.transform(params.value, "hh:mm a", "UTC+0");
+    } else {
+      return "";
+    }
+  }
+
+  NumberFormat(params) {
+
+    if (params.value != "NaN" && params.value != null) {
+      return parseInt(params.value);
+    } else {
+      return "";
+    }
+  }
+
+  TwoFloatFormat(params) {
+    if (params.value != "NaN" && params.value != null && params.value != "") {
+      return parseFloat(params.value).toFixed(2);
+    } else {
+      return "0.00";
+    }
+  }
+
+  ThreeFloatFormat(params) {
+    if (params.value != "NaN" && params.value != null && params.value != "") {
+      return parseFloat(params.value).toFixed(3);
+    } else {
+      return "0.000";
+    }
+  }
+
+  StringFormat(params) {
+    if (params.value != "NaN" && params.value != null) {
+      return params.value;
+    } else {
+      return "";
+    }
   }
   rowSpy(params) {
     let SubData = []

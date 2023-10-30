@@ -35,7 +35,7 @@ input:disabled{
 	border: 1px solid black;
 	border-radius: 5px;
 	background: var(--color-bg);
-	max-width: 60%;
+	/* max-width: 60%; */
 	/* max-height: 85%; */
 	padding: 0.5rem;
 }
