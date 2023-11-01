@@ -300,6 +300,18 @@
           </div>
           <p class="sub-menu__section-name">Permission</p>
         </div>
+        <div class="sub-menu__wrapper" *ngIf="configUtility">
+          <div class="sub-menu__section">
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('GetCertiResComponent')"
+                (click)="addiFrameTabs('Get Certi Result', '/GetCert')">
+                <img src="../../../../assets/img/Config/getresult.png" alt="" />
+                Get Certi Result
+              </li>
+            </div>
+          </div>
+          <p class="sub-menu__section-name">Utility</p>
+        </div>
       </ul>
     </menu>
 

@@ -7,12 +7,12 @@
           <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
         </ng-select>
   
-        <mat-form-field appearance="outline" style="width: 5rem;">
+        <mat-form-field appearance="outline" style="width: calc(100rem - 94rem);">
           <mat-label>Name</mat-label>
           <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
         </mat-form-field>
 
-        <ng-select class="autoComplete" placeholder="Lab" style="width: 7rem;" appearance="outline"
+        <ng-select class="autoComplete" placeholder="Lab" style="width: calc(100rem - 93rem);" appearance="outline"
         autocomplete="off" [(ngModel)]="LAB">
         <ng-option *ngFor="let dept of Labs" [value]="dept.code">{{dept.code}}</ng-option>
         </ng-select>
@@ -21,66 +21,66 @@
             <input matInput type="text" [(ngModel)]="LAB" (click)="OpenLab()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"  />
           </mat-form-field> -->
-          <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 95rem);">
             <mat-label>Shape</mat-label>
             <input matInput type="text" [(ngModel)]="S_CODE" (click)="OpenLotPopup()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"  />
           </mat-form-field>
   
-          <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 95rem);">
             <mat-label>Color</mat-label>
             <input matInput type="text" [(ngModel)]="C_CODE" (click)="OpenColor()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }" />
           </mat-form-field>
           
-          <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 95rem);">
             <mat-label>Clarity</mat-label>
             <input matInput type="text" [(ngModel)]="Q_CODE" (click)="OpenQua()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 95rem);">
             <mat-label>Cut</mat-label>
             <input matInput type="text" [(ngModel)]="CT_CODE" (click)="OpenCut()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 95rem);">
             <mat-label>Final</mat-label>
             <input matInput type="text" [(ngModel)]="FINAL" (click)="OpenFinal()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 95rem);">
             <mat-label>Result</mat-label>
             <input matInput type="text" [(ngModel)]="RESULT" (click)="OpenResult()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="width: 5rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 95rem);">
             <mat-label>Flo No</mat-label>
             <input matInput type="text" [(ngModel)]="FLO" (click)="OpenFloNo()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="width: 6rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 94rem);">
             <mat-label>Machine Flo</mat-label>
             <input matInput type="text" [(ngModel)]="MACFLO" (click)="OpenMacFlo()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
           </mat-form-field>
 
-          <mat-form-field appearance="outline" style="width: 6rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 94rem);">
             <mat-label>Comment</mat-label>
             <input matInput type="text" [(ngModel)]="MACCOM" (click)="OpenMacCom()"
               name="Order" autocomplete="off" [ngModelOptions]="{ updateOn: 'blur' }"/>
           </mat-form-field>
   
-          <mat-form-field appearance="outline" style="width: 6rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 94rem);">
             <mat-label>From Carat</mat-label>
             <input matInput type="number" autocomplete="off" [(ngModel)]="F_CARAT"/>
           </mat-form-field>
   
-          <mat-form-field appearance="outline" style="width: 6rem;">
+          <mat-form-field appearance="outline" style="width: calc(100rem - 94rem);">
             <mat-label>To Carat</mat-label>
             <input matInput type="number" autocomplete="off" [(ngModel)]="T_CARAT"/>
           </mat-form-field>

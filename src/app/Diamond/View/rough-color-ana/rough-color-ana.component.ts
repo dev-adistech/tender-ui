@@ -176,21 +176,21 @@ export class RoughColorAnaComponent implements OnInit {
     });
   }
   OpenColor() {
-    const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Colors, CODE: this.C_CODE, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
+    const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Colors, CODE: this.C_CODE, TYPE: 'HolidayMast' }, panelClass: 'ListboxDialog' })
     $("#Close").click();
     PRF.afterClosed().subscribe(result => {
       this.C_CODE = result
     });
   }
   OpenQua() {
-    const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Quality, CODE: this.Q_CODE, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
+    const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Quality, CODE: this.Q_CODE, TYPE: 'HolidayMast' }, panelClass: 'ListboxDialog' })
     $("#Close").click();
     PRF.afterClosed().subscribe(result => {
       this.Q_CODE = result
     });
   }
   OpenCut() {
-    const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.CutArr, CODE: this.CT_CODE, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
+    const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.CutArr, CODE: this.CT_CODE, TYPE: 'HolidayMast' }, panelClass: 'ListboxDialog' })
     $("#Close").click();
     PRF.afterClosed().subscribe(result => {
       this.CT_CODE = result

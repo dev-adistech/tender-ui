@@ -308,7 +308,6 @@ export class TendarEstComponent implements OnInit {
     }
     const MakHistoryData = JSON.parse(localStorage.getItem('TendarEstComponent'))
     if (MakHistoryData) {
-      console.log('303',MakHistoryData)
       this.COMP_CODE = MakHistoryData[0][0].COMP_CODE
       this.COMP_NAME = MakHistoryData[0][0].TEN_NAME
       this.DETID = MakHistoryData[0][0].DETID
@@ -364,6 +363,36 @@ export class TendarEstComponent implements OnInit {
           this.ADIS = MakHistoryData[0][0].ADIS
           this.BVDATA = MakHistoryData[1]
           // this.gridApi.setRowData(MakHistoryData[1])
+          let NewObj = {
+            COMP_CODE: this.COMP_CODE,
+            DETID:this.DETID,
+            SRNO: this.PKTSRNO,
+          }
+          this.TendarEstServ.TendarVidUploadDisp(NewObj).subscribe((NewRes)=>{
+            try{
+              if(NewRes.success == true){
+                this.NEWIMAGE = NewRes.data[0].PRN
+                const imageUrl = this.NEWIMAGE;
+    
+              fetch(imageUrl)
+            .then(response => response.blob())
+            .then(blob => createImageBitmap(blob))
+            .then(imageBitmap => {
+              // Draw the ImageBitmap on the canvas
+              const canvas = document.getElementById('lienzo1') as HTMLCanvasElement;
+              const context = canvas.getContext('2d');
+              canvas.width = imageBitmap.width;
+              canvas.height = imageBitmap.height;
+              context.drawImage(imageBitmap, 0, 0);
+            })
+            .catch(error => {
+              console.error('Error fetching or drawing image:', error);
+            });
+              }
+            } catch (error){
+              this.spinner.hide()
+            }
+          })
       this.BUTTONHIDE = false
     }
 

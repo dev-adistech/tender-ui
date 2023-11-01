@@ -52,6 +52,7 @@ import { RefMastComponent } from './Diamond/Master/ref-mast/ref-mast.component';
 import { LotMappingComponent } from './Diamond/Transaction/lot-mapping/lot-mapping.component';
 import { RoughColorAnaComponent } from './Diamond/View/rough-color-ana/rough-color-ana.component';
 import { ParcelViewComponent } from './Diamond/View/parcel-view/parcel-view.component';
+import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component';
 
 
 const routes: Routes = [
@@ -104,6 +105,7 @@ const routes: Routes = [
   { path: 'UserCat', component: UserCatComponent, canActivate: [AuthGuard] },
   { path: 'UserMast', component: UserMastComponent, canActivate: [AuthGuard] },
   { path: 'PerMast', component: PerMastComponent, canActivate: [AuthGuard] },
+  { path: 'GetCert', component: GetCertiResComponent, canActivate: [AuthGuard] },
   
   //report
   { path: 'report', component: ReportComponent, canActivate: [AuthGuard] },

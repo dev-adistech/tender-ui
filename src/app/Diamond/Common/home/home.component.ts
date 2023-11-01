@@ -53,6 +53,7 @@ import Swal from 'sweetalert2';
 import { PerMastService } from 'src/app/Service/Config/per-mast.service';
 import { RoughColorAnaComponent } from '../../View/rough-color-ana/rough-color-ana.component';
 import { ParcelViewComponent } from '../../View/parcel-view/parcel-view.component';
+import { GetCertiResComponent } from '../../Config/get-certi-res/get-certi-res.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -255,6 +256,11 @@ export class HomeComponent implements OnInit {
     } else {
       this.configPersmission = false;
     }
+    if (this.CheckFormPermission('GetCertiResComponent')) {
+      this.configUtility = true;
+    } else {
+      this.configUtility = false;
+    }
 
     if (this.CheckFormPermission('PricingWrkViewComponent') 
     ||this.CheckFormPermission('BVViewComponent') 
@@ -363,6 +369,9 @@ export class HomeComponent implements OnInit {
     switch (FormName) {
       case "Permission Master":
         this.ComponentName = PerMastComponent;
+        break;
+      case "Get Certi Result":
+        this.ComponentName = GetCertiResComponent;
         break;
       case "User Category Master":
         this.ComponentName = UserCatComponent;

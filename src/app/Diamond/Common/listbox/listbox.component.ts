@@ -95,7 +95,7 @@ export class ListboxComponent implements OnInit {
       };
     } else if (data.TYPE == 'DELETEVIDEO') {
       this.valdata = data.arr.map((item) => {
-        return { CODE: item.CODE }
+        return { CODE: item.CODE,CKB: this.userExists(item.CODE) }
       })
 
       this.columnDefs = [
@@ -105,14 +105,14 @@ export class ListboxComponent implements OnInit {
           checkboxSelection: true,
           resizable: false,
           sortable: false,
-          width: 30
+          width: 10
         },
         {
           headerName: "Lot",
           field: "CODE",
           cellStyle: { "text-align": "center" },
           headerClass: "text-center",
-          width: 70
+          width: 50
         },
       ];
       this.rowSelection = "multiple";
@@ -334,7 +334,7 @@ export class ListboxComponent implements OnInit {
       };
     } else if (data.TYPE == 'HolidayMast') {
       this.valdata = data.arr.map((item) => {
-        return { code: item.code, name: item.name, CKB: this.userExists(item.code) }
+        return { code: item.code, name: item.name, CKB: this.userExists(item.name) }
       })
 
       this.columnDefs = [
@@ -532,6 +532,10 @@ export class ListboxComponent implements OnInit {
       this.valdata = this.valdata.map((item) => {
         return { CODE: item.CODE, NAME: item.NAME.toString(), PNT: item.PNT, CARAT: item.CARAT, CKB: item.CKB }
       })
+    } else if (this.TYPE == 'DELETEVIDEO') {
+      this.valdata = this.valdata.map((item) => {
+        return { CODE: item.CODE,CKB: item.CKB }
+      })
     } else if (this.TYPE == 'ORDDIS') {
       this.valdata = this.valdata.map((item) => {
         return { code: item.code, name: item.name.toString(), CKB: item.CKB }
@@ -578,6 +582,9 @@ export class ListboxComponent implements OnInit {
     } else if (this.TYPE == 'TALLYVIEW') {
       let L_CODE = this.selectedRow.map((item) => { return item.CODE })
       this.Result = L_CODE.toString()
+    } else if (this.TYPE == 'DELETEVIDEO') {
+      let L_CODE = this.selectedRow.map((item) => { return item.CODE })
+      this.Result = L_CODE.toString()
     } else if (this.TYPE == 'USERMAST') {
       let L_CODE = this.selectedRow.map((item) => { return item.USERID })
       this.Result = L_CODE.toString()
@@ -594,7 +601,7 @@ export class ListboxComponent implements OnInit {
       let Res = this.selectedRow.map((item) => { return item.code })
       this.Result = Res.toString()
     } else if (this.TYPE == 'HolidayMast') {
-      let Res = this.selectedRow.map((item) => { return item.code })
+      let Res = this.selectedRow.map((item) => { return item.name })
       this.Result = Res.toString()
     } else if (this.TYPE == 'TrpId') {
       let Res = this.selectedRow.map((item) => { return item.TRPID })

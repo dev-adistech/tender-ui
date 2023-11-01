@@ -1,0 +1,30 @@
+<!-- <img src="../../../../assets/img/Config/diamond.jpg" style="position: absolute;height: 100vh;width: 100vw;"> -->
+<div class="lot-transfer__container">
+    <div class="lot-transfer__wrapper glass-light">
+      <h1 class="lot-transfer__header">
+        Get Certi Result
+      </h1>
+
+      <div class="lot-transfer__lot--popup">
+        <button class="btn theme-btn " matTooltip='Lot' (click)="OpenLotPopup()">
+          <svg class="icon icon-lot">
+            <use xlink:href="assets/symbol-defs.svg#icon-lot"></use>
+          </svg>
+        </button>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Lot Code</mat-label>
+          <input matInput placeholder="L Code" aria-label="L Code" [(ngModel)]="L_CODE" disabled>
+        </mat-form-field>
+      </div>
+      <button class="btn theme-btn" matTooltip='Get Result' (click)="LotTransfer()" matTooltipClass="custom-tooltip">
+        <svg class="icon icon-transfer">
+          <use xlink:href="assets/symbol-defs.svg#icon-transfer"></use>
+        </svg>
+      </button>
+    </div>
+  
+  </div>
+  
+  <ngx-spinner>
+    <p style="color: white">Loading...</p>
+  </ngx-spinner>
