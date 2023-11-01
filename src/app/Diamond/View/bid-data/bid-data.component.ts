@@ -154,7 +154,8 @@ export class BidDataComponent implements OnInit {
                 cellStyle: {
                   "text-align": GroupData[i].Data[j].CELLALIGN,
                   "background-color": GroupData[i].Data[j].BACKCOLOR,
-                  "color":GroupData[i].Data[j].FONTCOLOR
+                  "color":GroupData[i].Data[j].FONTCOLOR,
+                  "font-weight":GroupData[i].Data[j].ISBOLD ===true? 'bold':''
                 },
                 resizable: GroupData[i].Data[j].ISRESIZE,
                 

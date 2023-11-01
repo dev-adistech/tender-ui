@@ -500,7 +500,8 @@ export class TendarEstComponent implements OnInit {
                 cellStyle: {
                   "text-align": VPRes.data[i].CELLALIGN,
                   "background-color": VPRes.data[i].BACKCOLOR,
-                  "color":VPRes.data[i].FONTCOLOR
+                  "color":VPRes.data[i].FONTCOLOR,
+                  "font-weight":VPRes.data[i].ISBOLD ===true? 'bold':''
                 },
                 resizable: VPRes.data[i].ISRESIZE,
                 hide: VPRes.data[i].DISP == false ? true : false,
@@ -5192,7 +5193,8 @@ export class TendarEstComponent implements OnInit {
                 cellStyle: { 
                             "text-align": VPRes.data[i].CELLALIGN,
                             "background-color": VPRes.data[i].BACKCOLOR,
-                            "color":VPRes.data[i].FONTCOLOR
+                            "color":VPRes.data[i].FONTCOLOR,
+                            "font-weight":VPRes.data[i].ISBOLD ===true? 'bold':''
                             },
                 resizable: VPRes.data[i].ISRESIZE,
                 hide: VPRes.data[i].DISP == false ? true : false,
