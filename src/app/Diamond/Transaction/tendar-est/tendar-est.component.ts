@@ -297,12 +297,15 @@ export class TendarEstComponent implements OnInit {
       for (let i = 0; i < op.SECONDDATA.length; i++) {
         if (op.SECONDDATA[i].PLANNO == params.data.PLANNO && op.SECONDDATA[i].SRNO == params.data.SRNO) {
           if (params.data.PTAG == "Total") {
-            return { background: "#c0ffc0" };
+            return { background: "#c0ffc0",fontWeight: 'bold'};
           }
+        }
+        if(params.data.ISCOL == 1){
+          return { background: "#c0ffc0"};
         }
       }
       if (params.data.PTAG === "Total") {
-        return { background: "#FFE0C0" };
+        return { background: "#FFE0C0",fontWeight: 'bold' };
       }
       return {};
     }

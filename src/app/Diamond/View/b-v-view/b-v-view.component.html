@@ -486,9 +486,9 @@
         <div class="deskop_footer_bid p-0" [ngClass]="{'my_class': DOCKON === true}">
           <div class="container-name_2" style="display: grid;">
               <mat-label style="border:1px solid black;padding: 1px 6.8px; text-align: center;border-bottom:none;">Final Amount Per</mat-label>
-              <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" [(ngModel)] ="item.FBID" autocomplete="off" class="tenderTxt  ws"></textarea>
+              <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" style="font-weight: bold;" [(ngModel)] ="item.FBID" autocomplete="off" class="tenderTxt  ws"></textarea>
               <mat-label style="border:1px solid black;padding: 1px 6.8px; text-align: center;border-bottom:none;border-top: none;">Final Amount</mat-label>
-              <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" [(ngModel)] ="item.FAMT" autocomplete="off" class="tenderTxt  ws"></textarea>
+              <textarea type="text" [style]="AreaBoxStyle" disabled name="Code" style="font-weight: bold;" [(ngModel)] ="item.FAMT" autocomplete="off" class="tenderTxt  ws"></textarea>
               <div style="display: flex;height: calc(100% - 7%);">
               <mat-label style="border:1px solid black; text-align: center;border-right:none;border-top:none;padding: 3px 31px;padding-bottom: 15px;">Aditional Discount</mat-label>
               <input class="tenderTxt" [style]="ContainWidth" [(ngModel)]="item.ADIS" [disabled]="ADISDISABLE" (ngModelChange)="ADISCHANGE($event,item)" />

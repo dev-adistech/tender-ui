@@ -53,6 +53,7 @@ import { LotMappingComponent } from './Diamond/Transaction/lot-mapping/lot-mappi
 import { RoughColorAnaComponent } from './Diamond/View/rough-color-ana/rough-color-ana.component';
 import { ParcelViewComponent } from './Diamond/View/parcel-view/parcel-view.component';
 import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component';
+import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component';
 
 
 const routes: Routes = [
@@ -95,6 +96,7 @@ const routes: Routes = [
   { path: 'RatioMast', component: RatioMastComponent, canActivate: [AuthGuard] },
   { path: 'ShdMast', component: ShdMastComponent, canActivate: [AuthGuard] },
   { path: 'RefMast', component: RefMastComponent, canActivate: [AuthGuard] },
+  { path: 'SellDaysMast', component: SellDaysMastComponent, canActivate: [AuthGuard] },
 
   // Transaction
   { path: 'TenCom', component: TendarComComponent, canActivate: [AuthGuard] },

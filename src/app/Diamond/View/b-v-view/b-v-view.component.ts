@@ -203,7 +203,7 @@ export class BVViewComponent implements OnInit {
       for (let i = 0; i < op.SECONDDATA.length; i++) {
         if (op.SECONDDATA[i].PLANNO == params.data.PLANNO && op.SECONDDATA[i].SRNO == params.data.SRNO) {
           if (params.data.PTAG == "Total") {
-            return { background: "#c0ffc0" };
+            return { background: "#c0ffc0",fontWeight: 'bold'};
           }
         }
       }
@@ -231,7 +231,7 @@ export class BVViewComponent implements OnInit {
           const dialogRef = this.dialog.open(BvViewDetComponent, {
             panelClass: "marker-acc-view-det-dialog",
             autoFocus: false,
-            minWidth: "90vw",
+            minWidth: "75vw",
             width: "100% !important",
             height: "calc(100vh - 16%)",
             data: Data

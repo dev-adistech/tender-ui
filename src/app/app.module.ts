@@ -78,7 +78,8 @@ import { LotMappingComponent } from './Diamond/Transaction/lot-mapping/lot-mappi
 import { RoughColorAnaComponent } from './Diamond/View/rough-color-ana/rough-color-ana.component';
 import { ParcelViewComponent } from './Diamond/View/parcel-view/parcel-view.component';
 import { BvViewDetComponent } from './Diamond/View/b-v-view/bv-view-det/bv-view-det.component';
-import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component'
+import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component';
+import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component'
 
 
 @NgModule({
@@ -143,6 +144,7 @@ import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-r
 		ParcelViewComponent,
 		BvViewDetComponent,
 		GetCertiResComponent,
+		SellDaysMastComponent,
 	],
 	imports: [
 		BrowserModule,

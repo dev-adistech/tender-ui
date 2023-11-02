@@ -102,6 +102,11 @@
                 <img src="../../../../assets/img/Master/Reflection.png" alt="" />
                 Reflection
               </li>
+              <li *ngIf="CheckFormPermission('SellDaysMastComponent')"
+                (click)="addiFrameTabs('Sell Days Master', '/SellDaysMast')">
+                <img src="../../../../assets/img/Master/selldays.png" alt="" />
+                Sell Days
+              </li>
             </div>
           </div>
           <p class="sub-menu__section-name">Parameter</p>

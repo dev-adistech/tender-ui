@@ -90,8 +90,8 @@ export class PricingWrkViewComponent implements OnInit {
    
     this.getRowStyle = function (params) {
       if (params.data) {
-        if (params.node.rowPinned === 'bottom') {
-          return { 'background': '#FFE0C0', 'font-weight': 'bold' };
+        if (params.data.ISCOL === 1) {
+          return { background: "#c0ffc0"};
         }
       }
     };

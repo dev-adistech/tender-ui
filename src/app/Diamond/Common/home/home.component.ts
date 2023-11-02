@@ -54,6 +54,7 @@ import { PerMastService } from 'src/app/Service/Config/per-mast.service';
 import { RoughColorAnaComponent } from '../../View/rough-color-ana/rough-color-ana.component';
 import { ParcelViewComponent } from '../../View/parcel-view/parcel-view.component';
 import { GetCertiResComponent } from '../../Config/get-certi-res/get-certi-res.component';
+import { SellDaysMastComponent } from '../../Master/sell-days-mast/sell-days-mast.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -211,6 +212,7 @@ export class HomeComponent implements OnInit {
       this.CheckFormPermission('RatioMastComponent')||
       this.CheckFormPermission('ShdMastComponent')||
       this.CheckFormPermission('RefMastComponent')||
+      this.CheckFormPermission('SellDaysMastComponent')||
       this.CheckFormPermission('TensionMastComponent')) {
       this.masterParameter = true;
     } else {
@@ -438,6 +440,9 @@ export class HomeComponent implements OnInit {
         break;
       case "Reflection Master":
         this.ComponentName = RefMastComponent;
+        break;
+      case "Sell Days Master":
+        this.ComponentName = SellDaysMastComponent;
         break;
       case "Pricing Work":
         this.ComponentName = PricingWrkViewComponent;
