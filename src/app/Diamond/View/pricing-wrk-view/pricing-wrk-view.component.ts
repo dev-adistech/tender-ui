@@ -37,13 +37,19 @@ export class PricingWrkViewComponent implements OnInit {
 
   public columnDefs1;
   public pinnedBottomRowData
+  public pinnedBottomRowData1
   public gridApi1;
   public gridColumnApi1;
   public getRowStyle
+  public getRowStyle1
   public defaultColDef1;
   public gridOptions1;
 
   GridDataForMapping: any[] = []
+
+  DEPTArr: any = [];
+  COMP_CODE: any = "";
+  COMP_NAME: any = "";
 
   F_DATE:any =''
   T_DATE:any =''
@@ -69,10 +75,12 @@ export class PricingWrkViewComponent implements OnInit {
   touchStartTime: number;
 
   FooterKey = []
+  FooterKey1 = []
   ISFILTER: boolean = false
   GRIDON:boolean = false
 
   GRIDDATA:any=[]
+  ISCHANGED:boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -92,6 +100,16 @@ export class PricingWrkViewComponent implements OnInit {
       if (params.data) {
         if (params.data.ISCOL === 1) {
           return { background: "#c0ffc0"};
+        }
+        if (params.node.rowPinned === 'bottom') {
+          return { 'background': '#FFE0C0', 'font-weight': 'bold' };
+        }
+      }
+    };
+    this.getRowStyle1 = function (params) {
+      if (params.data) {
+        if (params.node.rowPinned === 'bottom') {
+          return { 'background': '#FFE0C0', 'font-weight': 'bold' };
         }
       }
     };
@@ -145,7 +163,24 @@ export class PricingWrkViewComponent implements OnInit {
     this.Quality = this.decodedMast[5].map(item => {
       return {code: item.Q_CODE, name: item.Q_NAME.toString(),}
     });
+    this.DEPTArr = this.decodedMast[2].map((item) => {
+      return { code: item.COMP_CODE, name: item.COMP_NAME };
+    });
     this.LoadGridData()
+  }
+
+  GETNAME() {
+    if (this.COMP_CODE) {
+      if (this.DEPTArr.filter((x) => x.code == this.COMP_CODE).length != 0) {
+        this.COMP_NAME = this.DEPTArr.filter(
+          (x) => x.code == this.COMP_CODE
+        )[0].name;
+      } else {
+        this.COMP_NAME = "";
+      }
+    } else {
+      this.COMP_NAME = "";
+    }
   }
 
   onCellDoubleClick(eve){
@@ -158,6 +193,7 @@ export class PricingWrkViewComponent implements OnInit {
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
       T_CARAT:this.T_CARAT ? this.T_CARAT:0,
       COMP_CODE:eve.data.COMP_CODE ? eve.data.COMP_CODE:'',
+      DETID:eve.data.DETID ? eve.data.DETID:0,
     }
     this.GRIDON = false
     this.ViewServ.PricingWrkDisp(NewObj).subscribe(
@@ -165,10 +201,18 @@ export class PricingWrkViewComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
+            this.gridApi1.setSortModel([]);
             this.gridApi1.setRowData(FillRes.data);
+            let CompArr = []
+            for(let i=0;i<FillRes.data.length;i++){
+              if(FillRes.data[i].COMP_CODE){
+                CompArr.push(FillRes.data[i])
+              }
+            }
             this.GridDataForMapping = FillRes.data
             this._gridFunction.FooterKey = this.FooterKey
           this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data)
+          this.pinnedBottomRowData[0].COMP_CODE = CompArr.length
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =
@@ -218,6 +262,10 @@ export class PricingWrkViewComponent implements OnInit {
     );
   }
 
+  refresh(){
+    this.gridApi1.setSortModel([]);
+    this.gridOptions1.api.setFilterModel(null);
+  }
   LoadGridData1(){
     let NewObj ={
       F_DATE:this.F_DATE ? this.datepipe.transform(this.F_DATE,'yyyy-MM-dd'):null,
@@ -227,46 +275,24 @@ export class PricingWrkViewComponent implements OnInit {
       Q_CODE:this.Q_CODE ? this.Q_CODE:'',
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
       T_CARAT:this.T_CARAT ? this.T_CARAT:0,
+      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:'',
+      DETID:0
     }
     this.ViewServ.PricingWrkDisp(NewObj).subscribe(
       (FillRes) => {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
+            this.gridApi1.setSortModel([]);
             this.gridApi1.setRowData(FillRes.data);
             this._gridFunction.FooterKey = this.FooterKey
-          this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data)
+            this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data)
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(
                 ".ag-body-horizontal-scroll-viewport"
               );
-            // if (agBodyViewport) {
-            //   const psV = new PerfectScrollbar(agBodyViewport);
-            //   psV.update();
-            // }
-            // if (agBodyHorizontalViewport) {
-            //   const psH = new PerfectScrollbar(agBodyHorizontalViewport);
-            //   psH.update();
-            // }
-            // if (agBodyViewport) {
-            //   const ps = new PerfectScrollbar(agBodyViewport);
-            //   const container = document.querySelector(".ag-body-viewport");
-            //   ps.update();
-            // }
-            // const widthsArray =
-            //   this.gridColumnApi1.columnController.displayedColumns.map(
-            //     (item) => item.actualWidth
-            //   );
-            // this.agGridWidth1 = widthsArray.reduce(function (
-            //   previousValue,
-            //   currentValue
-            // ) {
-            //   return previousValue + currentValue;
-            // });
-            // this.agGridWidth1 = 200 + this.agGridWidth1;
-            // this.agGridStyles1 = `width: ${this.agGridWidth1}px; height: 70vh`;
             this.gridApi1.refreshCells({ force: true })
           } else {
             this.spinner.hide();
@@ -306,6 +332,34 @@ export class PricingWrkViewComponent implements OnInit {
             let tempData = []
 
             for (let j = 0; j < GroupData[i].Data.length; j++) {
+            if(GroupData[i].Data[j].FIELDNAME === 'SRNO'){
+              tempData.push({
+              headerName: GroupData[i].Data[j].DISPNAME,
+              headerClass: GroupData[i].Data[j].HEADERALIGN,
+              field: GroupData[i].Data[j].FIELDNAME,
+              width: GroupData[i].Data[j].COLWIDTH,
+              cellStyle: {
+                "text-align": GroupData[i].Data[j].CELLALIGN,
+                "background-color": GroupData[i].Data[j].BACKCOLOR,
+                "color":GroupData[i].Data[j].FONTCOLOR,
+                "font-weight":GroupData[i].Data[j].ISBOLD ===true? 'bold':''
+              },
+              resizable: GroupData[i].Data[j].ISRESIZE,
+              GROUPKEY: GroupData[i].Data[j].GROUPKEY,
+              hide: GroupData[i].Data[j].DISP == false ? true : false,
+              pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
+              suppressMenu: true,
+              suppressMovable: true,
+              filterParams: {
+                comparator: (a, b) => {
+                    const valA = parseInt(a);
+                    const valB = parseInt(b);
+                    if (valA === valB) return 0;
+                    return valA > valB ? 1 : -1;
+                }
+              }
+            })
+          }else {
               tempData.push({
                 headerName: GroupData[i].Data[j].DISPNAME,
                 headerClass: GroupData[i].Data[j].HEADERALIGN,
@@ -323,6 +377,7 @@ export class PricingWrkViewComponent implements OnInit {
                 pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
                 rowSpan: this.rowSpy.bind(this),
                 suppressMenu: true,
+                suppressMovable: true,
                 cellClass: function (params) {
                     if (params.node.rowPinned != 'bottom') {
                       if (params.colDef.field == 'TOTAL') {
@@ -334,36 +389,23 @@ export class PricingWrkViewComponent implements OnInit {
                     }
                   }
               })
+            }
 
               if(GroupData[i].Data[j].FIELDNAME === "MPER"){
                 tempData[j].editable = this.decodedTkn.U_CAT === 'P' || this.decodedTkn.U_CAT === 'S'? true : false
               }
-              // if (j == 4) {
-              //   this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
-              // }
-              // if (GroupData[i].Data[j].FIELDNAME == "CARAT") {
-              //   this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
-              //   tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
-              //   tempData[j].aggFunc = 'sum'
-              // } else if (GroupData[i].Data[j].FIELDNAME == "PTAG"){
-              //   tempData[j].valueFormatter = this._convFunction.StringFormat
-              //   tempData[j].aggFunc = 'length'
-              // }
 
-              if (i == 0 && j == 0) {
+              if (GroupData[i].Data[j].FIELDNAME === 'CARAT' || GroupData[i].Data[j].FIELDNAME === 'COMP_CODE') {
                 this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
               }
               if (GroupData[i].Data[j].FORMAT == "#0") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.NumberFormat
                 tempData[j].aggFunc = 'sum'
               } else if (GroupData[i].Data[j].FORMAT == "#0.00") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.TwoFloatFormat
                 tempData[j].aggFunc = 'sum'
 
               } else if (GroupData[i].Data[j].FORMAT == "#0.000") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
                 tempData[j].aggFunc = 'sum'
 
@@ -377,6 +419,9 @@ export class PricingWrkViewComponent implements OnInit {
                 tempData[j].valueFormatter = this._convFunction.StringFormat
               }
               this._gridFunction.FooterKey = this.FooterKey
+              if(GroupData[i].Data[j].FIELDNAME !== "MPER"){
+                tempData[j].cellStyle = this.ColColor.bind(this)
+              }
             }
 
             jsonData["children"] = tempData
@@ -431,23 +476,15 @@ export class PricingWrkViewComponent implements OnInit {
               })
 
 
-              if (i == 0 && j == 0) {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+              if (GroupData[i].Data[j].FIELDNAME === 'COMP_CODE' || GroupData[i].Data[j].FIELDNAME==='PCS') {
+                this.FooterKey1.push(GroupData[i].Data[j].FIELDNAME)
               }
               if (GroupData[i].Data[j].FORMAT == "#0") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.NumberFormat
-                tempData[j].aggFunc = 'sum'
               } else if (GroupData[i].Data[j].FORMAT == "#0.00") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.TwoFloatFormat
-                tempData[j].aggFunc = 'sum'
-
               } else if (GroupData[i].Data[j].FORMAT == "#0.000") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
-                tempData[j].aggFunc = 'sum'
-
               } else if (GroupData[i].Data[j].FORMAT == "DateFormat") {
                 tempData[j].cellRenderer = this.DateFormat.bind(this)
                 delete tempData[j].valueFormatter
@@ -457,7 +494,7 @@ export class PricingWrkViewComponent implements OnInit {
               } else {
                 tempData[j].valueFormatter = this._convFunction.StringFormat
               }
-              // this._gridFunction.FooterKey = this.FooterKey
+              this._gridFunction.FooterKey = this.FooterKey1
             }
 
             jsonData["children"] = tempData
@@ -480,6 +517,60 @@ export class PricingWrkViewComponent implements OnInit {
     })
   }
 
+  ColColor(params) {
+    if (params.node.rowPinned === 'bottom') {
+      return
+    }
+    if(params.colDef.field === 'LAB_NAME'){
+      if(params.data.LAB_NAME === 'IGI'){
+        return { 'background': '#78f587'};
+      }else if(params.data.LAB_NAME === 'HRD'){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'S_NAME'){
+      if(params.data.S_NAME !== 'ROUND' && params.data.S_NAME){
+        return { 'background': '#ffff9e'};
+      }
+    }else if(params.colDef.field === 'CT_NAME'){
+      if(params.data.CT_NAME == 'VG'){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.CT_NAME == 'GD'){
+        return { 'background': '#fc6a6a'};
+      }else if(params.data.CT_NAME == 'FR'){
+        return { 'background': '#f09c9c'};
+      }
+    }else if(params.colDef.field === 'Q_NAME'){
+      if(params.data.Q_NAME == 'FL'){
+        return { 'background': '#f09c9c'};
+      }else if(params.data.Q_NAME == 'IF'){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'FL_NAME'){
+      if(params.data.FL_NAME == 'FAINT'){
+        return { 'background': '#78f587'};
+      }else if(params.data.FL_NAME == 'MEDIUM'){
+        return { 'background': '#ffff9e'};
+      }else if(params.data.FL_NAME == 'STRONG'){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.FL_NAME == 'VERY STRONG'){
+        return { 'background': '#aac0e6'};
+      }
+    }else if(params.colDef.field === 'ML_NAME'){
+      if(params.data.ML_NAME == 'H-MILKY'){
+        return { 'background': '#a3a2a2'};
+      }else if(params.data.ML_NAME == 'L-MILKY'){
+        return { 'background': '#e3e3e3'};
+      }
+    }else if(params.colDef.field === 'SH_NAME'){
+      if(params.data.SH_NAME == 'VL-BRN'){
+        return { 'background': '#C4A484'};
+      }else if(params.data.SH_NAME == 'L-BRN'){
+        return { 'background': '#d9c6b4'};
+      }else if(params.data.SH_NAME == 'MIX-T'){
+        return { 'background': '#acfaa5'};
+      }
+    }
+  }
   rowSpy(params) {
     let SubData = []
     this.gridApi1.forEachNode(function (rowNode, index) {
@@ -573,46 +664,119 @@ export class PricingWrkViewComponent implements OnInit {
   }
 
   OnCellEditingStart(params){
+    if(params.event.keyCode === 13){
     if(params.colDef.field == 'MPER'){
-    this.gridApi1.stopEditing({
-      rowIndex: params.rowIndex,
-      colKey: 'MPER'
-    })
-    if(params.newValue){
-    let SaveObj ={
-      MPER:params.data.MPER,
-      COMP_CODE:params.data.COMP_CODE ? params.data.COMP_CODE:'',
-      DETID:params.data.DETID ? params.data.DETID:0,
-      SRNO:params.data.SRNO ? params.data.SRNO:0,
-      PLANNO:params.data.PLANNO ? params.data.PLANNO:0,
-      PTAG:params.data.PTAG ? params.data.PTAG:'',
-    }
-
-    this.ViewServ.PricingWrkMperSave(SaveObj).subscribe((SaveRes) => {
-      try {
-        if (SaveRes.success == true) {
-          this.spinner.hide();
-          this.toastr.success("Save successfully.");
-          this.gridApi1.startEditingCell({
-            rowIndex: params.rowIndex +1,
+      if (parseFloat(params.data.MPER) >= params.data.PER + 10 || parseFloat(params.data.MPER) <= params.data.PER - 10) {
+        this.gridApi1.stopEditing({
+            rowIndex: params.rowIndex,
             colKey: 'MPER'
-          })
-        } else {
-          this.spinner.hide();
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: JSON.stringify(SaveRes.data),
           });
+          this.gridApi1.setFocusedCell(params.rowIndex +1, 'MPER');
+          this.gridApi1.startEditingCell({
+            rowIndex: params.rowIndex + 1,
+            colKey: 'MPER',
+          });
+          // this.gridApi1.setFocusedCell(params.rowIndex +1, 'MPER');
+        Swal.fire({
+          title: "Are you Sure You Want To Update",
+          icon: "warning",
+          cancelButtonText: "No",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+        }).then((result) => {
+          if (result.value) {
+            if (params.value) {
+              this.gridApi1.refreshCells({ force: true });
+              this.ISCHANGED = true;
+              let SaveObj = {
+                MPER: params.data.MPER,
+                COMP_CODE: params.data.COMP_CODE ? params.data.COMP_CODE : '',
+                DETID: params.data.DETID ? params.data.DETID : 0,
+                SRNO: params.data.SRNO ? params.data.SRNO : 0,
+                PLANNO: params.data.PLANNO ? params.data.PLANNO : 0,
+                PTAG: params.data.PTAG ? params.data.PTAG : '',
+                MUSER: this.decodedTkn.UserId
+              };
+              this.ViewServ.PricingWrkMperSave(SaveObj).subscribe((SaveRes) => {
+                try {
+                  if (SaveRes.success == true) {
+                    this.spinner.hide();
+                    this.toastr.success("Save successfully.");
+                    
+                  } else {
+                    this.spinner.hide();
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: JSON.stringify(SaveRes.data),
+                    });
+                  }
+                } catch (err) {
+                  this.spinner.hide();
+                  this.toastr.error(err);
+                }
+              });
+            }
+          } else {
+            this.ISCHANGED = false;
+            params.data.MPER = 0;
+            this.gridApi1.refreshCells({ force: true });
+            this.gridApi1.stopEditing({
+              rowIndex: params.rowIndex + 1,
+              colKey: 'MPER'
+            });
+            this.gridApi1.setFocusedCell(params.rowIndex, 'MPER');
+            this.gridApi1.startEditingCell({
+              rowIndex: params.rowIndex,
+              colKey: 'MPER',
+            });
+          }
+        });
+      }else{
+        if(params.value){
+          this.ISCHANGED = true
+        let SaveObj ={
+          MPER:params.data.MPER,
+          COMP_CODE:params.data.COMP_CODE ? params.data.COMP_CODE:'',
+          DETID:params.data.DETID ? params.data.DETID:0,
+          SRNO:params.data.SRNO ? params.data.SRNO:0,
+          PLANNO:params.data.PLANNO ? params.data.PLANNO:0,
+          PTAG:params.data.PTAG ? params.data.PTAG:'',
+          MUSER:this.decodedTkn.UserId
         }
-      } catch (err) {
-        this.spinner.hide();
-        this.toastr.error(err);
+    
+        this.ViewServ.PricingWrkMperSave(SaveObj).subscribe((SaveRes) => {
+          try {
+            if (SaveRes.success == true) {
+              this.spinner.hide();
+              this.toastr.success("Save successfully.");
+              this.gridApi1.stopEditing({
+                rowIndex: params.rowIndex,
+                colKey: 'MPER'
+              })
+              this.gridApi1.refreshCells({ force: true });
+              this.gridApi1.setFocusedCell(params.rowIndex +1, 'MPER');
+              this.gridApi1.startEditingCell({
+                rowIndex: params.rowIndex +1,
+                colKey: 'MPER',
+              })
+            } else {
+              this.spinner.hide();
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: JSON.stringify(SaveRes.data),
+              });
+            }
+          } catch (err) {
+            this.spinner.hide();
+            this.toastr.error(err);
+          }
+        });
       }
-    });
-  }
-
-  }
+      }
+}
+    }
   }
 
   groupByArray(xs, GROUPKEY) {
@@ -676,44 +840,23 @@ export class PricingWrkViewComponent implements OnInit {
       C_CODE : this.C_CODE ? this.C_CODE:'',
       Q_CODE: this.Q_CODE ? this.Q_CODE:'',
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
-      T_CARAT:this.T_CARAT ? this.T_CARAT:0
+      T_CARAT:this.T_CARAT ? this.T_CARAT:0,
+      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:''
     }).subscribe(
       (FillRes) => {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
             this.GRIDDATA = FillRes.data
+            this._gridFunction.FooterKey = this.FooterKey1
+            this.pinnedBottomRowData1 = this._gridFunction.footerCal(FillRes.data)
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(
                 ".ag-body-horizontal-scroll-viewport"
               );
-            // if (agBodyViewport) {
-            //   const psV = new PerfectScrollbar(agBodyViewport);
-            //   psV.update();
-            // }
-            // if (agBodyHorizontalViewport) {
-            //   const psH = new PerfectScrollbar(agBodyHorizontalViewport);
-            //   psH.update();
-            // }
-            // if (agBodyViewport) {
-            //   const ps = new PerfectScrollbar(agBodyViewport);
-            //   const container = document.querySelector(".ag-body-viewport");
-            //   ps.update();
-            // }
-            // const widthsArray =
-            //   this.gridColumnApi.columnController.displayedColumns.map(
-            //     (item) => item.actualWidth
-            //   );
-            // this.agGridWidth = widthsArray.reduce(function (
-            //   previousValue,
-            //   currentValue
-            // ) {
-            //   return previousValue + currentValue;
-            // });
-            // this.agGridWidth = 200 + this.agGridWidth;
-            // this.agGridStyles = `width: ${this.agGridWidth}px; height: 70vh`;
+            
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -732,7 +875,11 @@ export class PricingWrkViewComponent implements OnInit {
   getContextMenuItems(params) {
     let inputText = '';
     if (params.context.thisComponent.ISFILTER == true) {
-      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck" checked>`;
+      const startNumber = 1; // Starting number
+    const endNumber = 6;   // Ending number
+
+    const numbers = Array.from({ length: endNumber - startNumber + 1 }, (_, index) => (index + startNumber).toString());
+      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck" value="${numbers.join('-')}" checked>`;
     } else {
       inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck">`;
     }
@@ -762,47 +909,48 @@ export class PricingWrkViewComponent implements OnInit {
   }
 
   oncellValueChanged(eve){
-    let SubData = []
-    this.gridApi1.forEachNode(function (rowNode, index) {
-      SubData.push(rowNode.data);
-    });
-    let MERGEDATA =[]
-    for(let i=0;i<SubData.length;i++){
-      if(SubData[i].TOTAL == eve.data.TOTAL && SubData[i].RCTS === eve.data.RCTS){
-        MERGEDATA.push(SubData[i])
-      }
-    }
-    let NewAMT = 0
-    for(let i=0;i<MERGEDATA.length;i++){
-      if(MERGEDATA[i].PLN == eve.data.PLN){
-        let carat = MERGEDATA[i].CARAT
-        let Orap = MERGEDATA[i].ORAP
-        let Mprevalue
-        if(parseFloat(MERGEDATA[i].MPER)){
-          Mprevalue = parseFloat(MERGEDATA[i].MPER)
-        }else{
-          Mprevalue = MERGEDATA[i].PER
+    if(this.ISCHANGED === true){
+        let SubData = []
+        this.gridApi1.forEachNode(function (rowNode, index) {
+          SubData.push(rowNode.data);
+        });
+        let MERGEDATA =[]
+        for(let i=0;i<SubData.length;i++){
+          if(SubData[i].TOTAL == eve.data.TOTAL && SubData[i].RCTS === eve.data.RCTS){
+            MERGEDATA.push(SubData[i])
+          }
         }
-        let newArray
-        let FinalValue = 0
-        let NewSum = 0
-        newArray = (Mprevalue / 100) * Orap
-        FinalValue = Orap - newArray
-        NewSum = FinalValue * carat
-        MERGEDATA[i].RATE = FinalValue
-        MERGEDATA[i].AMT = NewSum
-        NewAMT += NewSum
-      }else{
-        NewAMT += MERGEDATA[i].AMT
-      }
-    }
-    console.log(NewAMT)
-    for(let i=0;i<MERGEDATA.length;i++){
-      MERGEDATA[i].TOTAL = NewAMT
-      let NewPer = 0
-      NewPer = MERGEDATA[i].TOTAL / MERGEDATA[i].I_CARAT
-      MERGEDATA[i].RCTS = NewPer.toFixed(0)
-    }
-    this.gridApi1.refreshCells({ force: true })
+        let NewAMT = 0
+        for(let i=0;i<MERGEDATA.length;i++){
+          if(MERGEDATA[i].PLN == eve.data.PLN){
+            let carat = MERGEDATA[i].CARAT
+            let Orap = MERGEDATA[i].ORAP
+            let Mprevalue
+            if(parseFloat(MERGEDATA[i].MPER)){
+              Mprevalue = parseFloat(MERGEDATA[i].MPER)
+            }else{
+              Mprevalue = MERGEDATA[i].PER
+            }
+            let newArray
+            let FinalValue = 0
+            let NewSum = 0
+            newArray = (Mprevalue / 100) * Orap
+            FinalValue = Orap - newArray
+            NewSum = FinalValue * carat
+            MERGEDATA[i].RATE = FinalValue
+            MERGEDATA[i].AMT = NewSum
+            NewAMT += NewSum
+          }else{
+            NewAMT += MERGEDATA[i].AMT
+          }
+        }
+        for(let i=0;i<MERGEDATA.length;i++){
+          MERGEDATA[i].TOTAL = NewAMT
+          let NewPer = 0
+          NewPer = MERGEDATA[i].TOTAL / MERGEDATA[i].I_CARAT
+          MERGEDATA[i].RCTS = NewPer.toFixed(0)
+        }
+        this.gridApi1.refreshCells({ force: true })
   }
+}
 }

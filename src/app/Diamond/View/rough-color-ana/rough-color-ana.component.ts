@@ -116,7 +116,10 @@ export class RoughColorAnaComponent implements OnInit {
       context: { thisComponent: this }
     }
     this.getRowStyle = function (params) {
-      if (!params.data.TAG) {
+      if (params.node.rowPinned === 'bottom') {
+        return { 'background': '#c0ffc0',fontWeight: 'bold'};
+      }
+      if (!params.data.TAG && params.node.rowPinned !== 'bottom') {
         return { background: "#FFE0C0" };
       }
     }
@@ -353,6 +356,7 @@ export class RoughColorAnaComponent implements OnInit {
   // }
 
   FillViewPara() {
+    let op = this
     this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'ColAnalysis' }).subscribe((VPRes) => {
       try {
         if (VPRes.success == 1) {
@@ -368,15 +372,18 @@ export class RoughColorAnaComponent implements OnInit {
               if (GroupData[i].Data[j].FIELDNAME == 'LINK') {
                 tempData.push({
                   headerName: 'Link',
+                  field: GroupData[i].Data[j].FIELDNAME,
                   cellStyle: { 'text-align': 'center' },
                   cellRenderer: function (params) {
-                    if (params.node.rowPinned != "bottom") {
+                      if (params.node.rowPinned === "bottom") {
+                        return op.pinnedBottomRowData[0].LINK
+                      }
                       if (!params.data.LINK) {
                         return null;
                       }
                       return '<i class="icon-video grid-icon" data-action-type="OpenVideo" style="cursor: pointer;" ></i>';
-                    }
                   },
+                  
                   headerClass: "text-center",
                   editable: false,
                   width: 60,
@@ -406,55 +413,29 @@ export class RoughColorAnaComponent implements OnInit {
                 GROUPKEY: GroupData[i].Data[j].GROUPKEY,
                 hide: GroupData[i].Data[j].DISP == false ? true : false,
                 pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
-                rowSpan: this.rowSpy.bind(this),
                 suppressMenu: true,
-                // cellClass: function (params) {
-                //     if (params.node.rowPinned != 'bottom') {
-                //       if (params.colDef.field == 'TOTAL') {
-                //         return 'cell-span1 cell-center'
-                //       }
-                //       if (params.colDef.field == 'RCTS') {
-                //         return 'cell-span1 cell-center'
-                //       }
-                //       if (params.colDef.field == 'I_CARAT') {
-                //         return 'cell-span1 cell-center'
-                //       }
-                //     }
-                //   }
               })
             }
 
-              // if(GroupData[i].Data[j].FIELDNAME === "MPER"){
-              //   tempData[j].editable = this.decodedTkn.U_CAT === 'P' || this.decodedTkn.U_CAT === 'S'? true : false
-              // }
-
-              if (i == 0 && j == 0) {
+              if (GroupData[i].Data[j].FIELDNAME === 'LINK'  || GroupData[i].Data[j].FIELDNAME === 'GIASHP') {
                 this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
               }
+              this._gridFunction.FooterKey = this.FooterKey
               if (GroupData[i].Data[j].FORMAT == "#0") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.NumberFormat
-                tempData[j].aggFunc = 'sum'
               } else if (GroupData[i].Data[j].FORMAT == "#0.00") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.TwoFloatFormat
-                tempData[j].aggFunc = 'sum'
-
               } else if (GroupData[i].Data[j].FORMAT == "#0.000") {
-                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
                 tempData[j].valueFormatter = this._convFunction.ThreeFloatFormat
-                tempData[j].aggFunc = 'sum'
-
               } else if (GroupData[i].Data[j].FORMAT == "DateFormat") {
-                tempData[j].cellRenderer = this._convFunction.DateFormat.bind(this)
+                tempData[j].cellRenderer = this.DateFormat.bind(this)
                 delete tempData[j].valueFormatter
               } else if (GroupData[i].Data[j].FORMAT == "TimeFormat") {
-                tempData[j].cellRenderer = this._convFunction.TimeFormat.bind(this)
+                tempData[j].cellRenderer = this.TimeFormat.bind(this)
                 delete tempData[j].valueFormatter
               } else {
                 tempData[j].valueFormatter = this._convFunction.StringFormat
               }
-              this._gridFunction.FooterKey = this.FooterKey
             }
 
             jsonData["children"] = tempData
@@ -606,6 +587,22 @@ export class RoughColorAnaComponent implements OnInit {
           if (FillRes.success == true) {
             this.gridApi.setRowData(FillRes.data)
             this.spinner.hide()
+            
+            let ShapeArr =[]
+            let LinkLength = []
+            for(let i=0;i<FillRes.data.length;i++){
+              if(FillRes.data[i].GIASHP){
+                ShapeArr.push(FillRes.data[i])
+              }
+              if(!FillRes.data[i].TAG){
+                LinkLength.push(FillRes.data[i])
+              }
+            }
+            this.GridDataForMapping = FillRes.data
+            this._gridFunction.FooterKey = this.FooterKey
+            this.pinnedBottomRowData = this._gridFunction.footerCal(ShapeArr.length)
+            this.pinnedBottomRowData[0].LINK = LinkLength.length
+            this.pinnedBottomRowData[0].GIASHP = ShapeArr.length
             const agBodyViewport: HTMLElement =
               this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =

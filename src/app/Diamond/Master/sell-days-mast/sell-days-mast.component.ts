@@ -197,14 +197,13 @@ export class SellDaysMastComponent implements OnInit {
 	CHANGEPASSWORD() {
 		if (!this.PASS) return
 		this.gridApi.redrawRows();
-    if (this.PASSWORD == this.PASS) {
-      this.EDITABLEGRID = true
-      this.gridApi.redrawRows();
-    } else {
-      this.EDITABLEGRID = false
-      this.gridApi.redrawRows();
-
-    }
+    	if (this.PASSWORD == this.PASS) {
+    	  this.EDITABLEGRID = true
+    	  this.gridApi.redrawRows();
+    	} else {
+    	  this.EDITABLEGRID = false
+    	  this.gridApi.redrawRows();
+    	}
 	}
 
   LoadGridData() {

@@ -52,6 +52,8 @@ export class ParcelViewComponent implements OnInit {
   S_CODE:any=''
   Shapes: Code[] = [];
 
+  DockData:any=[]
+
   C_CODE:any =''
   Colors:Code[]=[];
 
@@ -150,6 +152,7 @@ export class ParcelViewComponent implements OnInit {
   }
 
   onCellDoubleClick(eve){
+    this.DockData = eve.data
     let NewObj ={
       T_DATE:eve.data.T_DATE,
       F_DATE:eve.data.T_DATE,
@@ -159,6 +162,7 @@ export class ParcelViewComponent implements OnInit {
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
       T_CARAT:this.T_CARAT ? this.T_CARAT:0,
       COMP_CODE:eve.data.COMP_CODE ? eve.data.COMP_CODE:'',
+      DETID:eve.data.DETID ? eve.data.DETID:0,
     }
     this.GRIDON = false
     this.ViewServ.ParcelWrkDisp(NewObj).subscribe(
@@ -228,6 +232,8 @@ export class ParcelViewComponent implements OnInit {
       Q_CODE:this.Q_CODE ? this.Q_CODE:'',
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
       T_CARAT:this.T_CARAT ? this.T_CARAT:0,
+      DETID:0,
+      COMP_CODE:''
     }
     this.ViewServ.ParcelWrkDisp(NewObj).subscribe(
       (FillRes) => {
@@ -314,9 +320,9 @@ export class ParcelViewComponent implements OnInit {
                   }
               })
 
-              // if(GroupData[i].Data[j].FIELDNAME === "MPER"){
-              //   tempData[j].editable = this.decodedTkn.U_CAT === 'P' || this.decodedTkn.U_CAT === 'S'? true : false
-              // }
+              if(GroupData[i].Data[j].FIELDNAME === "MPER"){
+                tempData[j].editable = this.decodedTkn.U_CAT === 'P' || this.decodedTkn.U_CAT === 'S'? true : false
+              }
 
               if (i == 0 && j == 0) {
                 this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
@@ -446,6 +452,50 @@ export class ParcelViewComponent implements OnInit {
         this.toastr.error(error)
       }
     })
+  }
+
+  OnCellEditingStart(params){
+    if(params.colDef.field == 'MPER'){
+    this.gridApi1.stopEditing({
+      rowIndex: params.rowIndex,
+      colKey: 'MPER'
+    })
+    if(params.newValue){
+    let SaveObj ={
+      MPER:params.data.MPER,
+      COMP_CODE:params.data.COMP_CODE ? params.data.COMP_CODE:'',
+      DETID:params.data.DETID ? params.data.DETID:0,
+      SRNO:params.data.SRNO ? params.data.SRNO:0,
+      PLANNO:params.data.PLANNO ? params.data.PLANNO:0,
+      PTAG:params.data.PTAG ? params.data.PTAG:'',
+      MUSER:this.decodedTkn.UserId
+    }
+
+    this.ViewServ.PricingWrkMperSave(SaveObj).subscribe((SaveRes) => {
+      try {
+        if (SaveRes.success == true) {
+          this.spinner.hide();
+          this.toastr.success("Save successfully.");
+          this.gridApi1.startEditingCell({
+            rowIndex: params.rowIndex +1,
+            colKey: 'MPER'
+          })
+        } else {
+          this.spinner.hide();
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: JSON.stringify(SaveRes.data),
+          });
+        }
+      } catch (err) {
+        this.spinner.hide();
+        this.toastr.error(err);
+      }
+    });
+  }
+
+  }
   }
 
   rowSpy(params) {
@@ -680,5 +730,84 @@ export class ParcelViewComponent implements OnInit {
       return ""
     }
   }
+
+  oncellValueChanged(eve){
+    let SubData = []
+    this.gridApi1.forEachNode(function (rowNode, index) {
+      SubData.push(rowNode.data);
+    });
+    let MERGEDATA =[]
+    for(let i=0;i<SubData.length;i++){
+      if(SubData[i].TOTAL == eve.data.TOTAL && SubData[i].RCTS === eve.data.RCTS){
+        MERGEDATA.push(SubData[i])
+      }
+    }
+    let NewAMT = 0
+    for(let i=0;i<MERGEDATA.length;i++){
+      if(MERGEDATA[i].PLN == eve.data.PLN){
+        let carat = MERGEDATA[i].CARAT
+        let Orap = MERGEDATA[i].ORAP
+        let Mprevalue
+        if(parseFloat(MERGEDATA[i].MPER)){
+          Mprevalue = parseFloat(MERGEDATA[i].MPER)
+        }else{
+          Mprevalue = MERGEDATA[i].PER
+        }
+        let newArray
+        let FinalValue = 0
+        let NewSum = 0
+        newArray = (Mprevalue / 100) * Orap
+        FinalValue = Orap - newArray
+        NewSum = FinalValue * carat
+        MERGEDATA[i].RATE = FinalValue
+        MERGEDATA[i].AMT = NewSum
+        NewAMT += NewSum
+      }else{
+        NewAMT += MERGEDATA[i].AMT
+      }
+    }
+    console.log(NewAMT)
+    for(let i=0;i<MERGEDATA.length;i++){
+      MERGEDATA[i].TOTAL = NewAMT
+      let NewPer = 0
+      NewPer = MERGEDATA[i].TOTAL / MERGEDATA[i].I_CARAT
+      MERGEDATA[i].RCTS = NewPer.toFixed(0)
+    }
+    let NewObj ={
+      T_DATE:this.DockData.T_DATE,
+      F_DATE:this.DockData.T_DATE,
+      S_CODE:this.S_CODE ? this.S_CODE:'',
+      C_CODE:this.C_CODE ? this.C_CODE:'',
+      Q_CODE:this.Q_CODE ? this.Q_CODE:'',
+      F_CARAT:this.F_CARAT ? this.F_CARAT:0,
+      T_CARAT:this.T_CARAT ? this.T_CARAT:0,
+      COMP_CODE:this.DockData.COMP_CODE ? this.DockData.COMP_CODE:'',
+    }
+    this.ViewServ.ParcelWrkDisp(NewObj).subscribe(
+      (FillRes) => {
+        try {
+          if (FillRes.success == true) {
+            this.spinner.hide();
+           
+            this._gridFunction.FooterKey = this.FooterKey
+            this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data[1])
+            this.gridApi1.refreshCells({ force: true })
+          } else {
+            this.spinner.hide();
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: JSON.stringify(FillRes.data),
+            });
+          }
+        } catch (error) {
+          this.spinner.hide();
+          this.toastr.error(error);
+        }
+      }
+    );
+    this.gridApi1.refreshCells({ force: true })
+  }
+
 
 }

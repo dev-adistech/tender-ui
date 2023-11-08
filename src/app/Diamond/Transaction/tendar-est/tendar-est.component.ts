@@ -24,6 +24,7 @@ import { ImageUploadComponent } from "./image-upload/image-upload.component";
 import { VideoShowComponent } from "./video-show/video-show.component";
 import { ActivatedRoute } from "@angular/router";
 import { BvViewDetComponent } from "../../View/b-v-view/bv-view-det/bv-view-det.component";
+import { DashboardService } from "src/app/Service/Dashboard/dashboard.service";
 declare let $: any;
 
 @Component({
@@ -48,9 +49,11 @@ export class TendarEstComponent implements OnInit {
   ADIS: any = "";
   T_DATE: any = null;
   BUTTONHIDE:boolean = true
+  BUTTONSHOW:boolean = false
   BVDATA:any = []
 
   VIDEOON:boolean=false
+  ISFINDRAP:boolean=true
 
   @ViewChild(BvViewDetComponent) BvViewDetComponent: any;
 
@@ -249,10 +252,9 @@ export class TendarEstComponent implements OnInit {
     private _FrmOpePer: FrmOpePer,
     private dialog: MatDialog,
     private http: HttpClient,
-    private route: ActivatedRoute
-    // @Inject(MAT_DIALOG_DATA) public dataMain: any
+    private route: ActivatedRoute,
+    private DashboardServ: DashboardService,
   ) {
-    // console.log("245",dataMain)
     this.szControl = new FormControl();
     this.ColControl = new FormControl();
     this.MacColControl = new FormControl();
@@ -260,15 +262,6 @@ export class TendarEstComponent implements OnInit {
     this.MacFloControl = new FormControl();
     this.MacComControl = new FormControl();
     this.TensionControl = new FormControl();
-    // this.columnDefs = [
-    //   {
-    //     headerName: "SRNO",
-    //     field: "RES",
-    //     // cellRenderer: "agGroupCellRenderer",
-    //     headerClass: "text-center",
-    //     width: 389,
-    //   },
-    // ];
     let op=this
     this.defaultColDef = {
       resizable: true,
@@ -311,6 +304,7 @@ export class TendarEstComponent implements OnInit {
     }
     const MakHistoryData = JSON.parse(localStorage.getItem('TendarEstComponent'))
     if (MakHistoryData) {
+      if(MakHistoryData[0][0]){
       this.COMP_CODE = MakHistoryData[0][0].COMP_CODE
       this.COMP_NAME = MakHistoryData[0][0].TEN_NAME
       this.DETID = MakHistoryData[0][0].DETID
@@ -365,7 +359,7 @@ export class TendarEstComponent implements OnInit {
           this.FLOCODE = MakHistoryData[0][0].FL_CODE
           this.ADIS = MakHistoryData[0][0].ADIS
           this.BVDATA = MakHistoryData[1]
-          // this.gridApi.setRowData(MakHistoryData[1])
+        }
           let NewObj = {
             COMP_CODE: this.COMP_CODE,
             DETID:this.DETID,
@@ -397,6 +391,7 @@ export class TendarEstComponent implements OnInit {
             }
           })
       this.BUTTONHIDE = false
+      this.BUTTONSHOW = true
     }
 
     localStorage.removeItem('TendarEstComponent')
@@ -434,7 +429,6 @@ export class TendarEstComponent implements OnInit {
     this.gridApi1 = params.api;
     this.gridColumnApi1 = params.columnApi;
     this.gridApi1.setRowData(this.BVDATA)
-    // this.LoadGridData();
   }
 
   FillViewPara() {
@@ -461,7 +455,7 @@ export class TendarEstComponent implements OnInit {
                     if (params.node.rowPinned != "bottom") {
                       if(params.data['PTAG'] !== 'Total'){
                       if (params.data[VPRes.data[i].FIELDNAME] == 1) {
-                        if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S')&& this.ALLGRIDDISABLE == false) {
+                        if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
@@ -475,7 +469,7 @@ export class TendarEstComponent implements OnInit {
                           );
                         }
                       } else {
-                        if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S')&& this.ALLGRIDDISABLE == false) {
+                        if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
@@ -588,8 +582,6 @@ export class TendarEstComponent implements OnInit {
               temp[i].valueFormatter = this.StringFormat;
             }
             this._gridFunction.FooterKey = this.FooterKey;
-            // delete temp[i].cellStyle
-            // temp[i].cellStyle = this.ColColor.bind(this)
           }
           this.columnDefs1 = temp
 
@@ -613,7 +605,7 @@ export class TendarEstComponent implements OnInit {
     });
   }
   MPERDISABLE(params) {
-    if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S') && this.ALLGRIDDISABLE == false && params.data.PTAG !== "Total") {
+    if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'ADMIN') && this.ALLGRIDDISABLE == false && params.data.PTAG !== "Total") {
       return true
     } else {
       return false
@@ -625,7 +617,7 @@ export class TendarEstComponent implements OnInit {
     if (this.disabledata && this.decodedTkn.U_CAT !== "S" && this.decodedTkn.U_CAT !== "C") {
       this.FLOCODEDIS = true
       return false
-    } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false && params.data.PTAG !== "Total") {
+    } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') && this.ALLGRIDDISABLE == false && params.data.PTAG !== "Total") {
       return true
     } else {
       this.FLOCODEDIS = false
@@ -675,7 +667,7 @@ export class TendarEstComponent implements OnInit {
         template += '</select>';
         return template;
       } else
-        if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
+        if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') && this.ALLGRIDDISABLE == false) {
           let template = `
           <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
           <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -798,7 +790,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -921,7 +913,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1045,7 +1037,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') && this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1167,7 +1159,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN') && this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') && this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1289,7 +1281,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1411,7 +1403,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1534,7 +1526,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1657,7 +1649,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1780,7 +1772,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1903,7 +1895,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2026,7 +2018,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2148,7 +2140,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -2271,7 +2263,7 @@ export class TendarEstComponent implements OnInit {
         }
         template += '</select>';
         return template;
-      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN')&& this.ALLGRIDDISABLE == false) {
+      } else if ((params.data.IUSER == this.decodedTkn.UserId || !params.data.IUSER || this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN')&& this.ALLGRIDDISABLE == false) {
         let template = `
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
         <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -2506,7 +2498,6 @@ export class TendarEstComponent implements OnInit {
 
     let li = this.lienzo1.nativeElement;
     li.width = window.innerWidth - 400;
-    // this.CliCKEDDATA = eve.data
     let NewObj = {
       COMP_CODE: this.COMP_CODE,
       DETID:this.DETID,
@@ -2522,7 +2513,6 @@ export class TendarEstComponent implements OnInit {
       .then(response => response.blob())
       .then(blob => createImageBitmap(blob))
       .then(imageBitmap => {
-        // Draw the ImageBitmap on the canvas
         const canvas = document.getElementById('lienzo1') as HTMLCanvasElement;
         const context = canvas.getContext('2d');
         canvas.width = imageBitmap.width;
@@ -2543,7 +2533,7 @@ export class TendarEstComponent implements OnInit {
             this.FLOCODEDIS = true
           }
 
-          if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S'){
+          if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'ADMIN'){
             this.disabledata = false 
             this.FLOCODEDIS = false
           }
@@ -2612,13 +2602,7 @@ export class TendarEstComponent implements OnInit {
               eve.api.refreshCells({ force: true })
             } else {
               this.spinner.hide();
-              // Swal.fire({
-              //   icon: "error",
-              //   title: "Oops...",
-              //   text: JSON.stringify(SaveRes.data),
-              // });
               return;
-              // return;
             }
             
           }catch{
@@ -2649,12 +2633,6 @@ export class TendarEstComponent implements OnInit {
 
               } else {
                 this.spinner.hide();
-                // Swal.fire({
-                //   icon: "error",
-                //   title: "Oops...",
-                //   text: JSON.stringify(SaveRes.data),
-                // });
-                // return;
               }
             } catch (err) {
               this.spinner.hide();
@@ -2748,11 +2726,8 @@ export class TendarEstComponent implements OnInit {
           try {
             if (Res.success == true) {
               this.spinner.hide();
-              //get file names from database
               const videos = Res.data.map((item) => item.PUBLICID);
-              //delete files from cloud first then delete from database
               this.deleteTenderVideoFromCloud(videos);
-              // await this.deleteTenderVideoFromDatabase(Obj)
             } else {
               this.toastr.warning("Cannot get video upload data.");
             }
@@ -2790,7 +2765,6 @@ export class TendarEstComponent implements OnInit {
       this.AreaBoxStyle=`border:1px solid black;width: 100%;resize: none;height:100%`;
       this.BlankBoxStyle=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;height: 100%;`;
       this.HearderBoxStyle=`border:1px solid black;width:100%;padding: 2px 3px; text-align: center;border-bottom:none`;
-      // this.ContainWidth=`width:145%`;
     }else{
       this.DOCKON = false
       this.agGridStyles =`width: 100%; height: calc(100vh - 469px); margin-bottom: 9%;`
@@ -2803,7 +2777,6 @@ export class TendarEstComponent implements OnInit {
   }
 
   async deleteTenderVideoFromCloud(videos) {
-    // for (const video of videos) {
     for (let i = 0; i < videos.length; i++) {
       const httpOptions = {
         headers: new HttpHeaders({
@@ -2825,7 +2798,6 @@ export class TendarEstComponent implements OnInit {
           httpOptions
         )
         .subscribe((Res) => {
-          // if (i === videos.length - 1) this.deleteTenderVideoFromDatabase();
         });
     }
   }
@@ -2992,10 +2964,13 @@ export class TendarEstComponent implements OnInit {
           if (params.data.PLANNO === SubData[i].PLANNO) {
             if (SubData[i].PLNSEL != true) {
               SubData[i].PLNSEL = true;
+              this.ISFINDRAP = true
             } else {
+              this.ISFINDRAP = true
               SubData[i].PLNSEL = false;
             }
           } else {
+            this.ISFINDRAP = true
             SubData[i].PLNSEL = false;
           }
         }
@@ -3175,11 +3150,7 @@ export class TendarEstComponent implements OnInit {
 
     let NewValue = (this.ADIS/100)*this.FINALAMT
     let FinalValue1 = 0
-    // if(`${this.ADIS}`.includes('+')){
       FinalValue1 = parseFloat(this.FINALAMT) + NewValue
-    // }else{
-      // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
-    // }
     this.FINALAMT = FinalValue1.toFixed(2)
 
       let NewBid = this.FINALAMT / this.PKTWEIGHT
@@ -3194,11 +3165,7 @@ export class TendarEstComponent implements OnInit {
     if(parseFloat(params)){
     let FinalValue = 0
     let NewValue = (parseFloat(params)/100)*parseFloat(this.FINALAMT1)
-    // if(params.includes('+')){
       FinalValue = parseFloat(this.FINALAMT1) + NewValue
-    // }else{
-      // FinalValue = parseFloat(this.FINALAMT1) - NewValue
-    // }
     this.FINALAMT = FinalValue
     let FinalBidAMT =  this.FINALAMT / this.PKTWEIGHT
     this.FINALBID =FinalBidAMT.toFixed(2)
@@ -3218,6 +3185,24 @@ export class TendarEstComponent implements OnInit {
     let FinalGrid = this.GridTempData;
 
     if (params.colDef.field === 'MPER') {
+
+      if(parseFloat(params.data.MPER) >= params.data.PER + 10 || parseFloat(params.data.MPER) <= params.data.PER - 10){
+        Swal.fire({
+          title:
+            "Are you Sure You Want To Update",
+          icon: "warning",
+          cancelButtonText: "No",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+        }).then((result) => {
+          if (result.value) {
+          }else {
+            params.data.MPER = 0
+            this.gridApi1.refreshCells({force:true})
+          }
+  })
+}
+
       if(parseFloat(params.newValue) !== 100 && parseFloat(params.newValue) !== 0 ){
       let newArray = 0
       let FinalValue
@@ -3446,20 +3431,12 @@ export class TendarEstComponent implements OnInit {
         }
       }
       let NewValue = (this.ADIS/100)*this.FINALAMT
-      // let FinalValue1 = parseFloat(this.FINALAMT) - NewValue
       let FinalValue1 = 0
-      // if(`${this.ADIS}`.includes('+')){
         FinalValue1 = parseFloat(this.FINALAMT) + NewValue
-      // }else{
-        // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
-      // }
       this.FINALAMT = FinalValue1.toFixed(2)
 
       let NewBid = this.FINALAMT / this.PKTWEIGHT
       this.FINALBID =NewBid.toFixed(2)
-      // let NewValue = (this.ADIS/100)*this.PKTPER
-      // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-      // this.FINALBID =FinalValue1.toFixed(2)
       let TotalSumAmt = 0
       let TotalSumRate = 0
       for(let i=0;i< FinalGrid.length;i++){
@@ -3515,7 +3492,7 @@ export class TendarEstComponent implements OnInit {
       if (!params.data.ML_CODE) {
         return;
       }
-
+      this.ISFINDRAP = false
       let RapObj = {
         S_CODE: params.data.S_CODE,
         Q_CODE: params.data.Q_CODE,
@@ -3529,7 +3506,6 @@ export class TendarEstComponent implements OnInit {
         SH_CODE: params.data.SH_CODE,
         REF_CODE: params.data.REF_CODE,
         RAPTYPE: params.data.RAPTYPE,
-        // MPER:params.data.MPER
       };
       this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
         try {
@@ -3539,7 +3515,7 @@ export class TendarEstComponent implements OnInit {
             params.data.RTYPE = RapRes.data[2][0][""];
             params.data.AMT = params.data.RATE * params.data.CARAT;
             params.data.PER = 100 - (params.data.RATE / params.data.ORAP) * 100;
-
+            this.ISFINDRAP = true
             params.api.refreshCells({ force: true });
 
             this.gridApi1.forEachNode(function (rowNode, index) {
@@ -3699,20 +3675,12 @@ export class TendarEstComponent implements OnInit {
             }
             this.PKTPER = highestRate.toFixed(2)
             let NewValue = (this.ADIS/100)*this.FINALAMT
-            // let FinalValue1 = parseFloat(this.FINALAMT) - NewValue
             let FinalValue1 = 0
-            // if(`${this.ADIS}`.includes('+')){
               FinalValue1 = parseFloat(this.FINALAMT) + NewValue
-            // }else{
-              // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
-            // }
             this.FINALAMT = FinalValue1.toFixed(2)
   
             let NewBid = this.FINALAMT / this.PKTWEIGHT
             this.FINALBID =NewBid.toFixed(2)
-            // let NewValue = (this.ADIS/100)*this.PKTPER
-            // let FinalValue1 = parseFloat(this.PKTPER) + NewValue
-            // this.FINALBID =FinalValue1.toFixed(2)
             let TotalSumAmt = 0
             let TotalSumRate = 0
             for(let i=0;i< FinalGrid.length;i++){
@@ -3744,7 +3712,9 @@ export class TendarEstComponent implements OnInit {
   }
 
   Save() {
-
+    if(!this.ISFINDRAP){
+      return 
+    }
     let saveOBJ1 = {
       COMP_CODE: this.COMP_CODE,
       DETID: this.DETID,
@@ -3796,7 +3766,6 @@ export class TendarEstComponent implements OnInit {
         if (SaveRes.success == true) {
           this.spinner.hide();
           this.SRNODIS = true
-          // this.toastr.success("Save successfully.");
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -4015,7 +3984,7 @@ export class TendarEstComponent implements OnInit {
     document.getElementById("mySidebar").style.display = "none";
   }
   async ngOnInit() {
-    if(this.decodedTkn.UserId === 'DN'){
+    if(this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN'){
       this.ADISDISABLE = false
     }else {
       this.ADISDISABLE = true
@@ -5138,29 +5107,6 @@ export class TendarEstComponent implements OnInit {
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
                         );
                       }
-                      //   if(this.disabledataArray.SRNO){
-                      //   if (params.data['AUSER'] === this.decodedTkn.UserId && this.disabledataArray.SRNO == params.data.SRNO) { 
-                      //     return (
-                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
-                      //     );
-                      //   } else if(params.data['AUSER'] === this.decodedTkn.UserId){
-                      //     return (
-                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
-                      //     );
-                      //   } else if(params.data['AUSER']){
-                      //     return (
-                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
-                      //     );
-                      //   } else {
-                      //     return (
-                      //       '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
-                      //     );
-                      //   }
-                      // }else{
-                      //   return (
-                      //     '<input type="checkbox" data-action-type="ISAPPROVE" checked>'
-                      //   );
-                      // }
                     }
                   } else {
                     return (
@@ -5227,29 +5173,6 @@ export class TendarEstComponent implements OnInit {
             }
           }
           this.columnDefs = temp
-
-          // this.columnDefs.unshift({
-          //   // children: [
-          //     // {
-          //       field: 'action',
-          //       width: 80,
-          //       suppressMenu: true,
-          //       cellRenderer: function (params) {
-          //         if (params.node.rowPinned != 'bottom') {
-          //           let a = '<span class="det_val">'
-          //             if (op.ALLOWUPD) {
-          //               a += '<input type="file" style="display: none;" data-action-type="Savedata">'
-          //             if (op.ALLOWDEL) {
-          //               a = a + '<svg class="grid-icon icon-delete" data-action-type="DeleteData" > <use  data-action-type="DeleteData" xlink: href = "assets/symbol-defs.svg#icon-delete" > </use> </svg>'
-          //             }
-          //           a = a + "</span>"
-          //           return a
-          //         }
-          //       },
-          //       headerClass: "text-center",
-          //   //   },
-          //   // ]
-          // })
         } else {
           Swal.fire({
             icon: "error",
@@ -5279,15 +5202,6 @@ export class TendarEstComponent implements OnInit {
 
 
   UPLOAD() {
-    // Swal.fire({
-    //   // title:,
-    //   icon: "warning",
-    //   cancelButtonText: "Upload Video",
-    //   showCancelButton: true,
-    //   showConfirmButton: true,
-    //   confirmButtonText: "Camera Open",
-    // }).then((result) => {
-    //   if (result.value) {
     const dialogRef = this.dialog.open(WebCamComponent, {
       panelClass: "saw-mac-pro-det-dialog",
       autoFocus: false,
@@ -5300,13 +5214,6 @@ export class TendarEstComponent implements OnInit {
 
     $("#Close").click()
     dialogRef.afterClosed().subscribe((result) => { })
-    // }else if(result.dismiss == Swal.DismissReason.cancel){
-    //   const fileInput = document.getElementById('fileInput');
-    //   if (fileInput) {
-    //     fileInput.click();
-    //   }
-    // }
-    // })
   }
   UploadDirect() {
     const fileInput = document.getElementById('fileInput');
@@ -5420,9 +5327,7 @@ export class TendarEstComponent implements OnInit {
   }
 
   onFileInputChange(event: Event) {
-
     let op = this
-
     const inputElement = event.target as HTMLInputElement;
     const selectedFile = inputElement.files?.[0];
 
@@ -5489,7 +5394,6 @@ export class TendarEstComponent implements OnInit {
   }
 
   DRAW() {
-
     const dialogRef = this.dialog.open(MiniPaintComponent, {
       panelClass: "saw-mac-pro-det-dialog",
       autoFocus: false,
@@ -5516,7 +5420,6 @@ export class TendarEstComponent implements OnInit {
         .then(response => response.blob())
         .then(blob => createImageBitmap(blob))
         .then(imageBitmap => {
-          // Draw the ImageBitmap on the canvas
           const canvas = document.getElementById('lienzo1') as HTMLCanvasElement;
           const context = canvas.getContext('2d');
           canvas.width = imageBitmap.width;
@@ -5601,7 +5504,6 @@ export class TendarEstComponent implements OnInit {
     let _GridRowData = [];
     let SubData = [];
     let FinalGrid = [];
-
     if (!RapObj.S_CODE) {
       return;
     }
@@ -5629,6 +5531,7 @@ export class TendarEstComponent implements OnInit {
     if (!RapObj.ML_CODE) {
       return;
     }
+    this.ISFINDRAP = false
     let RapObj1 = {
       S_CODE: RapObj.S_CODE,
       Q_CODE: RapObj.Q_CODE,
@@ -5648,7 +5551,7 @@ export class TendarEstComponent implements OnInit {
     this.TendarEstServ.FindRap(RapObj1).then((RapRes) => {
       try {
         if (RapRes.success == true) {
-
+          this.ISFINDRAP = true
 
           let oldRapObj = JSON.parse(RapObj.DATA);
 
@@ -5834,13 +5737,7 @@ export class TendarEstComponent implements OnInit {
 
           let NewValue = (this.ADIS/100)*this.FINALAMT
           let FinalValue1 = 0
-          // if(`${this.ADIS}`.includes('+')){
             FinalValue1 = parseFloat(this.FINALAMT) + NewValue
-          // }else{
-            // FinalValue1 = parseFloat(this.FINALAMT) - NewValue
-          // }
-          // let FinalValue1 = parseFloat(this.FINALAMT) - NewValue
-          this.FINALAMT = FinalValue1.toFixed(2)
 
           let NewBid = this.FINALAMT / this.PKTWEIGHT
           this.FINALBID =NewBid.toFixed(2)
@@ -6049,13 +5946,13 @@ export class TendarEstComponent implements OnInit {
               this.FLOCODEDIS = true
             }
 
-            if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S'){
+            if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'ADMIN'){
               this.disabledata = false 
               this.FLOCODEDIS = false
             }
 
             for(let i=0;i<newdata.length;i++){
-              if(newdata[i].PLNSEL === true && this.decodedTkn.UserId !== 'DN'){
+              if(newdata[i].PLNSEL === true && this.decodedTkn.UserId !== 'DN' || this.decodedTkn.UserId === 'ADMIN'){
                 this.ALLGRIDDISABLE = true
                 break
               }
@@ -6096,5 +5993,8 @@ export class TendarEstComponent implements OnInit {
         }
       });
     }
+  }
+  CLOSEPOPUP(){
+    this.DashboardServ.sendClickEvent('TendarEstComponent')
   }
 }

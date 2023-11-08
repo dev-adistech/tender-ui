@@ -167,6 +167,8 @@ export class BVViewComponent implements OnInit {
   FINALAMT1:any = ''
   ADIS: any = "";
 
+  ISFINDRAP:boolean = true
+
   constructor(
     private EncrDecrServ: EncrDecrService,
     private toastr: ToastrService,
@@ -214,6 +216,40 @@ export class BVViewComponent implements OnInit {
     }
     this.FillViewPara()
   }
+  NewClick(item){
+    console.log(item)
+    let Data = []
+    this.TendarEstServ.TendarPrdDetDisp({
+      COMP_CODE: this.COMP_CODE,
+      DETID: this.DETID,
+      SRNO: item.SRNO,
+      TYPE:'BV'
+    }).subscribe((FillRes) => {
+      try {
+        if (FillRes.success == true) {
+          this.spinner.hide()
+          Data.push(FillRes.data)
+          localStorage.setItem("TendarEstComponent", JSON.stringify(Data[0]));
+          const dialogRef = this.dialog.open(BvViewDetComponent, {
+            panelClass: "mat-dialog-container",
+            autoFocus: false,
+            minWidth: "99vw",
+            width: "100vw !important",
+            height: "calc(100vh - 1%)",
+            data: Data
+          })
+      
+        }else{
+          this.spinner.hide()
+          this.toastr.error('Data Not Found')
+        }
+      }catch{
+        this.spinner.hide()
+        this.toastr.error('Data Not Found')
+      }
+    })
+    $("#Close").click()
+  }
 
   oncellClick(eve){
     let Data = []
@@ -229,11 +265,11 @@ export class BVViewComponent implements OnInit {
           Data.push(FillRes.data)
           localStorage.setItem("TendarEstComponent", JSON.stringify(Data[0]));
           const dialogRef = this.dialog.open(BvViewDetComponent, {
-            panelClass: "marker-acc-view-det-dialog",
+            panelClass: "mat-dialog-container",
             autoFocus: false,
-            minWidth: "75vw",
-            width: "100% !important",
-            height: "calc(100vh - 16%)",
+            minWidth: "99vw",
+            width: "100vw !important",
+            height: "calc(100vh - 1%)",
             data: Data
           })
       
@@ -251,7 +287,7 @@ export class BVViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.decodedTkn.UserId == 'DN'){
+    if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.UserId == 'ADMIN'){
       this.ADISDISABLE = false
       this.SAVEBTNSHOW = true
     }else {
@@ -442,11 +478,6 @@ export class BVViewComponent implements OnInit {
           RAPTYPE
         }
        
-        // for (let i = 0; i < op._GridRowData.length; i++) {
-        //   if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-        //     op._GridRowData[i].S_CODE = S_CODE
-        //   }
-        // }
         for (let i = 0; i < op._GridRowData.length; i++) {
           for (let j = 0; j < op.rowData.length;j++) {
           for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
@@ -458,7 +489,6 @@ export class BVViewComponent implements OnInit {
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
         op.findrap1(NewCode)
       });
 
@@ -534,8 +564,6 @@ export class BVViewComponent implements OnInit {
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-  
         op.findrap1(NewCode)
   
       })
@@ -1410,21 +1438,16 @@ export class BVViewComponent implements OnInit {
   GETDETID() {
     this.DETID=''
     this.T_DATE=null
+    this.T_NAME=''
     this.DETIDarr = [];
     this.TendarMastser.TendarMastFill({ COMP_CODE: this.COMP_CODE }).subscribe(
       (FillRes) => {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            for (let i = 0; i < FillRes.data.length; i++) {
-              if(FillRes.data[i].ISACTIVE == true){
-              this.DETIDarr.push({
-                code: FillRes.data[i].DETID,
-                date: FillRes.data[i].T_DATE,
-                name:FillRes.data[i].T_NAME
-              });
-            }
-            }
+            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true).map(item => {
+              return { code: item.DETID,date: item.T_DATE,name:item.T_NAME };
+            });
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -1630,7 +1653,7 @@ export class BVViewComponent implements OnInit {
   }
 
   MPERDISABLE(params) {
-    if (this.decodedTkn.UserId === 'DN') {
+    if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
       return true
     } else {
       return false
@@ -1639,7 +1662,7 @@ export class BVViewComponent implements OnInit {
 
   CARATEDITABLE(params) {
 
-    if (this.decodedTkn.UserId === 'DN') {
+    if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
       return true
     } else {
       return false
@@ -1648,7 +1671,7 @@ export class BVViewComponent implements OnInit {
 
   ShapeFill(params) {
     if (params.data.PTAG !== "Total") {
-        if (this.decodedTkn.UserId === 'DN') {
+        if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
           let template = `
           <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
           <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1732,7 +1755,7 @@ export class BVViewComponent implements OnInit {
 
   ColorFill(params) {
     if (params.data.PTAG !== "Total") {
-    if (this.decodedTkn.UserId === 'DN') {
+    if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1816,7 +1839,7 @@ export class BVViewComponent implements OnInit {
 
   QuaFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1900,7 +1923,7 @@ export class BVViewComponent implements OnInit {
 
   CutFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -1984,7 +2007,7 @@ export class BVViewComponent implements OnInit {
 
   FloFill(params) {
     if (params.data.PTAG !== "Total") {
-       if (this.decodedTkn.UserId === 'DN') {
+       if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2068,7 +2091,7 @@ export class BVViewComponent implements OnInit {
 
   LabFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2152,7 +2175,7 @@ export class BVViewComponent implements OnInit {
 
   IncFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2236,7 +2259,7 @@ export class BVViewComponent implements OnInit {
 
   MilkyFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2320,7 +2343,7 @@ export class BVViewComponent implements OnInit {
 
   DepFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2403,7 +2426,7 @@ export class BVViewComponent implements OnInit {
   }
   RatFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2487,7 +2510,7 @@ export class BVViewComponent implements OnInit {
 
   GrdFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2571,7 +2594,7 @@ export class BVViewComponent implements OnInit {
 
   SHADESFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2655,7 +2678,7 @@ export class BVViewComponent implements OnInit {
 
   REFFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -2739,7 +2762,7 @@ export class BVViewComponent implements OnInit {
 
   RAPTYPEFill(params) {
     if (params.data.PTAG !== "Total") {
-      if (this.decodedTkn.UserId === 'DN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
         <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -2978,6 +3001,7 @@ export class BVViewComponent implements OnInit {
     if (!RapObj.ML_CODE) {
       return;
     }
+    this.ISFINDRAP = false
     let RapObj1 = {
       S_CODE: RapObj.S_CODE,
       Q_CODE: RapObj.Q_CODE,
@@ -2997,7 +3021,7 @@ export class BVViewComponent implements OnInit {
     this.TendarEstServ.FindRap(RapObj1).then((RapRes) => {
       try {
         if (RapRes.success == true) {
-
+          this.ISFINDRAP = true
           let oldRapObj = JSON.parse(RapObj.DATA);
           let PTAGROW = []
           let PTAGRO = []
@@ -3076,6 +3100,25 @@ export class BVViewComponent implements OnInit {
   }
   FindRap(eve){
     if(eve.colDef.field === 'MPER'){
+      if(parseFloat(eve.data.MPER) >= eve.data.PER + 10 || parseFloat(eve.data.MPER) <= eve.data.PER - 10){
+        Swal.fire({
+          title:
+            "Are you Sure You Want To Update",
+          icon: "question",
+          customClass: {
+            popup: 'swal-height'
+          },
+          cancelButtonText: "No",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+        }).then((result) => {
+          if (result.value) {
+          }else {
+            eve.data.MPER = 0
+            // this.gridApi1.refreshCells({force:true})
+          }
+  })
+}
     let NewData = []
     for(let i=0;i< this.rowData.length;i++){
       for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
@@ -3125,6 +3168,9 @@ export class BVViewComponent implements OnInit {
           let FINAL = (parseFloat(this.rowData[i].ADIS) /100)*NewAmtSum
           
           // if(`${this.rowData[i].ADIS}`.includes('+')){
+            if(!FINAL){
+              FINAL = 0
+            }
             ADISDIS = NewAmtSum + FINAL
           // }else{
           //   ADISDIS = NewAmtSum - FINAL
@@ -3171,6 +3217,7 @@ export class BVViewComponent implements OnInit {
     if (!eve.data.ML_CODE) {
       return;
     }
+    this.ISFINDRAP = false
     let RapObj = {
       S_CODE: eve.data.S_CODE,
       Q_CODE: eve.data.Q_CODE,
@@ -3189,6 +3236,7 @@ export class BVViewComponent implements OnInit {
 
     this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
       try {
+        this.ISFINDRAP = true
           let PTAGROW = []
           let PTAGRO = []
           let CrtSum =0
@@ -3307,6 +3355,9 @@ export class BVViewComponent implements OnInit {
   }
 }
   Save(item){
+    if(!this.ISFINDRAP){
+      return 
+    }
     let saveOBJ1 = {
       COMP_CODE: item.COMP_CODE,
       DETID: item.DETID,

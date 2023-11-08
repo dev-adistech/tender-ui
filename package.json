@@ -1,6 +1,6 @@
 {
   "name": "predacon-ui",
-  "version": "01.11.2023",
+  "version": "06.11.2023",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

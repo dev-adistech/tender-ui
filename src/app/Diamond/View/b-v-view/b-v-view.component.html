@@ -1,9 +1,19 @@
 <div class="prc-view__container glass-light" style="overflow: scroll; height: 98%;">
   <div class="prc-view__container--row-1" style="display: flex;gap:1rem">
 
-    <ng-select class="autoComplete" placeholder="Company Code*" style="width: 6rem;" appearance="outline"
+    <!-- <ng-select class="autoComplete" placeholder="Company Code*" style="width: 6rem;" appearance="outline"
       autocomplete="off" [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID()">
       <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
+    </ng-select> -->
+
+    <ng-select class="autoComplete" [items]="DEPTArr" appearance="outline" #select bindLabel="code"
+      dropdownPosition="auto" bindValue="code" [(ngModel)]="COMP_CODE"
+      (ngModelChange)="GETNAME();GETDETID()"
+      labelForId="album"
+      placeholder="Company Code*" [virtualScroll]="true">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <span>{{item.name}} || {{item.code}}</span>
+      </ng-template>
     </ng-select>
 
     <mat-form-field appearance="outline" style="width: 6rem;">
@@ -11,9 +21,19 @@
       <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
     </mat-form-field>
 
-    <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 6rem;" appearance="outline"
-      autocomplete="off" [(ngModel)]="DETID" (ngModelChange)="GETDATE();">
-      <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}}</ng-option>
+    <!-- <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 6rem;" appearance="outline"
+      autocomplete="off" [(ngModel)]="DETID" (ngModelChange)="GETDATE();" bindLabel="code" bindValue="code">
+      <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}} || {{dept.date}}</ng-option>
+    </ng-select> -->
+
+    <ng-select class="autoComplete" [items]="DETIDarr" appearance="outline" #select bindLabel="code"
+      dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID"
+      (ngModelChange)="GETDATE()"
+      labelForId="album"
+      placeholder="Tendar No*" [virtualScroll]="true">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <span>{{item.code}} || {{item.date}}</span>
+      </ng-template>
     </ng-select>
 
     <mat-form-field appearance="outline" style="width: 6rem;">
@@ -67,9 +87,8 @@
                 WEIGHT</mat-label>
               <mat-label style="border:1px solid black;padding: 1px 61.5px; text-align: center;border-right:none;">
                 RESRVE</mat-label>
-              <mat-label style="border:1px solid black;padding: 1px 40px; text-align: center;border-right:none;">PER
-                CTS</mat-label>
-              <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">
+              <button style="border:1px solid black;padding: 1px 27px; text-align: center;border-right:none;background-color: #8d8b8b;color: white;" (click)="NewClick(item)">View All Plan</button>
+              <mat-label style="border:1px solid black;padding: 1px 17.5px; text-align: center;border-right:none;">
                 S.R.W</mat-label>
               <input type="text" style="border:1px solid black;width: 60px;height: 25px;border-right:none;" disabled
                 name="Code" autocomplete="off" />
@@ -86,17 +105,20 @@
                 style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
                 [(ngModel)]="item.AUSER" disabled name="Code" autocomplete="off" />
               <input type="text"
-                style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;font-weight: bold;"
                 disabled [(ngModel)]="item.SRNO" name="Code" autocomplete="off" />
               <input type="text"
-                style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                style="border:1px solid black;width: 89px;height: 25px;border-right:none;border-top:none;text-align: center;font-weight: bold;"
                 disabled [(ngModel)]="item.I_CARAT" name="Code" autocomplete="off" />
               <input type="text"
-                style="border:1px solid black;width: 174px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                style="border:1px solid black;width: 174px;height: 25px;border-right:none;border-top:none;text-align: center;font-weight: bold;"
                 [(ngModel)]="item.RESRVE" disabled name="Code" autocomplete="off" />
               <input type="text"
                 style="border:1px solid black;width: 136px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                disabled [(ngModel)]="item.PERCTS" name="Code" autocomplete="off" />
+                disabled  name="Code" autocomplete="off"/>
+              <input type="text"
+                style="border:1px solid black;width: 136px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                disabled [(ngModel)]="item.PERCTS" name="Code" autocomplete="off" hidden/>
               <input type="text"
                 style="border:1px solid black;width: 73px;height: 25px;border-right:none;border-top:none;text-align: center;"
                 disabled [(ngModel)]="item.SRW" name="Code" autocomplete="off" />
@@ -500,7 +522,7 @@
     <div class="newGrid memo-ent-grid">
         <ag-grid-angular class="ag-theme-alpine" style="width: calc(100% - 2%); height: 40vh; min-width: 1140px;"
         [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [getRowStyle]="getRowStyle" (gridReady)="onGridReady($event)"
-        [rowData]="item.GRID_DATA" [animateRows]="true" (cellValueChanged)="FindRap($event)" (cellDoubleClicked)="oncellClick($event)">
+        [rowData]="item.GRID_DATA" [animateRows]="true" (cellValueChanged)="FindRap($event)">
       </ag-grid-angular>
       </div>
       </article>

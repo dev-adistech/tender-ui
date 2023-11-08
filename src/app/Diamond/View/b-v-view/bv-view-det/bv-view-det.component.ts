@@ -1,11 +1,12 @@
 import { DatePipe } from '@angular/common';
 import { Component, ElementRef, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { ConverterFunctions } from 'src/app/Diamond/_helpers/functions/ConverterFunctions';
 import { EncrDecrService } from 'src/app/Service/Common/encr-decr.service';
+import { DashboardService } from 'src/app/Service/Dashboard/dashboard.service';
 import { ViewParaMastService } from 'src/app/Service/Master/view-para-mast.service';
 import { TendarEstService } from 'src/app/Service/Rap/tendar-est.service';
 import { TendatMastService } from 'src/app/Service/Transaction/tendat-mast.service';
@@ -64,6 +65,8 @@ export class BvViewDetComponent implements OnInit {
     private _convFunction: ConverterFunctions,
     private datePipe: DatePipe,
     private TendarEstServ: TendarEstService,
+    private DashboardServ: DashboardService,
+    private _mdr: MatDialogRef<BvViewDetComponent>
     // @Inject(MAT_DIALOG_DATA) public dataMain: any
   ) {
     
@@ -2029,53 +2032,20 @@ export class BvViewDetComponent implements OnInit {
   //   })
   // }
   ngOnInit(): void {
-    this.C_NAME = this.decodedMast[12].map((item) => {
-      return { code: item.C_CODE, name: item.C_NAME };
-    });
-    this.Q_NAME = this.decodedMast[5].map((item) => {
-      return { code: item.Q_CODE, name: item.Q_NAME };
-    });
-    this.CT_NAME = this.decodedMast[3].map((item) => {
-      return { code: item.CT_CODE, name: item.CT_NAME };
-    });
-    this.FL_NAME = this.decodedMast[7].map((item) => {
-      return { code: item.FL_CODE, name: item.FL_NAME };
-    });
-
-    this.LB_NAME = this.decodedMast[4].map((item) => {
-      return { code: item.LAB_CODE, name: item.LAB_NAME };
-    });
-    this.IN_NAME = this.decodedMast[6].map((item) => {
-      return { code: item.IN_CODE, name: item.IN_NAME };
-    });
-    this.S_CODE = this.decodedMast[15].map((item) => {
-      return { code: item.S_CODE, name: item.S_NAME };
-    });
-    this.ML_NAME = this.decodedMast[24].map((item) => {
-      return { code: item.ML_CODE, name: item.ML_NAME };
-    });
-
-    this.SHD_NAME = this.decodedMast[25].map((item) => {
-      return { code: item.SH_CODE, name: item.SH_NAME };
-    });
-
-    this.REF_NAME = this.decodedMast[26].map((item) => {
-      return { code: item.REF_CODE, name: item.REF_NAME };
-    });
-    this.DEP_NAME = this.decodedMast[21].map((item) => {
-      return { code: item.DEP_CODE };
-    });
-    this.GRD_NAME = this.decodedMast[22].map((item) => {
-      return { code: item.GRD_CODE };
-    });
-    this.RAT_NAME = this.decodedMast[23].map((item) => {
-      return { code: item.RAT_CODE };
-    });
-
-    this.RAPNAME = this.decodedMast[27].map((item) => {
-      return { code: item.RAPTYPE };
+    this.DashboardServ.getClickEvent().subscribe((res) => {
+      // this.onPress(res)
+      this.CLOSEPOPUP();
     });
 
   }
-
+  CLOSEPOPUP(){
+    this.DashboardServ.componentName$.subscribe(componentName => {
+      switch (componentName) {
+        case "TendarEstComponent": 
+        this._mdr.close()
+        const MakHistoryData = JSON.parse(localStorage.getItem('TendarEstComponent'))
+        localStorage.removeItem('TendarEstComponent')
+      }
+    })
+  }
 }

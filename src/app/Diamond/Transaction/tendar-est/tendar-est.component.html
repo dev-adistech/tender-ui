@@ -1,5 +1,5 @@
 <div style="display: inline-flex; height: 646px; width: 100%;">
-
+  
     <button class="btn" matTooltip="Docks" matTooltipClass="custom-tooltip" *ngIf="BUTTONHIDE"
       style="background-color: '#e5adf0'; width: 1%;" (click)="DockON()">
       <p style="margin: 0 -4px 10px;">T</p>
@@ -18,11 +18,21 @@
       style="width: calc(100% - 26px); place-content: baseline; display: flex; flex-direction: column;">
       <article class="fields-wrapper">
   
-        <ng-select class="autoComplete" placeholder="Company Code*" style="width: 13rem;" appearance="outline"
+        <!-- <ng-select class="autoComplete" placeholder="Company Code*" style="width: 13rem;" appearance="outline"
           autocomplete="off" [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID();GridClear()">
           <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
-        </ng-select>
+        </ng-select> -->
   
+        <ng-select class="autoComplete" [items]="DEPTArr" style="width: 13rem;" appearance="outline" #select bindLabel="code"
+          dropdownPosition="auto" bindValue="code" [(ngModel)]="COMP_CODE"
+          (ngModelChange)="GETNAME();GETDETID();GridClear()"
+          labelForId="album"
+          placeholder="Company Code*" [virtualScroll]="true">
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <span>{{item.name}} || {{item.code}}</span>
+          </ng-template>
+        </ng-select>
+
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
           <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
@@ -84,6 +94,13 @@
             <img src="./../../../../assets/img/Pricing/downloadfile.png" style="width: 27.55px;height: 28.8px;"
               (click)="Download()">
           </button>
+          
+          <button class="btn theme-btn mr-2 ml-auto" matTooltip='close' matTooltipClass="custom-tooltip" *ngIf="BUTTONSHOW"
+            (click)="CLOSEPOPUP()" style="width: 4%;height: 5%;">
+            <svg class="icon icon-close">
+              <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+            </svg>
+          </button>
   
           <input id="capInput" type="file" (change)="onCapInputChange($event)" style="display: none;">
           <input id="fileInput" type="file" (change)="onFileInputChange($event)" style="display: none;">
@@ -104,7 +121,7 @@
         <article class="aggrid-wrapper" style="width: 100%;">
           <div style="max-width: 1087px;">
             <div class="container-name" style="display: flex;">
-              <mat-label style="width: 150px;border:1px solid black;border-bottom:none;border-right: none;">TENDER NAME:-
+              <mat-label style="width: 154px;border:1px solid black;border-bottom:none;border-right: none;">TENDER NAME:-
               </mat-label>
               <input type="text" [style]="TendarStyle" [disabled]="FLOCODEDIS" [(ngModel)]="TENDAR_NAME" disabled
                 name="Code" autocomplete="off" class="tenderTxt" />
@@ -124,8 +141,9 @@
                       WEIGHT</mat-label>
                     <mat-label style="border:1px solid black;padding: 1px 60px; text-align: center;border-right:none;">
                       RESRVE</mat-label>
-                    <mat-label style="border:1px solid black;padding: 1px 40px; text-align: center;border-right:none;">PER
-                      CTS</mat-label>
+                    <!-- <mat-label style="border:1px solid black;padding: 1px 40px; text-align: center;border-right:none;">PER
+                      CTS</mat-label> -->
+                    <mat-label style="border:1px solid black;padding: 1px 67px; text-align: center;border-right:none;"></mat-label>
                     <mat-label style="border:1px solid black;padding: 1px 18px; text-align: center;border-right:none;">
                       S.R.W</mat-label>
                     <!-- <mat-label style="border:1px solid black;padding: 1px 29.5px; text-align: center;border-right:none;"> </mat-label> -->
@@ -154,7 +172,10 @@
                       [(ngModel)]="PKTRESERVE" [disabled]="FLOCODEDIS" name="Code" autocomplete="off" />
                     <input type="text"
                       style="border:1px solid black;width: 135px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                      disabled [(ngModel)]="PKTPER" name="Code" autocomplete="off" />
+                      disabled name="Code" autocomplete="off"/>
+                    <input type="text"
+                      style="border:1px solid black;width: 135px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                      disabled [(ngModel)]="PKTPER" name="Code" autocomplete="off" hidden/>
                     <input type="text"
                       style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
                       [(ngModel)]="PKTSRW" name="Code" [disabled]="FLOCODEDIS" autocomplete="off" />
@@ -202,12 +223,12 @@
                       style="border:1px solid black;padding: 2px 25px; text-align: center;border-right:none;border-top:none">
                       DN</mat-label>
                     <mat-label
-                      style="border:1px solid black;padding: 2px 9px; text-align: center;border-right:none;border-top:none">
+                      style="border:1px solid black;padding: 2px 9.5px; text-align: center;border-right:none;border-top:none">
                       USER 1</mat-label>
                     <mat-label
-                      style="border:1px solid black;padding: 2px 14px; text-align: center;border-right:none;border-top:none">
+                      style="border:1px solid black;padding: 2px 13.5px; text-align: center;border-right:none;border-top:none">
                       USER 2</mat-label>
-                    <mat-label style="border:1px solid black;padding: 2px 6.8px; text-align: center;border-top:none">USER
+                    <mat-label style="border:1px solid black;padding: 2px 7px; text-align: center;border-top:none">USER
                       3</mat-label>
                   </div>
                   <div style="display: flex;align-items: center;">

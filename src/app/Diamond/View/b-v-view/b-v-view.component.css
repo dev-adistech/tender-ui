@@ -850,3 +850,20 @@ input[type=text]:focus {
     background-color:#ffffff;
     color: black;
   }
+
+  .mat-dialog-container{
+    display: block;
+    border-radius: 4px;
+    box-sizing: border-box;
+    overflow: auto;
+    outline: 0;
+    width: 100% !important;
+    height: 100%;
+    min-height: inherit;
+    max-height: inherit;
+    padding: 0px !important;
+}
+
+.swal-height {
+  height: 10vh;
+}
