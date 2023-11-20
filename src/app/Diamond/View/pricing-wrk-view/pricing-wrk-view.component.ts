@@ -806,8 +806,6 @@ export class PricingWrkViewComponent implements OnInit {
     })
   }
   }
-  touchCount:number=0
-  touchTimer: any;
 
   OpenLotPopup() {
     const PRF = this.dialog.open(ListboxComponent, { width: '30% !important', data: { arr: this.Shapes, CODE: this.S_CODE, TYPE: 'ORDDIS' }, panelClass: 'ListboxDialog' })
