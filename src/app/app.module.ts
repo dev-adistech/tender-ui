@@ -79,7 +79,8 @@ import { RoughColorAnaComponent } from './Diamond/View/rough-color-ana/rough-col
 import { ParcelViewComponent } from './Diamond/View/parcel-view/parcel-view.component';
 import { BvViewDetComponent } from './Diamond/View/b-v-view/bv-view-det/bv-view-det.component';
 import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component';
-import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component'
+import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component';
+import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.component'
 
 
 @NgModule({
@@ -145,6 +146,7 @@ import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days
 		BvViewDetComponent,
 		GetCertiResComponent,
 		SellDaysMastComponent,
+		RateUpdateComponent,
 	],
 	imports: [
 		BrowserModule,

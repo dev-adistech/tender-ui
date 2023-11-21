@@ -313,6 +313,11 @@
                 <img src="../../../../assets/img/Config/getresult.png" alt="" />
                 Get Certi Result
               </li>
+              <li *ngIf="CheckFormPermission('RateUpdateComponent')"
+                (click)="addiFrameTabs('Rate Update', '/RateUpdate')">
+                <img src="../../../../assets/img/Config/lot-transfer.png" alt="" />
+                Rate Update
+              </li>
             </div>
           </div>
           <p class="sub-menu__section-name">Utility</p>

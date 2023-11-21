@@ -54,6 +54,7 @@ import { RoughColorAnaComponent } from './Diamond/View/rough-color-ana/rough-col
 import { ParcelViewComponent } from './Diamond/View/parcel-view/parcel-view.component';
 import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component';
 import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component';
+import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.component';
 
 
 const routes: Routes = [
@@ -108,6 +109,7 @@ const routes: Routes = [
   { path: 'UserMast', component: UserMastComponent, canActivate: [AuthGuard] },
   { path: 'PerMast', component: PerMastComponent, canActivate: [AuthGuard] },
   { path: 'GetCert', component: GetCertiResComponent, canActivate: [AuthGuard] },
+  { path: 'RateUpdate', component: RateUpdateComponent, canActivate: [AuthGuard] },
   
   //report
   { path: 'report', component: ReportComponent, canActivate: [AuthGuard] },

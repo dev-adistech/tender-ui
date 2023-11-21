@@ -55,6 +55,7 @@ import { RoughColorAnaComponent } from '../../View/rough-color-ana/rough-color-a
 import { ParcelViewComponent } from '../../View/parcel-view/parcel-view.component';
 import { GetCertiResComponent } from '../../Config/get-certi-res/get-certi-res.component';
 import { SellDaysMastComponent } from '../../Master/sell-days-mast/sell-days-mast.component';
+import { RateUpdateComponent } from '../../Config/rate-update/rate-update.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -258,7 +259,7 @@ export class HomeComponent implements OnInit {
     } else {
       this.configPersmission = false;
     }
-    if (this.CheckFormPermission('GetCertiResComponent')) {
+    if (this.CheckFormPermission('GetCertiResComponent') || this.CheckFormPermission('RateUpdateComponent')) {
       this.configUtility = true;
     } else {
       this.configUtility = false;
@@ -374,6 +375,9 @@ export class HomeComponent implements OnInit {
         break;
       case "Get Certi Result":
         this.ComponentName = GetCertiResComponent;
+        break;
+      case "Rate Update":
+        this.ComponentName = RateUpdateComponent;
         break;
       case "User Category Master":
         this.ComponentName = UserCatComponent;

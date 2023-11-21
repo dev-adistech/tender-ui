@@ -1,0 +1,61 @@
+<div class="lot-transfer__container">
+    <div class="lot-transfer__wrapper glass-light">
+      <h1 class="lot-transfer__header">
+        Rate Update
+      </h1>
+      <div class="MatRadio">
+        <mat-radio-group [(ngModel)]="TYPE" class="radio-border">
+            <mat-radio-button class="radio-btn" value="ORAP">Org Rate</mat-radio-button>
+            <mat-radio-button class="radio-btn" value="RATE">Rate</mat-radio-button>
+          </mat-radio-group>
+      </div>
+      <div class="lot-transfer__lot--popup">
+        <ng-select class="autoComplete" [items]="DEPTArr" appearance="outline" #select bindLabel="code"
+      dropdownPosition="auto" bindValue="code" [(ngModel)]="COMP_CODE"
+      (ngModelChange)="GETNAME();GETDETID()"
+      labelForId="album"
+      placeholder="Company Code*" [virtualScroll]="true">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <span>{{item.name}} || {{item.code}}</span>
+      </ng-template>
+    </ng-select>
+
+    <mat-form-field appearance="outline" style="width: 6rem;">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
+    </mat-form-field>
+
+    <ng-select class="autoComplete" [items]="DETIDarr" appearance="outline" #select bindLabel="code"
+      dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID"
+      (ngModelChange)="GETDATE()"
+      labelForId="album"
+      placeholder="Tendar No*" [virtualScroll]="true">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <span>{{item.code}} || {{item.date}}</span>
+      </ng-template>
+    </ng-select>
+
+    <mat-form-field appearance="outline" style="width: 6rem;">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_NAME" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" style="width: 8rem;">
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" #fdate onfocus="this.select();" disabled />
+      <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()"></mat-datepicker-toggle>
+      <mat-datepicker #ID1></mat-datepicker>
+    </mat-form-field>
+      </div>
+      <button class="btn theme-btn" matTooltip='Rate Update' (click)="RateUpdate()" matTooltipClass="custom-tooltip">
+        <svg class="icon icon-transfer">
+          <use xlink:href="assets/symbol-defs.svg#icon-transfer"></use>
+        </svg>
+      </button>
+    </div>
+  
+  </div>
+  
+  <ngx-spinner>
+    <p style="color: white">Loading...</p>
+  </ngx-spinner>
