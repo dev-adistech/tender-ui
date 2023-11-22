@@ -22,6 +22,7 @@ export class UserMastComponent implements OnInit {
   U_PASS: any = ''
   U_CAT: any = ''
   IP: any = ''
+  EMAIL: any = ''
 
   isAccess: boolean = false;
   NEWFILTERARR: any = ''
@@ -72,6 +73,13 @@ export class UserMastComponent implements OnInit {
       {
         headerName: 'IP',
         field: 'IP',
+        cellStyle: { 'text-align': 'center' },
+        headerClass: "text-center",
+        width: 82,
+      },
+      {
+        headerName: 'Email',
+        field: 'EMAIL',
         cellStyle: { 'text-align': 'center' },
         headerClass: "text-center",
         width: 82,
@@ -160,6 +168,10 @@ export class UserMastComponent implements OnInit {
       this.toastr.warning('Enter Catagory')
       return
     }
+    if (!this.EMAIL) {
+      this.toastr.warning('Enter Email Id')
+      return
+    }
 
     let GridData = []
     this.gridApi.forEachNode(node => {
@@ -173,6 +185,7 @@ export class UserMastComponent implements OnInit {
       U_CAT: this.U_CAT ? this.U_CAT : '',
       IP: this.IP ? this.IP : '',
       ISACCESS: this.isAccess,
+      EMAIL: this.EMAIL,
     }
     this.UserMastServ.UserMastSave(SaveObj).subscribe((SaveRes) => {
       try {
@@ -203,6 +216,7 @@ export class UserMastComponent implements OnInit {
     this.USER_FULLNAME = ''
     this.U_CAT = ''
     this.IP = ''
+    this.EMAIL = ''
     this.isAccess = false;
   }
 
@@ -304,6 +318,7 @@ export class UserMastComponent implements OnInit {
         this.U_CAT = eve.data.U_CAT
         this.IP = eve.data.IP
         this.isAccess = eve.data.ISACCESS
+        this.EMAIL = eve.data.EMAIL
       }
 
     }

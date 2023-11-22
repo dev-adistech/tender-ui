@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div class="login__form glass-dark">
+  <div class="login__form glass-dark" *ngIf="!OtpForm">
     <h1 class="heading-1"> Sign In</h1>
 
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate autocomplete="off">
@@ -30,6 +30,22 @@
     </form>
   </div>
 
+  <form *ngIf="OtpForm" [formGroup]="OTPForm" novalidate autocomplete="off" class="login__form glass-dark">
+    <h1 class="heading-1"> verify Otp</h1>
+    <div class="login__field">
+      <input class="login__input" type="password" id="OTP" name="OTP" formControlName="OTP" required=""
+        appAutoFocus type="OTP">
+      <label class="login__label" for="OTP">OTP</label>
+    </div>
+    <div class="btn-g" style="display: contents;">
+    <button [disabled]="!OTPForm.valid" mat-raised-button color="primary" class="btn lgn-btn" (click)="OTPSubmit()" mat-button>Submit</button>
+    <button mat-raised-button color="primary" class="btn lgn-btn"  mat-button (click)="OtpForm=!OtpForm;ClearTokne()" >Back to login</button>
+    <button mat-raised-button color="primary" class="btn lgn-btn" [disabled]="isResendDisabled"  mat-button (click)="ResendOtp()" >Resend Otp</button>
+    <!-- <div *ngIf="!isResendDisabled"> -->
+      <p style="color: white;" *ngIf="isResendDisabled">Unable to resend Otp  {{ remainingTime }} seconds</p>
+    <!-- </div> -->
+  </div>
+</form>
 </section>
 
 <ul>

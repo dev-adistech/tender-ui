@@ -19,6 +19,14 @@ export class LoginComponent implements OnInit {
 	RUN: boolean = true
 	title: string = ""
 	loginForm: FormGroup
+	OtpForm:boolean = false
+	OTPForm : FormGroup;
+	token : any = '';
+
+	OtpValue:any = ''
+
+	isResendDisabled:boolean = true
+	remainingTime: number = 0;
 
 	constructor(
 		public LoginServ: LoginService,
@@ -37,6 +45,9 @@ export class LoginComponent implements OnInit {
 			UserId: new FormControl("", [Validators.required]),
 			password: new FormControl("", [Validators.required]),
 		})
+		this.OTPForm = new FormGroup({
+			OTP: new FormControl("", [Validators.required]),
+		  });
 	}
 
 	ngOnInit(): void {
@@ -51,6 +62,16 @@ export class LoginComponent implements OnInit {
 		}
 	}
 
+	startCountdown() {
+		const interval = setInterval(() => {
+		  this.remainingTime--;
+		  if (this.remainingTime <= 0) {
+			this.isResendDisabled = false;
+			clearInterval(interval);
+		  }
+		}, 1000); // Update every second
+	  }
+
 	async onSubmit() {
 		let LoginObj = {
 			USERID: this.loginForm.value.UserId,
@@ -63,30 +84,11 @@ export class LoginComponent implements OnInit {
 				try {
 					if (LoginRes.success == true) {
 						this.spinner.hide()
-						sessionStorage.setItem("token", LoginRes.data)
-						sessionStorage.setItem("barcode", "")
-						let SaveObj = {
-							USERID: this.loginForm.value.UserId,
-							RUN: this.RUN,
-							URL: window.location.hostname
-						}
-						await this.LoginDetailServ.LoginDetailSave(SaveObj).subscribe(
-							(SaveRes) => {
-								try {
-									if (SaveRes.success == true) {
-										this.spinner.hide()
-									} else {
-										this.spinner.hide()
-										this.toastr.warning("Cannot save login details.")
-									}
-								} catch (error) {
-									this.spinner.hide()
-									this.toastr.error(error)
-								}
-							}
-						)
+						this.OtpForm = true
+						this.token = LoginRes.data;
+						this.onOTPSubmit()
 						// this.router.navigateByUrl("home")
-						window.location.href = window.location.origin+'/dashboard';
+						
 					} else if (LoginRes.success == 2) {
 						this.spinner.hide()
 						this.toastr.warning("Not Found")
@@ -114,4 +116,65 @@ export class LoginComponent implements OnInit {
 			}
 		)
 	}
+
+	ClearTokne(){
+		this.token = ''
+	}
+	async onOTPSubmit(){
+		this.spinner.show()
+		let decodeHelper = new JwtHelperService();
+		let decodedTkn = decodeHelper.decodeToken(this.token);
+		this.spinner.show()
+		this.LoginServ.EmailSendOTP({EMAIL:decodedTkn.EMAIL,USERID:decodedTkn.UserId}).subscribe((ORes)=>{
+		  this.spinner.hide()
+		  try {
+			if(ORes.success == true){
+				this.toastr.success('Otp Send on Your Registed Mail !!!')
+				this.OtpValue = ORes.data
+				this.isResendDisabled = true
+				this.remainingTime = 120
+				this.startCountdown()
+			}else{
+			  this.toastr.warning(JSON.stringify(ORes.data))
+			  this.token = ''
+			  sessionStorage.removeItem('token')
+    		sessionStorage.clear()
+			}
+		  } catch (error) {
+			this.token = ''
+			sessionStorage.removeItem('token')
+    		sessionStorage.clear()
+			console.log(error)
+			this.toastr.error(error)
+		  }
+		})
+	  }
+
+	  OTPSubmit(){
+		const decrypt = (salt, encoded) => {
+			  const textToChars = (text) => text.split("").map((c) => c.charCodeAt(0));
+			  const applySaltToChar = (code) => textToChars(salt).reduce((a, b) => a ^ b, code);
+			  return encoded
+				.match(/.{1,2}/g)
+				.map((hex) => parseInt(hex, 16))
+				.map(applySaltToChar)
+				.map((charCode) => String.fromCharCode(charCode))
+				.join("");
+			};
+
+			const decrypted_string = decrypt("Pr!dcr0n@990", this.OtpValue);
+
+			if(parseInt(this.OTPForm.value.OTP) == parseInt(decrypted_string)){
+			  sessionStorage.setItem('token',this.token)
+			  sessionStorage.setItem("barcode", "")
+			  window.location.href = window.location.origin+'/dashboard';
+			}else{
+			  this.toastr.warning("Enter vaild OTP.")
+			}
+	  }
+
+	  ResendOtp(){
+		  this.onOTPSubmit()
+		// this.startCountdown()
+	  }
 }

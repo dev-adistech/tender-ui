@@ -17,6 +17,9 @@ export class LoginService {
   async UserFrmOpePer(Data: any) {
     return this.http.post<any>('Login/UserFrmOpePer', Data).toPromise()
   }
+  EmailSendOTP(Data: any) {
+    return this.http.post<any>('Login/EmailSendOTP', Data)
+  }
 
   async UserFrmPer(Data: any) {
 
