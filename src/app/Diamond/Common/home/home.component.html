@@ -301,6 +301,12 @@
                 <img src="../../../../assets/img/Config/permission.png" alt="" />
                 Permission
               </li>
+              <li *ngIf="CheckFormPermission('LoginPermissionComponent')" (click)="
+                  addiFrameTabs('Login Permission', '/LoginPer')
+                ">
+                <img src="../../../../assets/img/Config/report-per.png" alt="" />
+                Login Permission
+              </li>
             </div>
           </div>
           <p class="sub-menu__section-name">Permission</p>

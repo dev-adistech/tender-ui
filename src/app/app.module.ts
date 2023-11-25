@@ -81,6 +81,7 @@ import { BvViewDetComponent } from './Diamond/View/b-v-view/bv-view-det/bv-view-
 import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component';
 import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component';
 import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.component'
+import { LoginPermissionComponent } from "./Diamond/Utility/login-permission/login-permission.component"
 
 
 @NgModule({
@@ -147,6 +148,7 @@ import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.co
 		GetCertiResComponent,
 		SellDaysMastComponent,
 		RateUpdateComponent,
+		LoginPermissionComponent
 	],
 	imports: [
 		BrowserModule,

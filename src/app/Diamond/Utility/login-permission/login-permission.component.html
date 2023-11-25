@@ -1,0 +1,49 @@
+
+        <div class="mast__container glass-light">
+            <div class="mast__container--row-1">
+        <ng-select class="autoComplete" placeholder="Select User" appearance="outline" name="selectuser"
+        [(ngModel)]="USERID">
+        <ng-option *ngFor="let user of UserIdArr" [value]="user.userId">{{user.userId}}</ng-option>
+      </ng-select>
+        <mat-form-field appearance="outline" (click)="Fdob.open()">
+            <mat-label>From Date</mat-label>
+            <input matInput [matDatepicker]="Fdob" [readonly]="true" [(ngModel)]="F_DATE">
+            <mat-datepicker-toggle matSuffix [for]="Fdob"></mat-datepicker-toggle>
+            <mat-datepicker #Fdob></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field appearance="outline" (click)="Tdob.open()">
+            <mat-label>To Date</mat-label>
+            <input matInput [matDatepicker]="Tdob" [readonly]="true" [(ngModel)]="T_DATE">
+            <mat-datepicker-toggle matSuffix [for]="Tdob"></mat-datepicker-toggle>
+            <mat-datepicker #Tdob></mat-datepicker>
+        </mat-form-field>
+    <div class="btn-grp">
+        <button class="btn theme-btn" (click)="LoadGrid()" matTooltip='Search' matTooltipClass="custom-tooltip">
+            <svg class="icon icon-reload">
+              <use xlink:href="assets/symbol-defs.svg#icon-reload"></use>
+            </svg>
+          </button>
+
+        <button class="btn theme-btn" (click)="Clear()" matTooltip='clear' matTooltipClass="custom-tooltip">
+            <svg class="icon icon-clear">
+              <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
+            </svg>
+          </button>
+    </div>
+</div>
+    
+<ag-grid-angular style="width: 100%; height: calc(100vh - 168px);" class="ag-theme-alpine"
+    [defaultColDef]="defaultColDef" [pagination]="false" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
+    (rowClicked)='onGridRowClicked($event)' (cellValueChanged)='onCellValueChanged($event)'>
+</ag-grid-angular>
+
+<article class="password-wrapper">
+  <mat-form-field class='mt-2 password' appearance="outline">
+    <input type="password" matInput name="Password" autocomplete="off" [(ngModel)]="PASSWORD"
+      (ngModelChange)="CHANGEPASSWORD();" />
+  </mat-form-field>
+</article>
+
+<ngx-spinner>
+    <p style="color: white"> Loading... </p>
+</ngx-spinner>

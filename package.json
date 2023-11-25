@@ -1,6 +1,6 @@
 {
   "name": "predacon-ui",
-  "version": "21.11.2023",
+  "version": "25.11.2023",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -44,6 +44,7 @@
     "fso": "^2.7.0",
     "jqwidgets-ng": "^12.2.1",
     "jqwidgets-scripts": "^12.2.1",
+    "ngx-device-detector": "^1.4.5",
     "ngx-mask": "^11.1.5",
     "ngx-spinner": "^11.0.1",
     "ngx-swiper-wrapper": "^10.0.0",
@@ -56,6 +57,7 @@
     "sweetalert2": "^11.0.20",
     "swiper": "^6.8.4",
     "tslib": "^2.0.0",
+    "uuid": "^8.3.2",
     "xlsx": "^0.17.3",
     "zone.js": "~0.10.2"
   },

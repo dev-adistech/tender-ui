@@ -3,10 +3,13 @@ import { FormControl, FormGroup, Validators } from "@angular/forms"
 import { Title } from "@angular/platform-browser"
 import { Router } from "@angular/router"
 import { JwtHelperService } from "@auth0/angular-jwt"
+import { DeviceDetectorService } from "ngx-device-detector"
 import { NgxSpinnerService } from "ngx-spinner"
 import { ToastrService } from "ngx-toastr"
 import { LoginDetailService } from "src/app/Service/Config/login-detail.service"
 import { LoginService } from "src/app/Service/Utility/login.service"
+import { environment } from "src/environments/environment"
+import { v4 as uuidv4 } from 'uuid';
 @Component({
 	selector: "app-login",
 	templateUrl: "./login.component.html",
@@ -34,6 +37,7 @@ export class LoginComponent implements OnInit {
 		private toastr: ToastrService,
 		private spinner: NgxSpinnerService,
 		private LoginDetailServ: LoginDetailService,
+		private deviceService: DeviceDetectorService,
 		private titleService: Title
 	) {
 		this.title = window.origin
@@ -48,6 +52,9 @@ export class LoginComponent implements OnInit {
 		this.OTPForm = new FormGroup({
 			OTP: new FormControl("", [Validators.required]),
 		  });
+		  if(localStorage.getItem('uuid') == null || localStorage.getItem('uuid') == ''){
+			localStorage.setItem('uuid',uuidv4()+'-'+this.deviceService.getDeviceInfo().browser);
+		  }
 	}
 
 	ngOnInit(): void {
@@ -76,7 +83,10 @@ export class LoginComponent implements OnInit {
 		let LoginObj = {
 			USERID: this.loginForm.value.UserId,
 			PASS: this.loginForm.value.password,
-			LINK: window.location.hostname
+			LINK: window.location.hostname,
+			uuid : localStorage.getItem('uuid'),
+      		COMPUTERNAME : `OS: ${this.deviceService.os} ; browser: ${this.deviceService.browser} ; device: ${this.deviceService.device} ; os_version: ${this.deviceService.os_version} ; browser_version: ${this.deviceService.os_version} ;  userAgent: ${this.deviceService.userAgent}`,
+			BASEURL: environment.BaseUrl
 		}
 		this.spinner.show()
 		await this.LoginServ.LoginAuthentication(LoginObj).then(
@@ -104,7 +114,10 @@ export class LoginComponent implements OnInit {
 					} else if (LoginRes.success == 4){
 						this.spinner.hide();
 						this.toastr.warning(LoginRes.data)
-					} 
+					} else if (LoginRes.success == 10){
+						this.spinner.hide();
+						this.toastr.warning('This Computer is not Authenticated, Please contact to System ADMIN.')
+					}
 					else {
 						this.spinner.hide()
 						this.toastr.warning("Something went wrong.")
@@ -125,8 +138,13 @@ export class LoginComponent implements OnInit {
 		let decodeHelper = new JwtHelperService();
 		let decodedTkn = decodeHelper.decodeToken(this.token);
 		this.spinner.show()
-		this.LoginServ.EmailSendOTP({EMAIL:decodedTkn.EMAIL,USERID:decodedTkn.UserId}).subscribe((ORes)=>{
-		  this.spinner.hide()
+		this.LoginServ.GetEmail({}).subscribe((Res)=>{
+			this.spinner.hide()
+			try {
+			if(Res.success == true){
+				console.log(Res)
+			this.LoginServ.EmailSendOTP({EMAIL:Res.data[0],USERID:decodedTkn.UserId}).subscribe((ORes)=>{
+		  	this.spinner.hide()
 		  try {
 			if(ORes.success == true){
 				this.toastr.success('Otp Send on Your Registed Mail !!!')
@@ -144,6 +162,14 @@ export class LoginComponent implements OnInit {
 			this.token = ''
 			sessionStorage.removeItem('token')
     		sessionStorage.clear()
+			console.log(error)
+			this.toastr.error(error)
+		  }
+		})
+			}else{
+    		sessionStorage.clear()
+			}
+		  } catch (error) {
 			console.log(error)
 			this.toastr.error(error)
 		  }

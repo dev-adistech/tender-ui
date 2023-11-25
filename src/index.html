@@ -31,28 +31,52 @@
     <link rel="stylesheet" href="assets/easyui/icon.css">
     <link rel="stylesheet" href="assets/easyui/easyui.css">
 
-    <script>
-      // document.addEventListener("DOMContentLoaded", function() {
-      //       var isMobile;
-      //       if (navigator.userAgent.match(/Android/i) ||
-      //           navigator.userAgent.match(/webOS/i) ||
-      //           navigator.userAgent.match(/iPhone/i) ||
-      //           navigator.userAgent.match(/iPad/i) ||
-      //           navigator.userAgent.match(/iPod/i) ||
-      //           navigator.userAgent.match(/BlackBerry/i) ||
-      //           navigator.userAgent.match(/Windows Phone/i)) {
-      //           isMobile = true;
-      //       } else {
-      //         isMobile = false;
-      //       }
-      //   });
-      //   document.onselectstart = () => {
-      //     if(isMobile == true){
-      //       event.preventDefault();
-      //     }
-      //   }
+    <script type="text/javascript">
+      ! function () {
+        if(window.location.host == "tender.peacocktech.in"){
+          document.addEventListener('contextmenu', event => event.preventDefault());
+        }
+      }();
     </script>
-
+    <script type="text/javascript">
+      ! function () {
+  
+        if(window.location.host == "tender.peacocktech.in"){
+  
+          document.addEventListener('contextmenu', event => event.preventDefault());
+          function detectDevTool(allow) {
+              if (isNaN(+allow)) allow = 100;
+              var start = +new Date();
+              var end = +new Date();
+  
+              if (isNaN(start) || isNaN(end) || end - start > allow) {
+                  localStorage.clear()
+                  sessionStorage.clear()
+                  alert('DEVTOOLS detected. all operations will be terminated.');
+                  document.write('DEVTOOLS detected.');
+              }
+  
+          }
+          if (window.attachEvent) {
+              if (document.readyState === "complete" || document.readyState === "interactive") {
+                  detectDevTool();
+                  window.attachEvent('onresize', detectDevTool);
+                  window.attachEvent('onmousemove', detectDevTool);
+                  window.attachEvent('onfocus', detectDevTool);
+                  window.attachEvent('onblur', detectDevTool);
+              } else {
+                  setTimeout(argument.callee, 0);
+              }
+          } else {
+              window.addEventListener('load', detectDevTool);
+              window.addEventListener('resize', detectDevTool);
+              window.addEventListener('mousemove', detectDevTool);
+              window.addEventListener('focus', detectDevTool);
+              window.addEventListener('blur', detectDevTool);
+          }
+        }
+      }();
+    </script>
   </body>
 
 </html>

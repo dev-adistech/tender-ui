@@ -56,6 +56,7 @@ import { ParcelViewComponent } from '../../View/parcel-view/parcel-view.componen
 import { GetCertiResComponent } from '../../Config/get-certi-res/get-certi-res.component';
 import { SellDaysMastComponent } from '../../Master/sell-days-mast/sell-days-mast.component';
 import { RateUpdateComponent } from '../../Config/rate-update/rate-update.component';
+import { LoginPermissionComponent } from '../../Utility/login-permission/login-permission.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -254,7 +255,7 @@ export class HomeComponent implements OnInit {
       this.configUser = false;
     }
 
-    if (this.CheckFormPermission('PerMastComponent') || this.CheckFormPermission('RptPerMastComponent')) {
+    if (this.CheckFormPermission('PerMastComponent') || this.CheckFormPermission('LoginPermissionComponent')) {
       this.configPersmission = true;
     } else {
       this.configPersmission = false;
@@ -372,6 +373,9 @@ export class HomeComponent implements OnInit {
     switch (FormName) {
       case "Permission Master":
         this.ComponentName = PerMastComponent;
+        break;
+      case "Login Permission":
+        this.ComponentName = LoginPermissionComponent;
         break;
       case "Get Certi Result":
         this.ComponentName = GetCertiResComponent;

@@ -55,6 +55,7 @@ import { ParcelViewComponent } from './Diamond/View/parcel-view/parcel-view.comp
 import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-res.component';
 import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component';
 import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.component';
+import { LoginPermissionComponent } from './Diamond/Utility/login-permission/login-permission.component';
 
 
 const routes: Routes = [
@@ -108,6 +109,7 @@ const routes: Routes = [
   { path: 'UserCat', component: UserCatComponent, canActivate: [AuthGuard] },
   { path: 'UserMast', component: UserMastComponent, canActivate: [AuthGuard] },
   { path: 'PerMast', component: PerMastComponent, canActivate: [AuthGuard] },
+  { path: 'LoginPer', component: LoginPermissionComponent, canActivate: [AuthGuard] },
   { path: 'GetCert', component: GetCertiResComponent, canActivate: [AuthGuard] },
   { path: 'RateUpdate', component: RateUpdateComponent, canActivate: [AuthGuard] },
   

@@ -105,7 +105,7 @@
           <ag-grid-angular style="margin-left: 15px;width: calc(100vw - 5vw); height: calc(100vh - 11vh);" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef1"
               [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" [suppressMenuHide]="false" [rowMultiSelectWithClick]="true" [getContextMenuItems]="getContextMenuItems" 
               [suppressRowClickSelection]="true" [getRowStyle]="getRowStyle" [pinnedBottomRowData]="pinnedBottomRowData" (cellClicked)="oncellClick($event)" (cellKeyDown)="OnCellEditingStart($event)" 
-              (gridReady)="onGridReady1($event)" (cellValueChanged)="oncellValueChanged($event)" [suppressRowTransform]="true" [suppressMenuHide]="false" >
+              (gridReady)="onGridReady1($event)" (cellValueChanged)="oncellValueChanged($event)" (sortChanged)="OnsortChange($event)" [suppressRowTransform]="true" [suppressMenuHide]="false" >
             </ag-grid-angular>
         </div>
       </article>

@@ -77,13 +77,13 @@ export class UserMastComponent implements OnInit {
         headerClass: "text-center",
         width: 82,
       },
-      {
-        headerName: 'Email',
-        field: 'EMAIL',
-        cellStyle: { 'text-align': 'center' },
-        headerClass: "text-center",
-        width: 82,
-      },
+      // {
+      //   headerName: 'Email',
+      //   field: 'EMAIL',
+      //   cellStyle: { 'text-align': 'center' },
+      //   headerClass: "text-center",
+      //   width: 82,
+      // },
       {
         headerName: 'Access',
         field: 'ISACCESS',
@@ -168,10 +168,10 @@ export class UserMastComponent implements OnInit {
       this.toastr.warning('Enter Catagory')
       return
     }
-    if (!this.EMAIL) {
-      this.toastr.warning('Enter Email Id')
-      return
-    }
+    // if (!this.EMAIL) {
+    //   this.toastr.warning('Enter Email Id')
+    //   return
+    // }
 
     let GridData = []
     this.gridApi.forEachNode(node => {
@@ -318,7 +318,7 @@ export class UserMastComponent implements OnInit {
         this.U_CAT = eve.data.U_CAT
         this.IP = eve.data.IP
         this.isAccess = eve.data.ISACCESS
-        this.EMAIL = eve.data.EMAIL
+        // this.EMAIL = eve.data.EMAIL
       }
 
     }

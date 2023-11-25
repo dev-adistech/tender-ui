@@ -1550,7 +1550,7 @@ export class BVViewComponent implements OnInit {
                 suppressMenu: true,
               });
             }
-            if (VPRes.data[i].FIELDNAME == 'S_CODE') {
+            if (VPRes.data[i].FIELDNAME == 'S_NAME') {
               temp[i].cellRenderer = this.ShapeFill.bind(this)
             }
             if (VPRes.data[i].FIELDNAME == 'CARAT') {
@@ -1628,7 +1628,7 @@ export class BVViewComponent implements OnInit {
             }
             // this._gridFunction.FooterKey = this.FooterKey;
             // delete temp[i].cellStyle
-            // temp[i].cellStyle = this.ColColor.bind(this)
+            temp[i].cellStyle = this.ColColor.bind(this)
           }
           this.columnDefs = temp
 
@@ -1650,6 +1650,60 @@ export class BVViewComponent implements OnInit {
         this.toastr.error(error);
       }
     });
+  }
+  ColColor(params) {
+    if (params.data.PTAG === 'Total') {
+      return
+    }
+    if(params.colDef.field === 'LB_NAME'){
+      if(params.data.LB_CODE === 'I'){
+        return { 'background': '#78f587'};
+      }else if(params.data.LB_CODE === 'HRD'){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'S_NAME'){
+      if(params.data.S_CODE !== 'ROUND' && params.data.S_CODE){
+        return { 'background': '#ffff9e'};
+      }
+    }else if(params.colDef.field === 'CT_NAME'){
+      if(params.data.CT_CODE == 2){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.CT_CODE == 3){
+        return { 'background': '#fc6a6a'};
+      }else if(params.data.CT_CODE == 4){
+        return { 'background': '#f09c9c'};
+      }
+    }else if(params.colDef.field === 'Q_NAME'){
+      if(params.data.Q_CODE == 1){
+        return { 'background': '#f09c9c'};
+      }else if(params.data.Q_CODE == 2){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'FL_NAME'){
+      if(params.data.FL_CODE == 2){
+        return { 'background': '#78f587'};
+      }else if(params.data.FL_CODE == 3){
+        return { 'background': '#ffff9e'};
+      }else if(params.data.FL_CODE == 4){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.FL_CODE == 5){
+        return { 'background': '#aac0e6'};
+      }
+    }else if(params.colDef.field === 'ML_NAME'){
+      if(params.data.ML_CODE == 2){
+        return { 'background': '#a3a2a2'};
+      }else if(params.data.ML_CODE == 3){
+        return { 'background': '#e3e3e3'};
+      }
+    }else if(params.colDef.field === 'SH_NAME'){
+      if(params.data.SH_CODE == 2){
+        return { 'background': '#C4A484'};
+      }else if(params.data.SH_CODE == 3){
+        return { 'background': '#d9c6b4'};
+      }else if(params.data.SH_CODE == 7){
+        return { 'background': '#acfaa5'};
+      }
+    }
   }
 
   MPERDISABLE(params) {
@@ -1702,9 +1756,9 @@ export class BVViewComponent implements OnInit {
           for (let i = 0; i < this.S_CODE.length; i++) {
 
             if (this.S_CODE[i].code == params.data.S_CODE) {
-              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             } else {
-              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             }
 
           }
@@ -1741,9 +1795,9 @@ export class BVViewComponent implements OnInit {
           for (let i = 0; i < this.S_CODE.length; i++) {
 
             if (this.S_CODE[i].code == params.data.S_CODE) {
-              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             } else {
-              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             }
 
           }
@@ -2876,7 +2930,7 @@ export class BVViewComponent implements OnInit {
             this.tableRepeatCount =Array(FillRes.data[0].length).fill(0);
             this.rowData =FillRes.data[0]
             this.NewRowData = FillRes.data[1]
-            
+            this.spinner.show();
             for(let i=0; i < this.rowData.length ; i++){
               this.rowData[i].GRID_DATA = this.GetRowData(this.rowData[i].DETID, this.rowData[i].SRNO, this.rowData[i].COMP_CODE,this.NewRowData)
             }

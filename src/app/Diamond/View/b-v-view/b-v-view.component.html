@@ -26,7 +26,7 @@
       <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}} || {{dept.date}}</ng-option>
     </ng-select> -->
 
-    <ng-select class="autoComplete" [items]="DETIDarr" appearance="outline" #select bindLabel="code"
+    <ng-select class="autoComplete" style="width: 9rem;" [items]="DETIDarr" appearance="outline" #select bindLabel="code"
       dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID"
       (ngModelChange)="GETDATE()"
       labelForId="album"
@@ -55,6 +55,7 @@
     </button>
   </div>
   <!-- <ng-container *ngIf="rowData"> -->
+<!-- <cdk-virtual-scroll-viewport [itemSize]="10"  style="display: inline;"> -->
   <div style="overflow: auto; height: 575px; width: 100%;" *ngFor="let item of rowData">
 
       <article class="aggrid-wrapper" style="width: 100%;">
@@ -164,14 +165,17 @@
               <mat-label
                 style="border:1px solid black;padding: 2px 25px; text-align: center;border-right:none;border-top:none">
                 DN</mat-label>
-              <mat-label
+              <!-- <mat-label
                 style="border:1px solid black;padding: 2px 10px; text-align: center;border-right:none;border-top:none">
-                USER 1</mat-label>
-              <mat-label
+                USER 1</mat-label> -->
+                <input class="tenderTxt" style="border:1px solid black;padding: 2px 0px; text-align: center;border-right:none;border-top:none;width: 66px;" [(ngModel)]="item.UUSER1" disabled />
+                <input class="tenderTxt" style="border:1px solid black;padding: 2px 0px; text-align: center;border-right:none;border-top:none;width: 73px;" [(ngModel)]="item.UUSER2" disabled />
+                <input class="tenderTxt" style="border:1px solid black;padding: 2px 0px; text-align: center;border-top:none;width: 61px;" [(ngModel)]="item.UUSER3" disabled />
+              <!-- <mat-label
                 style="border:1px solid black;padding: 2px 13.4px; text-align: center;border-right:none;border-top:none">
                 USER 2</mat-label>
               <mat-label style="border:1px solid black;padding: 2px 6.8px; text-align: center;border-top:none">USER
-                3</mat-label>
+                3</mat-label> -->
             </div>
             <div style="display: flex;align-items: center;">
 
@@ -212,7 +216,7 @@
 
               <select
                 style="border:1px solid black;width: 70px;height: 25px;border-right:none;border-top:none;text-align: center;"
-                name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.DNC_CODE" disabled>
+                name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.DNC_CODE" [disabled]="ADISDISABLE">
                 <option *ngFor="let cl of filteredColor | async" [ngValue]="cl.code">
                   {{ cl.name }}
                 </option>
@@ -527,6 +531,7 @@
       </div>
       </article>
   </div>
+<!-- </cdk-virtual-scroll-viewport> -->
 </div>
 
 <ngx-spinner>

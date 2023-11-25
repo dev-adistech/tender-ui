@@ -37,11 +37,21 @@
           <mat-label>Name</mat-label>
           <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
         </mat-form-field>
-  
-        <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 13rem;" appearance="outline"
-          autocomplete="off" [(ngModel)]="DETID" (ngModelChange)="GETDATE();LoadGridData();GridClear();">
-          <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}}</ng-option>
+
+        <ng-select class="autoComplete" style="width: 16rem !important;" [items]="DETIDarr" appearance="outline" #select bindLabel="code"
+          dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID"
+          (ngModelChange)="GETDATE();LoadGridData();GridClear();"
+          labelForId="album"
+          placeholder="Tendar No*" [virtualScroll]="true">
+          <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <span>{{item.code}} || {{item.date}}</span>
+          </ng-template>
         </ng-select>
+  
+        <!-- <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 16rem;" appearance="outline"
+          autocomplete="off" [(ngModel)]="DETID" (ngModelChange)="GETDATE();LoadGridData();GridClear();">
+          <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}} || {{dept.date}}</ng-option>
+        </ng-select> -->
   
         <mat-form-field appearance="outline">
           <mat-label>Name</mat-label>
@@ -114,8 +124,8 @@
         <div class="etg-view__container disable-dbl-tap-zoom slide-grid-tablet" *ngIf="DOCKON">
           <ag-grid-angular style="width: 445px;height: 80vh;" class="ag-theme-alpine select-color"
             [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
-            (rowClicked)='onGridRowClicked($event)' (cellClicked)="onCellDoubleClicked($event)"
-            [embedFullWidthRows]="true" [animateRows]="true" [gridOptions]="gridOptions" [rowData]="GRIDDATA">
+            (rowClicked)='onGridRowClicked($event)' (cellClicked)="onCellDoubleClicked($event)" [getRowStyle]="getRowStyle1"
+            [embedFullWidthRows]="true" [animateRows]="true" [gridOptions]="gridOptions" [rowData]="GRIDDATA" [pinnedBottomRowData]="pinnedBottomRowData1">
           </ag-grid-angular>
         </div>
         <article class="aggrid-wrapper" style="width: 100%;">
@@ -222,14 +232,32 @@
                     <mat-label
                       style="border:1px solid black;padding: 2px 25px; text-align: center;border-right:none;border-top:none">
                       DN</mat-label>
-                    <mat-label
-                      style="border:1px solid black;padding: 2px 9.5px; text-align: center;border-right:none;border-top:none">
-                      USER 1</mat-label>
-                    <mat-label
+                      <select
+                      style="border:1px solid black;width: 65px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="UUSER1" [disabled]="FLOCODEDIS">
+                      <option *ngFor="let cl of filteredUser | async" [ngValue]="cl.code">
+                        {{ cl.code }}
+                      </option>
+                    </select>
+                      <select
+                      style="border:1px solid black;width: 74px;height: 25px;border-right:none;border-top:none;text-align: center;"
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="UUSER2" [disabled]="FLOCODEDIS">
+                      <option *ngFor="let cl of filteredUser | async" [ngValue]="cl.code">
+                        {{ cl.code }}
+                      </option>
+                    </select>
+                      <select
+                      style="border:1px solid black;width: 61px;height: 25px;border-top:none;text-align: center;"
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="UUSER3" [disabled]="FLOCODEDIS">
+                      <option *ngFor="let cl of filteredUser | async" [ngValue]="cl.code">
+                        {{ cl.code }}
+                      </option>
+                    </select>
+                    <!-- <mat-label
                       style="border:1px solid black;padding: 2px 13.5px; text-align: center;border-right:none;border-top:none">
                       USER 2</mat-label>
                     <mat-label style="border:1px solid black;padding: 2px 7px; text-align: center;border-top:none">USER
-                      3</mat-label>
+                      3</mat-label> -->
                   </div>
                   <div style="display: flex;align-items: center;">
   

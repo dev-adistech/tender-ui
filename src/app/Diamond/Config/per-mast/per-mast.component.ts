@@ -48,6 +48,7 @@ export class PerMastComponent implements OnInit {
   FrmArray = [
     
     { FORM_GROUP: 'Configuration', FORM_NAME: 'PerMastComponent', DESCR: 'Permission Master' },
+    { FORM_GROUP: 'Configuration', FORM_NAME: 'LoginPermissionComponent', DESCR: 'Login Permission' },
     { FORM_GROUP: 'Configuration', FORM_NAME: 'GetCertiResComponent', DESCR: 'Get Certi Result' },
     { FORM_GROUP: 'Configuration', FORM_NAME: 'RateUpdateComponent', DESCR: 'Rate Update' },
     { FORM_GROUP: 'Configuration', FORM_NAME: 'UserCatComponent', DESCR: 'User Category Master' },

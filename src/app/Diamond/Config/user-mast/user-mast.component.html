@@ -25,23 +25,20 @@
       <mat-label>IP *</mat-label>
       <input matInput name="IP" autocomplete="off" [(ngModel)]="IP" />
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <!-- <mat-form-field appearance="outline">
       <mat-label>Email *</mat-label>
       <input matInput name="EMAIL" autocomplete="off" [(ngModel)]="EMAIL" type="email" />
-    </mat-form-field>
+    </mat-form-field> -->
 
-    <mat-checkbox class="example-margin" [(ngModel)]="isAccess"> Access
-    </mat-checkbox>
+    <mat-checkbox class="example-margin" [(ngModel)]="isAccess"> Access</mat-checkbox>
 
     <div class="btn-grp">
       <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' (click)="Save()" matTooltipClass="custom-tooltip">
-        <!-- <i class="icon-save mat-icon"></i> -->
         <svg class="icon icon-save">
           <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
         </svg>
       </button>
       <button class="btn theme-btn" matTooltip='Clear' (click)="Clear()" matTooltipClass="custom-tooltip">
-        <!-- <i class="icon-clear mat-icon"></i> -->
         <svg class="icon icon-clear">
           <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
         </svg>

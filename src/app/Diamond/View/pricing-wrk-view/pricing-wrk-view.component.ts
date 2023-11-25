@@ -145,6 +145,7 @@ export class PricingWrkViewComponent implements OnInit {
       return "";
     }
   }
+  
   DockClick(){
     if(this.GRIDON === false){
       this.GRIDON = true
@@ -266,6 +267,7 @@ export class PricingWrkViewComponent implements OnInit {
     this.gridApi1.setSortModel([]);
     this.gridOptions1.api.setFilterModel(null);
   }
+
   LoadGridData1(){
     let NewObj ={
       F_DATE:this.F_DATE ? this.datepipe.transform(this.F_DATE,'yyyy-MM-dd'):null,
@@ -314,6 +316,7 @@ export class PricingWrkViewComponent implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
   }
+
   onGridReady1(params) {
     this.gridApi1 = params.api;
     this.gridColumnApi1 = params.columnApi;
@@ -443,6 +446,7 @@ export class PricingWrkViewComponent implements OnInit {
       }
     })
   }
+
   FillViewPara1() {
     this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'PricingWrk' }).subscribe((VPRes) => {
       try {
@@ -471,7 +475,6 @@ export class PricingWrkViewComponent implements OnInit {
                 GROUPKEY: GroupData[i].Data[j].GROUPKEY,
                 hide: GroupData[i].Data[j].DISP == false ? true : false,
                 pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
-                // rowSpan: this.rowSpy.bind(this),
                 suppressMenu: true,
               })
 
@@ -571,15 +574,14 @@ export class PricingWrkViewComponent implements OnInit {
       }
     }
   }
+
   rowSpy(params) {
     let SubData = []
     this.gridApi1.forEachNode(function (rowNode, index) {
       SubData.push(rowNode.data);
     });
-
     if (SubData.length != 0 && params.colDef.field == "TOTAL") {
       if (params.node.rowIndex == 0) {
-        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
         if (params.data.TOTAL == SubData[params.node.rowIndex].TOTAL) {
           let mergeIndex = 0
           for (let i = params.node.rowIndex; i < SubData.length; i++) {
@@ -611,7 +613,6 @@ export class PricingWrkViewComponent implements OnInit {
       }
     } else if (SubData.length != 0 && params.colDef.field == "RCTS") {
       if (params.node.rowIndex == 0) {
-        let previousIndex = params.node.rowIndex != 0 ? params.node.rowIndex - 1 : params.node.rowIndex
         if (params.data.RCTS == SubData[params.node.rowIndex].RCTS) {
           let mergeIndex = 0
           for (let i = params.node.rowIndex; i < SubData.length; i++) {
@@ -644,6 +645,14 @@ export class PricingWrkViewComponent implements OnInit {
     }
   }
 
+  OnsortChange(eve){
+    console.log(eve)
+    setTimeout(() => {
+      this.gridApi1.refreshHeader();
+      // this.gridApi1.redrawRows();
+       this.gridApi1.refreshCells({ force : true})
+    }, 300);
+  }
   Clear(){
     this.F_DATE = null
     this.T_DATE = null
@@ -676,7 +685,6 @@ export class PricingWrkViewComponent implements OnInit {
             rowIndex: params.rowIndex + 1,
             colKey: 'MPER',
           });
-          // this.gridApi1.setFocusedCell(params.rowIndex +1, 'MPER');
         Swal.fire({
           title: "Are you Sure You Want To Update",
           icon: "warning",

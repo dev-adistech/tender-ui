@@ -20,6 +20,9 @@ export class LoginService {
   EmailSendOTP(Data: any) {
     return this.http.post<any>('Login/EmailSendOTP', Data)
   }
+  GetEmail(Data: any) {
+    return this.http.post<any>('Login/GetEmail', Data)
+  }
 
   async UserFrmPer(Data: any) {
 

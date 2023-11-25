@@ -25,6 +25,7 @@ import { VideoShowComponent } from "./video-show/video-show.component";
 import { ActivatedRoute } from "@angular/router";
 import { BvViewDetComponent } from "../../View/b-v-view/bv-view-det/bv-view-det.component";
 import { DashboardService } from "src/app/Service/Dashboard/dashboard.service";
+import { UserMastService } from "src/app/Service/Config/user-mast.service";
 declare let $: any;
 
 @Component({
@@ -70,6 +71,8 @@ export class TendarEstComponent implements OnInit {
   public gridColumnApi1;
   public defaultColDef1;
   public getRowStyle
+  public getRowStyle1
+  public pinnedBottomRowData1
   
 
   HIDEGRID: boolean = true
@@ -127,6 +130,11 @@ export class TendarEstComponent implements OnInit {
   MacColControl: FormControl;
   MacColor: any = []
   filteredMacColor: Observable<any[]>;
+
+  UserControl: FormControl;
+  User: any = []
+  filteredUser: Observable<any[]>;
+
   FINAL1: any = ''
   FINAL2: any = ''
   FINALME: any = ''
@@ -135,6 +143,10 @@ export class TendarEstComponent implements OnInit {
   RESULT2: any = ''
   RESULTME: any = ''
   RESULTHE: any = ''
+
+  UUSER1:any =''
+  UUSER2:any =''
+  UUSER3:any =''
 
   FloControl: FormControl;
   FLONO: any = []
@@ -224,6 +236,8 @@ export class TendarEstComponent implements OnInit {
     display: 'grid',
   };
 
+  FooterKey1 = []
+
   @ViewChild('lienzo1') lienzo1: any;
 
   CANAVASOPEN:boolean =false 
@@ -254,10 +268,12 @@ export class TendarEstComponent implements OnInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private DashboardServ: DashboardService,
+    private UserMastServ: UserMastService,
   ) {
     this.szControl = new FormControl();
     this.ColControl = new FormControl();
     this.MacColControl = new FormControl();
+    this.UserControl = new FormControl();
     this.FloControl = new FormControl();
     this.MacFloControl = new FormControl();
     this.MacComControl = new FormControl();
@@ -302,6 +318,14 @@ export class TendarEstComponent implements OnInit {
       }
       return {};
     }
+
+    this.getRowStyle1 = function (params) {
+      if (params.data) {
+        if (params.node.rowPinned === 'bottom') {
+          return { 'background': '#FFE0C0', 'font-weight': 'bold' };
+        }
+      }
+    };
     const MakHistoryData = JSON.parse(localStorage.getItem('TendarEstComponent'))
     if (MakHistoryData) {
       if(MakHistoryData[0][0]){
@@ -323,6 +347,9 @@ export class TendarEstComponent implements OnInit {
           this.PKTPER = MakHistoryData[0][0].PERCTS
           this.PKTSRW = MakHistoryData[0][0].SRW
           this.FINAL1 = MakHistoryData[0][0].FFLAT1
+          this.UUSER1 = MakHistoryData[0][0].UUSER1
+          this.UUSER2 = MakHistoryData[0][0].UUSER2
+          this.UUSER3 = MakHistoryData[0][0].UUSER3
           this.FINAL2 = MakHistoryData[0][0].FFLAT2
           this.FINALME = MakHistoryData[0][0].FMED
           this.FINALHE = MakHistoryData[0][0].FHIGH
@@ -406,6 +433,9 @@ export class TendarEstComponent implements OnInit {
   }
   private _MacColfilter(value: string): any[] {
     return this.MacColor[0].filter(sz => sz.name);
+  }
+  private _Userfilter(value: string): any[] {
+    return this.User[0].filter(sz => sz.code);
   }
   private _FLOfilter(value: string): any[] {
     return this.FLONO[0].filter(sz => sz.name);
@@ -505,7 +535,7 @@ export class TendarEstComponent implements OnInit {
                 suppressMenu: true,
               });
             }
-            if (VPRes.data[i].FIELDNAME == 'S_CODE') {
+            if (VPRes.data[i].FIELDNAME == 'S_NAME') {
               temp[i].cellRenderer = this.ShapeFill.bind(this)
             }
             if (VPRes.data[i].FIELDNAME == 'CARAT') {
@@ -658,9 +688,9 @@ export class TendarEstComponent implements OnInit {
         for (let i = 0; i < this.S_CODE.length; i++) {
 
           if (this.S_CODE[i].code == params.data.S_CODE) {
-            template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+            template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
           } else {
-            template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+            template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
           }
 
         }
@@ -698,9 +728,9 @@ export class TendarEstComponent implements OnInit {
           for (let i = 0; i < this.S_CODE.length; i++) {
 
             if (this.S_CODE[i].code == params.data.S_CODE) {
-              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             } else {
-              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             }
 
           }
@@ -737,9 +767,9 @@ export class TendarEstComponent implements OnInit {
           for (let i = 0; i < this.S_CODE.length; i++) {
 
             if (this.S_CODE[i].code == params.data.S_CODE) {
-              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             } else {
-              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].code + '</option>';
+              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
             }
 
           }
@@ -2438,6 +2468,9 @@ export class TendarEstComponent implements OnInit {
           this.PKTPER = FillRes.data[0][0].PERCTS
           this.PKTSRW = FillRes.data[0][0].SRW
           this.FINAL1 = FillRes.data[0][0].FFLAT1
+          this.UUSER1 = FillRes.data[0][0].UUSER1
+          this.UUSER2 = FillRes.data[0][0].UUSER2
+          this.UUSER3 = FillRes.data[0][0].UUSER3
           this.FINAL2 = FillRes.data[0][0].FFLAT2
           this.FINALME = FillRes.data[0][0].FMED
           this.FINALHE = FillRes.data[0][0].FHIGH
@@ -2930,6 +2963,8 @@ export class TendarEstComponent implements OnInit {
           this.spinner.hide();
           this.GRIDDATA = FillRes.data
           this.SECONDDATA = FillRes.data
+          this._gridFunction.FooterKey = this.FooterKey1
+          this.pinnedBottomRowData1 = this._gridFunction.footerCal(FillRes.data)
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -3759,7 +3794,10 @@ export class TendarEstComponent implements OnInit {
       PUSER: this.decodedTkn.UserId,
       TEN_NAME: this.T_NAME,
       ADIS:this.ADIS ? this.ADIS:0,
-      FAMT:this.FINALAMT ? this.FINALAMT:0
+      FAMT:this.FINALAMT ? this.FINALAMT:0,
+      UUSER1:this.UUSER1 ? this.UUSER1:'',
+      UUSER2:this.UUSER2 ? this.UUSER2:'',
+      UUSER3:this.UUSER3 ? this.UUSER3:''
     }
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
       try {
@@ -4080,6 +4118,24 @@ export class TendarEstComponent implements OnInit {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
 
+    this.UserMastServ.UserMastFill({ USERID: '' }).subscribe((UserIdRes) => {
+      try {
+        if (UserIdRes.success == true) {
+          let TempUser = UserIdRes.data.map((item) => {
+            return { code: item.USERID }
+          })
+          this.User = [[{code:'---'},...TempUser]]
+          this.filteredUser = this.UserControl.valueChanges.pipe(
+            startWith(''),
+            map(value => this._Userfilter(value))
+          );
+        } else {
+          this.toastr.warning("Something gone wrong while get UserId")
+        }
+      } catch (error) {
+        this.toastr.error(error)
+      }
+    })
     this.filteredSzs = this.szControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
@@ -5096,8 +5152,9 @@ export class TendarEstComponent implements OnInit {
                 hide: VPRes.data[i].DISP == false ? true : false,
                 suppressMenu: true,
                 cellRenderer: (params) => {
+                  if(params.node.rowPinned != "bottom"){
                   if (params.data && params.data[VPRes.data[i].FIELDNAME] == 1) {
-                    if (params.node.rowPinned !== "bottom") {
+                    if (params.node.rowPinned != "bottom") {
                       if (params.data['DISBLE'] == true || this.decodedTkn.U_CAT !== "U") {
                         return (
                           '<input type="checkbox" data-action-type="ISAPPROVE" checked disabled>'
@@ -5113,7 +5170,8 @@ export class TendarEstComponent implements OnInit {
                       '<input type="checkbox" data-action-type="ISAPPROVE">'
                     );
                   }
-                },
+                }
+              }
               });
             } else if (VPRes.data[i].FIELDNAME == 'LINK') {
               temp.push({
@@ -5150,16 +5208,20 @@ export class TendarEstComponent implements OnInit {
                 suppressMenu: true,
               });
             }
+
+            if(VPRes.data[i].FIELDNAME === 'SRNO' ||VPRes.data[i].FIELDNAME === 'I_CARAT'|| VPRes.data[i].FIELDNAME === 'AMT'){
+              this.FooterKey1.push(VPRes.data[i].FIELDNAME);
+            }
             if (VPRes.data[i].FORMAT == "#0") {
-              this.FooterKey.push(VPRes.data[i].FIELDNAME);
+              // this.FooterKey1.push(VPRes.data[i].FIELDNAME);
               temp[i].valueFormatter = this.NumberFormat;
               temp[i].aggFunc = "sum";
             } else if (VPRes.data[i].FORMAT == "#0.00") {
-              this.FooterKey.push(VPRes.data[i].FIELDNAME);
+              // this.FooterKey.push(VPRes.data[i].FIELDNAME);
               temp[i].valueFormatter = this.TwoFloatFormat;
               temp[i].aggFunc = "sum";
             } else if (VPRes.data[i].FORMAT == "#0.000") {
-              this.FooterKey.push(VPRes.data[i].FIELDNAME);
+              // this.FooterKey.push(VPRes.data[i].FIELDNAME);
               temp[i].valueFormatter = this.ThreeFloatFormat;
               temp[i].aggFunc = "sum";
             } else if (VPRes.data[i].FORMAT == "DateFormat") {
@@ -5474,15 +5536,18 @@ export class TendarEstComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            for (let i = 0; i < FillRes.data.length; i++) {
-              if (FillRes.data[i].ISACTIVE == true) {
-                this.DETIDarr.push({
-                  code: FillRes.data[i].DETID,
-                  date: FillRes.data[i].T_DATE,
-                  name: FillRes.data[i].T_NAME
-                });
-              }
-            }
+            // for (let i = 0; i < FillRes.data.length; i++) {
+            //   if (FillRes.data[i].ISACTIVE == true) {
+            //     this.DETIDarr.push({
+            //       code: FillRes.data[i].DETID,
+            //       date: FillRes.data[i].T_DATE,
+            //       name: FillRes.data[i].T_NAME
+            //     });
+            //   }
+            // }
+            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true).map(item => {
+              return { code: item.DETID,date: item.T_DATE,name:item.T_NAME };
+            });
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -5811,6 +5876,9 @@ export class TendarEstComponent implements OnInit {
     this.FLOCODE = ''
     this.FLOCODEDIS = false
     this.FINALAMT = ''
+    this.UUSER1 = ''
+    this.UUSER2 = ''
+    this.UUSER3 = ''
     this.gridApi1.setRowData()
   }
 
@@ -5849,6 +5917,9 @@ export class TendarEstComponent implements OnInit {
             this.PKTPER = FillRes.data[0][0].PERCTS
             this.PKTSRW = FillRes.data[0][0].SRW
             this.FINAL1 = FillRes.data[0][0].FFLAT1
+            this.UUSER1 = FillRes.data[0][0].UUSER1
+            this.UUSER2 = FillRes.data[0][0].UUSER2
+            this.UUSER3 = FillRes.data[0][0].UUSER3
             this.FINAL2 = FillRes.data[0][0].FFLAT2
             this.FINALME = FillRes.data[0][0].FMED
             this.FINALHE = FillRes.data[0][0].FHIGH
