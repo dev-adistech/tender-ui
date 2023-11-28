@@ -1,11 +1,6 @@
 <div class="prc-view__container glass-light" style="overflow: scroll; height: 98%;">
   <div class="prc-view__container--row-1" style="display: flex;gap:1rem">
 
-    <!-- <ng-select class="autoComplete" placeholder="Company Code*" style="width: 6rem;" appearance="outline"
-      autocomplete="off" [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID()">
-      <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
-    </ng-select> -->
-
     <ng-select class="autoComplete" [items]="DEPTArr" appearance="outline" #select bindLabel="code"
       dropdownPosition="auto" bindValue="code" [(ngModel)]="COMP_CODE"
       (ngModelChange)="GETNAME();GETDETID()"
@@ -20,11 +15,6 @@
       <mat-label>Name</mat-label>
       <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
     </mat-form-field>
-
-    <!-- <ng-select class="autoComplete" placeholder="Tendar No*" style="width: 6rem;" appearance="outline"
-      autocomplete="off" [(ngModel)]="DETID" (ngModelChange)="GETDATE();" bindLabel="code" bindValue="code">
-      <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}} || {{dept.date}}</ng-option>
-    </ng-select> -->
 
     <ng-select class="autoComplete" style="width: 9rem;" [items]="DETIDarr" appearance="outline" #select bindLabel="code"
       dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID"
@@ -54,7 +44,6 @@
       </svg>
     </button>
   </div>
-  <!-- <ng-container *ngIf="rowData"> -->
 <!-- <cdk-virtual-scroll-viewport [itemSize]="10"  style="display: inline;"> -->
   <div style="overflow: auto; height: 575px; width: 100%;" *ngFor="let item of rowData">
 

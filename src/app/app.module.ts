@@ -82,6 +82,10 @@ import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-r
 import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component';
 import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.component'
 import { LoginPermissionComponent } from "./Diamond/Utility/login-permission/login-permission.component"
+import { RapCalComponent } from "./Diamond/Rap/rap-cal/rap-cal.component"
+import { RapExcelComponent } from "./Diamond/Rap/rap-cal/rap-excel/rap-excel.component"
+import { RapCalcTenderEntryComponent } from "./Diamond/Rap/rap-cal/rap-calc-tender-entry/rap-calc-tender-entry.component"
+import { RapCalModalComponent } from "./Diamond/Rap/rap-cal/rap-cal-modal/rap-cal-modal.component"
 
 
 @NgModule({
@@ -148,7 +152,11 @@ import { LoginPermissionComponent } from "./Diamond/Utility/login-permission/log
 		GetCertiResComponent,
 		SellDaysMastComponent,
 		RateUpdateComponent,
-		LoginPermissionComponent
+		LoginPermissionComponent,
+		RapCalComponent,
+		RapExcelComponent,
+		RapCalcTenderEntryComponent,
+		RapCalModalComponent
 	],
 	imports: [
 		BrowserModule,

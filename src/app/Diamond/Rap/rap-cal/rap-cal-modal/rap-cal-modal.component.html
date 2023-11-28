@@ -1,0 +1,9 @@
+
+<div class="memo-ent-grid" style="height: 50%; padding: 2.5%">
+    <ag-grid-angular style="width: 100%; height:53vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef"
+        [pinnedBottomRowData]="pinnedBottomRowData" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
+        [animateRows]="true" [getRowStyle]="getRowStyle"  [rowSelection]="rowSelection" (filterChanged)="onFilterChanged($event)"
+         [getContextMenuItems]="getContextMenuItems" [gridOptions]="gridOptions"
+         [suppressMenuHide]="false">
+    </ag-grid-angular>
+</div>

@@ -1,0 +1,79 @@
+<div class="rap-excel__container">
+  <h1> Rap Excel </h1>
+  <div class="rap-excel__row">
+
+    <mat-form-field appearance="outline">
+      <mat-label>Lot</mat-label>
+      <input matInput placeholder="Lot" aria-label="Lot" [matAutocomplete]="autoLOT" [formControl]="lotCtrl"
+        [(ngModel)]="L_CODE" />
+      <mat-autocomplete #autoLOT="matAutocomplete">
+        <mat-option *ngFor="let lot of filteredLots | async" [value]="lot.code">
+          <span>{{ lot.code }}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="version-input">
+      <mat-label>SR No.</mat-label>
+      <input matInput [(ngModel)]="FSRNO" placeholder="SR No." />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="version-input">
+      <mat-label>To SR No.</mat-label>
+      <input matInput [(ngModel)]="TSRNO" placeholder="To SR No." />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>From Date</mat-label>
+      <input matInput [matDatepicker]="ID1" [(ngModel)]="F_DATE" />
+      <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()"></mat-datepicker-toggle>
+      <mat-datepicker #ID1></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>To Date</mat-label>
+      <input matInput [matDatepicker]="ID2" [(ngModel)]="T_DATE" />
+      <mat-datepicker-toggle matSuffix [for]="ID2" (click)="ID2.open()"></mat-datepicker-toggle>
+      <mat-datepicker #ID2></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>F Carat</mat-label>
+      <input matInput type="number" name="F Carat" [(ngModel)]="F_CARAT" [ngModelOptions]="{ updateOn: 'blur' }"
+          (ngModelChange)="F_CARAT = $event" #fcarat onfocus="this.select();" />
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+      <mat-label>T Carat</mat-label>
+      <input matInput type="number" name="T Carat" [(ngModel)]="T_CARAT" [ngModelOptions]="{ updateOn: 'blur' }"
+          (ngModelChange)="T_CARAT = $event" #tcarat onfocus="this.select();" />
+  </mat-form-field>
+
+    <button class="btn theme-btn mx-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="SHOW()">
+      <svg class="icon icon-show">
+        <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
+      </svg>
+    </button>
+    <button class="btn theme-btn mx-btn" matTooltip='Tender Excel' matTooltipClass="custom-tooltip" (click)="TENDER()">
+      <svg class="icon icon-excel">
+        <use xlink:href="assets/symbol-defs.svg#icon-excel"></use>
+      </svg>
+    </button>
+
+  </div>
+  <ag-grid-angular
+    style="width: 100%; height: 59vh"
+    class="ag-theme-alpine"
+    [defaultColDef]="defaultColDef"
+    [columnDefs]="columnDefs"
+    (gridReady)="onGridReady($event)"
+    [animateRows]="true"
+    [suppressRowTransform]="true"
+    [getContextMenuItems]="getContextMenuItems"
+    [gridOptions]="gridOptions"
+    [suppressMenuHide]="false"
+    (rowClicked)="onGridRowClicked($event)"
+    [getRowStyle]="getRowStyle"
+    [cacheQuickFilter]="true"
+    (filterChanged)="onFilterChanged($event)"
+></ag-grid-angular>
+</div>

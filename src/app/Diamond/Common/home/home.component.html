@@ -346,6 +346,10 @@
             <use xlink:href="assets/symbol-defs.svg#icon-rap-calc"></use>
           </svg>
         </button>
+        <button class="btn" matTooltip="Rap Calc" matTooltipClass="custom-tooltip"
+          *ngIf="CheckFormPermission('RapCalComponent')" (click)="addiFrameTabs('Rap Calc', '/RapCal')">
+          <img src="./../../../../assets/img/calculator.png" style="width: 27.55px;height: 28.8px;">
+        </button>
         <button class="btn" matTooltip="Refresh Master Values" matTooltipClass="custom-tooltip"
           (click)="FillAllMaster()">
           <svg class="icon icon-refresh icn-btn">

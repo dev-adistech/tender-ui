@@ -56,6 +56,7 @@ import { GetCertiResComponent } from './Diamond/Config/get-certi-res/get-certi-r
 import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days-mast.component';
 import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.component';
 import { LoginPermissionComponent } from './Diamond/Utility/login-permission/login-permission.component';
+import { RapCalComponent } from './Diamond/Rap/rap-cal/rap-cal.component';
 
 
 const routes: Routes = [
@@ -75,6 +76,7 @@ const routes: Routes = [
   { path: 'RapFloDisc', component: RapFloDiscComponent, canActivate: [AuthGuard] },
   { path: 'RapIncDisc', component: RapIncDiscComponent, canActivate: [AuthGuard] },
   { path: 'TendEst', component: TendarEstComponent, canActivate: [AuthGuard] },
+  { path: 'RapCal', component: RapCalComponent, canActivate: [AuthGuard] },
 
 
   // master

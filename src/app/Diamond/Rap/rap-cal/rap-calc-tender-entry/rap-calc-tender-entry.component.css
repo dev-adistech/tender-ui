@@ -1,0 +1,54 @@
+.tender-ent {
+	display: flex;
+	flex-flow: column nowrap;
+	gap: 0.5rem;
+}
+
+.tender-ent-fields {
+	border: 1px solid var(--color-black);
+	border-radius: 5px;
+	padding: 0.5rem;
+
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	gap: 0 0.5rem;
+}
+
+.tender-ent-fields mat-form-field {
+	width: 8rem;
+}
+
+.tender-ent button {
+	padding: 0.2rem 0.5rem;
+	width: fit-content;
+	align-self: end;
+}
+
+::ng-deep.shape > .mat-form-field-wrapper {
+	background-color: #f5fffa !important;
+}
+
+::ng-deep.clarity > .mat-form-field-wrapper {
+	background-color: #fffff0 !important;
+}
+
+::ng-deep.color > .mat-form-field-wrapper {
+	background-color: #fff0f5 !important;
+}
+
+::ng-deep.cut > .mat-form-field-wrapper {
+	background-color: #f0ffff !important;
+}
+
+::ng-deep.fl > .mat-form-field-wrapper {
+	background-color: #f0f8ff !important;
+}
+
+::ng-deep.shd > .mat-form-field-wrapper {
+	background-color: #f8f8ff !important;
+}
+
+::ng-deep.inc > .mat-form-field-wrapper {
+	background-color: #f8f8ff !important;
+}

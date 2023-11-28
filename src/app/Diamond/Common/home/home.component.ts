@@ -230,7 +230,8 @@ export class HomeComponent implements OnInit {
       this.masterMachine = false;
     }
 
-    if (this.CheckFormPermission('TendarEstComponent') 
+    if (this.CheckFormPermission('TendarEstComponent') ||
+     this.CheckFormPermission('RapCalComponent') 
     ||this.CheckFormPermission('TendarComComponent') 
     ||this.CheckFormPermission('LotMappingComponent') 
   || this.CheckFormPermission('TendarMastComponent')) {

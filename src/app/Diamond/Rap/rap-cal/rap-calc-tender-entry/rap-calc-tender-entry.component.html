@@ -1,0 +1,228 @@
+<article class="tender-ent">
+
+  <fieldset class="tender-ent-fields">
+
+    <mat-form-field appearance="outline" class="shape">
+      <mat-label>Shape Code</mat-label>
+      <input matInput [(ngModel)]="S_CODE" name="Shape Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <!-- <mat-form-field appearance="outline">
+      <mat-label>Shape Name</mat-label>
+      <input matInput name="Shape Name" [(ngModel)]="S_NAME" disabled>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="outline" class="clarity">
+      <mat-label>Quality Code</mat-label>
+      <input matInput [(ngModel)]="Q_CODE" name="Quality Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="clarity">
+      <mat-label>Quality Name</mat-label>
+      <input matInput name="Quality Name" [(ngModel)]="Q_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="color">
+      <mat-label>Color Code</mat-label>
+      <input matInput [(ngModel)]="C_CODE" name="Color Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="color">
+      <mat-label>Color Name</mat-label>
+      <input matInput name="Color Name" [(ngModel)]="C_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="cut">
+      <mat-label>Cut Code</mat-label>
+      <input matInput [(ngModel)]="CUT_CODE" name="Cut Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="cut">
+      <mat-label>Cut Name</mat-label>
+      <input matInput name="Cut Name" [(ngModel)]="CUT_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="cut">
+      <mat-label>Pol Code</mat-label>
+      <input matInput [(ngModel)]="POL_CODE" name="Pol Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="cut">
+      <mat-label>Pol Name</mat-label>
+      <input matInput name="Pol Name" [(ngModel)]="POL_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="cut">
+      <mat-label>Sym Code</mat-label>
+      <input matInput [(ngModel)]="SYM_CODE" name="Sym Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="cut">
+      <mat-label>Sym Name</mat-label>
+      <input matInput name="Sym Name" [(ngModel)]="SYM_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="fl">
+      <mat-label>FL Code</mat-label>
+      <input matInput [(ngModel)]="FL_CODE" name="FL Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="fl">
+      <mat-label>FL Name</mat-label>
+      <input matInput name="Pol Name" [(ngModel)]="FL_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Inc Code</mat-label>
+      <input matInput [(ngModel)]="INC_CODE" name="Inc Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Inc Name</mat-label>
+      <input matInput name="Inc Name" [(ngModel)]="INC_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Shade Code</mat-label>
+      <input matInput [(ngModel)]="SH_CODE" name="Shade Code" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Shade Name</mat-label>
+      <input matInput name="Shade Name" [(ngModel)]="SH_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Milky Code</mat-label>
+      <input matInput name="Milky Code" [(ngModel)]="PRDMILKY" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Milky Name</mat-label>
+      <input matInput name="Milky Name" [(ngModel)]="PRDMILKY_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Reflection Code</mat-label>
+      <input matInput name="Reflection Code" [(ngModel)]="PRDREDSPOT" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="inc">
+      <mat-label>Reflection Name</mat-label>
+      <input matInput name="Reflection Name" [(ngModel)]="PRDREDSPOT_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Raptype</mat-label>
+      <input matInput [(ngModel)]="RAPTYPE" name="Raptype" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Carat</mat-label>
+      <input matInput [(ngModel)]="CARAT" name="Carat" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Rate</mat-label>
+      <input matInput [(ngModel)]="RATE" name="Rate" autocomplete="off" disabled />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Ammount</mat-label>
+      <input matInput [(ngModel)]="AMMOUNT" name="Ammount" autocomplete="off" disabled />
+    </mat-form-field>
+
+  </fieldset>
+
+  <fieldset class="tender-ent-fields">
+
+    <ng-select class="autoComplete" placeholder="MC Color Code" appearance="outline" autocomplete="off"
+      [(ngModel)]="MCCOLOR_CODE" (ngModelChange)="GetName(MCCOLOR_CODE, 'MCCOLOR_NAME', MCColorArray)">
+      <ng-option *ngFor="let mccolor of MCColorArray" [value]="mccolor.code"> {{mccolor.code}} </ng-option>
+    </ng-select>
+
+    <mat-form-field appearance="outline">
+      <mat-label>MC Color Name</mat-label>
+      <input matInput name="MC Color Name" [(ngModel)]="MCCOLOR_NAME" disabled>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>MC1</mat-label>
+      <input matInput [(ngModel)]="MC1" name="MC1" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>MC2</mat-label>
+      <input matInput [(ngModel)]="MC2" name="MC2" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>MC3</mat-label>
+      <input matInput [(ngModel)]="MC3" name="MC3" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>DN</mat-label>
+      <input matInput [(ngModel)]="DN" name="DN" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>E1</mat-label>
+      <input matInput [(ngModel)]="E1" name="E1" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>E2</mat-label>
+      <input matInput [(ngModel)]="E2" name="E2" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>E3</mat-label>
+      <input matInput [(ngModel)]="E3" name="E3" autocomplete="off" />
+    </mat-form-field>
+
+    <ng-select class="autoComplete" placeholder="Tension" appearance="outline" autocomplete="off"
+      [(ngModel)]="TENSION_CODE" (ngModelChange)="GetName(TENSION_CODE, 'TENSION_NAME', TensionArray)">
+      <ng-option *ngFor="let tension of TensionArray" [value]="tension.code"> {{tension.code}} </ng-option>
+    </ng-select>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Tension Name</mat-label>
+      <input matInput name="Tension Name" [(ngModel)]="TENSION_NAME" disabled>
+    </mat-form-field>
+
+    <!-- <ng-select class="autoComplete" placeholder="Remark" appearance="outline" autocomplete="off"
+      [(ngModel)]="REMARK_CODE" (ngModelChange)="GetName(REMARK_CODE, 'REMARK_NAME', RemarkArray)">
+      <ng-option *ngFor="let remark of RemarkArray" [value]="remark.code"> {{remark.code}} </ng-option>
+    </ng-select>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Remark Name</mat-label>
+      <input matInput name="Remark Name" [(ngModel)]="REMARK_NAME" disabled>
+    </mat-form-field> -->
+
+    <mat-form-field appearance="outline">
+      <mat-label>DEPTH</mat-label>
+      <input matInput type="number" [(ngModel)]="DEPTH" name="DEPTH" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Diameter</mat-label>
+      <input matInput type="number" [(ngModel)]="DIA" name="DIAMETER" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>RATIO</mat-label>
+      <input matInput type="number" [(ngModel)]="RATIO" name="RATIO" autocomplete="off" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>COMMENT</mat-label>
+      <input matInput [(ngModel)]="COMMENT" name="COMMENT" autocomplete="off" />
+    </mat-form-field>
+
+  </fieldset>
+
+  <button class="btn theme-btn" (click)="Close()">Exit</button>
+
+</article>

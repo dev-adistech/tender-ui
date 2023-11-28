@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
 			this.isResendDisabled = false;
 			clearInterval(interval);
 		  }
-		}, 1000); // Update every second
+		}, 1000);
 	  }
 
 	async onSubmit() {
@@ -97,8 +97,6 @@ export class LoginComponent implements OnInit {
 						this.OtpForm = true
 						this.token = LoginRes.data;
 						this.onOTPSubmit()
-						// this.router.navigateByUrl("home")
-						
 					} else if (LoginRes.success == 2) {
 						this.spinner.hide()
 						this.toastr.warning("Not Found")
@@ -201,6 +199,5 @@ export class LoginComponent implements OnInit {
 
 	  ResendOtp(){
 		  this.onOTPSubmit()
-		// this.startCountdown()
 	  }
 }

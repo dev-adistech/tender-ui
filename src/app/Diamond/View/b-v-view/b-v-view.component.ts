@@ -283,7 +283,6 @@ export class BVViewComponent implements OnInit {
       }
     })
     $("#Close").click()
-    // dialogRef.afterClosed().subscribe((result) => { })
   }
 
   ngOnInit(): void {
@@ -1554,7 +1553,7 @@ export class BVViewComponent implements OnInit {
               temp[i].cellRenderer = this.ShapeFill.bind(this)
             }
             if (VPRes.data[i].FIELDNAME == 'CARAT') {
-              temp[i].editable = this.CARATEDITABLE.bind(this)
+              temp[i].editable = this.CARATEDISABLE.bind(this)
             }
             if (VPRes.data[i].FIELDNAME == 'MPER') {
               temp[i].editable = this.MPERDISABLE.bind(this)
@@ -1662,7 +1661,7 @@ export class BVViewComponent implements OnInit {
         return { 'background': '#fc6a6a'};
       }
     }else if(params.colDef.field === 'S_NAME'){
-      if(params.data.S_CODE !== 'ROUND' && params.data.S_CODE){
+      if(params.data.S_CODE !== 'R' && params.data.S_CODE){
         return { 'background': '#ffff9e'};
       }
     }else if(params.colDef.field === 'CT_NAME'){
@@ -1714,7 +1713,7 @@ export class BVViewComponent implements OnInit {
     }
   }
 
-  CARATEDITABLE(params) {
+  CARATEDISABLE(params) {
 
     if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
       return true

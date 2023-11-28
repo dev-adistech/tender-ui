@@ -612,6 +612,7 @@ export class TendarEstComponent implements OnInit {
               temp[i].valueFormatter = this.StringFormat;
             }
             this._gridFunction.FooterKey = this.FooterKey;
+            temp[i].cellStyle = this.ColColor.bind(this)
           }
           this.columnDefs1 = temp
 
@@ -633,6 +634,61 @@ export class TendarEstComponent implements OnInit {
         this.toastr.error(error);
       }
     });
+  }
+
+  ColColor(params) {
+    if (params.data.PTAG === 'Total') {
+      return
+    }
+    if(params.colDef.field === 'LB_NAME'){
+      if(params.data.LB_CODE === 'I'){
+        return { 'background': '#78f587'};
+      }else if(params.data.LB_CODE === 'HRD'){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'S_NAME'){
+      if(params.data.S_CODE !== 'R' && params.data.S_CODE){
+        return { 'background': '#ffff9e'};
+      }
+    }else if(params.colDef.field === 'CT_NAME'){
+      if(params.data.CT_CODE == 2){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.CT_CODE == 3){
+        return { 'background': '#fc6a6a'};
+      }else if(params.data.CT_CODE == 4){
+        return { 'background': '#f09c9c'};
+      }
+    }else if(params.colDef.field === 'Q_NAME'){
+      if(params.data.Q_CODE == 1){
+        return { 'background': '#f09c9c'};
+      }else if(params.data.Q_CODE == 2){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'FL_NAME'){
+      if(params.data.FL_CODE == 2){
+        return { 'background': '#78f587'};
+      }else if(params.data.FL_CODE == 3){
+        return { 'background': '#ffff9e'};
+      }else if(params.data.FL_CODE == 4){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.FL_CODE == 5){
+        return { 'background': '#aac0e6'};
+      }
+    }else if(params.colDef.field === 'ML_NAME'){
+      if(params.data.ML_CODE == 2){
+        return { 'background': '#a3a2a2'};
+      }else if(params.data.ML_CODE == 3){
+        return { 'background': '#e3e3e3'};
+      }
+    }else if(params.colDef.field === 'SH_NAME'){
+      if(params.data.SH_CODE == 2){
+        return { 'background': '#C4A484'};
+      }else if(params.data.SH_CODE == 3){
+        return { 'background': '#d9c6b4'};
+      }else if(params.data.SH_CODE == 7){
+        return { 'background': '#acfaa5'};
+      }
+    }
   }
   MPERDISABLE(params) {
     if ((this.decodedTkn.UserId === 'DN' || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'ADMIN') && this.ALLGRIDDISABLE == false && params.data.PTAG !== "Total") {
