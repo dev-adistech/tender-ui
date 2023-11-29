@@ -485,33 +485,33 @@ export class RapCalComponent implements OnInit {
                     }
                   },
                 });
-                temp.push({
-                  headerName: "Action",
-                  headerClass: "center",
-                  field: "Action",
-                  // width: '50',
-                  width: this.getActionColumnWidth(),
-                  cellStyle: { "text-align": "center" },
-                  resizable: true,
-                  // hide: VPRes.data[i].DISP == false ? true : false,
-                  cellRenderer: (params) => {
-                    let a =
-                      '<i class="icon-delete grid-icon" data-action-type="DeleteData" style="cursor: pointer;margin-left: 5px;"></i> ';
-                    // if (this.decodedTkn.U_CAT === "P") {
-                    //   a =
-                    //     a +
-                    //     '<i class="icon-edit grid-icon" data-action-type="TenderData" style="cursor: pointer;margin-right: 5px;" ></i>';
-                    // }
-                    return a;
-                  },
-                  // a = a + '</span>';
-                  // if (this.decodedTkn.U_CAT === 'P') {
-                  //   return '<i class="icon-delete grid-icon" data-action-type="DeleteData" style="cursor: pointer;margin-left: 5px;"></i> '
-                  // } else {
-                  //   return '<i class="icon-delete grid-icon" data-action-type="DeleteData" style="cursor: pointer;margin-left: 5px;"></i>'
-                  // }
-                  // },
-                });
+                // temp.push({
+                //   headerName: "Action",
+                //   headerClass: "center",
+                //   field: "Action",
+                //   // width: '50',
+                //   width: this.getActionColumnWidth(),
+                //   cellStyle: { "text-align": "center" },
+                //   resizable: true,
+                //   // hide: VPRes.data[i].DISP == false ? true : false,
+                //   cellRenderer: (params) => {
+                //     let a =
+                //       '<i class="icon-delete grid-icon" data-action-type="DeleteData" style="cursor: pointer;margin-left: 5px;"></i> ';
+                //     // if (this.decodedTkn.U_CAT === "P") {
+                //     //   a =
+                //     //     a +
+                //     //     '<i class="icon-edit grid-icon" data-action-type="TenderData" style="cursor: pointer;margin-right: 5px;" ></i>';
+                //     // }
+                //     return a;
+                //   },
+                //   // a = a + '</span>';
+                //   // if (this.decodedTkn.U_CAT === 'P') {
+                //   //   return '<i class="icon-delete grid-icon" data-action-type="DeleteData" style="cursor: pointer;margin-left: 5px;"></i> '
+                //   // } else {
+                //   //   return '<i class="icon-delete grid-icon" data-action-type="DeleteData" style="cursor: pointer;margin-left: 5px;"></i>'
+                //   // }
+                //   // },
+                // });
               } else if (VPRes.data[i].FIELDNAME == "PRDCARAT") {
                 temp.push({
                   headerName: VPRes.data[i].DISPNAME,
@@ -1897,7 +1897,7 @@ export class RapCalComponent implements OnInit {
   }
 
   //MAIN GRID CELL CLICKED
-  onCellClicked(event: any) {
+  // onCellClicked(event: any) {
     // if (event.column.colId === "MAKVW") {
     //   if (event.data.MAKVW === "MakView") {
     //     this.MakeableHistory(event);
@@ -1913,7 +1913,7 @@ export class RapCalComponent implements OnInit {
     //   this.showGRDBtn = false
     // }
 
-  }
+  // }
 
   // MakeableHistory(event) {
   //   const MakHistoryData = {
@@ -2171,7 +2171,7 @@ export class RapCalComponent implements OnInit {
     let Size = [];
     Size = this.SizegridApi.getSelectedNodes();
     if (Size.length != 0) {
-      let a = this.decodedMast[40].filter(
+      let a = this.decodedMast[9].filter(
         (x) =>
           x.PARAM_NAME == "DEPTH" &&
           x.S_CODE == e &&
@@ -2188,7 +2188,7 @@ export class RapCalComponent implements OnInit {
         map((depth) => (depth ? this.filterdepths(depth) : this.deptharray))
       );
     } else {
-      let a = this.decodedMast[40].filter(
+      let a = this.decodedMast[9].filter(
         (x) => x.PARAM_NAME == "DEPTH" && x.S_CODE == e
       );
       this.deptharray = a.map((item) => {
@@ -2204,7 +2204,7 @@ export class RapCalComponent implements OnInit {
     }
 
     if (Size.length != 0) {
-      let b = this.decodedMast[40].filter(
+      let b = this.decodedMast[9].filter(
         (x) =>
           x.PARAM_NAME == "DIAMETER" &&
           x.S_CODE == e &&
@@ -2223,7 +2223,7 @@ export class RapCalComponent implements OnInit {
         )
       );
     } else {
-      let b = this.decodedMast[40].filter(
+      let b = this.decodedMast[9].filter(
         (x) => x.PARAM_NAME == "DIAMETER" && x.S_CODE == e
       );
       this.diameterarray = b.map((item) => {
@@ -2241,7 +2241,7 @@ export class RapCalComponent implements OnInit {
     }
 
     if (Size.length != 0) {
-      let c = this.decodedMast[40].filter(
+      let c = this.decodedMast[9].filter(
         (x) =>
           x.PARAM_NAME == "TABLE" &&
           x.S_CODE == e &&
@@ -2258,7 +2258,7 @@ export class RapCalComponent implements OnInit {
         map((table) => (table ? this.filtertables(table) : this.tablearray))
       );
     } else {
-      let c = this.decodedMast[40].filter(
+      let c = this.decodedMast[9].filter(
         (x) => x.PARAM_NAME == "TABLE" && x.S_CODE == e
       );
       this.tablearray = c.map((item) => {
@@ -2274,7 +2274,7 @@ export class RapCalComponent implements OnInit {
     }
 
     if (Size.length != 0) {
-      let d = this.decodedMast[40].filter(
+      let d = this.decodedMast[9].filter(
         (x) =>
           x.PARAM_NAME == "RATIO" &&
           x.S_CODE == e &&
@@ -2291,7 +2291,7 @@ export class RapCalComponent implements OnInit {
         map((ratio) => (ratio ? this.filterratios(ratio) : this.ratioarray))
       );
     } else {
-      let d = this.decodedMast[40].filter(
+      let d = this.decodedMast[9].filter(
         (x) => x.PARAM_NAME == "RATIO" && x.S_CODE == e
       );
       this.ratioarray = d.map((item) => {

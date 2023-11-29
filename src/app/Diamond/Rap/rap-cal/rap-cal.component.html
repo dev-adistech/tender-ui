@@ -976,7 +976,7 @@
     <ag-grid-angular style="width: 98%; height: 100%" class="ag-theme-alpine" [defaultColDef]="MaindefaultColDef"
       [columnDefs]="MaincolumnDefs" (gridReady)="MainonGridReady($event)" [animateRows]="true" 
       [rowSelection]="rowSelection" (rowClicked)="onGridRowClicked($event)" [getRowStyle]="getRowStyle"
-      (selectionChanged)="onSelectionChanged($event)" (cellClicked)="onCellClicked($event)" (rowDragEnter)="onDragEnter($event)"
+      (selectionChanged)="onSelectionChanged($event)" (rowDragEnter)="onDragEnter($event)"
       (cellValueChanged)="onCellValueChanged($event)" [frameworkComponents]="frameworkComponents"   [suppressRowClickSelection]="ShOWGRD"
       [gridOptions]="gridOptions" (cellFocused)="onCellFocused($event)" [enableRangeSelection]="ShOWGRD == false ? enableRangeSelection : false">
     </ag-grid-angular>
