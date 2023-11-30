@@ -45,7 +45,7 @@
     </button>
   </div>
 <!-- <cdk-virtual-scroll-viewport [itemSize]="10"  style="display: inline;"> -->
-  <div style="overflow: auto; height: 575px; width: 100%;" *ngFor="let item of rowData">
+  <div style="overflow: auto; height: 575px; width: 100%;" *ngFor="let item of rowData;trackBy: trackByFn">
 
       <article class="aggrid-wrapper" style="width: 100%;">
 

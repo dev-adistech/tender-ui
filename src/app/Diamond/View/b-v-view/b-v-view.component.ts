@@ -1650,6 +1650,11 @@ export class BVViewComponent implements OnInit {
       }
     });
   }
+  trackByFn(index, item) {
+    // return item.someUniqueIdentifier;
+    // or if you have no unique identifier:
+    return index;
+  }
   ColColor(params) {
     if (params.data.PTAG === 'Total') {
       return

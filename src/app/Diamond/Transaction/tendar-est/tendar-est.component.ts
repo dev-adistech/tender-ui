@@ -6079,7 +6079,7 @@ export class TendarEstComponent implements OnInit {
             }
 
             for(let i=0;i<newdata.length;i++){
-              if(newdata[i].PLNSEL === true && this.decodedTkn.UserId !== 'DN' || this.decodedTkn.UserId === 'ADMIN'){
+              if(newdata[i].PLNSEL === true && this.decodedTkn.UserId !== 'DN' && this.decodedTkn.UserId !== 'ADMIN'){
                 this.ALLGRIDDISABLE = true
                 break
               }
