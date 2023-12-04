@@ -48,6 +48,7 @@ export class TendarEstComponent implements OnInit {
   DETID: any = "";
   T_NAME: any = "";
   ADIS: any = "";
+  ISBV: boolean=false;
   T_DATE: any = null;
   BUTTONHIDE:boolean = true
   BUTTONSHOW:boolean = false
@@ -386,6 +387,7 @@ export class TendarEstComponent implements OnInit {
           this.FLOCODE = MakHistoryData[0][0].FL_CODE
           this.ADIS = MakHistoryData[0][0].ADIS
           this.BVDATA = MakHistoryData[1]
+          this.GridTempData = MakHistoryData[1]
         }
           let NewObj = {
             COMP_CODE: this.COMP_CODE,
@@ -3853,7 +3855,8 @@ export class TendarEstComponent implements OnInit {
       FAMT:this.FINALAMT ? this.FINALAMT:0,
       UUSER1:this.UUSER1 ? this.UUSER1:'',
       UUSER2:this.UUSER2 ? this.UUSER2:'',
-      UUSER3:this.UUSER3 ? this.UUSER3:''
+      UUSER3:this.UUSER3 ? this.UUSER3:'',
+      ISBV:this.BUTTONHIDE == false ? 1:0,
     }
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
       try {
@@ -3975,7 +3978,7 @@ export class TendarEstComponent implements OnInit {
         ORAP: SubData[i].ORAP ? SubData[i].ORAP : 0,
         RATE: SubData[i].RATE ? SubData[i].RATE : 0,
         OTAG: SubData[i].OTAG ? SubData[i].OTAG : "",
-        IUSER: SubData[i].IUSER ? SubData[i].IUSER : '',
+        IUSER: this.decodedTkn.UserId,
         ML_CODE: SubData[i].ML_CODE ? SubData[i].ML_CODE : 0,
         DEP_CODE: SubData[i].DEP_CODE ? SubData[i].DEP_CODE : 0,
         RAT_CODE: SubData[i].RAT_CODE ? SubData[i].RAT_CODE : 0,
@@ -6011,6 +6014,7 @@ export class TendarEstComponent implements OnInit {
             this.FINALBID = FillRes.data[0][0].FBID
             this.FLOCODE = FillRes.data[0][0].FL_CODE
             this.ADIS = FillRes.data[0][0].ADIS
+            this.ISBV = FillRes.data[0][0].ISBV
 
             this.gridApi1.setRowData(FillRes.data[1])
             this.GridTempData = FillRes.data[1]
@@ -6076,13 +6080,23 @@ export class TendarEstComponent implements OnInit {
             if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.U_CAT === 'S' || this.decodedTkn.UserId === 'ADMIN'){
               this.disabledata = false 
               this.FLOCODEDIS = false
+              this.ADISDISABLE = false
             }
 
             for(let i=0;i<newdata.length;i++){
+              if(this.ISBV === false && this.BUTTONHIDE === true){
+                this.ALLGRIDDISABLE = false
               if(newdata[i].PLNSEL === true && this.decodedTkn.UserId !== 'DN' && this.decodedTkn.UserId !== 'ADMIN'){
                 this.ALLGRIDDISABLE = true
                 break
               }
+            }else{
+              this.disabledata = true
+              this.FLOCODEDIS = true
+              this.ALLGRIDDISABLE = true
+              this.ADISDISABLE = true
+              break
+            }
             }
 
             const agBodyViewport: HTMLElement =

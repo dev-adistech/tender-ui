@@ -957,7 +957,7 @@ export class TendarMastComponent implements OnInit {
 
     let SaveObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : 0,
-      T_DATE: this.T_DATE,
+      T_DATE: this.T_DATE ? this.datepipe.transform(this.T_DATE,'yyyy-MM-dd'):null,
       DETID: this.DETID ? this.DETID : "",
       IUSER: this.decodedTkn.UserId,
       T_NAME:this.T_NAME,

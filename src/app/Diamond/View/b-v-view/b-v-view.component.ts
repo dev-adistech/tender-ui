@@ -16,6 +16,7 @@ import { DatePipe } from '@angular/common';
 import { TendarEstService } from 'src/app/Service/Rap/tendar-est.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BvViewDetComponent } from './bv-view-det/bv-view-det.component';
+import { convertToObject } from 'typescript';
 declare let $: any;
 
 @Component({
@@ -33,10 +34,10 @@ export class BVViewComponent implements OnInit {
 
   tableRepeatCount = Array(1).fill(0);
 
-  allSzs:any[]=[]
+  allSzs: any[] = []
   filteredSzs: Observable<any[]>;
-  szControl:FormControl;
-  selectedSz:any=''
+  szControl: FormControl;
+  selectedSz: any = ''
 
   GridHeader = [];
   FooterKey = [];
@@ -64,83 +65,83 @@ export class BVViewComponent implements OnInit {
   SAVEBTNSHOW: boolean = true
   disabledataArray: any = []
 
-  LS:boolean = false
-  R1:any=''
-  R2:any=''
-  F1:any=''
-  F2:any=''
-  DN:any=''
-  USER1:any=''
-  USER2:any=''
-  USER3:any=''
-  FANCY1:any=''
-  ROUNDC1:any=''
-  COLORArr=[]
+  LS: boolean = false
+  R1: any = ''
+  R2: any = ''
+  F1: any = ''
+  F2: any = ''
+  DN: any = ''
+  USER1: any = ''
+  USER2: any = ''
+  USER3: any = ''
+  FANCY1: any = ''
+  ROUNDC1: any = ''
+  COLORArr = []
   filteredColor: Observable<any[]>;
   ColControl: FormControl;
-  FINALBID:any=''
-  FLOCODE:any=''
+  FINALBID: any = ''
+  FLOCODE: any = ''
 
-  FLOCODEDIS:boolean = false
-  
+  FLOCODEDIS: boolean = false
+
   MacColControl: FormControl;
-  MacColor:any=[]
+  MacColor: any = []
   filteredMacColor: Observable<any[]>;
-  FINAL1:any=''
-  FINAL2:any=''
-  FINALME:any=''
-  FINALHE:any=''
-  RESULT1:any=''
-  RESULT2:any=''
-  RESULTME:any=''
-  RESULTHE:any=''
+  FINAL1: any = ''
+  FINAL2: any = ''
+  FINALME: any = ''
+  FINALHE: any = ''
+  RESULT1: any = ''
+  RESULT2: any = ''
+  RESULTME: any = ''
+  RESULTHE: any = ''
 
   FloControl: FormControl;
-  FLONO:any=[]
+  FLONO: any = []
   filteredFLO: Observable<any[]>;
-  FLO1:any=''
-  FLO2:any=''
-  FLOME:any=''
-  FLOHE:any=''
+  FLO1: any = ''
+  FLO2: any = ''
+  FLOME: any = ''
+  FLOHE: any = ''
 
   MacFloControl: FormControl;
-  MacFLONO:any=[]
+  MacFLONO: any = []
   filteredMacFLO: Observable<any[]>;
-  MacFLO1:any=''
-  MacFLO2:any=''
-  MacFLOME:any=''
-  MacFLOHE:any=''
+  MacFLO1: any = ''
+  MacFLO2: any = ''
+  MacFLOME: any = ''
+  MacFLOHE: any = ''
 
   MacComControl: FormControl;
-  MacComm:any=[]
+  MacComm: any = []
   filteredMacCom: Observable<any[]>;
-  MacCom1:any=''
-  MacCom2:any=''
-  MacComME:any=''
-  MacComHE:any=''
+  MacCom1: any = ''
+  MacCom2: any = ''
+  MacComME: any = ''
+  MacComHE: any = ''
 
-  PKTNAME:any=''
-  PKTSRNO:any=''
-  PKTWEIGHT:any=''
-  PKTRESERVE:any=''
-  PKTPER:any=''
-  PKTSRW:any=''
-  PKTSRW1:any=''
-  FLAT1:any=''
-  FLAT2:any=''
-  
+  PKTNAME: any = ''
+  PKTSRNO: any = ''
+  PKTWEIGHT: any = ''
+  PKTRESERVE: any = ''
+  PKTPER: any = ''
+  PKTSRW: any = ''
+  PKTSRW1: any = ''
+  FLAT1: any = ''
+  FLAT2: any = ''
+
   TensionControl: FormControl;
-  TenArr:any=[]
+  TenArr: any = []
   filteredTension: Observable<any[]>;
-  TENSION:any=''
+  TENSION: any = ''
 
-  TENDAR_NAME:any=''
+  TENDAR_NAME: any = ''
 
-  TendarStyle:string=`width: 100%;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-  AreaBoxStyle:string=`border:1px solid black;width: 100%;height: 50px;resize: none;`;
-  ContainWidth:string=`border:1px solid black;width: calc(100% - 10px);height: 55px;border-top:none`;
-  BlankBoxStyle:string=`border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
-  HearderBoxStyle:string=`border:1px solid black; width:100%; text-align: center;border-bottom:none`;
+  TendarStyle: string = `width: 100%;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+  AreaBoxStyle: string = `border:1px solid black;width: 100%;height: 50px;resize: none;`;
+  ContainWidth: string = `border:1px solid black;width: calc(100% - 10px);height: 55px;border-top:none`;
+  BlankBoxStyle: string = `border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
+  HearderBoxStyle: string = `border:1px solid black; width:100%; text-align: center;border-bottom:none`;
 
   DEPTArr: any = [];
   COMP_CODE: any = "";
@@ -150,10 +151,10 @@ export class BVViewComponent implements OnInit {
   DETID: any = "";
   T_NAME: any = "";
   T_DATE: any = null;
-  rowData:any[]=[Array(1).fill(0)]
-  GRIDROw:any[]=[]
-  NewRowData:any[]=[]
-  ROWData1:any[]=[]
+  rowData: any[] = [Array(1).fill(0)]
+  GRIDROw: any[] = []
+  NewRowData: any[] = []
+  ROWData1: any[] = []
 
   public columnDefs;
   public gridApi;
@@ -164,10 +165,12 @@ export class BVViewComponent implements OnInit {
   SECONDDATA: any[] = [];
   _GridRowData: any[] = [];
   FINALAMT: any = ''
-  FINALAMT1:any = ''
+  FINALAMT1: any = ''
   ADIS: any = "";
 
-  ISFINDRAP:boolean = true
+  ISFINDRAP: boolean = true
+
+  USERID: any = '';
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -175,13 +178,13 @@ export class BVViewComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private elementRef: ElementRef,
     private TendarMastser: TendatMastService,
-    private ViewServ :ViewService,
-    private ViewParaMastServ : ViewParaMastService,
+    private ViewServ: ViewService,
+    private ViewParaMastServ: ViewParaMastService,
     private _convFunction: ConverterFunctions,
     private datePipe: DatePipe,
     private TendarEstServ: TendarEstService,
     private dialog: MatDialog,
-  ) { 
+  ) {
     this.szControl = new FormControl();
     this.ColControl = new FormControl();
     this.MacColControl = new FormControl();
@@ -200,12 +203,12 @@ export class BVViewComponent implements OnInit {
         resetButton: true,
       },
     }
-    let op=this
+    let op = this
     this.getRowStyle = function (params) {
       for (let i = 0; i < op.SECONDDATA.length; i++) {
         if (op.SECONDDATA[i].PLANNO == params.data.PLANNO && op.SECONDDATA[i].SRNO == params.data.SRNO) {
           if (params.data.PTAG == "Total") {
-            return { background: "#c0ffc0",fontWeight: 'bold'};
+            return { background: "#c0ffc0", fontWeight: 'bold' };
           }
         }
       }
@@ -214,16 +217,18 @@ export class BVViewComponent implements OnInit {
       }
       return {};
     }
-    this.FillViewPara()
+    this.FillViewPara();
+    this.USERID = this.decodedTkn.UserId;
   }
-  NewClick(item){
+
+  NewClick(item) {
     console.log(item)
     let Data = []
     this.TendarEstServ.TendarPrdDetDisp({
       COMP_CODE: this.COMP_CODE,
       DETID: this.DETID,
       SRNO: item.SRNO,
-      TYPE:'BV'
+      TYPE: 'BV'
     }).subscribe((FillRes) => {
       try {
         if (FillRes.success == true) {
@@ -238,12 +243,16 @@ export class BVViewComponent implements OnInit {
             height: "calc(100vh - 1%)",
             data: Data
           })
-      
-        }else{
+          $("#Close").click()
+          dialogRef.afterClosed().subscribe((result) => { 
+            this.LoadGridData()
+          })
+
+        } else {
           this.spinner.hide()
           this.toastr.error('Data Not Found')
         }
-      }catch{
+      } catch {
         this.spinner.hide()
         this.toastr.error('Data Not Found')
       }
@@ -251,13 +260,13 @@ export class BVViewComponent implements OnInit {
     $("#Close").click()
   }
 
-  oncellClick(eve){
+  oncellClick(eve) {
     let Data = []
     this.TendarEstServ.TendarPrdDetDisp({
       COMP_CODE: eve.data.COMP_CODE,
       DETID: eve.data.DETID,
       SRNO: eve.data.SRNO,
-      TYPE:'BV'
+      TYPE: 'BV'
     }).subscribe((FillRes) => {
       try {
         if (FillRes.success == true) {
@@ -272,12 +281,12 @@ export class BVViewComponent implements OnInit {
             height: "calc(100vh - 1%)",
             data: Data
           })
-      
-        }else{
+
+        } else {
           this.spinner.hide()
           this.toastr.error('Data Not Found')
         }
-      }catch{
+      } catch {
         this.spinner.hide()
         this.toastr.error('Data Not Found')
       }
@@ -286,10 +295,10 @@ export class BVViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.decodedTkn.UserId == 'DN' || this.decodedTkn.UserId == 'ADMIN'){
+    if (this.decodedTkn.UserId == 'DN' || this.decodedTkn.UserId == 'ADMIN') {
       this.ADISDISABLE = false
       this.SAVEBTNSHOW = true
-    }else {
+    } else {
       this.ADISDISABLE = true
       this.SAVEBTNSHOW = false
     }
@@ -323,1087 +332,1087 @@ export class BVViewComponent implements OnInit {
     });
     this.allSzs = [[{ code: 0, name: '---' }, ...F_arr]]
 
-    let Com_arr =  this.decodedMast[20].map((item) => {
-      return { code: item.MCOM_NAME};
+    let Com_arr = this.decodedMast[20].map((item) => {
+      return { code: item.MCOM_NAME };
     });
-    
-    this.MacComm = [[{ code: 0}, ...Com_arr]]
+
+    this.MacComm = [[{ code: 0 }, ...Com_arr]]
 
     let Tension_arr = this.decodedMast[16].map((item) => {
-      return { code: item.T_CODE,name:item.T_NAME};
+      return { code: item.T_CODE, name: item.T_NAME };
     });
-    this.TenArr = [[{ code: 0}, ...Tension_arr]]
+    this.TenArr = [[{ code: 0 }, ...Tension_arr]]
 
 
     this.filteredSzs = this.szControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter(value))
-      );
+    );
     this.filteredColor = this.ColControl.valueChanges.pipe(
       startWith(''),
       map(value => this._Colfilter(value))
-      );
+    );
     this.filteredMacColor = this.MacColControl.valueChanges.pipe(
       startWith(''),
       map(value => this._MacColfilter(value))
-      );
+    );
     this.filteredFLO = this.FloControl.valueChanges.pipe(
       startWith(''),
       map(value => this._FLOfilter(value))
-      );
+    );
     this.filteredMacFLO = this.MacFloControl.valueChanges.pipe(
       startWith(''),
       map(value => this._MacFLOfilter(value))
-      );
+    );
     this.filteredMacCom = this.MacComControl.valueChanges.pipe(
       startWith(''),
       map(value => this._MacComfilter(value))
-      );
+    );
     this.filteredTension = this.TensionControl.valueChanges.pipe(
       startWith(''),
       map(value => this._Tensionfilter(value))
-      );
+    );
 
-      this.S_CODE = this.decodedMast[15].map((item) => {
-        return { code: item.S_CODE, name: item.S_NAME };
-      });
-      this.C_NAME = this.decodedMast[12].map((item) => {
-        return { code: item.C_CODE, name: item.C_NAME };
-      });
+    this.S_CODE = this.decodedMast[15].map((item) => {
+      return { code: item.S_CODE, name: item.S_NAME };
+    });
+    this.C_NAME = this.decodedMast[12].map((item) => {
+      return { code: item.C_CODE, name: item.C_NAME };
+    });
 
-      this.Q_NAME = this.decodedMast[5].map((item) => {
-        return { code: item.Q_CODE, name: item.Q_NAME };
-      });
-      this.CT_NAME = this.decodedMast[3].map((item) => {
-        return { code: item.CT_CODE, name: item.CT_NAME };
-      });
-      this.FL_NAME = this.decodedMast[7].map((item) => {
-        return { code: item.FL_CODE, name: item.FL_NAME };
-      });
-      this.LB_NAME = this.decodedMast[4].map((item) => {
-        return { code: item.LAB_CODE, name: item.LAB_NAME };
-      });
-      this.IN_NAME = this.decodedMast[6].map((item) => {
-        return { code: item.IN_CODE, name: item.IN_NAME };
-      });
-      this.ML_NAME = this.decodedMast[24].map((item) => {
-        return { code: item.ML_CODE, name: item.ML_NAME };
-      });
-      this.SHD_NAME = this.decodedMast[25].map((item) => {
-        return { code: item.SH_CODE, name: item.SH_NAME };
-      });
-  
-      this.REF_NAME = this.decodedMast[26].map((item) => {
-        return { code: item.REF_CODE, name: item.REF_NAME };
-      });
-      this.DEP_NAME = this.decodedMast[21].map((item) => {
-        return { code: item.DEP_CODE };
-      });
-      this.GRD_NAME = this.decodedMast[22].map((item) => {
-        return { code: item.GRD_CODE };
-      });
-      this.RAT_NAME = this.decodedMast[23].map((item) => {
-        return { code: item.RAT_CODE };
-      });
-  
-      this.RAPNAME = this.decodedMast[27].map((item) => {
-        return { code: item.RAPTYPE };
-      });
-      
-      let op=this
+    this.Q_NAME = this.decodedMast[5].map((item) => {
+      return { code: item.Q_CODE, name: item.Q_NAME };
+    });
+    this.CT_NAME = this.decodedMast[3].map((item) => {
+      return { code: item.CT_CODE, name: item.CT_NAME };
+    });
+    this.FL_NAME = this.decodedMast[7].map((item) => {
+      return { code: item.FL_CODE, name: item.FL_NAME };
+    });
+    this.LB_NAME = this.decodedMast[4].map((item) => {
+      return { code: item.LAB_CODE, name: item.LAB_NAME };
+    });
+    this.IN_NAME = this.decodedMast[6].map((item) => {
+      return { code: item.IN_CODE, name: item.IN_NAME };
+    });
+    this.ML_NAME = this.decodedMast[24].map((item) => {
+      return { code: item.ML_CODE, name: item.ML_NAME };
+    });
+    this.SHD_NAME = this.decodedMast[25].map((item) => {
+      return { code: item.SH_CODE, name: item.SH_NAME };
+    });
+
+    this.REF_NAME = this.decodedMast[26].map((item) => {
+      return { code: item.REF_CODE, name: item.REF_NAME };
+    });
+    this.DEP_NAME = this.decodedMast[21].map((item) => {
+      return { code: item.DEP_CODE };
+    });
+    this.GRD_NAME = this.decodedMast[22].map((item) => {
+      return { code: item.GRD_CODE };
+    });
+    this.RAT_NAME = this.decodedMast[23].map((item) => {
+      return { code: item.RAT_CODE };
+    });
+
+    this.RAPNAME = this.decodedMast[27].map((item) => {
+      return { code: item.RAPTYPE };
+    });
+
+    let op = this
 
 
-      $('body').on('focusin', 'select.ShapeList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-  
-      $('body').on('change', 'select.ShapeList', function (this) {
-        var inputData = $(this).prevAll();
-  
-  
-  
-        let IN_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let CARAT = $(inputData[4]).val();
-        let Q_CODE = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let ML_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let S_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-       
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+    $('body').on('focusin', 'select.ShapeList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+
+    $('body').on('change', 'select.ShapeList', function (this) {
+      var inputData = $(this).prevAll();
+
+
+
+      let IN_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let CARAT = $(inputData[4]).val();
+      let Q_CODE = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let ML_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let S_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].S_CODE = S_CODE
               }
             }
           }
         }
       }
-        op.findrap1(NewCode)
-      });
+      op.findrap1(NewCode)
+    });
 
-      $('body').on('focusin', 'select.ColorList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.ColorList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let IN_CODE = $(inputData[1]).val();
-        let LB_CODE = $(inputData[2]).val();
-        let FL_CODE = $(inputData[3]).val();
-        let CT_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let Q_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let ML_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let C_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+    $('body').on('focusin', 'select.ColorList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.ColorList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let IN_CODE = $(inputData[1]).val();
+      let LB_CODE = $(inputData[2]).val();
+      let FL_CODE = $(inputData[3]).val();
+      let CT_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let Q_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let ML_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let C_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].C_CODE = C_CODE
               }
             }
           }
         }
       }
-        op.findrap1(NewCode)
-  
-      })
+      op.findrap1(NewCode)
 
-      $('body').on('focusin', 'select.QuaList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.QuaList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let IN_CODE = $(inputData[1]).val();
-        let LB_CODE = $(inputData[2]).val();
-        let FL_CODE = $(inputData[3]).val();
-        let CT_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let ML_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let Q_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
+    })
 
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+    $('body').on('focusin', 'select.QuaList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.QuaList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let IN_CODE = $(inputData[1]).val();
+      let LB_CODE = $(inputData[2]).val();
+      let FL_CODE = $(inputData[3]).val();
+      let CT_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let ML_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let Q_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].Q_CODE = Q_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-        op.findrap1(NewCode)
-  
-      })
+      // op.gridApi.refreshCells({ force: true });
+      op.findrap1(NewCode)
 
-      $('body').on('focusin', 'select.CutList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.CutList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let IN_CODE = $(inputData[1]).val();
-        let LB_CODE = $(inputData[2]).val();
-        let FL_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let ML_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let CT_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+    })
+
+    $('body').on('focusin', 'select.CutList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.CutList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let IN_CODE = $(inputData[1]).val();
+      let LB_CODE = $(inputData[2]).val();
+      let FL_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let ML_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let CT_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].CT_CODE = CT_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-  
-        op.findrap1(NewCode)
-  
-      })
+      // op.gridApi.refreshCells({ force: true });
 
-      $('body').on('focusin', 'select.FloList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.FloList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let IN_CODE = $(inputData[1]).val();
-        let LB_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let ML_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let FL_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      op.findrap1(NewCode)
+
+    })
+
+    $('body').on('focusin', 'select.FloList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.FloList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let IN_CODE = $(inputData[1]).val();
+      let LB_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let ML_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let FL_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].FL_CODE = FL_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-  
-        op.findrap1(NewCode)
-  
-      })
+      // op.gridApi.refreshCells({ force: true });
 
-      $('body').on('focusin', 'select.LabList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.LabList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let IN_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let ML_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let LB_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-        for (let j = 0; j < op.rowData.length;j++) {
-        for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
-          if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-            if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
-              op.rowData[j].GRID_DATA[k].LB_CODE = LB_CODE
+      op.findrap1(NewCode)
+
+    })
+
+    $('body').on('focusin', 'select.LabList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.LabList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let IN_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let ML_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let LB_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
+            if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
+                op.rowData[j].GRID_DATA[k].LB_CODE = LB_CODE
+              }
             }
           }
         }
       }
-        }
-        // op.gridApi.refreshCells({ force: true });
-  
-        op.findrap1(NewCode)
-  
-      })
+      // op.gridApi.refreshCells({ force: true });
 
-      $('body').on('focusin', 'select.IncList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.IncList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let ML_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let IN_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      op.findrap1(NewCode)
+
+    })
+
+    $('body').on('focusin', 'select.IncList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.IncList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let ML_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let IN_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].IN_CODE = IN_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-        op.findrap1(NewCode)
-  
-      })
-  
-      $('body').on('focusin', 'select.MilkyLIST', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.MilkyLIST', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let IN_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let DEP_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let ML_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      // op.gridApi.refreshCells({ force: true });
+      op.findrap1(NewCode)
+
+    })
+
+    $('body').on('focusin', 'select.MilkyLIST', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.MilkyLIST', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let DEP_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let ML_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].ML_CODE = ML_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-        op.findrap1(NewCode)
-      })
-  
-      $('body').on('focusin', 'select.DepList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.DepList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let IN_CODE = $(inputData[15]).val();
-        let RAT_CODE = $(inputData[16]).val();
-        let ML_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let DEP_CODE = $(this).val()
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      // op.gridApi.refreshCells({ force: true });
+      op.findrap1(NewCode)
+    })
+
+    $('body').on('focusin', 'select.DepList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.DepList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let RAT_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let DEP_CODE = $(this).val()
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].DEP_CODE = DEP_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-  
-      })
-  
-      $('body').on('focusin', 'select.RatList', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.RatList', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let IN_CODE = $(inputData[15]).val();
-        let DEP_CODE = $(inputData[16]).val();
-        let ML_CODE = $(inputData[17]).val();
-        let GRD_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let RAT_CODE = $(this).val()
-  
-  
-        // for (let i = 0; i < op._GridRowData.length; i++) {
-        //   if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-        //     op._GridRowData[i].RAT_CODE = RAT_CODE
-        //   }
-        // }
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      // op.gridApi.refreshCells({ force: true });
+
+    })
+
+    $('body').on('focusin', 'select.RatList', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.RatList', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let GRD_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let RAT_CODE = $(this).val()
+
+
+      // for (let i = 0; i < op._GridRowData.length; i++) {
+      //   if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
+      //     op._GridRowData[i].RAT_CODE = RAT_CODE
+      //   }
+      // }
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].RAT_CODE = RAT_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-  
-      })
-  
-      $('body').on('focusin', 'select.GRDFill', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.GRDFill', function (this) {
-        var inputData = $(this).prevAll();
-  
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let IN_CODE = $(inputData[15]).val();
-        let DEP_CODE = $(inputData[16]).val();
-        let ML_CODE = $(inputData[17]).val();
-        let RAT_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let SH_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let GRD_CODE = $(this).val()
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      // op.gridApi.refreshCells({ force: true });
+
+    })
+
+    $('body').on('focusin', 'select.GRDFill', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.GRDFill', function (this) {
+      var inputData = $(this).prevAll();
+
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let SH_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let GRD_CODE = $(this).val()
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].GRD_CODE = GRD_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-  
-      })
-  
-      $('body').on('focusin', 'select.ShdFill', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.ShdFill', function (this) {
-        var inputData = $(this).prevAll();
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let IN_CODE = $(inputData[15]).val();
-        let DEP_CODE = $(inputData[16]).val();
-        let ML_CODE = $(inputData[17]).val();
-        let RAT_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let GRD_CODE = $(inputData[21]).val();
-        let REF_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let SH_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      // op.gridApi.refreshCells({ force: true });
+
+    })
+
+    $('body').on('focusin', 'select.ShdFill', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.ShdFill', function (this) {
+      var inputData = $(this).prevAll();
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let GRD_CODE = $(inputData[21]).val();
+      let REF_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let SH_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].SH_CODE = SH_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-        op.findrap1(NewCode)
-      })
-      $('body').on('focusin', 'select.RefFill', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.RefFill', function (this) {
-        var inputData = $(this).prevAll();
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let IN_CODE = $(inputData[15]).val();
-        let DEP_CODE = $(inputData[16]).val();
-        let ML_CODE = $(inputData[17]).val();
-        let RAT_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let GRD_CODE = $(inputData[21]).val();
-        let SH_CODE = $(inputData[22]).val();
-        let RAPTYPE = $(inputData[23]).val();
-        let REF_CODE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      // op.gridApi.refreshCells({ force: true });
+      op.findrap1(NewCode)
+    })
+    $('body').on('focusin', 'select.RefFill', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.RefFill', function (this) {
+      var inputData = $(this).prevAll();
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let GRD_CODE = $(inputData[21]).val();
+      let SH_CODE = $(inputData[22]).val();
+      let RAPTYPE = $(inputData[23]).val();
+      let REF_CODE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].REF_CODE = REF_CODE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-        op.findrap1(NewCode)
-      })
-  
-      $('body').on('focusin', 'select.RapTypeFill', function (this) {
-        $(this).data('val', $(this).val());
-      });
-  
-      $('body').on('change', 'select.RapTypeFill', function (this) {
-        var inputData = $(this).prevAll();
-        let S_CODE = $(inputData[0]).val();
-        let LB_CODE = $(inputData[1]).val();
-        let FL_CODE = $(inputData[2]).val();
-        let CT_CODE = $(inputData[3]).val();
-        let Q_CODE = $(inputData[4]).val();
-        let CARAT = $(inputData[5]).val();
-        let C_CODE = $(inputData[6]).val();
-        let PTAG = $(inputData[7]).val();
-        let PLANNO = $(inputData[8]).val();
-        let SRNO = $(inputData[9]).val();
-        let ORAP = $(inputData[10]).val();
-        let PER = $(inputData[11]).val();
-        let RTYPE = $(inputData[12]).val();
-        let AMT = $(inputData[13]).val();
-        let DATA = $(inputData[14]).val();
-        let IN_CODE = $(inputData[15]).val();
-        let DEP_CODE = $(inputData[16]).val();
-        let ML_CODE = $(inputData[17]).val();
-        let RAT_CODE = $(inputData[18]).val();
-        let MPER = $(inputData[19]).val();
-        let PLNSEL = $(inputData[20]).val();
-        let GRD_CODE = $(inputData[21]).val();
-        let SH_CODE = $(inputData[22]).val();
-        let REF_CODE = $(inputData[23]).val();
-        let RAPTYPE = $(this).val()
-  
-        let NewCode = {
-          IN_CODE,
-          LB_CODE,
-          FL_CODE,
-          CT_CODE,
-          CARAT,
-          Q_CODE,
-          C_CODE,
-          PTAG,
-          PLANNO,
-          SRNO,
-          S_CODE,
-          ORAP,
-          PER,
-          RTYPE,
-          AMT,
-          DATA,
-          ML_CODE,
-          RAT_CODE,
-          DEP_CODE,
-          GRD_CODE,
-          PLNSEL,
-          MPER,
-          SH_CODE,
-          REF_CODE,
-          RAPTYPE
-        }
-  
-        for (let i = 0; i < op._GridRowData.length; i++) {
-          for (let j = 0; j < op.rowData.length;j++) {
-          for (let k = 0; k < op.rowData[j].GRID_DATA.length;k++) {
+      // op.gridApi.refreshCells({ force: true });
+      op.findrap1(NewCode)
+    })
+
+    $('body').on('focusin', 'select.RapTypeFill', function (this) {
+      $(this).data('val', $(this).val());
+    });
+
+    $('body').on('change', 'select.RapTypeFill', function (this) {
+      var inputData = $(this).prevAll();
+      let S_CODE = $(inputData[0]).val();
+      let LB_CODE = $(inputData[1]).val();
+      let FL_CODE = $(inputData[2]).val();
+      let CT_CODE = $(inputData[3]).val();
+      let Q_CODE = $(inputData[4]).val();
+      let CARAT = $(inputData[5]).val();
+      let C_CODE = $(inputData[6]).val();
+      let PTAG = $(inputData[7]).val();
+      let PLANNO = $(inputData[8]).val();
+      let SRNO = $(inputData[9]).val();
+      let ORAP = $(inputData[10]).val();
+      let PER = $(inputData[11]).val();
+      let RTYPE = $(inputData[12]).val();
+      let AMT = $(inputData[13]).val();
+      let DATA = $(inputData[14]).val();
+      let IN_CODE = $(inputData[15]).val();
+      let DEP_CODE = $(inputData[16]).val();
+      let ML_CODE = $(inputData[17]).val();
+      let RAT_CODE = $(inputData[18]).val();
+      let MPER = $(inputData[19]).val();
+      let PLNSEL = $(inputData[20]).val();
+      let GRD_CODE = $(inputData[21]).val();
+      let SH_CODE = $(inputData[22]).val();
+      let REF_CODE = $(inputData[23]).val();
+      let RAPTYPE = $(this).val()
+
+      let NewCode = {
+        IN_CODE,
+        LB_CODE,
+        FL_CODE,
+        CT_CODE,
+        CARAT,
+        Q_CODE,
+        C_CODE,
+        PTAG,
+        PLANNO,
+        SRNO,
+        S_CODE,
+        ORAP,
+        PER,
+        RTYPE,
+        AMT,
+        DATA,
+        ML_CODE,
+        RAT_CODE,
+        DEP_CODE,
+        GRD_CODE,
+        PLNSEL,
+        MPER,
+        SH_CODE,
+        REF_CODE,
+        RAPTYPE
+      }
+
+      for (let i = 0; i < op._GridRowData.length; i++) {
+        for (let j = 0; j < op.rowData.length; j++) {
+          for (let k = 0; k < op.rowData[j].GRID_DATA.length; k++) {
             if (op._GridRowData[i].PLANNO === parseInt(PLANNO) && op._GridRowData[i].SRNO == parseInt(SRNO) && op._GridRowData[i].PTAG === PTAG) {
-              if(op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO  && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG){
+              if (op._GridRowData[i].PLANNO === op.rowData[j].GRID_DATA[k].PLANNO && op._GridRowData[i].SRNO && op.rowData[j].GRID_DATA[k].SRNO && op._GridRowData[i].PTAG == op.rowData[j].GRID_DATA[k].PTAG) {
                 op.rowData[j].GRID_DATA[k].RAPTYPE = RAPTYPE
               }
             }
           }
         }
       }
-        // op.gridApi.refreshCells({ force: true });
-        op.findrap1(NewCode)
-      })
+      // op.gridApi.refreshCells({ force: true });
+      op.findrap1(NewCode)
+    })
   }
 
   private _filter(value: string): any[] {
@@ -1413,18 +1422,23 @@ export class BVViewComponent implements OnInit {
   private _Colfilter(value: string): any[] {
     return this.COLORArr[0].filter(sz => sz.name);
   }
+
   private _MacColfilter(value: string): any[] {
     return this.MacColor[0].filter(sz => sz.name);
   }
+
   private _FLOfilter(value: string): any[] {
     return this.FLONO[0].filter(sz => sz.name);
   }
+
   private _MacFLOfilter(value: string): any[] {
     return this.MacFLONO[0].filter(sz => sz.name);
   }
+
   private _MacComfilter(value: string): any[] {
     return this.MacComm[0].filter(sz => sz.code);
   }
+
   private _Tensionfilter(value: string): any[] {
     return this.TenArr[0].filter(sz => sz.name);
   }
@@ -1435,9 +1449,9 @@ export class BVViewComponent implements OnInit {
   }
 
   GETDETID() {
-    this.DETID=''
-    this.T_DATE=null
-    this.T_NAME=''
+    this.DETID = ''
+    this.T_DATE = null
+    this.T_NAME = ''
     this.DETIDarr = [];
     this.TendarMastser.TendarMastFill({ COMP_CODE: this.COMP_CODE }).subscribe(
       (FillRes) => {
@@ -1445,7 +1459,7 @@ export class BVViewComponent implements OnInit {
           if (FillRes.success == true) {
             this.spinner.hide();
             this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true).map(item => {
-              return { code: item.DETID,date: item.T_DATE,name:item.T_NAME };
+              return { code: item.DETID, date: item.T_DATE, name: item.T_NAME };
             });
           } else {
             this.spinner.hide();
@@ -1476,6 +1490,7 @@ export class BVViewComponent implements OnInit {
       this.COMP_NAME = "";
     }
   }
+
   GETDATE() {
     if (this.COMP_CODE) {
       if (this.DEPTArr.filter((x) => x.code == this.COMP_CODE).length != 0) {
@@ -1493,7 +1508,7 @@ export class BVViewComponent implements OnInit {
 
   FillViewPara() {
     this.ViewParaMastServ.ViewParaFill({
-      FORMNAME: "TendarPrddetDisp",
+      FORMNAME: "BVView",
     }).subscribe((VPRes) => {
       try {
         if (VPRes.success == 1) {
@@ -1510,26 +1525,28 @@ export class BVViewComponent implements OnInit {
                 resizable: VPRes.data[i].ISRESIZE,
                 hide: VPRes.data[i].DISP == false ? true : false,
                 suppressMenu: true,
+                FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
                 cellRenderer: (params) => {
                   if (params.data) {
                     if (params.node.rowPinned != "bottom") {
-                      if(params.data['PTAG'] !== 'Total'){
-                      if (params.data[VPRes.data[i].FIELDNAME] == 1) {
+                      if (params.data['PTAG'] !== 'Total') {
+                        if (params.data[VPRes.data[i].FIELDNAME] == 1) {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
                             '" checked disabled>'
                           );
-                      } else {
+                        } else {
                           return (
                             '<input type="checkbox" data-action-type="' +
                             "PLNSEL" +
                             '" disabled>'
                           );
+                        }
+                      }
                     }
                   }
-                  }
-                }
                 },
               });
             } else {
@@ -1538,11 +1555,13 @@ export class BVViewComponent implements OnInit {
                 headerClass: VPRes.data[i].HEADERALIGN,
                 field: VPRes.data[i].FIELDNAME,
                 width: VPRes.data[i].COLWIDTH,
+                FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
                 cellStyle: {
                   "text-align": VPRes.data[i].CELLALIGN,
                   "background-color": VPRes.data[i].BACKCOLOR,
-                  "color":VPRes.data[i].FONTCOLOR,
-                  "font-weight":VPRes.data[i].ISBOLD ===true? 'bold':''
+                  "color": VPRes.data[i].FONTCOLOR,
+                  "font-weight": VPRes.data[i].ISBOLD === true ? 'bold' : ''
                 },
                 resizable: VPRes.data[i].ISRESIZE,
                 hide: VPRes.data[i].DISP == false ? true : false,
@@ -1630,6 +1649,7 @@ export class BVViewComponent implements OnInit {
             temp[i].cellStyle = this.ColColor.bind(this)
           }
           this.columnDefs = temp
+          console.log(this.columnDefs)
 
           for (let i = 0; i < this.columnDefs.length; i++) {
             if (this.columnDefs[i].headername == "Date") {
@@ -1650,62 +1670,58 @@ export class BVViewComponent implements OnInit {
       }
     });
   }
-  trackByFn(index, item) {
-    // return item.someUniqueIdentifier;
-    // or if you have no unique identifier:
-    return index;
-  }
+
   ColColor(params) {
     if (params.data.PTAG === 'Total') {
       return
     }
-    if(params.colDef.field === 'LB_NAME'){
-      if(params.data.LB_CODE === 'I'){
-        return { 'background': '#78f587'};
-      }else if(params.data.LB_CODE === 'HRD'){
-        return { 'background': '#fc6a6a'};
+    if (params.colDef.field === 'LB_NAME') {
+      if (params.data.LB_CODE === 'I') {
+        return { 'background': '#78f587' };
+      } else if (params.data.LB_CODE === 'HRD') {
+        return { 'background': '#fc6a6a' };
       }
-    }else if(params.colDef.field === 'S_NAME'){
-      if(params.data.S_CODE !== 'R' && params.data.S_CODE){
-        return { 'background': '#ffff9e'};
+    } else if (params.colDef.field === 'S_NAME') {
+      if (params.data.S_CODE !== 'R' && params.data.S_CODE) {
+        return { 'background': '#ffff9e' };
       }
-    }else if(params.colDef.field === 'CT_NAME'){
-      if(params.data.CT_CODE == 2){
-        return { 'background': '#8db6fc'};
-      }else if(params.data.CT_CODE == 3){
-        return { 'background': '#fc6a6a'};
-      }else if(params.data.CT_CODE == 4){
-        return { 'background': '#f09c9c'};
+    } else if (params.colDef.field === 'CT_NAME') {
+      if (params.data.CT_CODE == 2) {
+        return { 'background': '#8db6fc' };
+      } else if (params.data.CT_CODE == 3) {
+        return { 'background': '#fc6a6a' };
+      } else if (params.data.CT_CODE == 4) {
+        return { 'background': '#f09c9c' };
       }
-    }else if(params.colDef.field === 'Q_NAME'){
-      if(params.data.Q_CODE == 1){
-        return { 'background': '#f09c9c'};
-      }else if(params.data.Q_CODE == 2){
-        return { 'background': '#fc6a6a'};
+    } else if (params.colDef.field === 'Q_NAME') {
+      if (params.data.Q_CODE == 1) {
+        return { 'background': '#f09c9c' };
+      } else if (params.data.Q_CODE == 2) {
+        return { 'background': '#fc6a6a' };
       }
-    }else if(params.colDef.field === 'FL_NAME'){
-      if(params.data.FL_CODE == 2){
-        return { 'background': '#78f587'};
-      }else if(params.data.FL_CODE == 3){
-        return { 'background': '#ffff9e'};
-      }else if(params.data.FL_CODE == 4){
-        return { 'background': '#8db6fc'};
-      }else if(params.data.FL_CODE == 5){
-        return { 'background': '#aac0e6'};
+    } else if (params.colDef.field === 'FL_NAME') {
+      if (params.data.FL_CODE == 2) {
+        return { 'background': '#78f587' };
+      } else if (params.data.FL_CODE == 3) {
+        return { 'background': '#ffff9e' };
+      } else if (params.data.FL_CODE == 4) {
+        return { 'background': '#8db6fc' };
+      } else if (params.data.FL_CODE == 5) {
+        return { 'background': '#aac0e6' };
       }
-    }else if(params.colDef.field === 'ML_NAME'){
-      if(params.data.ML_CODE == 2){
-        return { 'background': '#a3a2a2'};
-      }else if(params.data.ML_CODE == 3){
-        return { 'background': '#e3e3e3'};
+    } else if (params.colDef.field === 'ML_NAME') {
+      if (params.data.ML_CODE == 2) {
+        return { 'background': '#a3a2a2' };
+      } else if (params.data.ML_CODE == 3) {
+        return { 'background': '#e3e3e3' };
       }
-    }else if(params.colDef.field === 'SH_NAME'){
-      if(params.data.SH_CODE == 2){
-        return { 'background': '#C4A484'};
-      }else if(params.data.SH_CODE == 3){
-        return { 'background': '#d9c6b4'};
-      }else if(params.data.SH_CODE == 7){
-        return { 'background': '#acfaa5'};
+    } else if (params.colDef.field === 'SH_NAME') {
+      if (params.data.SH_CODE == 2) {
+        return { 'background': '#C4A484' };
+      } else if (params.data.SH_CODE == 3) {
+        return { 'background': '#d9c6b4' };
+      } else if (params.data.SH_CODE == 7) {
+        return { 'background': '#acfaa5' };
       }
     }
   }
@@ -1729,8 +1745,8 @@ export class BVViewComponent implements OnInit {
 
   ShapeFill(params) {
     if (params.data.PTAG !== "Total") {
-        if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
-          let template = `
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
+        let template = `
           <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
           <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
           <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -1755,21 +1771,21 @@ export class BVViewComponent implements OnInit {
                     <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
                     <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                     <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >`
-          template += '<select class="ShapeList">'
-          template += '<option value="">---</option>';
-          for (let i = 0; i < this.S_CODE.length; i++) {
+        template += '<select class="ShapeList">'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.S_CODE.length; i++) {
 
-            if (this.S_CODE[i].code == params.data.S_CODE) {
-              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
-            } else {
-              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
-            }
-
+          if (this.S_CODE[i].code == params.data.S_CODE) {
+            template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
           }
-          template += '</select>';
-          return template;
-        } else {
-          let template = `
+
+        }
+        template += '</select>';
+        return template;
+      } else {
+        let template = `
           <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
           <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
           <input id="SH_CODE" type="hidden" value=${params.data.SH_CODE} / >
@@ -1794,26 +1810,26 @@ export class BVViewComponent implements OnInit {
                           <input id="FL_CODE" type="hidden" value="${params.data.FL_CODE}" / > 
                           <input id="LB_CODE" type="hidden" value="${params.data.LB_CODE ? params.data.LB_CODE : ''}" / > 
                           <input id="IN_CODE" type="hidden" value="${params.data.IN_CODE}" / >`
-          template += '<select class="ShapeList" disabled>'
-          template += '<option value="">---</option>';
-          for (let i = 0; i < this.S_CODE.length; i++) {
+        template += '<select class="ShapeList" disabled>'
+        template += '<option value="">---</option>';
+        for (let i = 0; i < this.S_CODE.length; i++) {
 
-            if (this.S_CODE[i].code == params.data.S_CODE) {
-              template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
-            } else {
-              template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
-            }
-
+          if (this.S_CODE[i].code == params.data.S_CODE) {
+            template += '<option selected value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
+          } else {
+            template += '<option value="' + this.S_CODE[i].code + '">' + this.S_CODE[i].name + '</option>';
           }
-          template += '</select>';
-          return template;
+
         }
+        template += '</select>';
+        return template;
+      }
     }
   }
 
   ColorFill(params) {
     if (params.data.PTAG !== "Total") {
-    if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2065,7 +2081,7 @@ export class BVViewComponent implements OnInit {
 
   FloFill(params) {
     if (params.data.PTAG !== "Total") {
-       if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
+      if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
         let template = `
         <input id="RAPTYPE" type="hidden" value=${params.data.RAPTYPE} / >
         <input id="REF_CODE" type="hidden" value=${params.data.REF_CODE} / >
@@ -2482,6 +2498,7 @@ export class BVViewComponent implements OnInit {
       }
     }
   }
+
   RatFill(params) {
     if (params.data.PTAG !== "Total") {
       if (this.decodedTkn.UserId === 'DN' || this.decodedTkn.UserId === 'ADMIN') {
@@ -2922,21 +2939,22 @@ export class BVViewComponent implements OnInit {
   }
 
   LoadGridData() {
-    let FillObj ={
-      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:'',
-      DETID:this.DETID ? this.DETID:0
+    let FillObj = {
+      COMP_CODE: this.COMP_CODE ? this.COMP_CODE : '',
+      DETID: this.DETID ? this.DETID : 0
     }
     this.spinner.show();
     this.ViewServ.BVView(FillObj).subscribe(
       (FillRes) => {
         try {
           if (FillRes.success == true) {
-            this.tableRepeatCount =Array(FillRes.data[0].length).fill(0);
-            this.rowData =FillRes.data[0]
+            console.time();
+            this.tableRepeatCount = Array(FillRes.data[0].length).fill(0);
+            this.rowData = FillRes.data[0]
             this.NewRowData = FillRes.data[1]
             this.spinner.show();
-            for(let i=0; i < this.rowData.length ; i++){
-              this.rowData[i].GRID_DATA = this.GetRowData(this.rowData[i].DETID, this.rowData[i].SRNO, this.rowData[i].COMP_CODE,this.NewRowData)
+            for (let i = 0; i < this.rowData.length; i++) {
+              this.rowData[i].GRID_DATA = this.GetRowData(this.rowData[i].DETID, this.rowData[i].SRNO, this.rowData[i].COMP_CODE, this.NewRowData)
             }
             this.SECONDDATA = FillRes.data[1]
             this._GridRowData = FillRes.data[1]
@@ -2961,7 +2979,7 @@ export class BVViewComponent implements OnInit {
               const container = document.querySelector(".ag-body-viewport");
               ps.update();
             }
-
+            console.timeEnd();
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -2978,8 +2996,8 @@ export class BVViewComponent implements OnInit {
     );
   }
 
-  GetRowData(DetId,Srno,Comp,data){
-    return data.filter(row =>row.COMP_CODE === Comp && row.SRNO === Srno && row.DETID === DetId);
+  GetRowData(DetId, Srno, Comp, data) {
+    return data.filter(row => row.COMP_CODE === Comp && row.SRNO === Srno && row.DETID === DetId);
   }
 
   DateFormat(params) {
@@ -3071,9 +3089,9 @@ export class BVViewComponent implements OnInit {
       RTYPE: RapObj.LB_CODE,
       MPER: RapObj.MPER,
       ML_CODE: RapObj.ML_CODE,
-      SH_CODE:RapObj.SH_CODE,
-      REF_CODE:RapObj.REF_CODE,
-      RAPTYPE:RapObj.RAPTYPE,
+      SH_CODE: RapObj.SH_CODE,
+      REF_CODE: RapObj.REF_CODE,
+      RAPTYPE: RapObj.RAPTYPE,
     };
 
     this.TendarEstServ.FindRap(RapObj1).then((RapRes) => {
@@ -3084,71 +3102,71 @@ export class BVViewComponent implements OnInit {
           let PTAGROW = []
           let PTAGRO = []
           for (let i = 0; i < this._GridRowData.length; i++) {
-            for (let j = 0; j < this.rowData.length;j++) {
-            for (let k = 0; k < this.rowData[j].GRID_DATA.length;k++) {
-              if (this._GridRowData[i].PLANNO === oldRapObj.PLANNO && this._GridRowData[i].SRNO == oldRapObj.SRNO && this._GridRowData[i].PTAG === oldRapObj.PTAG) {
-                if(oldRapObj.PLANNO === this.rowData[j].GRID_DATA[k].PLANNO && oldRapObj.SRNO === this.rowData[j].SRNO  && oldRapObj.PTAG == this.rowData[j].GRID_DATA[k].PTAG){
-                  this.rowData[j].GRID_DATA[k].ORAP = RapRes.data[0][0].AMT;
-                  this.rowData[j].GRID_DATA[k].RATE = RapRes.data[1][0][''];
-                  this.rowData[j].GRID_DATA[k].RTYPE = RapRes.data[2][0][''];
-                  this.rowData[j].GRID_DATA[k].AMT = this.rowData[j].GRID_DATA[k].RATE * this.rowData[j].GRID_DATA[k].CARAT;
-                  this.rowData[j].GRID_DATA[k].PER = 100 - (this.rowData[j].GRID_DATA[k].RATE / this.rowData[j].GRID_DATA[k].ORAP) * 100;
-                  PTAGROW.push(this.rowData[j].GRID_DATA[k])
-                  PTAGRO = this.rowData[j]
-                }else{
-                  PTAGROW.push(this.rowData[j].GRID_DATA[k])
+            for (let j = 0; j < this.rowData.length; j++) {
+              for (let k = 0; k < this.rowData[j].GRID_DATA.length; k++) {
+                if (this._GridRowData[i].PLANNO === oldRapObj.PLANNO && this._GridRowData[i].SRNO == oldRapObj.SRNO && this._GridRowData[i].PTAG === oldRapObj.PTAG) {
+                  if (oldRapObj.PLANNO === this.rowData[j].GRID_DATA[k].PLANNO && oldRapObj.SRNO === this.rowData[j].SRNO && oldRapObj.PTAG == this.rowData[j].GRID_DATA[k].PTAG) {
+                    this.rowData[j].GRID_DATA[k].ORAP = RapRes.data[0][0].AMT;
+                    this.rowData[j].GRID_DATA[k].RATE = RapRes.data[1][0][''];
+                    this.rowData[j].GRID_DATA[k].RTYPE = RapRes.data[2][0][''];
+                    this.rowData[j].GRID_DATA[k].AMT = this.rowData[j].GRID_DATA[k].RATE * this.rowData[j].GRID_DATA[k].CARAT;
+                    this.rowData[j].GRID_DATA[k].PER = 100 - (this.rowData[j].GRID_DATA[k].RATE / this.rowData[j].GRID_DATA[k].ORAP) * 100;
+                    PTAGROW.push(this.rowData[j].GRID_DATA[k])
+                    PTAGRO = this.rowData[j]
+                  } else {
+                    PTAGROW.push(this.rowData[j].GRID_DATA[k])
+                  }
                 }
               }
             }
           }
-        }
-      for(let i=0; i < this.rowData.length ; i++){
-        if(this.rowData[i].SRNO === PTAGRO['SRNO']){
-          this.rowData[i].GRID_DATA = this.GetRowData(PTAGRO['DETID'], PTAGRO['SRNO'], PTAGRO['COMP_CODE'],PTAGROW)
-          break
-        }
-      }
-      let NewAmtSum = 0
-      for(let i=0;i< this.rowData.length;i++){
-        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){
-            let carat = this.rowData[i].GRID_DATA[j].CARAT
-            let Orap = this.rowData[i].GRID_DATA[j].ORAP
-            let Mvalue
-            let newArray
-            let FinalValue = 0
-            let NewSum = 0
-            if(parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100){
-              Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
-            }else{
-              Mvalue =this.rowData[i].GRID_DATA[j].PER
+          for (let i = 0; i < this.rowData.length; i++) {
+            if (this.rowData[i].SRNO === PTAGRO['SRNO']) {
+              this.rowData[i].GRID_DATA = this.GetRowData(PTAGRO['DETID'], PTAGRO['SRNO'], PTAGRO['COMP_CODE'], PTAGROW)
+              break
             }
-            newArray = (Mvalue / 100) * Orap
-            FinalValue = Orap - newArray
-            NewSum = FinalValue * carat
-            this.rowData[i].GRID_DATA[j].RATE = FinalValue
-            this.rowData[i].GRID_DATA[j].AMT = NewSum
-            NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
           }
-        }
-      }
-      let ADISDIS = 0
-      for(let i=0;i<this.rowData.length;i++){
-        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
-            this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
-            this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
-            let FINAL = (this.rowData[i].ADIS /100)*NewAmtSum
-            // if(`${this.rowData[i].ADIS}`.includes('+')){
-              ADISDIS = NewAmtSum + FINAL
-            // }else{
-            //    ADISDIS = NewAmtSum - FINAL
-            // }
-            this.rowData[i].FAMT = ADISDIS.toFixed(2)
-            this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+          let NewAmtSum = 0
+          for (let i = 0; i < this.rowData.length; i++) {
+            for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+              if (this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG !== 'Total') {
+                let carat = this.rowData[i].GRID_DATA[j].CARAT
+                let Orap = this.rowData[i].GRID_DATA[j].ORAP
+                let Mvalue
+                let newArray
+                let FinalValue = 0
+                let NewSum = 0
+                if (parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100) {
+                  Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+                } else {
+                  Mvalue = this.rowData[i].GRID_DATA[j].PER
+                }
+                newArray = (Mvalue / 100) * Orap
+                FinalValue = Orap - newArray
+                NewSum = FinalValue * carat
+                this.rowData[i].GRID_DATA[j].RATE = FinalValue
+                this.rowData[i].GRID_DATA[j].AMT = NewSum
+                NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+              }
+            }
           }
-        }
-      }
+          let ADISDIS = 0
+          for (let i = 0; i < this.rowData.length; i++) {
+            for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+              if (this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total') {
+                this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+                this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+                let FINAL = (this.rowData[i].ADIS / 100) * NewAmtSum
+                // if(`${this.rowData[i].ADIS}`.includes('+')){
+                ADISDIS = NewAmtSum + FINAL
+                // }else{
+                //    ADISDIS = NewAmtSum - FINAL
+                // }
+                this.rowData[i].FAMT = ADISDIS.toFixed(2)
+                this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+              }
+            }
+          }
         }
       } catch (err) {
         console.log(err);
@@ -3156,9 +3174,10 @@ export class BVViewComponent implements OnInit {
     });
 
   }
-  FindRap(eve){
-    if(eve.colDef.field === 'MPER'){
-      if(parseFloat(eve.data.MPER) >= eve.data.PER + 10 || parseFloat(eve.data.MPER) <= eve.data.PER - 10){
+
+  FindRap(eve) {
+    if (eve.colDef.field === 'MPER') {
+      if (parseFloat(eve.data.MPER) >= eve.data.PER + 10 || parseFloat(eve.data.MPER) <= eve.data.PER - 10) {
         Swal.fire({
           title:
             "Are you Sure You Want To Update",
@@ -3171,144 +3190,144 @@ export class BVViewComponent implements OnInit {
           confirmButtonText: "Yes",
         }).then((result) => {
           if (result.value) {
-          }else {
+          } else {
             eve.data.MPER = 0
             // this.gridApi1.refreshCells({force:true})
           }
-  })
-}
-    let NewData = []
-    for(let i=0;i< this.rowData.length;i++){
-      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG == eve.data.PTAG){
-          this.rowData[i].GRID_DATA[j].MPER = eve.data.MPER
-        }
+        })
       }
-    }
-    let FinalArray = []
-    for(let i=0;i< this.rowData.length;i++){
-      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){
-          let carat = this.rowData[i].GRID_DATA[j].CARAT
-          let Orap = this.rowData[i].GRID_DATA[j].ORAP
-          let Mvalue
-          let newArray
-          let FinalValue = 0
-          let NewSum = 0
-          if(parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100){
-            Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
-          }else{
-            Mvalue =this.rowData[i].GRID_DATA[j].PER
+      let NewData = []
+      for (let i = 0; i < this.rowData.length; i++) {
+        for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+          if (this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG == eve.data.PTAG) {
+            this.rowData[i].GRID_DATA[j].MPER = eve.data.MPER
           }
-          newArray = (Mvalue / 100) * Orap
-          FinalValue = Orap - newArray
-          NewSum = FinalValue * carat
+        }
+      }
+      let FinalArray = []
+      for (let i = 0; i < this.rowData.length; i++) {
+        for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+          if (this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total') {
+            let carat = this.rowData[i].GRID_DATA[j].CARAT
+            let Orap = this.rowData[i].GRID_DATA[j].ORAP
+            let Mvalue
+            let newArray
+            let FinalValue = 0
+            let NewSum = 0
+            if (parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100) {
+              Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+            } else {
+              Mvalue = this.rowData[i].GRID_DATA[j].PER
+            }
+            newArray = (Mvalue / 100) * Orap
+            FinalValue = Orap - newArray
+            NewSum = FinalValue * carat
 
-          this.rowData[i].GRID_DATA[j].RATE = FinalValue
-          this.rowData[i].GRID_DATA[j].AMT = NewSum
+            this.rowData[i].GRID_DATA[j].RATE = FinalValue
+            this.rowData[i].GRID_DATA[j].AMT = NewSum
+          }
         }
       }
-    }
-    let NewAmtSum = 0
-    for(let i=0;i< this.rowData.length;i++){
-      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){ 
-          NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+      let NewAmtSum = 0
+      for (let i = 0; i < this.rowData.length; i++) {
+        for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+          if (this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total') {
+            NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+          }
         }
       }
-    }
-    let ADISDIS = 0
-    for(let i=0;i< this.rowData.length;i++){
-      for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-        if(this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
-          this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
-          this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
-          let FINAL = (parseFloat(this.rowData[i].ADIS) /100)*NewAmtSum
-          
-          // if(`${this.rowData[i].ADIS}`.includes('+')){
-            if(!FINAL){
+      let ADISDIS = 0
+      for (let i = 0; i < this.rowData.length; i++) {
+        for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+          if (this.rowData[i].GRID_DATA[j].SRNO === eve.data.SRNO && this.rowData[i].GRID_DATA[j].PTAG == 'Total') {
+            this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+            this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+            let FINAL = (parseFloat(this.rowData[i].ADIS) / 100) * NewAmtSum
+
+            // if(`${this.rowData[i].ADIS}`.includes('+')){
+            if (!FINAL) {
               FINAL = 0
             }
             ADISDIS = NewAmtSum + FINAL
-          // }else{
-          //   ADISDIS = NewAmtSum - FINAL
-          // }
-          this.rowData[i].FAMT = ADISDIS.toFixed(2)
-          this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
-          FinalArray.push(this.rowData[i].GRID_DATA[j])
-        }else {
-          FinalArray.push(this.rowData[i].GRID_DATA[j])
+            // }else{
+            //   ADISDIS = NewAmtSum - FINAL
+            // }
+            this.rowData[i].FAMT = ADISDIS.toFixed(2)
+            this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+            FinalArray.push(this.rowData[i].GRID_DATA[j])
+          } else {
+            FinalArray.push(this.rowData[i].GRID_DATA[j])
+          }
         }
       }
-    }
-    for(let i=0; i < this.rowData.length ; i++){
-      if(this.rowData[i].SRNO === eve.data.SRNO){
-        this.rowData[i].GRID_DATA = this.GetRowData(eve.data.DETID, eve.data.SRNO ,eve.data.COMP_CODE,FinalArray)
-        break
+      for (let i = 0; i < this.rowData.length; i++) {
+        if (this.rowData[i].SRNO === eve.data.SRNO) {
+          this.rowData[i].GRID_DATA = this.GetRowData(eve.data.DETID, eve.data.SRNO, eve.data.COMP_CODE, FinalArray)
+          break
+        }
       }
-    }
-  }else {
-    if (!eve.data.S_CODE) {
-      return;
-    }
-    if (!eve.data.Q_CODE) {
-      return;
-    }
-    if (!eve.data.C_CODE) {
-      return;
-    }
-    if (!parseFloat(eve.data.CARAT)) {
-      return;
-    }
-    if (!eve.data.CT_CODE) {
-      return;
-    }
-    if (!eve.data.FL_CODE) {
-      return;
-    }
-    if (!eve.data.LB_CODE) {
-      return;
-    }
-    if (!eve.data.IN_CODE) {
-      return;
-    }
-    if (!eve.data.ML_CODE) {
-      return;
-    }
-    this.ISFINDRAP = false
-    let RapObj = {
-      S_CODE: eve.data.S_CODE,
-      Q_CODE: eve.data.Q_CODE,
-      C_CODE: eve.data.C_CODE,
-      CARAT: eve.data.CARAT,
-      CUT_CODE: eve.data.CT_CODE,
-      FL_CODE: eve.data.FL_CODE,
-      IN_CODE: eve.data.IN_CODE,
-      RTYPE: eve.data.LB_CODE,
-      MPER: eve.data.MPER,
-      ML_CODE: eve.data.ML_CODE,
-      SH_CODE:eve.data.SH_CODE,
-      REF_CODE:eve.data.REF_CODE,
-      RAPTYPE:eve.data.RAPTYPE,
-    };
+    } else {
+      if (!eve.data.S_CODE) {
+        return;
+      }
+      if (!eve.data.Q_CODE) {
+        return;
+      }
+      if (!eve.data.C_CODE) {
+        return;
+      }
+      if (!parseFloat(eve.data.CARAT)) {
+        return;
+      }
+      if (!eve.data.CT_CODE) {
+        return;
+      }
+      if (!eve.data.FL_CODE) {
+        return;
+      }
+      if (!eve.data.LB_CODE) {
+        return;
+      }
+      if (!eve.data.IN_CODE) {
+        return;
+      }
+      if (!eve.data.ML_CODE) {
+        return;
+      }
+      this.ISFINDRAP = false
+      let RapObj = {
+        S_CODE: eve.data.S_CODE,
+        Q_CODE: eve.data.Q_CODE,
+        C_CODE: eve.data.C_CODE,
+        CARAT: eve.data.CARAT,
+        CUT_CODE: eve.data.CT_CODE,
+        FL_CODE: eve.data.FL_CODE,
+        IN_CODE: eve.data.IN_CODE,
+        RTYPE: eve.data.LB_CODE,
+        MPER: eve.data.MPER,
+        ML_CODE: eve.data.ML_CODE,
+        SH_CODE: eve.data.SH_CODE,
+        REF_CODE: eve.data.REF_CODE,
+        RAPTYPE: eve.data.RAPTYPE,
+      };
 
-    this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
-      try {
-        this.ISFINDRAP = true
+      this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
+        try {
+          this.ISFINDRAP = true
           let PTAGROW = []
           let PTAGRO = []
-          let CrtSum =0
-            for (let j = 0; j < this.rowData.length;j++) {
-            for (let k = 0; k < this.rowData[j].GRID_DATA.length;k++) {
+          let CrtSum = 0
+          for (let j = 0; j < this.rowData.length; j++) {
+            for (let k = 0; k < this.rowData[j].GRID_DATA.length; k++) {
               if (this.rowData[j].GRID_DATA[k].SRNO == eve.data.SRNO && this.rowData[j].GRID_DATA[k].PTAG !== 'Total') {
                 CrtSum += parseFloat(this.rowData[j].GRID_DATA[k].CARAT)
               }
             }
           }
-          for (let j = 0; j < this.rowData.length;j++) {
-            for (let k = 0; k < this.rowData[j].GRID_DATA.length;k++) {
+          for (let j = 0; j < this.rowData.length; j++) {
+            for (let k = 0; k < this.rowData[j].GRID_DATA.length; k++) {
               if (this.rowData[j].GRID_DATA[k].SRNO == eve.data.SRNO && this.rowData[j].GRID_DATA[k].PTAG == eve.data.PTAG) {
-                if(CrtSum > this.rowData[j].I_CARAT){
+                if (CrtSum > this.rowData[j].I_CARAT) {
                   this.rowData[j].GRID_DATA[k].CARAT = 0.00
                   this.toastr.warning('Your Carat Was Greater Than Weight')
                 }
@@ -3316,105 +3335,106 @@ export class BVViewComponent implements OnInit {
             }
           }
           for (let i = 0; i < this._GridRowData.length; i++) {
-            for (let j = 0; j < this.rowData.length;j++) {
-            for (let k = 0; k < this.rowData[j].GRID_DATA.length;k++) {
-              if (this._GridRowData[i].PLANNO === eve.data.PLANNO && this._GridRowData[i].SRNO == eve.data.SRNO && this._GridRowData[i].PTAG === eve.data.PTAG) {
-                if(eve.data.PLANNO === this.rowData[j].GRID_DATA[k].PLANNO && eve.data.SRNO === this.rowData[j].SRNO  && eve.data.PTAG == this.rowData[j].GRID_DATA[k].PTAG){
-                  this.rowData[j].GRID_DATA[k].ORAP = RapRes.data[0][0].AMT;
-                  this.rowData[j].GRID_DATA[k].RATE = RapRes.data[1][0][''];
-                  this.rowData[j].GRID_DATA[k].RTYPE = RapRes.data[2][0][''];
-                  this.rowData[j].GRID_DATA[k].AMT = this.rowData[j].GRID_DATA[k].RATE * this.rowData[j].GRID_DATA[k].CARAT;
-                  this.rowData[j].GRID_DATA[k].PER = 100 - (this.rowData[j].GRID_DATA[k].RATE / this.rowData[j].GRID_DATA[k].ORAP) * 100;
-                  PTAGROW.push(this.rowData[j].GRID_DATA[k])
-                  PTAGRO = this.rowData[j]
-                }else{
-                  PTAGROW.push(this.rowData[j].GRID_DATA[k])
+            for (let j = 0; j < this.rowData.length; j++) {
+              for (let k = 0; k < this.rowData[j].GRID_DATA.length; k++) {
+                if (this._GridRowData[i].PLANNO === eve.data.PLANNO && this._GridRowData[i].SRNO == eve.data.SRNO && this._GridRowData[i].PTAG === eve.data.PTAG) {
+                  if (eve.data.PLANNO === this.rowData[j].GRID_DATA[k].PLANNO && eve.data.SRNO === this.rowData[j].SRNO && eve.data.PTAG == this.rowData[j].GRID_DATA[k].PTAG) {
+                    this.rowData[j].GRID_DATA[k].ORAP = RapRes.data[0][0].AMT;
+                    this.rowData[j].GRID_DATA[k].RATE = RapRes.data[1][0][''];
+                    this.rowData[j].GRID_DATA[k].RTYPE = RapRes.data[2][0][''];
+                    this.rowData[j].GRID_DATA[k].AMT = this.rowData[j].GRID_DATA[k].RATE * this.rowData[j].GRID_DATA[k].CARAT;
+                    this.rowData[j].GRID_DATA[k].PER = 100 - (this.rowData[j].GRID_DATA[k].RATE / this.rowData[j].GRID_DATA[k].ORAP) * 100;
+                    PTAGROW.push(this.rowData[j].GRID_DATA[k])
+                    PTAGRO = this.rowData[j]
+                  } else {
+                    PTAGROW.push(this.rowData[j].GRID_DATA[k])
+                  }
                 }
               }
             }
           }
-        }
-      for(let i=0; i < this.rowData.length ; i++){
-        if(this.rowData[i].SRNO === PTAGRO['SRNO']){
-          this.rowData[i].GRID_DATA = this.GetRowData(PTAGRO['DETID'], PTAGRO['SRNO'], PTAGRO['COMP_CODE'],PTAGROW)
-          break
-        }
-      }
-      let NewAmtSum = 0
-      for(let i=0;i< this.rowData.length;i++){
-        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG !== 'Total'){
-            let carat = this.rowData[i].GRID_DATA[j].CARAT
-            let Orap = this.rowData[i].GRID_DATA[j].ORAP
-            let Mvalue
-            let newArray
-            let FinalValue = 0
-            let NewSum = 0
-            if(parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100){
-              Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
-            }else{
-              Mvalue =this.rowData[i].GRID_DATA[j].PER
+          for (let i = 0; i < this.rowData.length; i++) {
+            if (this.rowData[i].SRNO === PTAGRO['SRNO']) {
+              this.rowData[i].GRID_DATA = this.GetRowData(PTAGRO['DETID'], PTAGRO['SRNO'], PTAGRO['COMP_CODE'], PTAGROW)
+              break
             }
-            newArray = (Mvalue / 100) * Orap
-            FinalValue = Orap - newArray
-            NewSum = FinalValue * carat
-            this.rowData[i].GRID_DATA[j].RATE = FinalValue
-            this.rowData[i].GRID_DATA[j].AMT = NewSum
-            NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
           }
-        }
-      }
-      let ADISDIS
-      for(let i=0;i<this.rowData.length;i++){
-        for(let j=0;j<this.rowData[i].GRID_DATA.length;j++){
-          if(this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total'){
-            this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
-            this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
-            let FINAL = (this.rowData[i].ADIS /100)*NewAmtSum
-            // if(`${this.rowData[i].ADIS}`.includes('+')){
-              ADISDIS = NewAmtSum + FINAL
-            // }else{
-            //    ADISDIS = NewAmtSum - FINAL
-            // }
-            this.rowData[i].FAMT = ADISDIS.toFixed(2)
-            this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+          let NewAmtSum = 0
+          for (let i = 0; i < this.rowData.length; i++) {
+            for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+              if (this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG !== 'Total') {
+                let carat = this.rowData[i].GRID_DATA[j].CARAT
+                let Orap = this.rowData[i].GRID_DATA[j].ORAP
+                let Mvalue
+                let newArray
+                let FinalValue = 0
+                let NewSum = 0
+                if (parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100) {
+                  Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+                } else {
+                  Mvalue = this.rowData[i].GRID_DATA[j].PER
+                }
+                newArray = (Mvalue / 100) * Orap
+                FinalValue = Orap - newArray
+                NewSum = FinalValue * carat
+                this.rowData[i].GRID_DATA[j].RATE = FinalValue
+                this.rowData[i].GRID_DATA[j].AMT = NewSum
+                NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+              }
+            }
           }
+          let ADISDIS
+          for (let i = 0; i < this.rowData.length; i++) {
+            for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+              if (this.rowData[i].GRID_DATA[j].SRNO === PTAGRO['SRNO'] && this.rowData[i].GRID_DATA[j].PTAG == 'Total') {
+                this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+                this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+                let FINAL = (this.rowData[i].ADIS / 100) * NewAmtSum
+                // if(`${this.rowData[i].ADIS}`.includes('+')){
+                ADISDIS = NewAmtSum + FINAL
+                // }else{
+                //    ADISDIS = NewAmtSum - FINAL
+                // }
+                this.rowData[i].FAMT = ADISDIS.toFixed(2)
+                this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+              }
+            }
+          }
+        } catch (err) {
+          console.log(err)
         }
-      }
-      }catch (err){
-        console.log(err)
-      }
-    })
-  }
+      })
+    }
   }
 
-  ADISCHANGE(eve,item){
+  ADISCHANGE(eve, item) {
     let NewAMT = 0
     let FinalADIS = 0
-    for(let i=0 ;i<item.GRID_DATA.length;i++){
-    for(let j=0 ;j<this.rowData.length;j++){
-      if(item.GRID_DATA[i].PTAG === 'Total' && item.SRNO === this.rowData[j].SRNO){
-        NewAMT = item.GRID_DATA[i].AMT
-        if(parseFloat(item.ADIS)){
-          let FINAL = (parseFloat(item.ADIS) /100)*NewAMT
-          // if(item.ADIS.includes('+')){
-            FinalADIS =  NewAMT + FINAL
-          // }else{
-          //   FinalADIS =  NewAMT - FINAL
-          // }
-          this.rowData[j].FAMT = FinalADIS.toFixed(2)
-          this.rowData[j].FBID = (FinalADIS / this.rowData[j].I_CARAT).toFixed(2)
-        }else {
-          this.rowData[j].FAMT = NewAMT.toFixed(2)
-          this.rowData[j].FBID = (NewAMT / this.rowData[j].I_CARAT).toFixed(2)
+    for (let i = 0; i < item.GRID_DATA.length; i++) {
+      for (let j = 0; j < this.rowData.length; j++) {
+        if (item.GRID_DATA[i].PTAG === 'Total' && item.SRNO === this.rowData[j].SRNO) {
+          NewAMT = item.GRID_DATA[i].AMT
+          if (parseFloat(item.ADIS)) {
+            let FINAL = (parseFloat(item.ADIS) / 100) * NewAMT
+            // if(item.ADIS.includes('+')){
+            FinalADIS = NewAMT + FINAL
+            // }else{
+            //   FinalADIS =  NewAMT - FINAL
+            // }
+            this.rowData[j].FAMT = FinalADIS.toFixed(2)
+            this.rowData[j].FBID = (FinalADIS / this.rowData[j].I_CARAT).toFixed(2)
+          } else {
+            this.rowData[j].FAMT = NewAMT.toFixed(2)
+            this.rowData[j].FBID = (NewAMT / this.rowData[j].I_CARAT).toFixed(2)
+          }
         }
       }
     }
   }
-}
-  Save(item){
-    if(!this.ISFINDRAP){
-      return 
+
+  Save(item) {
+    if (!this.ISFINDRAP) {
+      return
     }
     let saveOBJ1 = {
       COMP_CODE: item.COMP_CODE,
@@ -3459,8 +3479,12 @@ export class BVViewComponent implements OnInit {
       F2C_CODE: item.F2C_CODE ? item.F2C_CODE : 0,
       PUSER: this.decodedTkn.UserId,
       TEN_NAME: item.TEN_NAME,
-      ADIS:item.ADIS ? item.ADIS:0,
-      FAMT:item.FAMT ? item.FAMT:0,
+      ADIS: item.ADIS ? item.ADIS : 0,
+      FAMT: item.FAMT ? item.FAMT : 0,
+      UUSER1:item.UUSER1 ? item.UUSER1:'',
+      UUSER2:item.UUSER2 ? item.UUSER2:'',
+      UUSER3:item.UUSER3 ? item.UUSER3:'',
+      ISBV:1
     }
     this.spinner.show()
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
@@ -3485,10 +3509,10 @@ export class BVViewComponent implements OnInit {
 
     let NewData = item.GRID_DATA
 
-    let SubData =[]
+    let SubData = []
 
-    for(let i=0;i<NewData.length;i++){
-      if(NewData[i].PTAG !== 'Total'){
+    for (let i = 0; i < NewData.length; i++) {
+      if (NewData[i].PTAG !== 'Total') {
         SubData.push(NewData[i])
       }
     }
@@ -3517,7 +3541,7 @@ export class BVViewComponent implements OnInit {
         ORAP: SubData[i].ORAP ? SubData[i].ORAP : 0,
         RATE: SubData[i].RATE ? SubData[i].RATE : 0,
         OTAG: SubData[i].OTAG ? SubData[i].OTAG : "",
-        IUSER: SubData[i].IUSER ? SubData[i].IUSER : '',
+        IUSER: this.decodedTkn.UserId,
         ML_CODE: SubData[i].ML_CODE ? SubData[i].ML_CODE : 0,
         DEP_CODE: SubData[i].DEP_CODE ? SubData[i].DEP_CODE : 0,
         RAT_CODE: SubData[i].RAT_CODE ? SubData[i].RAT_CODE : 0,
@@ -3531,11 +3555,11 @@ export class BVViewComponent implements OnInit {
     }
     this.spinner.show()
     this.TendarEstServ.TendarPrdDetSave(PerArr).subscribe((SaveRes) => {
-      try{
-        if(SaveRes.success == true){
+      try {
+        if (SaveRes.success == true) {
           this.spinner.hide()
           this.toastr.success("Save sucesfully")
-        }else{
+        } else {
           this.spinner.hide();
           Swal.fire({
             icon: "error",
@@ -3551,4 +3575,369 @@ export class BVViewComponent implements OnInit {
       }
     });
   }
+
+  trackByFn(index, item) {
+    return index; // or item.id
+  }
+
+
+
+  TableDateFormat(value) {
+    console.log(value)
+    if (value) {
+      return this.datePipe.transform(value, "dd-MM-yyyy");
+    } else {
+      return "";
+    }
+  }
+
+  TabIntFormat(value) {
+    if (value != "NaN" && value != null) {
+      return parseInt(value);
+    } else {
+      return "";
+    }
+  }
+
+
+  TabTwoFloatFormat(value) {
+    if (value != "NaN" && value != null && value != "") {
+      return parseFloat(value).toFixed(2);
+    } else {
+      return "0.00";
+    }
+  }
+
+  TableThreeFloatFormat(value) {
+    if (value != "NaN" && value != null && value != "") {
+      return parseFloat(value).toFixed(3);
+    } else {
+      return "0.000";
+    }
+  }
+
+
+
+  TableTimeFormat(value) {
+    if (value) {
+      return this.datePipe.transform(value, "hh:mm a", "UTC+0");
+    } else {
+      return "";
+    }
+  }
+
+  TableStringFormat(value) {
+    if (value != "NaN" && value != null) {
+      return (value);
+    } else {
+      return "";
+    }
+  }
+
+  findRapTabe(tableRow, Item) {
+    if (!tableRow.S_CODE) {
+      return;
+    }
+    if (!tableRow.Q_CODE) {
+      return;
+    }
+    if (!tableRow.C_CODE) {
+      return;
+    }
+    if (!parseFloat(tableRow.CARAT)) {
+      return;
+    }
+    if (!tableRow.CT_CODE) {
+      return;
+    }
+    if (!tableRow.FL_CODE) {
+      return;
+    }
+    if (!tableRow.LB_CODE) {
+      return;
+    }
+    if (!tableRow.IN_CODE) {
+      return;
+    }
+    if (!tableRow.ML_CODE) {
+      return;
+    }
+    this.ISFINDRAP = false;
+
+
+    let RapObj = {
+      S_CODE: tableRow.S_CODE,
+      Q_CODE: tableRow.Q_CODE,
+      C_CODE: tableRow.C_CODE,
+      CARAT: tableRow.CARAT,
+      CUT_CODE: tableRow.CT_CODE,
+      FL_CODE: tableRow.FL_CODE,
+      IN_CODE: tableRow.IN_CODE,
+      RTYPE: tableRow.LB_CODE,
+      MPER: tableRow.MPER,
+      ML_CODE: tableRow.ML_CODE,
+      SH_CODE: tableRow.SH_CODE,
+      REF_CODE: tableRow.REF_CODE,
+      RAPTYPE: tableRow.RAPTYPE,
+    };
+    this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
+      try {
+        console.log(RapRes);
+        this.ISFINDRAP = true;
+        let gridCaratSum = Item.GRID_DATA.filter((item) => item.PTAG != 'Total').reduce((acc, val) => {
+          return acc + (val.CARAT ? parseFloat(val.CARAT) : 0);
+        }, 0);
+
+        if (Item.I_CARAT < gridCaratSum) {
+          for (let i = 0; i < this.rowData.length; i++) {
+            if (this.rowData[i].SRNO == Item.SRNO) {
+              for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+                if (this.rowData[i].GRID_DATA[j].PTAG == tableRow.PTAG && this.rowData[i].GRID_DATA[j].PLANNO == tableRow.PLANNO) {
+                  this.rowData[i].GRID_DATA[j].CARAT = 0.00;
+                  break;
+                }
+              }
+            }
+          }
+          this.toastr.warning('Your Carat Was Greater Than Weight')
+        }
+
+        gridCaratSum = Item.GRID_DATA.filter((item) => item.PTAG != 'Total').reduce((acc, val) => {
+          return acc + (val.CARAT ? parseFloat(val.CARAT) : 0);
+        }, 0);
+
+        for (let i = 0; i < this.rowData.length; i++) {
+          if (this.rowData[i].SRNO == Item.SRNO) {
+            for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+              if (this.rowData[i].GRID_DATA[j].PTAG == 'Total' && this.rowData[i].GRID_DATA[j].PLANNO == tableRow.PLANNO) {
+                this.rowData[i].GRID_DATA[j].CARAT = parseFloat(gridCaratSum).toFixed(2);
+                break;
+              }
+            }
+          }
+        }
+
+
+        for (let i = 0; i < this.rowData.length; i++) {
+          if (this.rowData[i].SRNO == Item.SRNO) {
+            for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+              if (this.rowData[i].GRID_DATA[j].PTAG == tableRow.PTAG && this.rowData[i].GRID_DATA[j].PLANNO == tableRow.PLANNO) {
+                this.rowData[i].GRID_DATA[j].ORAP = RapRes.data[0][0].AMT;
+                this.rowData[i].GRID_DATA[j].RATE = RapRes.data[1][0][''];
+                this.rowData[i].GRID_DATA[j].RTYPE = RapRes.data[2][0][''];
+                this.rowData[i].GRID_DATA[j].AMT = this.rowData[i].GRID_DATA[j].RATE * this.rowData[i].GRID_DATA[j].CARAT;
+                this.rowData[i].GRID_DATA[j].PER = 100 - (this.rowData[i].GRID_DATA[j].RATE / this.rowData[i].GRID_DATA[j].ORAP) * 100;
+                break;
+              }
+            }
+          }
+        }
+
+        let NewAmtSum = 0
+        for (let i = 0; i < this.rowData.length; i++) {
+          for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+            if (this.rowData[i].GRID_DATA[j].SRNO === Item.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total') {
+              let carat = this.rowData[i].GRID_DATA[j].CARAT
+              let Orap = this.rowData[i].GRID_DATA[j].ORAP
+              let Mvalue
+              let newArray
+              let FinalValue = 0
+              let NewSum = 0
+              if (parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100) {
+                Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+              } else {
+                Mvalue = this.rowData[i].GRID_DATA[j].PER
+              }
+              newArray = (Mvalue / 100) * Orap
+              FinalValue = Orap - newArray
+              NewSum = FinalValue * carat
+              this.rowData[i].GRID_DATA[j].RATE = FinalValue
+              this.rowData[i].GRID_DATA[j].AMT = NewSum
+              NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+            }
+          }
+        }
+        let ADISDIS
+        for (let i = 0; i < this.rowData.length; i++) {
+          for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+            if (this.rowData[i].GRID_DATA[j].SRNO === Item.SRNO && this.rowData[i].GRID_DATA[j].PTAG == 'Total') {
+              this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+              this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+              let FINAL = (this.rowData[i].ADIS / 100) * NewAmtSum
+              // if(`${this.rowData[i].ADIS}`.includes('+')){
+              ADISDIS = NewAmtSum + FINAL
+              // }else{
+              //    ADISDIS = NewAmtSum - FINAL
+              // }
+              this.rowData[i].FAMT = ADISDIS.toFixed(2)
+              this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+            }
+          }
+        }
+      } catch (error) {
+        console.log(error)
+        this.toastr.warning(JSON.stringify(error))
+      }
+    });
+  }
+
+
+  findMPerCalc(tableRow, Item){
+    console.log('tableRow',tableRow)
+    console.log('Item',Item)
+
+    if (parseFloat(tableRow.MPER) >= tableRow.PER + 10 || parseFloat(tableRow.MPER) <= tableRow.PER - 10) {
+      Swal.fire({
+        title:
+          "Are you Sure You Want To Update",
+        icon: "question",
+        customClass: {
+          popup: 'swal-height'
+        },
+        cancelButtonText: "No",
+        showCancelButton: true,
+        confirmButtonText: "Yes",
+      }).then((result) => {
+        if (result.value) {
+        } else {
+          for (let i = 0; i < this.rowData.length; i++) {
+            if (this.rowData[i].SRNO == Item.SRNO) {
+              for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+                if (this.rowData[i].GRID_DATA[j].PTAG == tableRow.PTAG && this.rowData[i].GRID_DATA[j].PLANNO == tableRow.PLANNO) {
+                  this.rowData[i].GRID_DATA[j].MPER = 0.00;
+                  break;
+                }
+              }
+            }
+          }
+          // this.gridApi1.refreshCells({force:true})
+        }
+      })
+    }
+
+
+    let NewData = []
+    for (let i = 0; i < this.rowData.length; i++) {
+      for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+        if (this.rowData[i].GRID_DATA[j].SRNO === tableRow.SRNO && this.rowData[i].GRID_DATA[j].PTAG == tableRow.PTAG) {
+          this.rowData[i].GRID_DATA[j].MPER = tableRow.MPER
+        }
+      }
+    }
+    let FinalArray = []
+    for (let i = 0; i < this.rowData.length; i++) {
+      for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+        if (this.rowData[i].GRID_DATA[j].SRNO === tableRow.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total') {
+          let carat = this.rowData[i].GRID_DATA[j].CARAT
+          let Orap = this.rowData[i].GRID_DATA[j].ORAP
+          let Mvalue
+          let newArray
+          let FinalValue = 0
+          let NewSum = 0
+          if (parseFloat(this.rowData[i].GRID_DATA[j].MPER) && parseFloat(this.rowData[i].GRID_DATA[j].MPER) !== 100) {
+            Mvalue = parseFloat(this.rowData[i].GRID_DATA[j].MPER)
+          } else {
+            Mvalue = this.rowData[i].GRID_DATA[j].PER
+          }
+          newArray = (Mvalue / 100) * Orap
+          FinalValue = Orap - newArray
+          NewSum = FinalValue * carat
+
+          this.rowData[i].GRID_DATA[j].RATE = FinalValue
+          this.rowData[i].GRID_DATA[j].AMT = NewSum
+        }
+      }
+    }
+    let NewAmtSum = 0
+    for (let i = 0; i < this.rowData.length; i++) {
+      for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+        if (this.rowData[i].GRID_DATA[j].SRNO === tableRow.SRNO && this.rowData[i].GRID_DATA[j].PTAG !== 'Total') {
+          NewAmtSum += this.rowData[i].GRID_DATA[j].AMT
+        }
+      }
+    }
+    let ADISDIS = 0
+    for (let i = 0; i < this.rowData.length; i++) {
+      for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
+        if (this.rowData[i].GRID_DATA[j].SRNO === tableRow.SRNO && this.rowData[i].GRID_DATA[j].PTAG == 'Total') {
+          this.rowData[i].GRID_DATA[j].AMT = NewAmtSum
+          this.rowData[i].GRID_DATA[j].RATE = NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT
+          let FINAL = (parseFloat(this.rowData[i].ADIS) / 100) * NewAmtSum
+
+          // if(`${this.rowData[i].ADIS}`.includes('+')){
+          if (!FINAL) {
+            FINAL = 0
+          }
+          ADISDIS = NewAmtSum + FINAL
+          // }else{
+          //   ADISDIS = NewAmtSum - FINAL
+          // }
+          this.rowData[i].FAMT = ADISDIS.toFixed(2)
+          this.rowData[i].FBID = (ADISDIS / this.rowData[i].I_CARAT).toFixed(2)
+          FinalArray.push(this.rowData[i].GRID_DATA[j])
+        } else {
+          FinalArray.push(this.rowData[i].GRID_DATA[j])
+        }
+      }
+    }
+  }
+
+
+  TbaleColColor(params,colDefField) {
+    if (params.PTAG === 'Total') {
+      return
+    }
+    if (colDefField === 'LB_CODE') {
+      if (params.LB_CODE === 'I') {
+        return '#78f587';
+      } else if (params.LB_CODE === 'HRD') {
+        return '#fc6a6a'
+      }
+    } else if (colDefField === 'S_CODE') {
+      if (params.S_CODE !== 'R' && params.S_CODE) {
+        return '#ffff9e'
+      }
+    } else if (colDefField === 'CT_CODE') {
+      if (params.CT_CODE == 2) {
+        return '#8db6fc';
+      } else if (params.CT_CODE == 3) {
+        return '#fc6a6a'
+      } else if (params.CT_CODE == 4) {
+        return '#f09c9c'
+      }
+    } else if (colDefField === 'Q_CODE') {
+      if (params.Q_CODE == 1) {
+        return '#f09c9c'
+      } else if (params.Q_CODE == 2) {
+        return '#fc6a6a'
+      }
+    } else if (colDefField === 'FL_CODE') {
+      if (params.FL_CODE == 2) {
+        return '#78f587'
+      } else if (params.FL_CODE == 3) {
+        return '#ffff9e'
+      } else if (params.FL_CODE == 4) {
+        return '#8db6fc'
+      } else if (params.FL_CODE == 5) {
+        return '#aac0e6';
+      }
+    } else if (colDefField === 'ML_CODE') {
+      if (params.ML_CODE == 2) {
+        return '#a3a2a2'
+      } else if (params.ML_CODE == 3) {
+        return '#e3e3e3'
+      }
+    } else if (colDefField === 'SH_CODE') {
+      if (params.SH_CODE == 2) {
+        return '#C4A484'
+      } else if (params.SH_CODE == 3) {
+        return '#d9c6b4'
+      } else if (params.SH_CODE == 7) {
+        return '#acfaa5'
+      }
+    }
+
+  }
+
 }
+

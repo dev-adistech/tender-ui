@@ -63,6 +63,10 @@ export class ParcelViewComponent implements OnInit {
   F_CARAT:any=''
   T_CARAT:any=''
 
+  DEPTArr: any = [];
+  COMP_CODE: any = "";
+  COMP_NAME: any = "";
+
   agGridWidth: number = 0;
   agGridStyles: string = "";
 
@@ -76,6 +80,8 @@ export class ParcelViewComponent implements OnInit {
   GRIDON:boolean = false
 
   GRIDDATA:any=[]
+
+  ISCHANGED:boolean = false;
   
   constructor(
     public dialog: MatDialog,
@@ -148,7 +154,29 @@ export class ParcelViewComponent implements OnInit {
     this.Quality = this.decodedMast[5].map(item => {
       return {code: item.Q_CODE, name: item.Q_NAME.toString(),}
     });
+    this.DEPTArr = this.decodedMast[2].map((item) => {
+      return { code: item.COMP_CODE, name: item.COMP_NAME };
+    });
     this.LoadGridData()
+  }
+
+  refresh(){
+    this.gridApi1.setSortModel([]);
+    this.gridOptions1.api.setFilterModel(null);
+  }
+  
+  GETNAME() {
+    if (this.COMP_CODE) {
+      if (this.DEPTArr.filter((x) => x.code == this.COMP_CODE).length != 0) {
+        this.COMP_NAME = this.DEPTArr.filter(
+          (x) => x.code == this.COMP_CODE
+        )[0].name;
+      } else {
+        this.COMP_NAME = "";
+      }
+    } else {
+      this.COMP_NAME = "";
+    }
   }
 
   onCellDoubleClick(eve){
@@ -233,7 +261,7 @@ export class ParcelViewComponent implements OnInit {
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
       T_CARAT:this.T_CARAT ? this.T_CARAT:0,
       DETID:0,
-      COMP_CODE:''
+      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:''
     }
     this.ViewServ.ParcelWrkDisp(NewObj).subscribe(
       (FillRes) => {
@@ -351,6 +379,9 @@ export class ParcelViewComponent implements OnInit {
                 tempData[j].valueFormatter = this._convFunction.StringFormat
               }
               this._gridFunction.FooterKey = this.FooterKey
+              if(GroupData[i].Data[j].FIELDNAME !== "MPER"){
+                tempData[j].cellStyle = this.ColColor.bind(this)
+              }
             }
 
             jsonData["children"] = tempData
@@ -371,6 +402,61 @@ export class ParcelViewComponent implements OnInit {
         this.toastr.error(error)
       }
     })
+  }
+
+  ColColor(params) {
+    if (params.node.rowPinned === 'bottom') {
+      return
+    }
+    if(params.colDef.field === 'LAB_NAME'){
+      if(params.data.LAB_NAME === 'IGI'){
+        return { 'background': '#78f587'};
+      }else if(params.data.LAB_NAME === 'HRD'){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'S_NAME'){
+      if(params.data.S_NAME !== 'ROUND' && params.data.S_NAME){
+        return { 'background': '#ffff9e'};
+      }
+    }else if(params.colDef.field === 'CT_NAME'){
+      if(params.data.CT_NAME == 'VG'){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.CT_NAME == 'GD'){
+        return { 'background': '#fc6a6a'};
+      }else if(params.data.CT_NAME == 'FR'){
+        return { 'background': '#f09c9c'};
+      }
+    }else if(params.colDef.field === 'Q_NAME'){
+      if(params.data.Q_NAME == 'FL'){
+        return { 'background': '#f09c9c'};
+      }else if(params.data.Q_NAME == 'IF'){
+        return { 'background': '#fc6a6a'};
+      }
+    }else if(params.colDef.field === 'FL_NAME'){
+      if(params.data.FL_NAME == 'FAINT'){
+        return { 'background': '#78f587'};
+      }else if(params.data.FL_NAME == 'MEDIUM'){
+        return { 'background': '#ffff9e'};
+      }else if(params.data.FL_NAME == 'STRONG'){
+        return { 'background': '#8db6fc'};
+      }else if(params.data.FL_NAME == 'VERY STRONG'){
+        return { 'background': '#aac0e6'};
+      }
+    }else if(params.colDef.field === 'ML_NAME'){
+      if(params.data.ML_NAME == 'H-MILKY'){
+        return { 'background': '#a3a2a2'};
+      }else if(params.data.ML_NAME == 'L-MILKY'){
+        return { 'background': '#e3e3e3'};
+      }
+    }else if(params.colDef.field === 'SH_NAME'){
+      if(params.data.SH_NAME == 'VL-BRN'){
+        return { 'background': '#C4A484'};
+      }else if(params.data.SH_NAME == 'L-BRN'){
+        return { 'background': '#d9c6b4'};
+      }else if(params.data.SH_NAME == 'MIX-T'){
+        return { 'background': '#acfaa5'};
+      }
+    }
   }
   FillViewPara1() {
     this.ViewParaMastServ.ViewParaFill({ FORMNAME: 'ParcelWrk' }).subscribe((VPRes) => {
@@ -455,47 +541,118 @@ export class ParcelViewComponent implements OnInit {
   }
 
   OnCellEditingStart(params){
+    if(params.event.keyCode === 13){
     if(params.colDef.field == 'MPER'){
-    this.gridApi1.stopEditing({
-      rowIndex: params.rowIndex,
-      colKey: 'MPER'
-    })
-    if(params.newValue){
-    let SaveObj ={
-      MPER:params.data.MPER,
-      COMP_CODE:params.data.COMP_CODE ? params.data.COMP_CODE:'',
-      DETID:params.data.DETID ? params.data.DETID:0,
-      SRNO:params.data.SRNO ? params.data.SRNO:0,
-      PLANNO:params.data.PLANNO ? params.data.PLANNO:0,
-      PTAG:params.data.PTAG ? params.data.PTAG:'',
-      MUSER:this.decodedTkn.UserId
-    }
-
-    this.ViewServ.PricingWrkMperSave(SaveObj).subscribe((SaveRes) => {
-      try {
-        if (SaveRes.success == true) {
-          this.spinner.hide();
-          this.toastr.success("Save successfully.");
-          this.gridApi1.startEditingCell({
-            rowIndex: params.rowIndex +1,
+      if (parseFloat(params.data.MPER) >= params.data.PER + 10 || parseFloat(params.data.MPER) <= params.data.PER - 10) {
+        this.gridApi1.stopEditing({
+            rowIndex: params.rowIndex,
             colKey: 'MPER'
-          })
-        } else {
-          this.spinner.hide();
-          Swal.fire({
-            icon: "error",
-            title: "Oops...",
-            text: JSON.stringify(SaveRes.data),
           });
+          this.gridApi1.setFocusedCell(params.rowIndex +1, 'MPER');
+          this.gridApi1.startEditingCell({
+            rowIndex: params.rowIndex + 1,
+            colKey: 'MPER',
+          });
+        Swal.fire({
+          title: "Are you Sure You Want To Update",
+          icon: "warning",
+          cancelButtonText: "No",
+          showCancelButton: true,
+          confirmButtonText: "Yes",
+        }).then((result) => {
+          if (result.value) {
+            if (params.value) {
+              this.gridApi1.refreshCells({ force: true });
+              this.ISCHANGED = true;
+              let SaveObj = {
+                MPER: params.data.MPER,
+                COMP_CODE: params.data.COMP_CODE ? params.data.COMP_CODE : '',
+                DETID: params.data.DETID ? params.data.DETID : 0,
+                SRNO: params.data.SRNO ? params.data.SRNO : 0,
+                PLANNO: params.data.PLANNO ? params.data.PLANNO : 0,
+                PTAG: params.data.PTAG ? params.data.PTAG : '',
+                MUSER: this.decodedTkn.UserId
+              };
+              this.ViewServ.PricingWrkMperSave(SaveObj).subscribe((SaveRes) => {
+                try {
+                  if (SaveRes.success == true) {
+                    this.spinner.hide();
+                    this.toastr.success("Save successfully.");
+                    
+                  } else {
+                    this.spinner.hide();
+                    Swal.fire({
+                      icon: "error",
+                      title: "Oops...",
+                      text: JSON.stringify(SaveRes.data),
+                    });
+                  }
+                } catch (err) {
+                  this.spinner.hide();
+                  this.toastr.error(err);
+                }
+              });
+            }
+          } else {
+            this.ISCHANGED = false;
+            params.data.MPER = 0;
+            this.gridApi1.refreshCells({ force: true });
+            this.gridApi1.stopEditing({
+              rowIndex: params.rowIndex + 1,
+              colKey: 'MPER'
+            });
+            this.gridApi1.setFocusedCell(params.rowIndex, 'MPER');
+            this.gridApi1.startEditingCell({
+              rowIndex: params.rowIndex,
+              colKey: 'MPER',
+            });
+          }
+        });
+      }else{
+        if(params.value){
+          this.ISCHANGED = true
+        let SaveObj ={
+          MPER:params.data.MPER,
+          COMP_CODE:params.data.COMP_CODE ? params.data.COMP_CODE:'',
+          DETID:params.data.DETID ? params.data.DETID:0,
+          SRNO:params.data.SRNO ? params.data.SRNO:0,
+          PLANNO:params.data.PLANNO ? params.data.PLANNO:0,
+          PTAG:params.data.PTAG ? params.data.PTAG:'',
+          MUSER:this.decodedTkn.UserId
         }
-      } catch (err) {
-        this.spinner.hide();
-        this.toastr.error(err);
+    
+        this.ViewServ.PricingWrkMperSave(SaveObj).subscribe((SaveRes) => {
+          try {
+            if (SaveRes.success == true) {
+              this.spinner.hide();
+              this.toastr.success("Save successfully.");
+              this.gridApi1.stopEditing({
+                rowIndex: params.rowIndex,
+                colKey: 'MPER'
+              })
+              this.gridApi1.refreshCells({ force: true });
+              this.gridApi1.setFocusedCell(params.rowIndex +1, 'MPER');
+              this.gridApi1.startEditingCell({
+                rowIndex: params.rowIndex +1,
+                colKey: 'MPER',
+              })
+            } else {
+              this.spinner.hide();
+              Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: JSON.stringify(SaveRes.data),
+              });
+            }
+          } catch (err) {
+            this.spinner.hide();
+            this.toastr.error(err);
+          }
+        });
       }
-    });
-  }
-
-  }
+      }
+}
+    }
   }
 
   rowSpy(params) {
@@ -663,7 +820,8 @@ export class ParcelViewComponent implements OnInit {
       C_CODE : this.C_CODE ? this.C_CODE:'',
       Q_CODE: this.Q_CODE ? this.Q_CODE:'',
       F_CARAT:this.F_CARAT ? this.F_CARAT:0,
-      T_CARAT:this.T_CARAT ? this.T_CARAT:0
+      T_CARAT:this.T_CARAT ? this.T_CARAT:0,
+      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:''
     }).subscribe(
       (FillRes) => {
         try {
@@ -732,82 +890,50 @@ export class ParcelViewComponent implements OnInit {
   }
 
   oncellValueChanged(eve){
-    let SubData = []
-    this.gridApi1.forEachNode(function (rowNode, index) {
-      SubData.push(rowNode.data);
-    });
-    let MERGEDATA =[]
-    for(let i=0;i<SubData.length;i++){
-      if(SubData[i].TOTAL == eve.data.TOTAL && SubData[i].RCTS === eve.data.RCTS){
-        MERGEDATA.push(SubData[i])
-      }
-    }
-    let NewAMT = 0
-    for(let i=0;i<MERGEDATA.length;i++){
-      if(MERGEDATA[i].PLN == eve.data.PLN){
-        let carat = MERGEDATA[i].CARAT
-        let Orap = MERGEDATA[i].ORAP
-        let Mprevalue
-        if(parseFloat(MERGEDATA[i].MPER)){
-          Mprevalue = parseFloat(MERGEDATA[i].MPER)
-        }else{
-          Mprevalue = MERGEDATA[i].PER
-        }
-        let newArray
-        let FinalValue = 0
-        let NewSum = 0
-        newArray = (Mprevalue / 100) * Orap
-        FinalValue = Orap - newArray
-        NewSum = FinalValue * carat
-        MERGEDATA[i].RATE = FinalValue
-        MERGEDATA[i].AMT = NewSum
-        NewAMT += NewSum
-      }else{
-        NewAMT += MERGEDATA[i].AMT
-      }
-    }
-    console.log(NewAMT)
-    for(let i=0;i<MERGEDATA.length;i++){
-      MERGEDATA[i].TOTAL = NewAMT
-      let NewPer = 0
-      NewPer = MERGEDATA[i].TOTAL / MERGEDATA[i].I_CARAT
-      MERGEDATA[i].RCTS = NewPer.toFixed(0)
-    }
-    let NewObj ={
-      T_DATE:this.DockData.T_DATE,
-      F_DATE:this.DockData.T_DATE,
-      S_CODE:this.S_CODE ? this.S_CODE:'',
-      C_CODE:this.C_CODE ? this.C_CODE:'',
-      Q_CODE:this.Q_CODE ? this.Q_CODE:'',
-      F_CARAT:this.F_CARAT ? this.F_CARAT:0,
-      T_CARAT:this.T_CARAT ? this.T_CARAT:0,
-      COMP_CODE:this.DockData.COMP_CODE ? this.DockData.COMP_CODE:'',
-    }
-    this.ViewServ.ParcelWrkDisp(NewObj).subscribe(
-      (FillRes) => {
-        try {
-          if (FillRes.success == true) {
-            this.spinner.hide();
-           
-            this._gridFunction.FooterKey = this.FooterKey
-            this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data[1])
-            this.gridApi1.refreshCells({ force: true })
-          } else {
-            this.spinner.hide();
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: JSON.stringify(FillRes.data),
-            });
+    if(this.ISCHANGED === true){
+        let SubData = []
+        this.gridApi1.forEachNode(function (rowNode, index) {
+          SubData.push(rowNode.data);
+        });
+        let MERGEDATA =[]
+        for(let i=0;i<SubData.length;i++){
+          if(SubData[i].TOTAL == eve.data.TOTAL && SubData[i].RCTS === eve.data.RCTS){
+            MERGEDATA.push(SubData[i])
           }
-        } catch (error) {
-          this.spinner.hide();
-          this.toastr.error(error);
         }
-      }
-    );
-    this.gridApi1.refreshCells({ force: true })
+        let NewAMT = 0
+        for(let i=0;i<MERGEDATA.length;i++){
+          if(MERGEDATA[i].PLN == eve.data.PLN){
+            let carat = MERGEDATA[i].CARAT
+            let Orap = MERGEDATA[i].ORAP
+            let Mprevalue
+            if(parseFloat(MERGEDATA[i].MPER)){
+              Mprevalue = parseFloat(MERGEDATA[i].MPER)
+            }else{
+              Mprevalue = MERGEDATA[i].PER
+            }
+            let newArray
+            let FinalValue = 0
+            let NewSum = 0
+            newArray = (Mprevalue / 100) * Orap
+            FinalValue = Orap - newArray
+            NewSum = FinalValue * carat
+            MERGEDATA[i].RATE = FinalValue
+            MERGEDATA[i].AMT = NewSum
+            NewAMT += NewSum
+          }else{
+            NewAMT += MERGEDATA[i].AMT
+          }
+        }
+        for(let i=0;i<MERGEDATA.length;i++){
+          MERGEDATA[i].TOTAL = NewAMT
+          let NewPer = 0
+          NewPer = MERGEDATA[i].TOTAL / MERGEDATA[i].I_CARAT
+          MERGEDATA[i].RCTS = NewPer.toFixed(0)
+        }
+        this.gridApi1.refreshCells({ force: true })
   }
+}
 
 
 }

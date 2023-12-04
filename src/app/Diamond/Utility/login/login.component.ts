@@ -114,7 +114,7 @@ export class LoginComponent implements OnInit {
 						this.toastr.warning(LoginRes.data)
 					} else if (LoginRes.success == 10){
 						this.spinner.hide();
-						this.toastr.warning('This Computer is not Authenticated, Please contact to System ADMIN.')
+						this.toastr.warning('This Device is not Authenticated, Please contact to System ADMIN.')
 					}
 					else {
 						this.spinner.hide()
@@ -140,7 +140,6 @@ export class LoginComponent implements OnInit {
 			this.spinner.hide()
 			try {
 			if(Res.success == true){
-				console.log(Res)
 			this.LoginServ.EmailSendOTP({EMAIL:Res.data[0],USERID:decodedTkn.UserId}).subscribe((ORes)=>{
 		  	this.spinner.hide()
 		  try {

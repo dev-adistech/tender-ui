@@ -268,6 +268,9 @@ export class PricingWrkViewComponent implements OnInit {
     this.gridOptions1.api.setFilterModel(null);
   }
 
+  onFilterChanged(eve){
+    eve.api.refreshCells({force:true})
+  }
   LoadGridData1(){
     let NewObj ={
       F_DATE:this.F_DATE ? this.datepipe.transform(this.F_DATE,'yyyy-MM-dd'):null,
