@@ -139,6 +139,7 @@ export class BVViewComponent implements OnInit {
 
   TendarStyle: string = `width: 100%;height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
   AreaBoxStyle: string = `border:1px solid black;width: 100%;height: 50px;resize: none;`;
+  CommentStyle: string = `border:1px solid black;width: 100%;height: 200px;resize: none;border-left: none;`;
   ContainWidth: string = `border:1px solid black;width: calc(100% - 10px);height: 55px;border-top:none`;
   BlankBoxStyle: string = `border:1px solid black;padding: 21px 0px; width: 100%; text-align: center;border-top:none;`;
   HearderBoxStyle: string = `border:1px solid black; width:100%; text-align: center;border-bottom:none`;
@@ -1649,7 +1650,6 @@ export class BVViewComponent implements OnInit {
             temp[i].cellStyle = this.ColColor.bind(this)
           }
           this.columnDefs = temp
-          console.log(this.columnDefs)
 
           for (let i = 0; i < this.columnDefs.length; i++) {
             if (this.columnDefs[i].headername == "Date") {
@@ -3436,6 +3436,17 @@ export class BVViewComponent implements OnInit {
     if (!this.ISFINDRAP) {
       return
     }
+
+    let NewData = item.GRID_DATA
+
+    let SubData = []
+
+    for (let i = 0; i < NewData.length; i++) {
+      if (NewData[i].PTAG !== 'Total') {
+        SubData.push(NewData[i])
+      }
+    }
+
     let saveOBJ1 = {
       COMP_CODE: item.COMP_CODE,
       DETID: item.DETID,
@@ -3484,7 +3495,8 @@ export class BVViewComponent implements OnInit {
       UUSER1:item.UUSER1 ? item.UUSER1:'',
       UUSER2:item.UUSER2 ? item.UUSER2:'',
       UUSER3:item.UUSER3 ? item.UUSER3:'',
-      ISBV:1
+      BVCOMMENT:item.BVCOMMENT ? item.BVCOMMENT:'',
+      ISBV:1,
     }
     this.spinner.show()
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
@@ -3506,17 +3518,7 @@ export class BVViewComponent implements OnInit {
         return;
       }
     });
-
-    let NewData = item.GRID_DATA
-
-    let SubData = []
-
-    for (let i = 0; i < NewData.length; i++) {
-      if (NewData[i].PTAG !== 'Total') {
-        SubData.push(NewData[i])
-      }
-    }
-
+    
     let PerArr = [];
     for (let i = 0; i < SubData.length; i++) {
       let SaveObj = {
@@ -3682,7 +3684,6 @@ export class BVViewComponent implements OnInit {
     };
     this.TendarEstServ.FindRap(RapObj).then((RapRes) => {
       try {
-        console.log(RapRes);
         this.ISFINDRAP = true;
         let gridCaratSum = Item.GRID_DATA.filter((item) => item.PTAG != 'Total').reduce((acc, val) => {
           return acc + (val.CARAT ? parseFloat(val.CARAT) : 0);

@@ -53,4 +53,8 @@ export class ViewService {
     return this.http.post<any>('View/ColAnalysis', Data)
   }
 
+  TenderWin(Data: any): Observable<any> {
+    return this.http.post<any>('View/TenderWin', Data)
+  }
+
 }

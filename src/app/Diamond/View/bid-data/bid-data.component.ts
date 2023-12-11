@@ -8,6 +8,7 @@ import { ViewParaMastService } from 'src/app/Service/Master/view-para-mast.servi
 import { TendatMastService } from 'src/app/Service/Transaction/tendat-mast.service';
 import { ViewService } from 'src/app/Service/View/view.service';
 import Swal from 'sweetalert2';
+import { GridFunctions } from '../../_helpers/functions/GridFunctions';
 
 @Component({
   selector: 'app-bid-data',
@@ -30,12 +31,16 @@ export class BidDataComponent implements OnInit {
   T_NAME: any = "";
   T_DATE: any = null;
 
+  FooterKey = []
+
 
   public columnDefs;
   public gridApi;
   public gridColumnApi;
   public defaultColDef;
   public gridOptions;
+  public pinnedBottomRowData
+  public getRowStyle
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -44,6 +49,7 @@ export class BidDataComponent implements OnInit {
     private elementRef: ElementRef,
     private TendarMastser: TendatMastService,
     private ViewServ :ViewService,
+    private _gridFunction: GridFunctions,
     private ViewParaMastServ : ViewParaMastService
   ) {
 
@@ -62,6 +68,13 @@ export class BidDataComponent implements OnInit {
       enableFilter: false,
       context: { thisComponent: this }
     }
+    this.getRowStyle = function (params) {
+      if (params.data) {
+        if (params.node.rowPinned === 'bottom') {
+          return { 'background': '#FFE0C0', 'font-weight': 'bold' };
+        }
+      }
+    };
     this.FillViewPara()
    }
 
@@ -164,6 +177,10 @@ export class BidDataComponent implements OnInit {
                 pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
                 suppressMenu: true,
               })
+
+              if (GroupData[i].Data[j].FIELDNAME === 'SRNO' || GroupData[i].Data[j].FIELDNAME === 'I_CARAT' || GroupData[i].Data[j].FIELDNAME === 'FAMT') {
+                this.FooterKey.push(GroupData[i].Data[j].FIELDNAME)
+              }
             }
 
             jsonData["children"] = tempData
@@ -238,6 +255,8 @@ export class BidDataComponent implements OnInit {
               const container = document.querySelector(".ag-body-viewport");
               ps.update();
             }
+            this._gridFunction.FooterKey = this.FooterKey
+            this.pinnedBottomRowData = this._gridFunction.footerCal(FillRes.data)
             this.spinner.hide()
           } else {
             this.spinner.hide();

@@ -57,6 +57,7 @@ import { GetCertiResComponent } from '../../Config/get-certi-res/get-certi-res.c
 import { SellDaysMastComponent } from '../../Master/sell-days-mast/sell-days-mast.component';
 import { RateUpdateComponent } from '../../Config/rate-update/rate-update.component';
 import { LoginPermissionComponent } from '../../Utility/login-permission/login-permission.component';
+import { TendarWinComponent } from '../../View/tendar-win/tendar-win.component';
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -271,6 +272,7 @@ export class HomeComponent implements OnInit {
     ||this.CheckFormPermission('BVViewComponent') 
     ||this.CheckFormPermission('RoughColorAnaComponent') 
     ||this.CheckFormPermission('ParcelViewComponent') 
+    ||this.CheckFormPermission('TendarWinComponent') 
     ||this.CheckFormPermission('BidDataComponent') ) {
       this.viewPointer = true;
     } else {
@@ -461,6 +463,9 @@ export class HomeComponent implements OnInit {
         break;
       case "Parcel View":
         this.ComponentName = ParcelViewComponent;
+        break;
+      case "Tendar Win View":
+        this.ComponentName = TendarWinComponent;
         break;
       case "B V ":
         this.ComponentName = BVViewComponent;

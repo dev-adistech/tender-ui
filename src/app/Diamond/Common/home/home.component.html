@@ -216,6 +216,11 @@
                 <img src="../../../../assets/img/View/parcel.png" alt="" />
                 Parcel View
               </li>
+              <li *ngIf="CheckFormPermission('TendarWinComponent')"
+                (click)="addiFrameTabs('Tendar Win View', '/TendarWin')">
+                <img src="../../../../assets/img/View/winner.png" alt="" />
+                Tendar Win
+              </li>
             </div>
           </div>
           <p class="sub-menu__section-name">Pointer</p>

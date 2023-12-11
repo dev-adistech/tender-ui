@@ -911,8 +911,17 @@ export class TendarMastComponent implements OnInit {
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: JSON.stringify(SaveRes.data),
-          });
+            text: JSON.stringify(SaveRes.data.originalError.info.message),
+            allowEnterKey: false,
+            allowEscapeKey: false,
+            allowOutsideClick: false,
+            showDenyButton: true,
+            focusDeny: true,
+            showConfirmButton: false,
+            returnFocus: false,
+          }).then((result) => {
+            
+          })
         }
       } catch (err) {
         this.spinner.hide();
@@ -1365,9 +1374,20 @@ export class TendarMastComponent implements OnInit {
                   this.LoadGridData1();
                 } else {
                   this.spinner.hide();
-                  this.toastr.warning(
-                    "Something went to wrong while delete SRNO"
-                  );
+                   Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: JSON.stringify(ColDelRes.data.originalError.info.message),
+                    allowEnterKey: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    showDenyButton: true,
+                    focusDeny: true,
+                    showConfirmButton: false,
+                    returnFocus: false,
+                  }).then((result) => {
+                    
+                  })
                 }
               } catch (err) {
                 this.spinner.hide();
@@ -1469,9 +1489,20 @@ export class TendarMastComponent implements OnInit {
                   this.LoadGridData();
                 } else {
                   this.spinner.hide();
-                  this.toastr.warning(
-                    "Something went to wrong while delete color code"
-                  );
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: JSON.stringify(ColDelRes.data.originalError.info.message),
+                    allowEnterKey: false,
+                    allowEscapeKey: false,
+                    allowOutsideClick: false,
+                    showDenyButton: true,
+                    focusDeny: true,
+                    showConfirmButton: false,
+                    returnFocus: false,
+                  }).then((result) => {
+                    
+                  })
                 }
               } catch (err) {
                 this.spinner.hide();

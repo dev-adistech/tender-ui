@@ -1,15 +1,21 @@
 <div class="image_view" style="display: inline-grid;">
-<canvas #canvas1 width="600" height="500" style="border: 1px solid black;"></canvas>
-<div style="display: flex; margin-top: 15px;">
-<button class="btn theme-btn " style="margin-right: 15px;" matTooltip='Image Upload' tabindex="-1" matTooltipClass="custom-tooltip">
-    <img src="./../../../../assets/img/Pricing/uploadimg.png" style="width: 27.55px;height: 28.8px;" (click)="UPLOAD()">
+  <button class="btn theme-btn mr-2 ml-auto" style="position: relative;top:0;left: 90%;width: 10%;" matTooltip='close' matTooltipClass="custom-tooltip" (click)="CLOSE()">
+    <svg class="icon icon-close">
+      <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+    </svg>
   </button>
-  <button class="btn theme-btn mr-2 ml-auto" matTooltip='Delete' matTooltipClass="custom-tooltip"
-          (click)="DELETE()">
-          <svg class="icon icon-delete">
-            <use xlink:href="assets/symbol-defs.svg#icon-delete"></use>
-          </svg>
+  <canvas #canvas1 width="600" height="500" style="border: 1px solid black;"></canvas>
+  <div style="display: flex; margin-top: 15px;">
+    <button class="btn theme-btn " style="margin-right: 15px;" matTooltip='Image Upload' tabindex="-1"
+      matTooltipClass="custom-tooltip">
+      <img src="./../../../../assets/img/Pricing/uploadimg.png" style="width: 27.55px;height: 28.8px;"
+        (click)="UPLOAD()">
+    </button>
+    <button class="btn theme-btn mr-2 ml-auto" matTooltip='Delete' matTooltipClass="custom-tooltip" (click)="DELETE()">
+      <svg class="icon icon-delete">
+        <use xlink:href="assets/symbol-defs.svg#icon-delete"></use>
+      </svg>
     </button>
   </div>
-<input id="fileInput1" type="file" style="display: none;" (change)="onFileInputChange($event)">
+  <input id="fileInput1" type="file" style="display: none;" (change)="onFileInputChange($event)">
 </div>

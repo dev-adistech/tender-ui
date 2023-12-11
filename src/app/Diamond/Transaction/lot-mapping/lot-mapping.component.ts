@@ -38,6 +38,8 @@ export class LotMappingComponent implements OnInit {
 	hide = true
 	PASSWORD: any = ""
 
+  APER:any=''
+
 	agGridWidth: number = 0
 	agGridStyles: string = ""
 
@@ -119,6 +121,40 @@ export class LotMappingComponent implements OnInit {
           return op.EDITABLE;
         },
 			},
+			{
+				headerName: "Per",
+				field: "PER",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+				width:65,
+        editable: function (params) {
+          return op.EDITABLE;
+        },
+			},
+			{
+				headerName: "Win",
+				field: "ISWIN",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+				width:65,
+        cellRenderer: (params) => {
+          if (params.node.rowPinned != 'bottom') {
+            if (op.PASS == op.PASSWORD) {
+              if (params.data.ISWIN == true) {
+                return '<input type="checkbox" data-action-type="ISWIN" checked >';
+              } else {
+                return '<input type="checkbox" data-action-type="ISWIN" (keydown.space)="checked">';
+              }
+            } else {
+              if (params.data.ISWIN == true) {
+                return '<input type="checkbox" data-action-type="ISWIN" checked disabled>';
+              } else {
+                return '<input type="checkbox" data-action-type="ISWIN" disabled>';
+              }
+            }
+          }
+        },
+			},
 		]
 
 		this.defaultColDef = {
@@ -161,6 +197,12 @@ export class LotMappingComponent implements OnInit {
   onGridRowClicked(eve){
     if (eve.event.target !== undefined) {
       let actionType = eve.event.target.getAttribute("data-action-type");
+      let dataObj = eve.data;
+      if (actionType == 'ISWIN') {
+        dataObj.ISWIN = !dataObj.ISWIN;
+        eve.node.setData(dataObj)
+        eve.api.refreshCells({ force: true })
+      }
       if (actionType == 'SaveData') {
         if(!eve.data.COMP_CODE){
           return this.toastr.warning('Company is Blank')
@@ -177,7 +219,9 @@ export class LotMappingComponent implements OnInit {
               DETID:eve.data.DETID,
               SRNO:eve.data.SRNO,
               L_CODE:eve.data.L_CODE,
-              C_SRNO:eve.data.C_SRNO
+              C_SRNO:eve.data.C_SRNO,
+              PER:eve.data.PER,
+              ISWIN:eve.data.ISWIN
              }).subscribe((DelRes) => {
               try {
                 if (DelRes.success == true) {

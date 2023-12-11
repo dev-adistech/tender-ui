@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, ElementRef, OnInit,Inject, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable, fromEvent, zip } from 'rxjs';
@@ -21,7 +21,8 @@ export class ImageUploadComponent implements OnInit {
     private spinner: NgxSpinnerService,
     private TendarEstServ: TendarEstService,
     private http: HttpClient,
-    @Inject(MAT_DIALOG_DATA) public dataMain: any
+    @Inject(MAT_DIALOG_DATA) public dataMain: any,
+    private _mdr: MatDialogRef<ImageUploadComponent>
   ) { 
     this.data = dataMain
   }
@@ -250,5 +251,8 @@ export class ImageUploadComponent implements OnInit {
           // if (i === videos.length - 1) this.deleteTenderVideoFromDatabase();
         });
     }
+  }
+  CLOSE(){
+    this._mdr.close()
   }
 }

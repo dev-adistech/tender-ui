@@ -136,7 +136,7 @@ export class LoginComponent implements OnInit {
 		let decodeHelper = new JwtHelperService();
 		let decodedTkn = decodeHelper.decodeToken(this.token);
 		this.spinner.show()
-		this.LoginServ.GetEmail({}).subscribe((Res)=>{
+		this.LoginServ.GetEmail({IUSER:decodedTkn.UserId}).subscribe((Res)=>{
 			this.spinner.hide()
 			try {
 			if(Res.success == true){

@@ -523,8 +523,12 @@
             </div>
           </div>
         </div>
+        <div class="container-name" style="display: grid;position: absolute;top: 0;left: 1140px;">
+          <mat-label style="width: 164px;border:1px solid black;padding: 2px;text-align: center;border-bottom: none;border-left: none;">Comment</mat-label>
+          <textarea type="text" [style]="CommentStyle" [disabled]="ADISDISABLE" name="Code"
+          [(ngModel)]="item.BVCOMMENT" autocomplete="off" class="tenderTxt  ws"></textarea>
+        </div>
       </div>
-
       <!-- <div>
         <pre>{{columnDefs | json}}</pre>
       </div> -->
@@ -665,7 +669,7 @@
                   </ng-container>
                   
                   <ng-container *ngIf="colDef.LOCK == false && colDef.FORMAT == 'Editable' && colDef.field == 'MPER'  && tableData['PTAG'] != 'Total'" >
-                    <input type="text" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findMPerCalc(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                    <input type="text" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findMPerCalc(tableData, item)" [ngStyle]="{'color': '#ff3838', 'width': colDef.width + 'px'}">
                   </ng-container>
 
                                     

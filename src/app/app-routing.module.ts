@@ -57,6 +57,7 @@ import { SellDaysMastComponent } from './Diamond/Master/sell-days-mast/sell-days
 import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.component';
 import { LoginPermissionComponent } from './Diamond/Utility/login-permission/login-permission.component';
 import { RapCalComponent } from './Diamond/Rap/rap-cal/rap-cal.component';
+import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.component';
 
 
 const routes: Routes = [
@@ -124,6 +125,7 @@ const routes: Routes = [
   { path: 'BidData', component: BidDataComponent, canActivate: [AuthGuard] },
   { path: 'RougColorAna', component: RoughColorAnaComponent, canActivate: [AuthGuard] },
   { path: 'ParcelView', component: ParcelViewComponent, canActivate: [AuthGuard] },
+  { path: 'TendarWin', component: TendarWinComponent, canActivate: [AuthGuard] },
 
 ];
 

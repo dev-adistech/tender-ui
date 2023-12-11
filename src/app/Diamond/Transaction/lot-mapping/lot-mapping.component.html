@@ -19,7 +19,7 @@
       <mat-label>Name</mat-label>
       <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_NAME" disabled />
     </mat-form-field>
-
+    
     <mat-form-field appearance="outline" style="width: 8rem;">
       <mat-label>Date</mat-label>
       <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" #fdate onfocus="this.select();" disabled />
@@ -28,7 +28,7 @@
     </mat-form-field>
 </article>
     <article class="aggrid-wrapper">
-        <ag-grid-angular style="width: 512px; height: 70vh" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef"
+        <ag-grid-angular style="width: 650px; height: 70vh" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef"
           (scroll)="scrollHandler($event)" [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"  
           (rowClicked)='onGridRowClicked($event)'>
         </ag-grid-angular>

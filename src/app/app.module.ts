@@ -85,7 +85,8 @@ import { LoginPermissionComponent } from "./Diamond/Utility/login-permission/log
 import { RapCalComponent } from "./Diamond/Rap/rap-cal/rap-cal.component"
 import { RapExcelComponent } from "./Diamond/Rap/rap-cal/rap-excel/rap-excel.component"
 import { RapCalcTenderEntryComponent } from "./Diamond/Rap/rap-cal/rap-calc-tender-entry/rap-calc-tender-entry.component"
-import { RapCalModalComponent } from "./Diamond/Rap/rap-cal/rap-cal-modal/rap-cal-modal.component"
+import { RapCalModalComponent } from "./Diamond/Rap/rap-cal/rap-cal-modal/rap-cal-modal.component";
+import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.component'
 
 
 @NgModule({
@@ -156,7 +157,8 @@ import { RapCalModalComponent } from "./Diamond/Rap/rap-cal/rap-cal-modal/rap-ca
 		RapCalComponent,
 		RapExcelComponent,
 		RapCalcTenderEntryComponent,
-		RapCalModalComponent
+		RapCalModalComponent,
+		TendarWinComponent
 	],
 	imports: [
 		BrowserModule,

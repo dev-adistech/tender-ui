@@ -49,7 +49,7 @@
 
   </div>
   <div class="mast__container--row-2">
-    <ag-grid-angular style="width: 100%; height: 65vh;" class="ag-theme-alpine" [defaultColDef]="defaultColDef"
+    <ag-grid-angular style="width: 100%; height: calc(100vh - 20vh);" class="ag-theme-alpine" [defaultColDef]="defaultColDef"
       [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [animateRows]="true" [rowSelection]="rowSelection"
       (rowClicked)='onGridRowClicked($event)' [gridOptions]="gridOptions"
       (selectionChanged)="onSelectionChange($event)">

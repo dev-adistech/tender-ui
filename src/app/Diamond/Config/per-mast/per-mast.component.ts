@@ -92,6 +92,7 @@ export class PerMastComponent implements OnInit {
     { FORM_GROUP: 'View', FORM_NAME: 'BidDataComponent', DESCR: 'Bid Data' },
     { FORM_GROUP: 'View', FORM_NAME: 'RoughColorAnaComponent', DESCR: 'Rough Color Analysis' },
     { FORM_GROUP: 'View', FORM_NAME: 'ParcelViewComponent', DESCR: 'Parcel' },
+    { FORM_GROUP: 'View', FORM_NAME: 'TendarWinComponent', DESCR: 'Tendar Win' },
     
     { FORM_GROUP: 'Pricing', FORM_NAME: 'RapCutDiscComponent', DESCR: 'Rap Cut Discount' },
     { FORM_GROUP: 'Pricing', FORM_NAME: 'RapFloDiscComponent', DESCR: 'Rap Fluorescence Discount' },
