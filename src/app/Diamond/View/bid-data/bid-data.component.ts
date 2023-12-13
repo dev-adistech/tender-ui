@@ -9,6 +9,7 @@ import { TendatMastService } from 'src/app/Service/Transaction/tendat-mast.servi
 import { ViewService } from 'src/app/Service/View/view.service';
 import Swal from 'sweetalert2';
 import { GridFunctions } from '../../_helpers/functions/GridFunctions';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-bid-data',
@@ -49,6 +50,7 @@ export class BidDataComponent implements OnInit {
     private elementRef: ElementRef,
     private TendarMastser: TendatMastService,
     private ViewServ :ViewService,
+    private datePipe: DatePipe,
     private _gridFunction: GridFunctions,
     private ViewParaMastServ : ViewParaMastService
   ) {
@@ -93,15 +95,9 @@ export class BidDataComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            for (let i = 0; i < FillRes.data.length; i++) {
-              if(FillRes.data[i].ISACTIVE == true){
-              this.DETIDarr.push({
-                code: FillRes.data[i].DETID,
-                date: FillRes.data[i].T_DATE,
-                name:FillRes.data[i].T_NAME
-              });
-            }
-            }
+            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true).map(item => {
+              return { code: item.DETID, date: this.datePipe.transform(item.T_DATE,'yyyy-MM-dd'), name: item.T_NAME };
+            });
           } else {
             this.spinner.hide();
             Swal.fire({

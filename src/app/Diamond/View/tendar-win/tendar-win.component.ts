@@ -13,7 +13,8 @@ import Swal from "sweetalert2";
 import PerfectScrollbar from "perfect-scrollbar";
 import { TendatMastService } from "src/app/Service/Transaction/tendat-mast.service";
 import { environment } from "src/environments/environment";
-
+import { ListboxComponent } from "../../Common/listbox/listbox.component";
+declare let $: any;
 @Component({
   selector: "app-tendar-win",
   templateUrl: "./tendar-win.component.html",
@@ -49,6 +50,8 @@ export class TendarWinComponent implements OnInit {
   DETIDarr: any = [];
   DETID: any = "";
   T_NAME: any = "";
+  F_DATE: any = "";
+  T_DATE: any = "";
 
   DATE: any = "";
   I_CARAT: any = "";
@@ -60,7 +63,6 @@ export class TendarWinComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private EncrDecrServ: EncrDecrService,
-    private datepipe: DatePipe,
     private spinner: NgxSpinnerService,
     private elementRef: ElementRef,
     private ViewServ: ViewService,
@@ -201,7 +203,7 @@ export class TendarWinComponent implements OnInit {
 
                 if (
                   GroupData[i].Data[j].FIELDNAME === "I_CARAT" ||
-                  GroupData[i].Data[j].FIELDNAME === "GIASHP"
+                  GroupData[i].Data[j].FIELDNAME === "SRNO"
                 ) {
                   this.FooterKey.push(GroupData[i].Data[j].FIELDNAME);
                 }
@@ -799,7 +801,9 @@ export class TendarWinComponent implements OnInit {
     this.I_CARAT = "";
     let FillObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
-      DETID: this.DETID ? this.DETID : 0,
+      DETID: this.DETID ? this.DETID : '',
+      F_DATE: this.F_DATE ? this.datePipe.transform(this.F_DATE,'yyyy-MM-dd'):null,
+      T_DATE: this.T_DATE ? this.datePipe.transform(this.T_DATE,'yyyy-MM-dd'):null,
     };
     this.spinner.show();
     this.ViewServ.TenderWin(FillObj).subscribe((FillRes) => {
@@ -818,6 +822,63 @@ export class TendarWinComponent implements OnInit {
           this.pinnedBottomRowData = this._gridFunction.footerCal(
             FillRes.data[0]
           );
+          this.pinnedBottomRowData[0].I_CARAT = this.I_CARAT;
+
+          let SubData = [];
+          this.gridApi.forEachNode(function (rowNode, index) {
+            SubData.push(rowNode.data);
+          });
+          let ValueOfTamount = 0
+          let SumOfTamount = 0
+
+          let ValueOfPay = 0
+          let SumOfPay = 0
+
+          let ValueOfPayPer = 0
+          let SumOfPayPer = 0
+
+          let ValueOfPer = 0
+          let SumOfPer = 0
+
+          let ValueOfLab = 0
+          let SumOfLab = 0
+          for(let i=0;i<SubData.length;i++){
+            if(ValueOfTamount !== SubData[i].MAMT){
+              ValueOfTamount = SubData[i].MAMT
+              SumOfTamount += SubData[i].MAMT
+            }
+
+            if(ValueOfPay !== SubData[i].FAMT){
+              ValueOfPay = SubData[i].FAMT
+              SumOfPay += SubData[i].FAMT
+            }
+
+            if(ValueOfPayPer !== SubData[i].FBID){
+              ValueOfPayPer = SubData[i].FBID
+              SumOfPayPer += SubData[i].FBID
+            }
+
+            if(ValueOfPayPer !== SubData[i].FBID){
+              ValueOfPayPer = SubData[i].FBID
+              SumOfPayPer += SubData[i].FBID
+            }
+
+            if(ValueOfPer !== SubData[i].PER){
+              ValueOfPer = SubData[i].PER
+              SumOfPer += SubData[i].PER
+            }
+
+            if(ValueOfLab !== SubData[i].PERPAY){
+              ValueOfLab = SubData[i].PERPAY
+              SumOfLab += SubData[i].PERPAY
+            }
+          }
+          this.pinnedBottomRowData[0].MAMT = SumOfTamount.toFixed(2)
+          this.pinnedBottomRowData[0].FAMT = SumOfPay.toFixed(2)
+          this.pinnedBottomRowData[0].FBID = FillRes.data[1][0]["PCRT"]
+          this.pinnedBottomRowData[0].PER = SumOfPer.toFixed(2)
+          this.pinnedBottomRowData[0].PERPAY = SumOfLab.toFixed(2)
+
           const agBodyViewport: HTMLElement =
             this.elementRef.nativeElement.querySelector(".ag-body-viewport");
           const agBodyHorizontalViewport: HTMLElement =
@@ -974,5 +1035,12 @@ export class TendarWinComponent implements OnInit {
 
     document.body.appendChild(mapForm);
     mapForm.submit();
+  }
+  OpenDetIdPopup() {
+    const PRF = this.dialog.open(ListboxComponent, { width: '30%', data: { arr: this.DETIDarr, CODE: this.DETID, TYPE: 'DETID' }, panelClass: 'ListboxDialog' })
+    $("#Close").click();
+    PRF.afterClosed().subscribe(result => {
+      this.DETID = result
+    });
   }
 }

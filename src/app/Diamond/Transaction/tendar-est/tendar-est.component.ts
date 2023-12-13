@@ -213,7 +213,7 @@ export class TendarEstComponent implements OnInit {
 
   agGridWidth: number = 0;
   agGridStyles: string = `width: 100%;height: calc(100vh - 70vh); margin-bottom: 9%;`;
-  CommentStyle: string = `border:1px solid black;width: 100%;height: 200px;resize: none;border-left: none;`;
+  CommentStyle: string = `border:1px solid black;width: 100%;height: 197px;resize: none;border-left: none;`;
   DOCKON: boolean = false;
 
   dummay_variable: any = "newdivadd_variable";
@@ -7958,21 +7958,12 @@ export class TendarEstComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            // for (let i = 0; i < FillRes.data.length; i++) {
-            //   if (FillRes.data[i].ISACTIVE == true) {
-            //     this.DETIDarr.push({
-            //       code: FillRes.data[i].DETID,
-            //       date: FillRes.data[i].T_DATE,
-            //       name: FillRes.data[i].T_NAME
-            //     });
-            //   }
-            // }
             this.DETIDarr = FillRes.data
               .filter((item) => item.ISACTIVE == true)
               .map((item) => {
                 return {
                   code: item.DETID,
-                  date: item.T_DATE,
+                  date: this.datePipe.transform(item.T_DATE, "yyyy-MM-dd"),
                   name: item.T_NAME,
                 };
               });

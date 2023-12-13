@@ -12,6 +12,12 @@
                 <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />
             </mat-form-field>
 
+            <button class="btn theme-btn lot" (click)="OpenDetIdPopup()">
+                <svg class="icon icon-lot">
+                  <use xlink:href="assets/symbol-defs.svg#icon-lot"></use>
+                </svg>
+              </button>
+
             <ng-select class="autoComplete" style="width: 9rem;" [items]="DETIDarr" appearance="outline" #select
                 bindLabel="code" dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID"
                 (ngModelChange)="GETDATE()" labelForId="album" placeholder="Tendar No*" [virtualScroll]="true">
@@ -23,6 +29,20 @@
             <mat-form-field appearance="outline" style="width: 6rem;">
                 <mat-label>Name</mat-label>
                 <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_NAME" disabled />
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>From Date</mat-label>
+                <input matInput [matDatepicker]="ID1" [(ngModel)]="F_DATE" #fdate onfocus="this.select();"/>
+                <mat-datepicker-toggle matSuffix [for]="ID1" (click)="ID1.open()" ></mat-datepicker-toggle>
+                <mat-datepicker #ID1></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>To Date</mat-label>
+                <input matInput [matDatepicker]="ID2" [(ngModel)]="T_DATE" #fdate onfocus="this.select();"/>
+                <mat-datepicker-toggle matSuffix [for]="ID2" (click)="ID2.open()" ></mat-datepicker-toggle>
+                <mat-datepicker #ID2></mat-datepicker>
             </mat-form-field>
 
             <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData()">

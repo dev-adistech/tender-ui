@@ -36,7 +36,11 @@ export class ListboxComponent implements OnInit {
     this.TYPE = data.TYPE
 
     if (data.CODE != null) {
-      this.Selected = data.CODE.split(',')
+      if(typeof(data.CODE) !== 'number'){
+        this.Selected = data.CODE.split(',')
+      }else{
+        this.Selected.push(data.CODE)
+      }
     }
     else {
       this.Selected = []
@@ -332,6 +336,40 @@ export class ListboxComponent implements OnInit {
         sortable: true,
         headerCheckboxSelectionFilteredOnly: true
       };
+    }else if (data.TYPE == 'DETID') {
+      this.valdata = data.arr.map((item) => {
+        return { code: item.code, name: item.name, CKB: this.userExists(item.code) }
+      })
+
+      this.columnDefs = [
+        {
+          field: '',
+          headerCheckboxSelection: true,
+          checkboxSelection: true,
+          resizable: false,
+          sortable: false,
+          width: 60
+        },
+        {
+          headerName: "CODE",
+          field: "code",
+          cellStyle: { "text-align": "center" },
+          headerClass: "text-center"
+        },
+        {
+          headerName: "NAME",
+          field: "name",
+          cellStyle: { "text-align": "center" },
+          headerClass: "text-center"
+        },
+      ];
+      this.rowSelection = "multiple";
+      this.suppressRowClickSelection = true;
+      this.defaultColDef = {
+        resizable: true,
+        sortable: true,
+        headerCheckboxSelectionFilteredOnly: true
+      };
     } else if (data.TYPE == 'HolidayMast') {
       this.valdata = data.arr.map((item) => {
         return { code: item.code, name: item.name, CKB: this.userExists(item.name) }
@@ -514,6 +552,10 @@ export class ListboxComponent implements OnInit {
       return this.Selected.some(function (el) {
         return el === name;
       });
+    }else if (this.TYPE == 'DETID') {
+      return this.Selected.some(function (el) {
+        return parseInt(el) === name;
+      });
     } else {
       return this.Selected.some(function (el) {
         return el === name;
@@ -537,6 +579,10 @@ export class ListboxComponent implements OnInit {
         return { CODE: item.CODE,CKB: item.CKB }
       })
     } else if (this.TYPE == 'ORDDIS') {
+      this.valdata = this.valdata.map((item) => {
+        return { code: item.code, name: item.name.toString(), CKB: item.CKB }
+      })
+    } else if (this.TYPE == 'DETID') {
       this.valdata = this.valdata.map((item) => {
         return { code: item.code, name: item.name.toString(), CKB: item.CKB }
       })
@@ -592,6 +638,9 @@ export class ListboxComponent implements OnInit {
       let P_CODE = this.selectedRow.map((item) => { return item.P_CODE })
       this.Result = P_CODE.toString()
     } else if (this.TYPE == 'ORDDIS') {
+      let Res = this.selectedRow.map((item) => { return item.code })
+      this.Result = Res.toString()
+    } else if (this.TYPE == 'DETID') {
       let Res = this.selectedRow.map((item) => { return item.code })
       this.Result = Res.toString()
     } else if (this.TYPE == 'COMPOP') {
