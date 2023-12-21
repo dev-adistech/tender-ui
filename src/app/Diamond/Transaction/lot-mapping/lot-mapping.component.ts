@@ -29,6 +29,7 @@ export class LotMappingComponent implements OnInit {
 	public gridApi
 	public gridColumnApi
 	public defaultColDef
+  public gridOptions
 
   ALLOWINS: boolean = false
 	ALLOWDEL: boolean = false
@@ -78,35 +79,42 @@ export class LotMappingComponent implements OnInit {
 					return a
 				},
 				headerClass: "text-center",
-				width:65
+				width:47
 			},
 			{
 				headerName: "Company Code",
 				field: "COMP_CODE",
 				cellStyle: { "text-align": "center" },
 				headerClass: "text-center",
-				width:133
+				width:94
 			},
 			{
 				headerName: "Tendar No",
 				field: "DETID",
 				cellStyle: { "text-align": "right" },
 				headerClass: "text-center",
-				width:91
+				width:66
 			},
 			{
 				headerName: "Srno",
 				field: "SRNO",
 				cellStyle: { "text-align": "right" },
 				headerClass: "text-center",
-				width:65
+				width:44
+			},
+      {
+				headerName: "I.Carat",
+				field: "I_CARAT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+				width:56,
 			},
 			{
 				headerName: "Lot",
 				field: "L_CODE",
 				cellStyle: { "text-align": "center" },
 				headerClass: "text-center",
-				width:80,
+				width:62,
         editable: function (params) {
           return op.EDITABLE;
         },
@@ -116,7 +124,7 @@ export class LotMappingComponent implements OnInit {
 				field: "C_SRNO",
 				cellStyle: { "text-align": "right" },
 				headerClass: "text-center",
-				width:65,
+				width:58,
         editable: function (params) {
           return op.EDITABLE;
         },
@@ -126,7 +134,7 @@ export class LotMappingComponent implements OnInit {
 				field: "PER",
 				cellStyle: { "text-align": "right" },
 				headerClass: "text-center",
-				width:65,
+				width:49,
         editable: function (params) {
           return op.EDITABLE;
         },
@@ -136,7 +144,7 @@ export class LotMappingComponent implements OnInit {
 				field: "ISWIN",
 				cellStyle: { "text-align": "center" },
 				headerClass: "text-center",
-				width:65,
+				width:40,
         cellRenderer: (params) => {
           if (params.node.rowPinned != 'bottom') {
             if (op.PASS == op.PASSWORD) {
@@ -160,8 +168,14 @@ export class LotMappingComponent implements OnInit {
 		this.defaultColDef = {
 			resizable: true,
 			sortable: true,
-			filter: false,
+			filter: true,
+      suppressMenu: true,
 		}
+    this.gridOptions = {
+      enableSorting: false,
+      enableFilter: false,
+      context: { thisComponent: this }
+    }
    }
 
   async ngOnInit() {
@@ -363,5 +377,38 @@ export class LotMappingComponent implements OnInit {
 			}
 		})
 	}
+
+  getContextMenuItems(params) {
+    let inputText = '';
+    if (params.context.thisComponent.ISFILTER == true) {
+    const startNumber = 1; // Starting number
+    const endNumber = 6;   // Ending number
+
+    const numbers = Array.from({ length: endNumber - startNumber + 1 }, (_, index) => (index + startNumber).toString());
+      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck" value="${numbers.join('-')}" checked>`;
+    } else {
+      inputText = `<span>Filter  </span><input type="checkbox" data-action-type="FilterCheck">`;
+    }
+    var result = [
+      {
+        // custom item
+        name: inputText,
+        action: () => {
+          params.context.thisComponent.ISFILTER = !params.context.thisComponent.ISFILTER
+          var tempColumnDefs = params.context.thisComponent.gridApi.getColumnDefs();
+          tempColumnDefs.map((grpHeader) => {
+            grpHeader.suppressMenu = !grpHeader.suppressMenu
+          })
+          params.context.thisComponent.columnDefs = tempColumnDefs
+        }
+      },
+      "copy",
+      "copyWithHeaders",
+      "paste",
+      "separator",
+      "export"
+    ];
+    return result;
+  }
 
 }

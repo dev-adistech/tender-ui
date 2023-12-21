@@ -842,10 +842,12 @@ export class TendarWinComponent implements OnInit {
 
           let ValueOfLab = 0
           let SumOfLab = 0
+          let SumOfSrno = 0
           for(let i=0;i<SubData.length;i++){
             if(ValueOfTamount !== SubData[i].MAMT){
               ValueOfTamount = SubData[i].MAMT
               SumOfTamount += SubData[i].MAMT
+              SumOfSrno += 1
             }
 
             if(ValueOfPay !== SubData[i].FAMT){
@@ -878,6 +880,7 @@ export class TendarWinComponent implements OnInit {
           this.pinnedBottomRowData[0].FBID = FillRes.data[1][0]["PCRT"]
           this.pinnedBottomRowData[0].PER = SumOfPer.toFixed(2)
           this.pinnedBottomRowData[0].PERPAY = SumOfLab.toFixed(2)
+          this.pinnedBottomRowData[0].SRNO = SumOfSrno
 
           const agBodyViewport: HTMLElement =
             this.elementRef.nativeElement.querySelector(".ag-body-viewport");
@@ -1016,7 +1019,7 @@ export class TendarWinComponent implements OnInit {
     var mapForm = document.createElement("form");
     mapForm.target = "_blank";
     mapForm.method = "POST";
-    mapForm.action = `http://${this.url}:${this.port}/api/View/TendarWinSheet`;
+    mapForm.action = `https://${this.url}:${this.port}/api/View/TendarWinSheet`;
 
     let obj = {
       DataRow: JSON.stringify(rowData),

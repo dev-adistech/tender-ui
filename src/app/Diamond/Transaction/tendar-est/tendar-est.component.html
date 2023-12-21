@@ -197,7 +197,7 @@
                       disabled name="Code" autocomplete="off" />
                     <select
                       style="border: 1px solid black; text-align: center; width: 95px; height: 25px;border-top: none;position: relative;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOCODE" [disabled]="FLOCODEDIS">
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="FLOCODE" [disabled]="FLOCODEDIS" [ngStyle]="{'background-color': FloColColor(FLOCODE)}">
                       <option *ngFor="let cl of filteredSzs | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>

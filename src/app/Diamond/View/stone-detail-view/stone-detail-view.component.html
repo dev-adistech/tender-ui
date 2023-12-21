@@ -1,0 +1,630 @@
+<section id="content-wrapper" style="padding-top: 5px;">
+  <button class="btn theme-btn" matTooltip='close' matTooltipClass="custom-tooltip" (click)="CLOSE()"
+    style="position: absolute;display: flex;top: 1%;right: 1%;">
+    <svg class="icon icon-close">
+      <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+    </svg>
+  </button>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-8 col-md-8 col-sm-12 col-lg-pull-4 main_plpr mt-10">
+        <div class="d-flex bg_whl flex-wrap">
+          <div class="col-lg-3 col-md-3 col-sm-3 col-xs-12">
+            <div class="row align-items-center m-0">
+              <div class="col-md-4 col-sm-4 col-xs-4 plpr_head">
+                <!-- <i class={{iconClass}}></i><br> -->
+                <span class="stn_round">{{StoneDetail.S_FullName}}</span>
+              </div>
+              <div class="col-md-8 col-sm-8 col-xs-8">
+                <p class="txt_shp">
+                  <span>{{StoneDetail.PId}}</span><br>
+                  <span>{{StoneDetail.Carat}} CT</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-3 col-sm-3 col-xs-12">
+            <div class="row m-0">
+              <!-- <div class="col-md-3 col-sm-2 col-xs-4 plpr_head">
+                <i class="icon-Confirm-Stone mark_shp"></i>
+              </div> -->
+              <div class="col-md-12 col-sm-10 col-xs-8 pr_crfstn">
+                <p class="txt_shp1">
+                  <span>{{StoneDetail.GC_Name}}</span>
+                  <br>
+                  <span>{{StoneDetail.GQ_Name}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-3 col-sm-3 col-xs-12">
+            <div class="row m-0">
+              <!-- <div class="col-md-2 col-sm-2 col-xs-4 plpr_head">
+                <i class="icon-dollar-symbol"></i>
+              </div> -->
+              <div class="col-md-12 col-sm-10 col-xs-8">
+                <p class="txt_shp">
+                  <span>{{StoneDetail.GRap}}</span> &nbsp;&nbsp;
+                  <span>{{StoneDetail.GPer}} %</span>
+                  <br>
+                  <span>{{StoneDetail.GRate}} $/Ct</span> &nbsp;&nbsp;
+                  <span>{{StoneDetail.GIAmt}} $</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+            <div class="row m-0">
+              <!-- <div class="col-md-2 col-sm-2 col-xs-4 plpr_head">
+                <i class="icon-certificate mark_shp"></i>
+              </div> -->
+              <div class="col-md-12 col-sm-10 col-xs-8">
+                <p class="txt_shp">
+                  <span>{{StoneDetail.CR_Name}}</span>
+                  <br>
+                  <span>{{StoneDetail.CertNo}}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-3"></div>
+          <div class="col-md-6 col-sm-10 col-xs-8" style="top: 21%;left: 17%;">
+            <div class="row m-0">
+              <div class="col-md-12">
+                <p class="txt_shp">
+                  <span>{{StoneDetail.SALPER}} % </span>
+                  <span>{{StoneDetail.SALERATE}} $/Ct </span>
+                  <span>{{StoneDetail.SALERATEAMT}} $</span>
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-1 col-md-3 col-sm-3 col-xs-12">
+            <div class="row">
+              <!-- <div class="col-md-2 col-sm-2 col-xs-4 plpr_head">
+                <i class="icon-certificate mark_shp"></i>
+              </div> -->
+              <div class="col-md-2 col-sm-10 col-xs-8">
+                <p class="txt_shp">
+                  <span
+                    [ngStyle]="{ 'color': (StoneDetail.STONECAT == 'C') ? 'red' : (StoneDetail.STONECAT == 'A+') ? 'green' : 'black' }"
+                    style="font-size: large;"> {{StoneDetail.STONECAT}}</span>
+                  <!-- <br> -->
+                  <!-- <span>{{StoneDetail.CertNo}}</span> -->
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 plpr mt-10 prcut">
+          <div class="row mx-0">
+            <div class="col-lg-4 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Cut</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.GCT_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">Polish</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.GPO_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Symmetry</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.GSY_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Fluorescence</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.GFL_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">Shade</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.BSHD_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Eye Clean(%)</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.EC_Name}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 plpr mt-10 prcut">
+          <div class="row mx-0">
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">MEASUREMENT</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Meas}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Location</div>
+                <div class="col-md-7 col-sm-8 tb_txt"><span
+                    [ngStyle]="{ 'color': (StoneDetail.CRMLocation != 'INDIA') ? 'red' : '#267491'}">{{StoneDetail.CRMLocation}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Table(%)</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.Table1)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Table Inc</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.TIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Depth(%)</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.TotDepth)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Table Side Inc</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.TSIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Ratio</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.Ratio)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Table Side Black</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.TSBIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Gridle(%)</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.Girdle)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Table Black</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.TBIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Pv.Angle</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.PAngle)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Table Open</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.TOIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Pv.Height</div>
+                <div class="col-md-7 col-sm-6 tb_txt">{{tofixedto2(StoneDetail.PHeight)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Side Inc</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.SIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Cr.Angle</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.CAngle)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Side Black</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.SBIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Cr.Height</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.CHeight)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Side Open</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.SOIN_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Culet</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.CU_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">H&A</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.HA_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Star Length</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.StrLn)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Luster</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.LU_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Lower Half</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{tofixedto2(StoneDetail.LrHalf)}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Natural</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Natural}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Origin</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.origin}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Extra Facet</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.EF_Name}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">GI Date</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.GI_Date}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Report Date</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Rep_Date}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Rap</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.GRap}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Comment</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Comment}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Diameter</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Diameter}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Height</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Height}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Length</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Length}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Gridle (Desc)</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.GirdleDesc}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Note/Rem</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Remark}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Status</div>
+                <div class="col-md-7 col-sm-8 tb_txt" matTooltip={{StoneDetail.STONESTATUS}}>{{StoneDetail.STONESTATUS}}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 plpr mt-10 prcut">
+          <div class="row mx-0">
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">NGS Comment</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.GrdComment}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">Key to Symbols</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.KeyToSym}}</div>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-5 col-sm-4 tb_hed">Report Comm.</div>
+                <div class="col-md-7 col-sm-8 tb_txt">{{StoneDetail.Comment}}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4 col-md-4 col-sm-12 col-lg-push-8 dtl_tab mt-10 pr-0">
+        <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+          <div class="pl_tb">
+            <div class="tab-content">
+              <div id="Image" class="tab-pane fade in dia-imgs" [ngClass]="{'active' : disPlay=='image'}"
+                *ngIf="disPlay=='image'">
+                <div class="stn_img">
+                  <div *ngIf="StoneDetail.PhotoPath">
+                    <img [src]="imageUrl" class="det_img" (error)="ErrStoneImg($event)">
+                  </div>
+                </div>
+              </div>
+
+              <div id="Videosss" class="tab-pane fade in " [ngClass]="{'active' : disPlay=='video'}"
+                *ngIf="disPlay=='video'">
+                <div class="stn_vdeo">
+                  <div *ngIf="StoneDetail.VideoPath">
+                    <iframe [src]="videoUrl" class="det_vdeo" scrolling="no" id="videoUrl"></iframe>
+                  </div>
+                </div>
+              </div>
+
+              <div id="certisss" class="tab-pane fade in" [ngClass]="{'active' : disPlay=='certi'}"
+                *ngIf="disPlay=='certi'">
+                <div *ngIf="certiIsImage">
+                  <div class="stn_img">
+                    <img [src]="certiUrl" class="det_img" (error)="ErrCerti($event)">
+                  </div>
+                </div>
+
+                <div *ngIf="!certiIsImage">
+                  <div class="stn_vdeo">
+                    <iframe [src]="certiUrl" class="det_vdeo" scrolling="yes" id='certiUrl'></iframe>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ul class="nav nav-pills pil_act justify-content-center pl-0 pr-0 sd-btn">
+              <li [ngClass]="{'active' : disPlay=='image'}">
+                <a (click)="disPlay='image';attachUrl=StoneDetail.PhotoPath;" data-toggle="pill" class="pil_hed">
+                  <i class="icon-camera"></i> Image
+                </a>
+              </li>
+
+              <li [ngClass]="{'active' : disPlay=='video'}">
+                <a data-toggle="pill"
+                  (click)="disPlay='video';attachUrl=StoneDetail.VideoPath;CheckCrt('VIDEO',videoUrl);" class="pil_hed">
+                  <i class="icon-video"></i> Video
+                </a>
+              </li>
+
+              <li [ngClass]="{'active' : disPlay=='certi'}">
+                <a data-toggle="pill"
+                  (click)="disPlay='certi';attachUrl=StoneDetail.CertiPath;CheckCrt('CERTI',certiUrl);" class="pil_hed">
+                  <i class="icon-certificate"></i> Certificate
+                </a>
+              </li>
+
+              <div class="sd-row mt-1">
+
+                <a [href]="attachUrl" target="_blank">
+                  <span matTooltip='View' matTooltipClass="custom-tooltip" class="btn theme-btn mr-0"
+                    style="width: 50px;">
+                    <i class="icon-eye"></i>
+                  </span>
+                </a>
+
+                <span matTooltip='Download' matTooltipClass="custom-tooltip" class="btn theme-btn mr-0"
+                  (click)="DownloadDoc()" style="width: 50px;">
+                  <i class="icon-download"></i>
+                </span>
+
+                <!-- <span matTooltip='Add Stone Memo' matTooltipClass="custom-tooltip" class="btn theme-btn mr-0" (click)="AddToMemo()" style="width: 50px;">
+                  <i class="icon-Confirm-Report"></i> 
+                  <span class="add-memo">Memo</span>
+                </span> -->
+
+                <!-- <span class="btn theme-btn mr-0" matTooltip='Add New Offer' matTooltipClass="custom-tooltip" (click)="AddNewOffer()">
+                  <i class="fa fa-plus"></i>
+                  <span class="add-memo">Offer</span>
+                </span> -->
+
+                <!-- <span (click)="AddWatchList()" matTooltip='Add to Watch list' matTooltipClass="custom-tooltip" class="btn theme-btn mr-0">
+                  <i class="icon-wishlist1" style="font-size: 16px;"></i>
+                </span> -->
+
+              </div>
+            </ul>
+          </div>
+        </div>
+
+        <!-- <div class="col-lg-12 col-md-12 col-sm-12 px-0 mt-1">
+          <div class="sm-grid-border">
+
+            <ag-grid-angular style="width: 100%; height: 100px;" class="ag-theme-alpine" [columnDefs]="columnDefs"
+              (gridReady)="onGridReady($event)">
+            </ag-grid-angular>
+
+          </div>
+        </div> -->
+
+        <!-- <div class="col-lg-12 col-md-12 col-sm-12 px-0">
+          <div class="stn_vdeo1">
+
+            <div class="input-group grp-search">
+              <input type="text" placeholder='Email Details'  class="form-control frm_ipn">
+              <span class="input-group-addon grp_add" ><i class="icon-quick-contact detl_icon" title='Send Email'></i></span>
+            </div>
+
+            <div class="input-group grp-search">
+              <mat-form-field>
+                <mat-select (openedChange)="openedChange($event)" placeholder="Select" [formControl]="selectFormControl"
+                  multiple>
+                  <div class="select-container">
+                    <mat-optgroup>
+                      <mat-form-field appearance="outline" style="width:100%;" (keydown)="$event.stopPropagation()">
+                        <input #search autocomplete="off" placeholder="Search" aria-label="Search" matInput
+                          [formControl]="searchTextboxControl">
+                        <button [disableRipple]="true" *ngIf="search.value" matSuffix mat-icon-button aria-label="Clear"
+                          (click)="clearSearch($event)">
+                          <mat-icon>close</mat-icon>
+                        </button>
+                      </mat-form-field>
+                    </mat-optgroup>
+                    <mat-option (onSelectionChange)="selectionChange($event)"
+                      *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{option}}
+                    </mat-option>
+                  </div>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+
+            <div class="icn_rght">
+              <a target="_blank"><i class="fa fa-eye detl_icon viwdown " title="View"></i></a>
+              <i class="icon-download detl_icon viwdown" title='Download'></i>
+              <a class="dropdown">
+                <button class="btn-viv dropdown-toggle" type="button" data-toggle="dropdown"><i
+                    class="fa fa-share-alt detl_icon" title='Share'></i></button>
+                <ul class="dropdown-menu">
+                  <li><a href="https://web.whatsapp.com" target="_blank" title="WhatsApp"><i
+                        class="fa fa-whatsapp detl_icon"></i></a></li>
+                  <li><a href="skype:echo123?userinfo" title="  "><i class="fa fa-skype detl_icon"></i></a></li>
+                  <li><a href="https://web.wechat.com/" target="_blank" title='WeChat'><i
+                        class="fa fa-wechat detl_icon"></i></a></li>
+                </ul>
+              </a>
+            </div>
+          </div>
+        </div> -->
+
+        <!-- <div class="col-lg-12 col-md-12 col-sm-12 plpr mt-10 prcut">
+
+          <div class="row mx-0">
+
+            <div class="col-lg-6 col-md-6 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">BK</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.GRateLimit}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">DL</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.GPerLimit}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">PrcPer</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.PriceRevPer}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">Prc$ct</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.PriceRevRate}}</div>
+              </div>
+            </div> 
+
+
+            <div class="col-lg-10 col-md-12 col-sm-6 prpl_detail">
+              <div class="row" *ngIf="ShowOfferPrice">
+                <div class="col-md-2 col-sm-4 tb_hed">Price/Note</div>
+                <div class="col-md-10 col-sm-8 tb_txt">{{StoneDetail.OfferPrice}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">PrcDate</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{PriceRevDate}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-2 col-sm-4 tb_hed">QC</div>
+                <div class="col-md-10 col-sm-8 tb_txt"
+                  style="height: auto !important; overflow: initial !important; white-space: inherit !important;">
+                  {{StoneDetail.QCNote}}
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-12 col-sm-6 prpl_detail">
+              <div class="row">
+                <div class="col-md-3 col-sm-4 tb_hed">QC2</div>
+                <div class="col-md-9 col-sm-8 tb_txt">{{StoneDetail.QCNote2}}</div>
+              </div>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 prpl_detail">
+              <div class="row" *ngIf="ShowPrcNote">
+                <div class="col-lg-2 col-md-3 pr-0 col-sm-5 tb_hed">Price2</div>
+                <div class="col-lg-10 col-md-9 col-sm-7 tb_txt prc_txt">{{StoneDetail.PricingNote}}</div>
+              </div>
+            </div>
+
+          </div>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- <ngx-spinner type="none" id="loader" bdColor="transparent">
+      <img style="width: 80%;" src='https://pcknstg.blob.core.windows.net/hdfile/webimg/logo_spin.png' />
+     </ngx-spinner> -->
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="none" [fullScreen]="true">
+  <p style="color: white"> Please Wait... </p>
+</ngx-spinner>

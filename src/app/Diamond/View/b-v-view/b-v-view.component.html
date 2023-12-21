@@ -545,7 +545,7 @@
           </tr>
 
           <ng-container *ngFor="let tableData of item.GRID_DATA">
-            <tr [ngStyle]="{ 'background-color': tableData['PTAG'] == 'Total' ? '#c0ffc0' : '' }">
+            <tr [ngStyle]="{ 'background-color': tableData['PTAG'] == 'Total' || tableData['ISCOL'] == 1 ? '#c0ffc0' : '' }" (dblclick)="DbClick(tableData)">
               <ng-container *ngFor="let colDef of columnDefs">
                 <td *ngIf="!colDef.hide" [ngStyle]="{'width': colDef.width + 'px'}" [ngStyle]="{ 'width': colDef.width + 'px'}">
                   

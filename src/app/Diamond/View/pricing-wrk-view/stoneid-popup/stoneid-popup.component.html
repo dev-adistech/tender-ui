@@ -1,0 +1,14 @@
+<div class="stoneid_view">
+  <button class="btn theme-btn" matTooltip='close' matTooltipClass="custom-tooltip" (click)="CLOSE()">
+    <svg class="icon icon-close">
+      <use xlink:href="assets/symbol-defs.svg#icon-close"></use>
+    </svg>
+  </button>
+    <div class="memo-ent-grid" style="height: 100%;width: 100%;">
+        <ag-grid-angular style="width: 100%; height:70vh;" class="ag-theme-alpine mt-1" [defaultColDef]="defaultColDef"
+           [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
+          [animateRows]="true" [getRowStyle]="getRowStyle" (cellDoubleClicked)="onCellDoubleClicked($event)"
+            [gridOptions]="gridOptions" [suppressMenuHide]="false">
+        </ag-grid-angular>
+      </div>
+  </div>

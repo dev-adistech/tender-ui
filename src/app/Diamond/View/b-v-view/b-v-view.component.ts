@@ -17,6 +17,7 @@ import { TendarEstService } from 'src/app/Service/Rap/tendar-est.service';
 import { MatDialog } from '@angular/material/dialog';
 import { BvViewDetComponent } from './bv-view-det/bv-view-det.component';
 import { convertToObject } from 'typescript';
+import { StoneidPopupComponent } from '../pricing-wrk-view/stoneid-popup/stoneid-popup.component';
 declare let $: any;
 
 @Component({
@@ -3938,6 +3939,49 @@ export class BVViewComponent implements OnInit {
       }
     }
 
+  }
+
+  DbClick(eve){
+    if(eve.ISCOL == 1){
+      this.ViewServ.StoneidSellDet({
+        S_NAME: eve.S_CODE ? eve.S_CODE : "",
+        C_NAME: eve.C_CODE ? eve.C_CODE : "",
+        Q_NAME: eve.Q_CODE ? eve.Q_CODE : "",
+        CARAT: eve.CARAT ? eve.CARAT : 0,
+        LAB: eve.LB_CODE ? eve.LB_CODE : "",
+        TYPE:'BV'
+      }).subscribe((FillRes) => {
+        try {
+          if (FillRes.success == true) {
+            const DresPrdtype = {
+              Res: FillRes.data,
+              DRes: FillRes
+            }
+            const dialogRef = this.dialog.open(StoneidPopupComponent, {
+              panelClass: "marker-acc-view-det-dialog",
+              autoFocus: false,
+              width: "30%",
+              height: "calc(100vh - 16%)",
+              disableClose: true,
+              data: DresPrdtype
+            })
+  
+            $("#Close").click()
+            dialogRef.afterClosed().subscribe((result) => { })
+          } else {
+            this.spinner.hide();
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: JSON.stringify(FillRes.data),
+            });
+          }
+        } catch (error) {
+          this.spinner.hide();
+          this.toastr.error(error);
+        }
+      });
+    }
   }
 
 }

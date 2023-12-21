@@ -57,4 +57,8 @@ export class ViewService {
     return this.http.post<any>('View/TenderWin', Data)
   }
 
+  StoneidSellDet(Data: any): Observable<any> {
+    return this.http.post<any>('View/StoneidSellDet', Data)
+  }
+
 }

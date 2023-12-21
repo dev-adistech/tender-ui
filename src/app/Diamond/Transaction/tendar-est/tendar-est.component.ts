@@ -7983,6 +7983,18 @@ export class TendarEstComponent implements OnInit {
     );
   }
 
+  FloColColor(CODE) {
+    if (CODE == 2) {
+      return "#78f587";
+    } else if (CODE == 3) {
+      return "#ffff9e";
+    } else if (CODE == 4) {
+      return "#8db6fc";
+    } else if (CODE == 5) {
+      return "#aac0e6";
+    }
+  }
+
   findrap1(RapObj) {
     let _GridRowData = [];
     let SubData = [];

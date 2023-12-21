@@ -1,0 +1,7 @@
+.stoneid_view{
+    display: grid;
+    justify-items: start;
+    align-items: center;
+    grid-gap: 0.5rem;
+    width: 100% !important;
+}

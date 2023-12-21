@@ -81,6 +81,7 @@ input.mat-input-element {
 .mat-dialog-container {
 	background-color: var(--color-bg);
 	position: relative;
+	width: 100% !important;
 }
 
 .custom-mat-dialog-container .mat-dialog-container {
@@ -98,7 +99,7 @@ input.mat-input-element {
 }
 
 .mat-dialog-container{
-	width: auto !important;
+	width: 100% !important;
 	margin: 0 auto;
 }
 

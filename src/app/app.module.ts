@@ -87,6 +87,8 @@ import { RapExcelComponent } from "./Diamond/Rap/rap-cal/rap-excel/rap-excel.com
 import { RapCalcTenderEntryComponent } from "./Diamond/Rap/rap-cal/rap-calc-tender-entry/rap-calc-tender-entry.component"
 import { RapCalModalComponent } from "./Diamond/Rap/rap-cal/rap-cal-modal/rap-cal-modal.component";
 import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.component'
+import { StoneDetailViewComponent } from "./Diamond/View/stone-detail-view/stone-detail-view.component";
+import { StoneidPopupComponent } from './Diamond/View/pricing-wrk-view/stoneid-popup/stoneid-popup.component'
 
 
 @NgModule({
@@ -158,7 +160,9 @@ import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.compone
 		RapExcelComponent,
 		RapCalcTenderEntryComponent,
 		RapCalModalComponent,
-		TendarWinComponent
+		StoneDetailViewComponent,
+		TendarWinComponent,
+		StoneidPopupComponent
 	],
 	imports: [
 		BrowserModule,
