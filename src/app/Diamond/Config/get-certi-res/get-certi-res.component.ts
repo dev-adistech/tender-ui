@@ -89,6 +89,7 @@ export class GetCertiResComponent implements OnInit {
               COLORNAME:SubData[i].COLORNAME ? SubData[i].COLORNAME:'',
               SDATE:SubData[i].SDATE ? SubData[i].SDATE:null,
               CR_NAME:SubData[i].CR_NAME ? SubData[i].CR_NAME:'',
+              GI_DATE:SubData[i].GI_DATE ? SubData[i].GI_DATE:null
             };
             PerArr.push(SaveObj);
           }
