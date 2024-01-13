@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -79,6 +79,20 @@ export class StoneidPopupComponent implements OnInit {
 				headerClass: "text-center",
 				width:58
 			},
+			{
+				headerName: "S.Date ",
+				field: "SDATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+				width:56
+			},
+			{
+				headerName: "Day Diff ",
+				field: "DAYDIFF",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+				width:78
+			},
 		]
 
     this.defaultColDef = {
@@ -128,7 +142,6 @@ export class StoneidPopupComponent implements OnInit {
   }
 
   onCellDoubleClicked(eve){
-    console.log(eve)
     localStorage.setItem("SVDPID", eve.data.STONEID);
 
     const dialogRef = this.dialog.open(StoneDetailViewComponent, {
@@ -146,4 +159,10 @@ export class StoneidPopupComponent implements OnInit {
     this._mdr.close()
   }
 
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key == 'Escape') {
+        this.CLOSE();
+    }
+  }
 }

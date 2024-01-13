@@ -235,6 +235,7 @@ export class HomeComponent implements OnInit {
      this.CheckFormPermission('RapCalComponent') 
     ||this.CheckFormPermission('TendarComComponent') 
     ||this.CheckFormPermission('LotMappingComponent') 
+    ||this.CheckFormPermission('ParcelEntryComponent') 
   || this.CheckFormPermission('TendarMastComponent')) {
       this.transactionPointer = true;
     } else {

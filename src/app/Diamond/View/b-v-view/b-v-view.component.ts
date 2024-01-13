@@ -1460,7 +1460,7 @@ export class BVViewComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true).map(item => {
+            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true && item.ISMIX == false).map(item => {
               return { code: item.DETID, date: this.datePipe.transform(item.T_DATE,'yyyy-MM-dd'), name: item.T_NAME };
             });
           } else {
@@ -3960,7 +3960,7 @@ export class BVViewComponent implements OnInit {
             const dialogRef = this.dialog.open(StoneidPopupComponent, {
               panelClass: "marker-acc-view-det-dialog",
               autoFocus: false,
-              width: "30%",
+              width: "34%",
               height: "calc(100vh - 16%)",
               disableClose: true,
               data: DresPrdtype

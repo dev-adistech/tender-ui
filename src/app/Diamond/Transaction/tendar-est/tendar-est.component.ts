@@ -7959,7 +7959,7 @@ export class TendarEstComponent implements OnInit {
           if (FillRes.success == true) {
             this.spinner.hide();
             this.DETIDarr = FillRes.data
-              .filter((item) => item.ISACTIVE == true)
+              .filter((item) => item.ISACTIVE == true && item.ISMIX === false)
               .map((item) => {
                 return {
                   code: item.DETID,

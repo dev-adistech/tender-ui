@@ -21,7 +21,6 @@ declare var $: any;
   styleUrls: ["./tendar-mast.component.css"],
 })
 export class TendarMastComponent implements OnInit {
-
   @ViewChild("TNumber") TNumber: ElementRef;
   @ViewChild("TName") TName: ElementRef;
   @ViewChild("Srno") Srno: ElementRef;
@@ -29,103 +28,106 @@ export class TendarMastComponent implements OnInit {
 
   decodeHelper = new JwtHelperService();
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem("token"));
-  decodedMast = JSON.parse(this.EncrDecrServ.get(localStorage.getItem("unfam1")));
+  decodedMast = JSON.parse(
+    this.EncrDecrServ.get(localStorage.getItem("unfam1"))
+  );
 
-  LS: boolean = false
-  R1: any = ''
-  R2: any = ''
-  F1: any = ''
-  F2: any = ''
-  DN: any = ''
-  USER1: any = ''
-  USER2: any = ''
-  USER3: any = ''
-  FANCY1: any = ''
-  ROUNDC1: any = ''
-  COLORArr = []
+  LS: boolean = false;
+  R1: any = "";
+  R2: any = "";
+  F1: any = "";
+  F2: any = "";
+  DN: any = "";
+  USER1: any = "";
+  USER2: any = "";
+  USER3: any = "";
+  FANCY1: any = "";
+  ROUNDC1: any = "";
+  COLORArr = [];
   filteredColor: Observable<any[]>;
   ColControl: FormControl;
-  FINALBID: any = ''
-  FINALAMT: any = ''
-  ADIS: any = ''
-  FLOCODE: any = ''
-  FINALAMT1:any = ''
-  FLOCODEDIS: boolean = false
-  SRNODIS: boolean = false
-  butDisabled: any = ''
+  FINALBID: any = "";
+  FINALAMT: any = "";
+  ADIS: any = "";
+  FLOCODE: any = "";
+  FINALAMT1: any = "";
+  FLOCODEDIS: boolean = false;
+  SRNODIS: boolean = false;
+  butDisabled: any = "";
 
   MacColControl: FormControl;
-  MacColor: any = []
+  MacColor: any = [];
   filteredMacColor: Observable<any[]>;
-  FINAL1: any = ''
-  FINAL2: any = ''
-  FINALME: any = ''
-  FINALHE: any = ''
-  RESULT1: any = ''
-  RESULT2: any = ''
-  RESULTME: any = ''
-  RESULTHE: any = ''
+  FINAL1: any = "";
+  FINAL2: any = "";
+  FINALME: any = "";
+  FINALHE: any = "";
+  RESULT1: any = "";
+  RESULT2: any = "";
+  RESULTME: any = "";
+  RESULTHE: any = "";
 
   FloControl: FormControl;
-  FLONO: any = []
+  FLONO: any = [];
   filteredFLO: Observable<any[]>;
-  FLO1: any = ''
-  FLO2: any = ''
-  FLOME: any = ''
-  FLOHE: any = ''
+  FLO1: any = "";
+  FLO2: any = "";
+  FLOME: any = "";
+  FLOHE: any = "";
 
   MacFloControl: FormControl;
-  MacFLONO: any = []
+  MacFLONO: any = [];
   filteredMacFLO: Observable<any[]>;
-  MacFLO1: any = ''
-  MacFLO2: any = ''
-  MacFLOME: any = ''
-  MacFLOHE: any = ''
+  MacFLO1: any = "";
+  MacFLO2: any = "";
+  MacFLOME: any = "";
+  MacFLOHE: any = "";
 
   MacComControl: FormControl;
-  MacComm: any = []
+  MacComm: any = [];
   filteredMacCom: Observable<any[]>;
-  MacCom1: any = ''
-  MacCom2: any = ''
-  MacComME: any = ''
-  MacComHE: any = ''
+  MacCom1: any = "";
+  MacCom2: any = "";
+  MacComME: any = "";
+  MacComHE: any = "";
 
-  PKTNAME: any = ''
-  PKTSRNO: any = ''
-  PKTWEIGHT: any = ''
-  PKTRESERVE: any = ''
-  PKTPER: any = ''
-  PKTSRW: any = ''
-  PKTSRW1: any = ''
-  FLAT1: any = ''
-  FLAT2: any = ''
+  PKTNAME: any = "";
+  PKTSRNO: any = "";
+  PKTWEIGHT: any = "";
+  PKTRESERVE: any = "";
+  PKTPER: any = "";
+  PKTSRW: any = "";
+  PKTSRW1: any = "";
+  FLAT1: any = "";
+  FLAT2: any = "";
 
   TensionControl: FormControl;
-  TenArr: any = []
+  TenArr: any = [];
   filteredTension: Observable<any[]>;
-  TENSION: any = ''
-  DOCKData: any[] = []
+  TENSION: any = "";
+  DOCKData: any[] = [];
 
-  TENDAR_NAME: any = ''
+  TENDAR_NAME: any = "";
 
-  allSzs: any[] = []
+  allSzs: any[] = [];
   filteredSzs: Observable<any[]>;
   szControl: FormControl;
-  selectedSz: any = ''
+  selectedSz: any = "";
 
-
-  TendarStyle:string=`width: calc(100% - 150px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
-  AreaBoxStyle:string=`border:1px solid black;width: 100%;resize: none;height:100%`;
-  ContainWidth:string=`width:100%`;
-  BlankBoxStyle:string=`border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;height: 100%;`;
-  HearderBoxStyle:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
-  HearderBoxStyle1:string=`border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none;border-top:none`;
+  TendarStyle: string = `width: calc(100% - 150px);height: 22px;font-size: 17px;border:1px solid black;border-bottom:none;`;
+  AreaBoxStyle: string = `border:1px solid black;width: 100%;resize: none;height:100%`;
+  ContainWidth: string = `width:100%`;
+  BlankBoxStyle: string = `border:1px solid black;padding: 10px 0px; width: 100%; text-align: center;border-top:none;height: 100%;`;
+  HearderBoxStyle: string = `border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none`;
+  HearderBoxStyle1: string = `border:1px solid black; width:100%; padding: 2px 3px; text-align: center;border-bottom:none;border-top:none`;
 
   DEPTArr: any = [];
   COMP_CODE: any = "";
   COMP_NAME: any = "";
   DETID: any = "";
   T_NAME: any = "";
+  T_CARAT: any = "";
+  T_PCS: any = "";
   T_DATE: any = null;
   ISACTIVE: boolean = false;
   ISMIX: boolean = false;
@@ -142,50 +144,50 @@ export class TendarMastComponent implements OnInit {
   CRT: any = "";
   COMMENT: any = "";
 
-  HIDEPOPUP:boolean=false
+  HIDEPOPUP: boolean = false;
 
-  ComBO:boolean=false
+  ComBO: boolean = false;
 
   DETID2: any = "";
 
-  EVEDATA:any=[]
+  EVEDATA: any = [];
 
-  PKTRESERVEDIS:boolean=false
-  FINAL2DIS:boolean=false
-  FINAL1DIS:boolean=false
-  DNDIS:boolean=false
-  FINALHEDIS:boolean=false
-  FINALMEDIS:boolean=false
-  USER1DIS:boolean=false
-  USER2DIS:boolean=false
-  USER3DIS:boolean=false
-  RESULT1DIS:boolean=false
-  RESULT2DIS:boolean=false
-  RESULTMEDIS:boolean=false
-  RESULTHEDIS:boolean=false
-  FLO1DIS:boolean=false
-  FLO2DIS:boolean=false
-  FLOMEDIS:boolean=false
-  FLOHEDIS:boolean=false
-  R1DIS:boolean=false
-  R2DIS:boolean=false
-  ROUNDC1DIS:boolean=false
-  FANCY1DIS:boolean=false
-  MacComMEDIS:boolean=false
-  MacComHEDIS:boolean=false
-  MacCom1DIS:boolean=false
-  MacCom2DIS:boolean=false
-  MacFLOMEDIS:boolean=false
-  MacFLOHEDIS:boolean=false
-  MacFLO1DIS:boolean=false
-  MacFLO2DIS:boolean=false
-  FLOCODEDIS1:boolean=false
-  F1DIS:boolean=false
-  F2DIS:boolean=false
-  FINALAMTDIS:boolean=false
-  TENSIONDIS:boolean=false
-  PKTSRWDIS:boolean=false
-  TENDARDIS:boolean=false
+  PKTRESERVEDIS: boolean = false;
+  FINAL2DIS: boolean = false;
+  FINAL1DIS: boolean = false;
+  DNDIS: boolean = false;
+  FINALHEDIS: boolean = false;
+  FINALMEDIS: boolean = false;
+  USER1DIS: boolean = false;
+  USER2DIS: boolean = false;
+  USER3DIS: boolean = false;
+  RESULT1DIS: boolean = false;
+  RESULT2DIS: boolean = false;
+  RESULTMEDIS: boolean = false;
+  RESULTHEDIS: boolean = false;
+  FLO1DIS: boolean = false;
+  FLO2DIS: boolean = false;
+  FLOMEDIS: boolean = false;
+  FLOHEDIS: boolean = false;
+  R1DIS: boolean = false;
+  R2DIS: boolean = false;
+  ROUNDC1DIS: boolean = false;
+  FANCY1DIS: boolean = false;
+  MacComMEDIS: boolean = false;
+  MacComHEDIS: boolean = false;
+  MacCom1DIS: boolean = false;
+  MacCom2DIS: boolean = false;
+  MacFLOMEDIS: boolean = false;
+  MacFLOHEDIS: boolean = false;
+  MacFLO1DIS: boolean = false;
+  MacFLO2DIS: boolean = false;
+  FLOCODEDIS1: boolean = false;
+  F1DIS: boolean = false;
+  F2DIS: boolean = false;
+  FINALAMTDIS: boolean = false;
+  TENSIONDIS: boolean = false;
+  PKTSRWDIS: boolean = false;
+  TENDARDIS: boolean = false;
 
   public columnDefs;
   public gridApi;
@@ -194,7 +196,7 @@ export class TendarMastComponent implements OnInit {
 
   public columnDefs1;
   public gridApi1;
-  public rowSelection
+  public rowSelection;
   public gridColumnApi1;
   public defaultColDef1;
   public gridOptions1;
@@ -209,6 +211,8 @@ export class TendarMastComponent implements OnInit {
   TendarNumber: FormControl;
   TendarDate: FormControl;
   SRNOForm: FormControl;
+
+  FieldHide: boolean = false;
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -287,13 +291,13 @@ export class TendarMastComponent implements OnInit {
         cellStyle: { "text-align": "center" },
         headerClass: "text-center",
         width: 65,
-        cellRenderer: (params)=>{
+        cellRenderer: (params) => {
           if (params.data.ISACTIVE == true) {
             return '<input type="checkbox" data-action-type="COVER" checked  disabled>';
           } else {
             return '<input type="checkbox" data-action-type="COVER" disabled>';
           }
-        }
+        },
       },
       {
         headerName: "Mix",
@@ -301,13 +305,27 @@ export class TendarMastComponent implements OnInit {
         cellStyle: { "text-align": "center" },
         headerClass: "text-center",
         width: 65,
-        cellRenderer: (params)=>{
+        cellRenderer: (params) => {
           if (params.data.ISMIX == true) {
             return '<input type="checkbox" data-action-type="MIX" checked  disabled>';
           } else {
             return '<input type="checkbox" data-action-type="MIX" disabled>';
           }
-        }
+        },
+      },
+      {
+        headerName: "Tendar Pcs",
+        field: "T_PCS",
+        cellStyle: { "text-align": "right" },
+        headerClass: "text-center",
+        width: 110,
+      },
+      {
+        headerName: "Tendar Crt",
+        field: "T_CARAT",
+        cellStyle: { "text-align": "right" },
+        headerClass: "text-center",
+        width: 110,
       },
     ];
     this.defaultColDef = {
@@ -367,10 +385,10 @@ export class TendarMastComponent implements OnInit {
         cellStyle: { "text-align": "center" },
         headerClass: "text-center",
         cellRenderer: (params) => {
-          if (params.node.rowPinned != 'bottom') {
+          if (params.node.rowPinned != "bottom") {
             if (params.data.VIDEO == true) {
-            return '<input type="checkbox" data-action-type="VIDEO"  checked (keydown.space)="checked">';
-            }else {
+              return '<input type="checkbox" data-action-type="VIDEO"  checked (keydown.space)="checked">';
+            } else {
               return '<input type="checkbox" data-action-type="VIDEO" (keydown.space)="checked">';
             }
           }
@@ -388,12 +406,12 @@ export class TendarMastComponent implements OnInit {
         suppressMiniFilter: false,
         resetButton: true,
       },
-    }
+    };
     this.gridOptions1 = {
       enableSorting: false,
       enableFilter: false,
       context: { thisComponent: this },
-    }
+    };
   }
 
   DateFormat(params) {
@@ -404,10 +422,18 @@ export class TendarMastComponent implements OnInit {
     }
   }
 
+  MixChange() {
+    if (this.ISMIX) {
+      this.FieldHide = true;
+    } else {
+      this.FieldHide = false;
+    }
+  }
+
   async ngOnInit() {
-    this.Tendar.disable()
-    this.TendarNumber.disable()
-    this.TendarDate.disable()
+    this.Tendar.disable();
+    this.TendarNumber.disable();
+    this.TendarDate.disable();
     this.DEPTArr = this.decodedMast[2].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
@@ -422,91 +448,91 @@ export class TendarMastComponent implements OnInit {
     let C_arr = this.decodedMast[12].map((item) => {
       return { code: item.C_CODE, name: item.C_NAME };
     });
-    this.COLORArr = [[{ code: 0, name: '---' }, ...C_arr]]
+    this.COLORArr = [[{ code: 0, name: "---" }, ...C_arr]];
 
     let MC_arr = this.decodedMast[17].map((item) => {
       return { code: item.MC_CODE, name: item.MC_NAME };
     });
 
-    this.MacColor = [[{ code: 0, name: '---' }, ...MC_arr]]
+    this.MacColor = [[{ code: 0, name: "---" }, ...MC_arr]];
 
     let FLO_arr = this.decodedMast[19].map((item) => {
       return { code: item.NFL_CODE, name: item.NFL_NAME };
     });
-    this.FLONO = [[{ code: 0, name: '---' }, ...FLO_arr]]
+    this.FLONO = [[{ code: 0, name: "---" }, ...FLO_arr]];
 
     let MacFLO_arr = this.decodedMast[18].map((item) => {
       return { code: item.MFL_CODE, name: item.MFL_NAME };
     });
-    this.MacFLONO = [[{ code: 0, name: '---' }, ...MacFLO_arr]]
+    this.MacFLONO = [[{ code: 0, name: "---" }, ...MacFLO_arr]];
 
     let F_arr = this.decodedMast[7].map((item) => {
       return { code: item.FL_CODE, name: item.FL_NAME };
     });
-    this.allSzs = [[{ code: 0, name: '---' }, ...F_arr]]
+    this.allSzs = [[{ code: 0, name: "---" }, ...F_arr]];
 
     let Com_arr = this.decodedMast[20].map((item) => {
-      return { code: item.MCOM_NAME, name:item.MCOM_NAME };
+      return { code: item.MCOM_NAME, name: item.MCOM_NAME };
     });
 
-    this.MacComm = [[{ code: 0 ,name: '---'  }, ...Com_arr]]
+    this.MacComm = [[{ code: 0, name: "---" }, ...Com_arr]];
 
     let Tension_arr = this.decodedMast[16].map((item) => {
       return { code: item.T_CODE, name: item.T_NAME };
     });
-    this.TenArr = [[{ code: 0 ,name: '---' }, ...Tension_arr]]
+    this.TenArr = [[{ code: 0, name: "---" }, ...Tension_arr]];
 
     this.filteredSzs = this.szControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value))
+      startWith(""),
+      map((value) => this._filter(value))
     );
     this.filteredColor = this.ColControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._Colfilter(value))
+      startWith(""),
+      map((value) => this._Colfilter(value))
     );
     this.filteredMacColor = this.MacColControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._MacColfilter(value))
+      startWith(""),
+      map((value) => this._MacColfilter(value))
     );
     this.filteredFLO = this.FloControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._FLOfilter(value))
+      startWith(""),
+      map((value) => this._FLOfilter(value))
     );
     this.filteredMacFLO = this.MacFloControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._MacFLOfilter(value))
+      startWith(""),
+      map((value) => this._MacFLOfilter(value))
     );
     this.filteredMacCom = this.MacComControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._MacComfilter(value))
+      startWith(""),
+      map((value) => this._MacComfilter(value))
     );
     this.filteredTension = this.TensionControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._Tensionfilter(value))
+      startWith(""),
+      map((value) => this._Tensionfilter(value))
     );
   }
 
   private _filter(value: string): any[] {
-    return this.allSzs[0].filter(sz => sz.name);
+    return this.allSzs[0].filter((sz) => sz.name);
   }
 
   private _Colfilter(value: string): any[] {
-    return this.COLORArr[0].filter(sz => sz.name);
+    return this.COLORArr[0].filter((sz) => sz.name);
   }
   private _MacColfilter(value: string): any[] {
-    return this.MacColor[0].filter(sz => sz.name);
+    return this.MacColor[0].filter((sz) => sz.name);
   }
   private _FLOfilter(value: string): any[] {
-    return this.FLONO[0].filter(sz => sz.name);
+    return this.FLONO[0].filter((sz) => sz.name);
   }
   private _MacFLOfilter(value: string): any[] {
-    return this.MacFLONO[0].filter(sz => sz.name);
+    return this.MacFLONO[0].filter((sz) => sz.name);
   }
   private _MacComfilter(value: string): any[] {
-    return this.MacComm[0].filter(sz => sz.name);
+    return this.MacComm[0].filter((sz) => sz.name);
   }
   private _Tensionfilter(value: string): any[] {
-    return this.TenArr[0].filter(sz => sz.name);
+    return this.TenArr[0].filter((sz) => sz.name);
   }
 
   GETNAME() {
@@ -534,98 +560,101 @@ export class TendarMastComponent implements OnInit {
     this.gridColumnApi1 = params.columnApi;
   }
 
-  UploadDirect(){
-    const fileInput = document.getElementById('fileInput');
+  UploadDirect() {
+    const fileInput = document.getElementById("fileInput");
     if (fileInput) {
       fileInput.click();
     }
   }
 
-  onFileInputChange(event: Event){
-    let SubData =[]
+  onFileInputChange(event: Event) {
+    let SubData = [];
     this.gridApi1.forEachNode(function (rowNode, index) {
       SubData.push(rowNode.data);
     });
-    let selected =[]
-    for(let i=0;i<SubData.length;i++){
-      if(SubData[i].VIDEO == true){
-        selected.push(SubData[i])
+    let selected = [];
+    for (let i = 0; i < SubData.length; i++) {
+      if (SubData[i].VIDEO == true) {
+        selected.push(SubData[i]);
       }
     }
-    console.log(selected)
 
     const inputElement = event.target as HTMLInputElement;
     const selectedFile = inputElement.files;
 
-    console.log(selectedFile)
-    let NewName
-    for(let i=0;i<selectedFile.length;i++){
-      for(let j=0;j<selected.length;j++){
-        NewName = selected[j].COMP_CODE + '-' + selected[j].DETID + '-' + selected[j].SRNO
-        let name = selectedFile[i].name.split('.')[0]
-        if(NewName == name){
-          let op = this
+    let NewName;
+    for (let i = 0; i < selectedFile.length; i++) {
+      for (let j = 0; j < selected.length; j++) {
+        NewName =
+          selected[j].COMP_CODE +
+          "-" +
+          selected[j].DETID +
+          "-" +
+          selected[j].SRNO;
+        let name = selectedFile[i].name.split(".")[0];
+        if (NewName == name) {
+          let op = this;
 
-    if (selectedFile) {
-      const file = selectedFile[i]
-      const blob = new Blob([file], { type: "video/mp4" });
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(blob);
-      fileReader.addEventListener("load", () => {
-        let base64String = fileReader.result;
-        let FileObj = {
-          FileName: `${selected[i].COMP_CODE}-${selected[i].DETID}-${selected[i].SRNO}`,
-          base64File: base64String,
-        };
-        if (typeof base64String === "string") {
-          op.uploadVideo(FileObj);
-        } else {
-          const bytes = new Uint8Array(base64String);
-          base64String = String.fromCharCode.apply(null, bytes);
-          op.uploadVideo(FileObj);
-        }
-        op.spinner.show()
-        op.uploadVideo(FileObj).subscribe((response) => {
-          try {
-            let Obj = {
-              COMP_CODE: op.COMP_CODE,
-              DETID: selected[i].DETID,
-              SRNO: selected[i].SRNO,
-              SECURE_URL: response.data.secure_url,
-              URL: response.data.url,
-              CLOUDID: response.data.cloudid,
-              PUBLICID: response.data.public_id,
-              I_TYPE: 'VIDEO'
-            };
-            op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
-              try {
-                if (Res.success == true) {
-                  op.spinner.hide();
-                  op.toastr.success("File uploaded succesfully.");
-                } else {
-                  op.spinner.hide();
-                  Swal.fire({
-                    icon: "error",
-                    title: "Oops...",
-                    text: JSON.stringify(Res.data),
-                  });
-                }
-              } catch (error) {
-                op.spinner.hide();
-                console.log(error);
-
-                op.toastr.error(error);
+          if (selectedFile) {
+            const file = selectedFile[i];
+            const blob = new Blob([file], { type: "video/mp4" });
+            const fileReader = new FileReader();
+            fileReader.readAsDataURL(blob);
+            fileReader.addEventListener("load", () => {
+              let base64String = fileReader.result;
+              let FileObj = {
+                FileName: `${selected[i].COMP_CODE}-${selected[i].DETID}-${selected[i].SRNO}`,
+                base64File: base64String,
+              };
+              if (typeof base64String === "string") {
+                op.uploadVideo(FileObj);
+              } else {
+                const bytes = new Uint8Array(base64String);
+                base64String = String.fromCharCode.apply(null, bytes);
+                op.uploadVideo(FileObj);
               }
-            });
-          } catch (error) {
-            op.spinner.hide();
-            console.log(error);
+              op.spinner.show();
+              op.uploadVideo(FileObj).subscribe((response) => {
+                try {
+                  let Obj = {
+                    COMP_CODE: op.COMP_CODE,
+                    DETID: selected[i].DETID,
+                    SRNO: selected[i].SRNO,
+                    SECURE_URL: response.data.secure_url,
+                    URL: response.data.url,
+                    CLOUDID: response.data.cloudid,
+                    PUBLICID: response.data.public_id,
+                    I_TYPE: "VIDEO",
+                  };
+                  op.TendarEstServ.TendarVidUpload(Obj).subscribe((Res) => {
+                    try {
+                      if (Res.success == true) {
+                        op.spinner.hide();
+                        op.toastr.success("File uploaded succesfully.");
+                      } else {
+                        op.spinner.hide();
+                        Swal.fire({
+                          icon: "error",
+                          title: "Oops...",
+                          text: JSON.stringify(Res.data),
+                        });
+                      }
+                    } catch (error) {
+                      op.spinner.hide();
+                      console.log(error);
 
-            op.toastr.error(error);
+                      op.toastr.error(error);
+                    }
+                  });
+                } catch (error) {
+                  op.spinner.hide();
+                  console.log(error);
+
+                  op.toastr.error(error);
+                }
+              });
+            });
           }
-        });
-      });
-    }
         }
       }
     }
@@ -650,42 +679,46 @@ export class TendarMastComponent implements OnInit {
   CHANGEPASSWORD() {
     if (!this.PASS) return;
     this.gridApi.redrawRows();
-    if(this.PASS === this.PASSWORD){
-      this.Tendar.enable()
-      this.TendarNumber.enable()
-      this.TendarDate.enable()
-    }else{
-      this.Tendar.disable()
-      this.TendarNumber.disable()
-      this.TendarDate.disable()
+    if (this.PASS === this.PASSWORD) {
+      this.Tendar.enable();
+      this.TendarNumber.enable();
+      this.TendarDate.enable();
+    } else {
+      this.Tendar.disable();
+      this.TendarNumber.disable();
+      this.TendarDate.disable();
     }
   }
 
   Clear() {
     this.DETID = 0;
     this.T_DATE = null;
-    this.T_NAME='';
-    this.ISACTIVE =false
-    this.Tendar.enable()
+    this.T_NAME = "";
+    this.ISACTIVE = false;
+    this.ISMIX = false;
+    this.T_PCS = 0;
+    this.T_CARAT = 0;
+    this.FieldHide = false;
+    this.Tendar.enable();
   }
 
   ClearPop() {
-    this.CRT = 0.00;
+    this.CRT = 0.0;
     this.SRNO = 0;
-    this.COMMENT = '';
-    this.SRNOForm.enable()
+    this.COMMENT = "";
+    this.SRNOForm.enable();
   }
 
-  closeChild(){
-    this.HIDEPOPUP = false
-    this.ClearPop()
+  closeChild() {
+    this.HIDEPOPUP = false;
+    this.ClearPop();
   }
 
-  BlurSrno(){
+  BlurSrno() {
     let SaveObj = {
       COMP_CODE: this.COMP_CODE,
       DETID: this.DETID2,
-      SRNO:this.SRNO
+      SRNO: this.SRNO,
     };
 
     this.spinner.show();
@@ -693,23 +726,25 @@ export class TendarMastComponent implements OnInit {
       try {
         if (SaveRes.success == true) {
           this.spinner.hide();
-          if(SaveRes.data[''] !== 'TRUE'){
-            setTimeout(() => { this.Srno.nativeElement.focus() }, 0)
-            this.toastr.warning(SaveRes.data[''])
+          if (SaveRes.data[""] !== "TRUE") {
+            setTimeout(() => {
+              this.Srno.nativeElement.focus();
+            }, 0);
+            this.toastr.warning(SaveRes.data[""]);
           }
-        }else{
-          this.spinner.hide()
-          this.toastr.warning(SaveRes.data)
+        } else {
+          this.spinner.hide();
+          this.toastr.warning(SaveRes.data);
         }
       } catch (err) {
         this.spinner.hide();
         this.toastr.error(err);
       }
-    })
+    });
   }
 
-  GetSrno(eve){
-    this.DETID2 = eve.data.DETID
+  GetSrno(eve) {
+    this.DETID2 = eve.data.DETID;
     let SaveObj = {
       COMP_CODE: eve.data.COMP_CODE,
       DETID: eve.data.DETID,
@@ -719,93 +754,86 @@ export class TendarMastComponent implements OnInit {
     this.TendarMastser.GetTendarPktNumber(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
-          this.spinner.hide()
-          this.SRNO = SaveRes.data[0]['']
-        }else{
-          this.spinner.hide()
-          this.toastr.warning(SaveRes.data)
+          this.spinner.hide();
+          this.SRNO = SaveRes.data[0][""];
+        } else {
+          this.spinner.hide();
+          this.toastr.warning(SaveRes.data);
         }
       } catch (err) {
         this.spinner.hide();
         this.toastr.error(err);
       }
-    })
+    });
   }
 
-  onCellDoubleClicked(eve){
-    if(eve.colDef.headerName == 'Action' || eve.colDef.field == "ISACTIVE"){
+  onCellDoubleClicked(eve) {
+    if (eve.colDef.headerName == "Action" || eve.colDef.field == "ISACTIVE") {
       return;
     }
-    if(this.PASS !== this.PASSWORD){
+    if (this.PASS !== this.PASSWORD) {
       return;
     }
-    this.EVEDATA=eve.data
-	  this.HIDEPOPUP=true
-    this.ClearPop()
+    this.EVEDATA = eve.data;
+    this.HIDEPOPUP = true;
+    this.ClearPop();
     this.LoadGridData1();
-    }
-    async LoadGridData1(){
-      let Fillobj={
-        COMP_CODE:this.EVEDATA.COMP_CODE,
-        DETID:this.EVEDATA.DETID,
-        T_DATE:this.EVEDATA.T_DATE,
-      }
-     await this.TendarMastser.TendarPktEntFill(Fillobj).subscribe(
-        (FillRes) => {
-          try {
-          if (FillRes.success == true) {
-            this.spinner.hide();
-            setTimeout(() => {
+  }
+  async LoadGridData1() {
+    let Fillobj = {
+      COMP_CODE: this.EVEDATA.COMP_CODE,
+      DETID: this.EVEDATA.DETID,
+      T_DATE: this.EVEDATA.T_DATE,
+    };
+    await this.TendarMastser.TendarPktEntFill(Fillobj).subscribe((FillRes) => {
+      try {
+        if (FillRes.success == true) {
+          this.spinner.hide();
+          setTimeout(() => {
             this.gridApi1.setRowData(FillRes.data);
             const agBodyViewport: HTMLElement =
-            this.elementRef.nativeElement.querySelector(".ag-body-viewport");
+              this.elementRef.nativeElement.querySelector(".ag-body-viewport");
             const agBodyHorizontalViewport: HTMLElement =
-            this.elementRef.nativeElement.querySelector(
-              ".ag-body-horizontal-scroll-viewport"
-            );
+              this.elementRef.nativeElement.querySelector(
+                ".ag-body-horizontal-scroll-viewport"
+              );
             if (agBodyViewport) {
-            const psV = new PerfectScrollbar(agBodyViewport);
-            psV.update();
+              const psV = new PerfectScrollbar(agBodyViewport);
+              psV.update();
             }
             if (agBodyHorizontalViewport) {
-            const psH = new PerfectScrollbar(agBodyHorizontalViewport);
-            psH.update();
+              const psH = new PerfectScrollbar(agBodyHorizontalViewport);
+              psH.update();
             }
             if (agBodyViewport) {
-            const ps = new PerfectScrollbar(agBodyViewport);
-            const container = document.querySelector(".ag-body-viewport");
-            ps.update();
+              const ps = new PerfectScrollbar(agBodyViewport);
+              const container = document.querySelector(".ag-body-viewport");
+              ps.update();
             }
-            const widthsArray =
-            this.gridColumnApi1.columnController.displayedColumns.map(
-              (item) => item.actualWidth
-            );
-            this.agGridWidth1 = widthsArray.reduce(function (
-            previousValue,
-            currentValue
-            ) {
-            return previousValue + currentValue;
+            const widthsArray = this.gridColumnApi1.columnController.displayedColumns.map((item) => item.actualWidth);
+            this.agGridWidth1 = widthsArray.reduce(function (previousValue,currentValue) {
+              return previousValue + currentValue;
             });
             this.agGridWidth1 = 10 + this.agGridWidth1;
             this.agGridStyles1 = `width: ${this.agGridWidth1}px; height: 70vh`;
-          },1)
-          } else {
-            this.spinner.hide();
-            Swal.fire({
+          }, 1);
+        } else {
+          this.spinner.hide();
+          Swal.fire({
             icon: "error",
             title: "Oops...",
             text: JSON.stringify(FillRes.data),
-            });
-          }
-          } catch (error) {
-            console.log(error)
-          this.spinner.hide();
-          this.toastr.error(error);
-          }
-        })
+          });
+        }
+      } catch (error) {
+        console.log(error);
+        this.spinner.hide();
+        this.toastr.error(error);
+      }
+    });
   }
 
-  BlurTendar(){
+  BlurTendar() {
     let SaveObj = {
       COMP_CODE: this.COMP_CODE,
       DETID: this.DETID,
@@ -815,23 +843,25 @@ export class TendarMastComponent implements OnInit {
     this.TendarMastser.ChkTendarNumber(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
-          this.spinner.hide()
-          if(SaveRes.data[''] !== 'TRUE'){
-            setTimeout(() => { this.TNumber.nativeElement.focus() }, 0)
-            this.toastr.warning(SaveRes.data[''])
+          this.spinner.hide();
+          if (SaveRes.data[""] !== "TRUE") {
+            setTimeout(() => {
+              this.TNumber.nativeElement.focus();
+            }, 0);
+            this.toastr.warning(SaveRes.data[""]);
           }
-        }else{
-          this.spinner.hide()
-          this.toastr.warning(SaveRes.data)
+        } else {
+          this.spinner.hide();
+          this.toastr.warning(SaveRes.data);
         }
       } catch (err) {
         this.spinner.hide();
         this.toastr.error(err);
       }
-    })
+    });
   }
 
-  GetTendarNumder(){
+  GetTendarNumder() {
     let SaveObj = {
       COMP_CODE: this.COMP_CODE,
     };
@@ -840,17 +870,17 @@ export class TendarMastComponent implements OnInit {
     this.TendarMastser.GetTendarNumber(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
-          this.spinner.hide()
-          this.DETID = SaveRes.data[0]['']
-        }else{
-          this.spinner.hide()
-          this.toastr.warning(SaveRes.data)
+          this.spinner.hide();
+          this.DETID = SaveRes.data[0][""];
+        } else {
+          this.spinner.hide();
+          this.toastr.warning(SaveRes.data);
         }
       } catch (err) {
         this.spinner.hide();
         this.toastr.error(err);
       }
-    })
+    });
   }
 
   SavePop() {
@@ -875,10 +905,10 @@ export class TendarMastComponent implements OnInit {
     let SaveObj = {
       COMP_CODE: this.EVEDATA.COMP_CODE,
       DETID: this.EVEDATA.DETID,
-      T_DATE:this.EVEDATA.T_DATE,
-      SRNO:this.SRNO,
-      I_CARAT:this.CRT,
-      COMMENT:this.COMMENT,
+      T_DATE: this.EVEDATA.T_DATE,
+      SRNO: this.SRNO,
+      I_CARAT: this.CRT,
+      COMMENT: this.COMMENT,
       IUSER: this.decodedTkn.UserId,
     };
 
@@ -888,24 +918,26 @@ export class TendarMastComponent implements OnInit {
         if (SaveRes.success == true) {
           this.spinner.hide();
           this.toastr.success("Save successfully.");
-          this.SRNOForm.enable()
+          this.SRNOForm.enable();
           this.LoadGridData1();
-          
-          let SubData =[]
+
+          let SubData = [];
           this.gridApi1.forEachNode(function (rowNode, index) {
             SubData.push(rowNode.data);
           });
-          this.SRNO +=1
-          this.CRT =0
-          this.COMMENT = ''
+          this.SRNO += 1;
+          this.CRT = 0;
+          this.COMMENT = "";
 
-          for(let i =0;i<SubData.length;i++){
-            if(SubData[i].SRNO === this.SRNO){
-              this.CRT = SubData[i].I_CARAT
-              this.COMMENT = SubData[i].COMMENT
+          for (let i = 0; i < SubData.length; i++) {
+            if (SubData[i].SRNO === this.SRNO) {
+              this.CRT = SubData[i].I_CARAT;
+              this.COMMENT = SubData[i].COMMENT;
             }
           }
-          setTimeout(() => { this.CRATE.nativeElement.focus() }, 0)
+          setTimeout(() => {
+            this.CRATE.nativeElement.focus();
+          }, 0);
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -919,9 +951,7 @@ export class TendarMastComponent implements OnInit {
             focusDeny: true,
             showConfirmButton: false,
             returnFocus: false,
-          }).then((result) => {
-            
-          })
+          }).then((result) => {});
         }
       } catch (err) {
         this.spinner.hide();
@@ -929,7 +959,6 @@ export class TendarMastComponent implements OnInit {
       }
     });
   }
-
 
   Save() {
     if (this.PASS != this.PASSWORD) {
@@ -964,14 +993,29 @@ export class TendarMastComponent implements OnInit {
       return;
     }
 
+    if (this.ISMIX) {
+      if (!this.T_PCS) {
+        this.toastr.warning("enter Valid Tendar Pcs");
+        return;
+      }
+      if (!this.T_CARAT) {
+        this.toastr.warning("enter Valid Tendar Carat");
+        return;
+      }
+    }
+
     let SaveObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : 0,
-      T_DATE: this.T_DATE ? this.datepipe.transform(this.T_DATE,'yyyy-MM-dd'):null,
+      T_DATE: this.T_DATE
+        ? this.datepipe.transform(this.T_DATE, "yyyy-MM-dd")
+        : null,
       DETID: this.DETID ? this.DETID : "",
       IUSER: this.decodedTkn.UserId,
-      T_NAME:this.T_NAME,
-      ISACTIVE:this.ISACTIVE ? this.ISACTIVE :false,
-      ISMIX:this.ISMIX ? this.ISMIX :false
+      T_NAME: this.T_NAME,
+      ISACTIVE: this.ISACTIVE ? this.ISACTIVE : false,
+      ISMIX: this.ISMIX ? this.ISMIX : false,
+      T_PCS: this.T_PCS ? this.T_PCS : 0,
+      T_CARAT: this.T_CARAT ? this.T_CARAT : 0,
     };
 
     this.spinner.show();
@@ -980,32 +1024,38 @@ export class TendarMastComponent implements OnInit {
         if (SaveRes.success == true) {
           this.spinner.hide();
           this.toastr.success("Save successfully.");
-          this.Tendar.enable()
+          this.Tendar.enable();
           this.LoadGridData();
-          this.DETID +=1
-          let SubData =[]
+          this.DETID += 1;
+          let SubData = [];
           this.gridApi.forEachNode(function (rowNode, index) {
             SubData.push(rowNode.data);
           });
 
-          this.T_DATE = null
-          this.ISACTIVE = false
-          this.T_NAME = ''
+          this.T_DATE = null;
+          this.ISACTIVE = false;
+          this.T_NAME = "";
+          this.ISMIX = false;
+          this.T_PCS = 0
+          this.T_CARAT = 0
+          this.FieldHide = false
 
-          for(let i =0;i<SubData.length;i++){
-            if(SubData[i].DETID === this.DETID){
-              this.T_DATE = SubData[i].T_DATE
-              this.ISACTIVE = SubData[i].ISACTIVE
-              this.T_NAME = SubData[i].T_NAME
+          for (let i = 0; i < SubData.length; i++) {
+            if (SubData[i].DETID === this.DETID) {
+              this.T_DATE = SubData[i].T_DATE;
+              this.ISACTIVE = SubData[i].ISACTIVE;
+              this.T_NAME = SubData[i].T_NAME;
             }
           }
-          setTimeout(() => { this.TName.nativeElement.focus() }, 0)
+          setTimeout(() => {
+            this.TName.nativeElement.focus();
+          }, 0);
         } else {
           this.spinner.hide();
           Swal.fire({
             icon: "error",
             title: "Oops...",
-            text: JSON.stringify(SaveRes.data),
+            text: JSON.stringify(SaveRes.data.originalError.info.message),
           });
         }
       } catch (err) {
@@ -1015,39 +1065,38 @@ export class TendarMastComponent implements OnInit {
     });
   }
 
-  COMBOSAVE(){
-
+  COMBOSAVE() {
     let saveOBJ1 = {
       COMP_CODE: this.COMP_CODE,
       DETID: this.EVEDATA.DETID,
       SRNO: this.PKTSRNO ? this.PKTSRNO : 0,
       RESRVE: this.PKTRESERVE ? this.PKTRESERVE : 0,
       PERCTS: this.PKTPER ? this.PKTPER : 0,
-      SRW: this.PKTSRW ? this.PKTSRW : '',
+      SRW: this.PKTSRW ? this.PKTSRW : "",
       FL_CODE: this.FLOCODE ? this.FLOCODE : 0,
       FBID: this.FINALBID ? this.FINALBID : 0,
-      T_CODE: this.TENSION ? this.TENSION : '',
+      T_CODE: this.TENSION ? this.TENSION : "",
       LS: this.LS ? this.LS : 0,
-      FFLAT1: this.FINAL1 ? this.FINAL1 : '',
-      FFLAT2: this.FINAL2 ? this.FINAL2 : '',
-      FMED: this.FINALME ? this.FINALME : '',
-      FHIGH: this.FINALHE ? this.FINALHE : '',
-      RFLAT1: this.RESULT1 ? this.RESULT1 : '',
-      RFLAT2: this.RESULT2 ? this.RESULT2 : '',
-      RMED: this.RESULTME ? this.RESULTME : '',
-      RHIGH: this.RESULTHE ? this.RESULTHE : '',
-      MFLFLAT1: this.MacFLO1 ? this.MacFLO1 : '',
-      MFLFLAT2: this.MacFLO2 ? this.MacFLO2 : '',
-      MFLMED: this.MacFLOME ? this.MacFLOME : '',
-      MFLHIGH: this.MacFLOHE ? this.MacFLOHE : '',
-      FLNFLAT1: this.FLO1 ? this.FLO1 : '',
-      FLNFLAT2: this.FLO2 ? this.FLO2 : '',
-      FLNMED: this.FLOME ? this.FLOME : '',
-      FLNHIGH: this.FLOHE ? this.FLOHE : '',
-      CFLAT1: this.MacCom1 ? this.MacCom1 : '',
-      CFLAT2: this.MacCom2 ? this.MacCom2 : '',
-      CMED: this.MacComME ? this.MacComME : '',
-      CHIGH: this.MacComHE ? this.MacComHE : '',
+      FFLAT1: this.FINAL1 ? this.FINAL1 : "",
+      FFLAT2: this.FINAL2 ? this.FINAL2 : "",
+      FMED: this.FINALME ? this.FINALME : "",
+      FHIGH: this.FINALHE ? this.FINALHE : "",
+      RFLAT1: this.RESULT1 ? this.RESULT1 : "",
+      RFLAT2: this.RESULT2 ? this.RESULT2 : "",
+      RMED: this.RESULTME ? this.RESULTME : "",
+      RHIGH: this.RESULTHE ? this.RESULTHE : "",
+      MFLFLAT1: this.MacFLO1 ? this.MacFLO1 : "",
+      MFLFLAT2: this.MacFLO2 ? this.MacFLO2 : "",
+      MFLMED: this.MacFLOME ? this.MacFLOME : "",
+      MFLHIGH: this.MacFLOHE ? this.MacFLOHE : "",
+      FLNFLAT1: this.FLO1 ? this.FLO1 : "",
+      FLNFLAT2: this.FLO2 ? this.FLO2 : "",
+      FLNMED: this.FLOME ? this.FLOME : "",
+      FLNHIGH: this.FLOHE ? this.FLOHE : "",
+      CFLAT1: this.MacCom1 ? this.MacCom1 : "",
+      CFLAT2: this.MacCom2 ? this.MacCom2 : "",
+      CMED: this.MacComME ? this.MacComME : "",
+      CHIGH: this.MacComHE ? this.MacComHE : "",
       DNC_CODE: this.DN ? this.DN : 0,
       I1C_CODE: this.USER1 ? this.USER1 : 0,
       I2C_CODE: this.USER2 ? this.USER2 : 0,
@@ -1060,10 +1109,9 @@ export class TendarMastComponent implements OnInit {
       F2C_CODE: this.F2 ? this.F2 : 0,
       PUSER: this.decodedTkn.UserId,
       TEN_NAME: this.T_NAME,
-      ADIS:this.ADIS ? this.ADIS:0,
-      FAMT:this.FINALAMT ? this.FINALAMT:0
-    }
-    console.log(saveOBJ1)
+      ADIS: this.ADIS ? this.ADIS : 0,
+      FAMT: this.FINALAMT ? this.FINALAMT : 0,
+    };
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
@@ -1086,274 +1134,270 @@ export class TendarMastComponent implements OnInit {
     });
   }
 
-  COMBOCLOSE(){
-    this.ComBO = false
+  COMBOCLOSE() {
+    this.ComBO = false;
 
-    this.TENSION = ''
-    this.TENDAR_NAME = ''
-    this.PKTSRNO = ''
-    this.PKTNAME = ''
-    this.PKTWEIGHT = ''
-    this.PKTRESERVE = ''
-    this.PKTPER = ''
-    this.PKTPER = ''
-    this.PKTSRW = ''
-    this.FINAL1 = ''
-    this.FINAL2 = ''
-    this.FINALME = ''
-    this.FINALHE = ''
-    this.DN = ''
-    this.USER1 = ''
-    this.USER2 = ''
-    this.USER3 = ''
-    this.RESULT1 = ''
-    this.RESULT2 = ''
-    this.RESULTME = ''
-    this.RESULTHE = ''
-    this.FLO1 = ''
-    this.FLO2 = ''
-    this.FLOME = ''
-    this.FLOHE = ''
-    this.MacFLO1 = ''
-    this.MacFLO2 = ''
-    this.MacFLOME = ''
-    this.MacFLOHE = ''
-    this.MacCom1 = ''
-    this.MacCom2 = ''
-    this.MacComME = ''
-    this.MacComHE = ''
-    this.ROUNDC1 = ''
-    this.R1 = ''
-    this.R2 = ''
-    this.FANCY1 = ''
-    this.F1 = ''
-    this.F2 = ''
-    this.LS = false
-    this.FINALBID = ''
-    this.FLOCODE = ''
-    this.FINALAMT = ''
+    this.TENSION = "";
+    this.TENDAR_NAME = "";
+    this.PKTSRNO = "";
+    this.PKTNAME = "";
+    this.PKTWEIGHT = "";
+    this.PKTRESERVE = "";
+    this.PKTPER = "";
+    this.PKTPER = "";
+    this.PKTSRW = "";
+    this.FINAL1 = "";
+    this.FINAL2 = "";
+    this.FINALME = "";
+    this.FINALHE = "";
+    this.DN = "";
+    this.USER1 = "";
+    this.USER2 = "";
+    this.USER3 = "";
+    this.RESULT1 = "";
+    this.RESULT2 = "";
+    this.RESULTME = "";
+    this.RESULTHE = "";
+    this.FLO1 = "";
+    this.FLO2 = "";
+    this.FLOME = "";
+    this.FLOHE = "";
+    this.MacFLO1 = "";
+    this.MacFLO2 = "";
+    this.MacFLOME = "";
+    this.MacFLOHE = "";
+    this.MacCom1 = "";
+    this.MacCom2 = "";
+    this.MacComME = "";
+    this.MacComHE = "";
+    this.ROUNDC1 = "";
+    this.R1 = "";
+    this.R2 = "";
+    this.FANCY1 = "";
+    this.F1 = "";
+    this.F2 = "";
+    this.LS = false;
+    this.FINALBID = "";
+    this.FLOCODE = "";
+    this.FINALAMT = "";
 
-    this.PKTRESERVEDIS = false
-    this.FINAL2DIS = false
-    this.FINAL1DIS = false
-    this.DNDIS = false
-    this.FINALHEDIS = false
-    this.FINALMEDIS = false
-    this.USER1DIS = false
-    this.USER2DIS = false
-    this.USER3DIS = false
-    this.RESULT1DIS = false
-    this.RESULT2DIS = false
-    this.RESULTMEDIS = false
-    this.RESULTHEDIS = false
-    this.FLO1DIS = false
-    this.FLO2DIS = false
-    this.FLOMEDIS = false
-    this.FLOHEDIS = false
-    this.R1DIS = false
-    this.R2DIS = false
-    this.ROUNDC1DIS = false
-    this.FANCY1DIS = false
-    this.MacComMEDIS = false
-    this.MacComHEDIS = false
-    this.MacCom1DIS = false
-    this.MacCom2DIS = false
-    this.MacFLOMEDIS = false
-    this.MacFLOHEDIS = false
-    this.MacFLO1DIS = false
-    this.MacFLO2DIS = false
-    this.FLOCODEDIS1 = false
-    this.F1DIS = false
-    this.F2DIS = false
-    this.FINALAMTDIS = false
-    this.TENSIONDIS = false
-    this.PKTSRWDIS = false
-    this.TENDARDIS = false
-
+    this.PKTRESERVEDIS = false;
+    this.FINAL2DIS = false;
+    this.FINAL1DIS = false;
+    this.DNDIS = false;
+    this.FINALHEDIS = false;
+    this.FINALMEDIS = false;
+    this.USER1DIS = false;
+    this.USER2DIS = false;
+    this.USER3DIS = false;
+    this.RESULT1DIS = false;
+    this.RESULT2DIS = false;
+    this.RESULTMEDIS = false;
+    this.RESULTHEDIS = false;
+    this.FLO1DIS = false;
+    this.FLO2DIS = false;
+    this.FLOMEDIS = false;
+    this.FLOHEDIS = false;
+    this.R1DIS = false;
+    this.R2DIS = false;
+    this.ROUNDC1DIS = false;
+    this.FANCY1DIS = false;
+    this.MacComMEDIS = false;
+    this.MacComHEDIS = false;
+    this.MacCom1DIS = false;
+    this.MacCom2DIS = false;
+    this.MacFLOMEDIS = false;
+    this.MacFLOHEDIS = false;
+    this.MacFLO1DIS = false;
+    this.MacFLO2DIS = false;
+    this.FLOCODEDIS1 = false;
+    this.F1DIS = false;
+    this.F2DIS = false;
+    this.FINALAMTDIS = false;
+    this.TENSIONDIS = false;
+    this.PKTSRWDIS = false;
+    this.TENDARDIS = false;
   }
 
-  onCellDoubleClicked1(eve){
-    console.log(eve)
-    this.ComBO = true
+  onCellDoubleClicked1(eve) {
+    this.ComBO = true;
 
-    if(eve.data.TEN_NAME){
-      this.TENDAR_NAME = eve.data.TEN_NAME
-      this.TENDARDIS = true
+    if (eve.data.TEN_NAME) {
+      this.TENDAR_NAME = eve.data.TEN_NAME;
+      this.TENDARDIS = true;
     }
-    if(eve.data.T_CODE){
-      this.TENSION = eve.data.T_CODE
-      this.TENSIONDIS = true
+    if (eve.data.T_CODE) {
+      this.TENSION = eve.data.T_CODE;
+      this.TENSIONDIS = true;
     }
-    this.PKTSRNO = eve.data.SRNO
-    if(eve.data.PUSER){
-      this.PKTNAME = eve.data.PUSER
-    }else{
-      this.PKTNAME = this.decodedTkn.UserId
+    this.PKTSRNO = eve.data.SRNO;
+    if (eve.data.PUSER) {
+      this.PKTNAME = eve.data.PUSER;
+    } else {
+      this.PKTNAME = this.decodedTkn.UserId;
     }
-    this.PKTWEIGHT = eve.data.I_CARAT
-    if(eve.data.RESRVE){
-      this.PKTRESERVE = eve.data.RESRVE
-      this.PKTRESERVEDIS= true
+    this.PKTWEIGHT = eve.data.I_CARAT;
+    if (eve.data.RESRVE) {
+      this.PKTRESERVE = eve.data.RESRVE;
+      this.PKTRESERVEDIS = true;
     }
-    this.PKTPER = eve.data.PERCTS
-    this.PKTPER = eve.data.PERCTS
-    if(eve.data.SRW){
-      this.PKTSRW = eve.data.SRW
-      this.PKTSRWDIS = true
+    this.PKTPER = eve.data.PERCTS;
+    this.PKTPER = eve.data.PERCTS;
+    if (eve.data.SRW) {
+      this.PKTSRW = eve.data.SRW;
+      this.PKTSRWDIS = true;
     }
-    if(eve.data.FFLAT1){
-      this.FINAL1 = eve.data.FFLAT1
-      this.FINAL1DIS = true
+    if (eve.data.FFLAT1) {
+      this.FINAL1 = eve.data.FFLAT1;
+      this.FINAL1DIS = true;
     }
-    if(eve.data.FFLAT2){
-      this.FINAL2 = eve.data.FFLAT2
-      this.FINAL2DIS= true
+    if (eve.data.FFLAT2) {
+      this.FINAL2 = eve.data.FFLAT2;
+      this.FINAL2DIS = true;
     }
-    if(eve.data.FMED){
-      this.FINALME = eve.data.FMED
-      this.FINALMEDIS = true
+    if (eve.data.FMED) {
+      this.FINALME = eve.data.FMED;
+      this.FINALMEDIS = true;
     }
-    if(eve.data.FHIGH){
-      this.FINALHE = eve.data.FHIGH
-      this.FINALHEDIS = true
+    if (eve.data.FHIGH) {
+      this.FINALHE = eve.data.FHIGH;
+      this.FINALHEDIS = true;
     }
-    if(eve.data.DNC_CODE){
-      this.DN = eve.data.DNC_CODE
-      this.DNDIS = true
+    if (eve.data.DNC_CODE) {
+      this.DN = eve.data.DNC_CODE;
+      this.DNDIS = true;
     }
-    if(eve.data.I1C_CODE){
-      this.USER1 = eve.data.I1C_CODE
-      this.USER1DIS = true
+    if (eve.data.I1C_CODE) {
+      this.USER1 = eve.data.I1C_CODE;
+      this.USER1DIS = true;
     }
-    if(eve.data.I2C_CODE){
-      this.USER2 = eve.data.I2C_CODE
-      this.USER2DIS = true
+    if (eve.data.I2C_CODE) {
+      this.USER2 = eve.data.I2C_CODE;
+      this.USER2DIS = true;
     }
-    if(eve.data.I3C_CODE){
-      this.USER3 = eve.data.I3C_CODE
-      this.USER3DIS = true
+    if (eve.data.I3C_CODE) {
+      this.USER3 = eve.data.I3C_CODE;
+      this.USER3DIS = true;
     }
-    if(eve.data.RFLAT1){
-      this.RESULT1 = eve.data.RFLAT1
-      this.RESULT1DIS = true
+    if (eve.data.RFLAT1) {
+      this.RESULT1 = eve.data.RFLAT1;
+      this.RESULT1DIS = true;
     }
-    if(eve.data.RFLAT2){
-      this.RESULT2 = eve.data.RFLAT2
-      this.RESULT2DIS = true
+    if (eve.data.RFLAT2) {
+      this.RESULT2 = eve.data.RFLAT2;
+      this.RESULT2DIS = true;
     }
-    if(eve.data.RMED){
-      this.RESULTME = eve.data.RMED
-      this.RESULTMEDIS = true
+    if (eve.data.RMED) {
+      this.RESULTME = eve.data.RMED;
+      this.RESULTMEDIS = true;
     }
-    if(eve.data.RHIGH){
-      this.RESULTHE = eve.data.RHIGH
-      this.RESULTHEDIS = true
+    if (eve.data.RHIGH) {
+      this.RESULTHE = eve.data.RHIGH;
+      this.RESULTHEDIS = true;
     }
-    if(eve.data.FLNFLAT1){
-      this.FLO1 = eve.data.FLNFLAT1
-      this.FLO1DIS = true
+    if (eve.data.FLNFLAT1) {
+      this.FLO1 = eve.data.FLNFLAT1;
+      this.FLO1DIS = true;
     }
-    if(eve.data.FLNFLAT2){
-      this.FLO2 = eve.data.FLNFLAT2
-      this.FLO2DIS = true
+    if (eve.data.FLNFLAT2) {
+      this.FLO2 = eve.data.FLNFLAT2;
+      this.FLO2DIS = true;
     }
-    if(eve.data.FLNMED){
-      this.FLOME = eve.data.FLNMED
-      this.FLOMEDIS = true
+    if (eve.data.FLNMED) {
+      this.FLOME = eve.data.FLNMED;
+      this.FLOMEDIS = true;
     }
-    if(eve.data.FLNHIGH){
-      this.FLOHE = eve.data.FLNHIGH
-      this.FLOHEDIS = true
+    if (eve.data.FLNHIGH) {
+      this.FLOHE = eve.data.FLNHIGH;
+      this.FLOHEDIS = true;
     }
-    if(eve.data.MFLFLAT1){
-      this.MacFLO1 = eve.data.MFLFLAT1
-      this.MacFLO1DIS = true
+    if (eve.data.MFLFLAT1) {
+      this.MacFLO1 = eve.data.MFLFLAT1;
+      this.MacFLO1DIS = true;
     }
-    if(eve.data.MFLFLAT2){
-      this.MacFLO2 = eve.data.MFLFLAT2
-      this.MacFLO2DIS = true
+    if (eve.data.MFLFLAT2) {
+      this.MacFLO2 = eve.data.MFLFLAT2;
+      this.MacFLO2DIS = true;
     }
-    if(eve.data.MFLMED){
-      this.MacFLOME = eve.data.MFLMED
-      this.MacFLOMEDIS = true
+    if (eve.data.MFLMED) {
+      this.MacFLOME = eve.data.MFLMED;
+      this.MacFLOMEDIS = true;
     }
-    if(eve.data.MFLHIGH){
-      this.MacFLOHE = eve.data.MFLHIGH
-      this.MacFLOHEDIS = true
+    if (eve.data.MFLHIGH) {
+      this.MacFLOHE = eve.data.MFLHIGH;
+      this.MacFLOHEDIS = true;
     }
-    if(eve.data.CFLAT1){
-      this.MacCom1 = eve.data.CFLAT1
-      this.MacCom1DIS = true
+    if (eve.data.CFLAT1) {
+      this.MacCom1 = eve.data.CFLAT1;
+      this.MacCom1DIS = true;
     }
-    if(eve.data.CFLAT2){
-      this.MacCom2 = eve.data.CFLAT2
-      this.MacCom2DIS = true
+    if (eve.data.CFLAT2) {
+      this.MacCom2 = eve.data.CFLAT2;
+      this.MacCom2DIS = true;
     }
-    if(eve.data.CMED){
-      this.MacComME = eve.data.CMED
-      this.MacComMEDIS = true
+    if (eve.data.CMED) {
+      this.MacComME = eve.data.CMED;
+      this.MacComMEDIS = true;
     }
-    if(eve.data.CHIGH){
-      this.MacComHE = eve.data.CHIGH
-      this.MacComHEDIS = true
+    if (eve.data.CHIGH) {
+      this.MacComHE = eve.data.CHIGH;
+      this.MacComHEDIS = true;
     }
-    if(eve.data.RC_CODE){
-      this.ROUNDC1 = eve.data.RC_CODE
-      this.ROUNDC1DIS = true
+    if (eve.data.RC_CODE) {
+      this.ROUNDC1 = eve.data.RC_CODE;
+      this.ROUNDC1DIS = true;
     }
-    if(eve.data.R1C_CODE){
-      this.R1 = eve.data.R1C_CODE
-      this.R1DIS = true
+    if (eve.data.R1C_CODE) {
+      this.R1 = eve.data.R1C_CODE;
+      this.R1DIS = true;
     }
-    if(eve.data.R2C_CODE){
-      this.R2 = eve.data.R2C_CODE
-      this.R2DIS = true
+    if (eve.data.R2C_CODE) {
+      this.R2 = eve.data.R2C_CODE;
+      this.R2DIS = true;
     }
-    if(eve.data.FC_CODE){
-      this.FANCY1 = eve.data.FC_CODE
-      this.FANCY1DIS = true
+    if (eve.data.FC_CODE) {
+      this.FANCY1 = eve.data.FC_CODE;
+      this.FANCY1DIS = true;
     }
-    if(eve.data.F1C_CODE){
-      this.F1 = eve.data.F1C_CODE
-      this.F1DIS = true
+    if (eve.data.F1C_CODE) {
+      this.F1 = eve.data.F1C_CODE;
+      this.F1DIS = true;
     }
-    if(eve.data.F2C_CODE){
-      this.F2 = eve.data.F2C_CODE
-      this.F2DIS = true
+    if (eve.data.F2C_CODE) {
+      this.F2 = eve.data.F2C_CODE;
+      this.F2DIS = true;
     }
-    if(eve.data.FAMT){
-      this.FINALAMT = eve.data.FAMT
-      this.FINALAMTDIS = true
+    if (eve.data.FAMT) {
+      this.FINALAMT = eve.data.FAMT;
+      this.FINALAMTDIS = true;
     }
-    if(eve.data.FAMT){
-      this.FINALAMT1 = eve.data.FAMT
-      this.FINALAMT1 = true
+    if (eve.data.FAMT) {
+      this.FINALAMT1 = eve.data.FAMT;
+      this.FINALAMT1 = true;
     }
-    if(eve.data.LS){
-      this.LS = eve.data.LS
-      
+    if (eve.data.LS) {
+      this.LS = eve.data.LS;
     }
-    if(eve.data.FL_CODE){
-      this.FLOCODE = eve.data.FL_CODE
-      this.FLOCODEDIS = true
+    if (eve.data.FL_CODE) {
+      this.FLOCODE = eve.data.FL_CODE;
+      this.FLOCODEDIS = true;
     }
-    this.ADIS = eve.data.ADIS
-    this.FINALBID = eve.data.FBID
+    this.ADIS = eve.data.ADIS;
+    this.FINALBID = eve.data.FBID;
   }
 
   onGridRowClicked1(eve: any) {
     if (eve.event.target !== undefined) {
       let dataObj = eve.data;
       let actionType = eve.event.target.getAttribute("data-action-type");
-      if(actionType == 'VIDEO'){
+      if (actionType == "VIDEO") {
         dataObj.VIDEO = !dataObj.VIDEO;
-        eve.node.setData(dataObj)
-        eve.api.refreshCells({ force: true })
+        eve.node.setData(dataObj);
+        eve.api.refreshCells({ force: true });
       }
       if (actionType == "DeleteData") {
         Swal.fire({
-          title:
-            "Are you sure you want to srno " + eve.data.SRNO + "?",
+          title: "Are you sure you want to srno " + eve.data.SRNO + "?",
           icon: "warning",
           cancelButtonText: "No",
           showCancelButton: true,
@@ -1365,7 +1409,7 @@ export class TendarMastComponent implements OnInit {
               COMP_CODE: eve.data.COMP_CODE,
               DETID: eve.data.DETID,
               T_DATE: eve.data.T_DATE,
-              SRNO:eve.data.SRNO
+              SRNO: eve.data.SRNO,
             }).subscribe((ColDelRes) => {
               try {
                 if (ColDelRes.success == true) {
@@ -1374,10 +1418,12 @@ export class TendarMastComponent implements OnInit {
                   this.LoadGridData1();
                 } else {
                   this.spinner.hide();
-                   Swal.fire({
+                  Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: JSON.stringify(ColDelRes.data.originalError.info.message),
+                    text: JSON.stringify(
+                      ColDelRes.data.originalError.info.message
+                    ),
                     allowEnterKey: false,
                     allowEscapeKey: false,
                     allowOutsideClick: false,
@@ -1385,9 +1431,7 @@ export class TendarMastComponent implements OnInit {
                     focusDeny: true,
                     showConfirmButton: false,
                     returnFocus: false,
-                  }).then((result) => {
-                    
-                  })
+                  }).then((result) => {});
                 }
               } catch (err) {
                 this.spinner.hide();
@@ -1399,12 +1443,14 @@ export class TendarMastComponent implements OnInit {
           }
         });
       } else if (actionType == "EditData") {
-        this.spinner.hide()
+        this.spinner.hide();
         this.SRNO = eve.data.SRNO ? eve.data.SRNO : "";
-        this.CRT = eve.data.I_CARAT ? eve.data.I_CARAT : 0.000,
-        this.COMMENT = eve.data.COMMENT ? eve.data.COMMENT : '';
-        this.SRNOForm.disable()
-        setTimeout(() => { this.CRATE.nativeElement.focus() }, 0)
+        (this.CRT = eve.data.I_CARAT ? eve.data.I_CARAT : 0.0),
+          (this.COMMENT = eve.data.COMMENT ? eve.data.COMMENT : "");
+        this.SRNOForm.disable();
+        setTimeout(() => {
+          this.CRATE.nativeElement.focus();
+        }, 0);
       }
     }
   }
@@ -1447,7 +1493,7 @@ export class TendarMastComponent implements OnInit {
               return previousValue + currentValue;
             });
             this.agGridWidth = 200 + this.agGridWidth;
-            this.agGridStyles = `width: ${this.agGridWidth}px; height: 70vh`;
+            this.agGridStyles = `width:134vh; height: 70vh`;
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -1492,7 +1538,9 @@ export class TendarMastComponent implements OnInit {
                   Swal.fire({
                     icon: "error",
                     title: "Oops...",
-                    text: JSON.stringify(ColDelRes.data.originalError.info.message),
+                    text: JSON.stringify(
+                      ColDelRes.data.originalError.info.message
+                    ),
                     allowEnterKey: false,
                     allowEscapeKey: false,
                     allowOutsideClick: false,
@@ -1500,9 +1548,7 @@ export class TendarMastComponent implements OnInit {
                     focusDeny: true,
                     showConfirmButton: false,
                     returnFocus: false,
-                  }).then((result) => {
-                    
-                  })
+                  }).then((result) => {});
                 }
               } catch (err) {
                 this.spinner.hide();
@@ -1514,15 +1560,24 @@ export class TendarMastComponent implements OnInit {
           }
         });
       } else if (actionType == "EditData") {
-        this.spinner.hide()
+        this.spinner.hide();
         this.COMP_CODE = eve.data.COMP_CODE ? eve.data.COMP_CODE : "";
         (this.T_DATE = eve.data.T_DATE ? eve.data.T_DATE : null),
-        (this.T_NAME = eve.data.T_NAME ? eve.data.T_NAME : ""),
-        (this.DETID = eve.data.DETID ? eve.data.DETID : 0);
-        this.ISACTIVE = eve.data.ISACTIVE ? eve.data.ISACTIVE:false
-        this.ISMIX = eve.data.ISMIX ? eve.data.ISMIX:false
-        this.Tendar.disable()
-        setTimeout(() => { this.TName.nativeElement.focus() }, 0)
+          (this.T_NAME = eve.data.T_NAME ? eve.data.T_NAME : ""),
+          (this.DETID = eve.data.DETID ? eve.data.DETID : 0);
+        this.ISACTIVE = eve.data.ISACTIVE ? eve.data.ISACTIVE : false;
+        this.ISMIX = eve.data.ISMIX ? eve.data.ISMIX : false;
+        this.T_CARAT = eve.data.T_CARAT ? eve.data.T_CARAT : 0;
+        this.T_PCS = eve.data.T_PCS ? eve.data.T_PCS : 0;
+        if (eve.data.ISMIX) {
+          this.FieldHide = true;
+        } else {
+          this.FieldHide = false;
+        }
+        this.Tendar.disable();
+        setTimeout(() => {
+          this.TName.nativeElement.focus();
+        }, 0);
       }
     }
   }

@@ -1,6 +1,6 @@
 {
   "name": "predacon-ui",
-  "version": "21.12.2023",
+  "version": "13.01.2024",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -29,6 +29,7 @@
     "@angular/router": "~10.2.0",
     "@angular2-material/radio": "^2.0.0-alpha.8-3",
     "@auth0/angular-jwt": "^4.1.2",
+    "@fingerprintjs/fingerprintjs": "^4.2.1",
     "@mat-datetimepicker/core": "^7.0.1",
     "@ng-select/ng-select": "^5.1.0",
     "@types/crypto-js": "^4.0.1",

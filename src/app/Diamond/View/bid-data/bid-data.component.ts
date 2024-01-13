@@ -95,7 +95,7 @@ export class BidDataComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true).map(item => {
+            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true && item.ISMIX == false).map(item => {
               return { code: item.DETID, date: this.datePipe.transform(item.T_DATE,'yyyy-MM-dd'), name: item.T_NAME };
             });
           } else {

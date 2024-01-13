@@ -58,6 +58,7 @@ import { RateUpdateComponent } from './Diamond/Config/rate-update/rate-update.co
 import { LoginPermissionComponent } from './Diamond/Utility/login-permission/login-permission.component';
 import { RapCalComponent } from './Diamond/Rap/rap-cal/rap-cal.component';
 import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.component';
+import { ParcelEntryComponent } from './Diamond/Transaction/parcel-entry/parcel-entry.component';
 
 
 const routes: Routes = [
@@ -107,6 +108,7 @@ const routes: Routes = [
   { path: 'TenCom', component: TendarComComponent, canActivate: [AuthGuard] },
   { path: 'TenMast', component: TendarMastComponent, canActivate: [AuthGuard] },
   { path: 'LotMap', component: LotMappingComponent, canActivate: [AuthGuard] },
+  { path: 'ParcelEnt', component: ParcelEntryComponent, canActivate: [AuthGuard] },
 
   //config
   { path: 'UserCat', component: UserCatComponent, canActivate: [AuthGuard] },

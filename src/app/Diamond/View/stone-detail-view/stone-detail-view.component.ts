@@ -1,4 +1,4 @@
-import { Component, OnInit , ViewChild, ElementRef, Inject } from '@angular/core';
+import { Component, OnInit , ViewChild, ElementRef, Inject, HostListener } from '@angular/core';
 import { StoneDetailViewService } from '../../../Service/View/stone-detail-view.service';
 import { NgxSpinnerService } from "ngx-spinner";
 import { ToastrService } from 'ngx-toastr';
@@ -24,6 +24,13 @@ declare let $: any;
   styleUrls: ['./stone-detail-view.component.css']
 })
 export class StoneDetailViewComponent implements OnInit {
+
+  @HostListener('window:keydown', ['$event'])
+  handleKeyDown(event: KeyboardEvent) {
+    if (event.key == 'Escape') {
+        this.CLOSE();
+    }
+  }
 
   decodeHelper = new JwtHelperService();
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem('token')); //localStorage.getItem('token')

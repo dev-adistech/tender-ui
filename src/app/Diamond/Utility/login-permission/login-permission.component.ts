@@ -301,7 +301,7 @@ export class LoginPermissionComponent implements OnInit {
       }
       if(actionType == "SaveData"){
         let msg = e.data.ISACTIVE ? "Are you sure you want to active?" : "Are you sure you want to inactive?";
-        let actionMsg = !e.data.ISACTIVE?"Activated Successfully!!":"Deactived successfully!!";
+        let actionMsg = e.data.ISACTIVE?"Activated Successfully!!":"Deactived successfully!!";
 
         Swal.fire({title: msg, icon: 'warning', showCancelButton: true, confirmButtonText: 'Yes', cancelButtonText: 'No'}).then((result) => {
           if (result.value) {

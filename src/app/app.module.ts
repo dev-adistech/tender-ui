@@ -88,7 +88,8 @@ import { RapCalcTenderEntryComponent } from "./Diamond/Rap/rap-cal/rap-calc-tend
 import { RapCalModalComponent } from "./Diamond/Rap/rap-cal/rap-cal-modal/rap-cal-modal.component";
 import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.component'
 import { StoneDetailViewComponent } from "./Diamond/View/stone-detail-view/stone-detail-view.component";
-import { StoneidPopupComponent } from './Diamond/View/pricing-wrk-view/stoneid-popup/stoneid-popup.component'
+import { StoneidPopupComponent } from './Diamond/View/pricing-wrk-view/stoneid-popup/stoneid-popup.component';
+import { ParcelEntryComponent } from './Diamond/Transaction/parcel-entry/parcel-entry.component'
 
 
 @NgModule({
@@ -162,7 +163,8 @@ import { StoneidPopupComponent } from './Diamond/View/pricing-wrk-view/stoneid-p
 		RapCalModalComponent,
 		StoneDetailViewComponent,
 		TendarWinComponent,
-		StoneidPopupComponent
+		StoneidPopupComponent,
+		ParcelEntryComponent
 	],
 	imports: [
 		BrowserModule,

@@ -169,6 +169,11 @@
                 <img src="../../../../assets/img/Transaction/lotmap.png" alt="" />
                 Lot Mapping
               </li>
+              <li *ngIf="CheckFormPermission('ParcelEntryComponent')"
+                (click)="addiFrameTabs('Parcel Entry', '/ParcelEnt')">
+                <img src="../../../../assets/img/View/parcel.png" alt="" />
+                Parcel Entry
+              </li>
               </div>
           </div>
           <p class="sub-menu__section-name">Pointer</p>
