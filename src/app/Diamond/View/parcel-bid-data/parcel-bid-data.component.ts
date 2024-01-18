@@ -1,24 +1,25 @@
+import { DatePipe } from '@angular/common';
 import { Component, ElementRef, OnInit } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import PerfectScrollbar from 'perfect-scrollbar';
 import { EncrDecrService } from 'src/app/Service/Common/encr-decr.service';
-import { ViewParaMastService } from 'src/app/Service/Master/view-para-mast.service';
 import { TendatMastService } from 'src/app/Service/Transaction/tendat-mast.service';
 import { ViewService } from 'src/app/Service/View/view.service';
-import Swal from 'sweetalert2';
 import { GridFunctions } from '../../_helpers/functions/GridFunctions';
-import { DatePipe } from '@angular/common';
+import { ViewParaMastService } from 'src/app/Service/Master/view-para-mast.service';
+import Swal from 'sweetalert2';
+import PerfectScrollbar from 'perfect-scrollbar';
 import { ListboxComponent } from '../../Common/listbox/listbox.component';
 import { MatDialog } from '@angular/material/dialog';
 declare let $: any;
+
 @Component({
-  selector: 'app-bid-data',
-  templateUrl: './bid-data.component.html',
-  styleUrls: ['./bid-data.component.css']
+  selector: 'app-parcel-bid-data',
+  templateUrl: './parcel-bid-data.component.html',
+  styleUrls: ['./parcel-bid-data.component.css']
 })
-export class BidDataComponent implements OnInit {
+export class ParcelBidDataComponent implements OnInit {
 
   decodeHelper = new JwtHelperService();
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem("token"));
@@ -49,12 +50,12 @@ export class BidDataComponent implements OnInit {
     private EncrDecrServ: EncrDecrService,
     private toastr: ToastrService,
     private spinner: NgxSpinnerService,
+    public dialog: MatDialog,
     private elementRef: ElementRef,
     private TendarMastser: TendatMastService,
     private ViewServ :ViewService,
     private datePipe: DatePipe,
     private _gridFunction: GridFunctions,
-    public dialog: MatDialog,
     private ViewParaMastServ : ViewParaMastService
   ) {
 
@@ -98,7 +99,7 @@ export class BidDataComponent implements OnInit {
         try {
           if (FillRes.success == true) {
             this.spinner.hide();
-            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true && item.ISMIX == false).map(item => {
+            this.DETIDarr = FillRes.data.filter(item => item.ISACTIVE == true && item.ISMIX == true).map(item => {
               return { code: item.DETID, date: this.datePipe.transform(item.T_DATE,'yyyy-MM-dd'), name: item.T_NAME };
             });
           } else {
@@ -279,7 +280,7 @@ export class BidDataComponent implements OnInit {
       DETID:this.DETID ? this.DETID:0
     }
     this.spinner.show();
-    this.ViewServ.BidDataView(FillObj).subscribe(
+    this.ViewServ.ParcelBidDataView(FillObj).subscribe(
       (FillRes) => {
         try {
           if (FillRes.success == true) {

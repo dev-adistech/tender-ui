@@ -5127,7 +5127,7 @@ export class ParcelEntryComponent implements OnInit {
       UUSER3: item.UUSER3 ? item.UUSER3 : "",
       BVCOMMENT: item.BVCOMMENT ? item.BVCOMMENT : "",
       I_CARAT: item.I_CARAT ? item.I_CARAT : 0,
-      ISBV: 1,
+      ISBV: this.decodedTkn.UserId === 'DN' ? 1 : item.ISBV,
     };
     this.spinner.show();
     this.ParcelEntServ.TendarResParcelSave(saveOBJ1).subscribe((SaveRes) => {

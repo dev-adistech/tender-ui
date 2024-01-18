@@ -227,6 +227,13 @@
                 Tendar Win
               </li>
             </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('ParcelBidDataComponent')"
+                (click)="addiFrameTabs('Parcel Bid Data View', '/ParcelBidData')">
+                <img src="../../../../assets/img/View/Parcelbid.png" alt="" />
+                Parcel Bid Data
+              </li>
+            </div>
           </div>
           <p class="sub-menu__section-name">Pointer</p>
         </div>

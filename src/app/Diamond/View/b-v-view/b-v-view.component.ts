@@ -171,6 +171,7 @@ export class BVViewComponent implements OnInit {
   ADIS: any = "";
 
   ISFINDRAP: boolean = true
+  RESERVELOCK: boolean = false
 
   USERID: any = '';
 
@@ -300,8 +301,10 @@ export class BVViewComponent implements OnInit {
     if (this.decodedTkn.UserId == 'DN' || this.decodedTkn.UserId == 'ADMIN') {
       this.ADISDISABLE = false
       this.SAVEBTNSHOW = true
+      this.RESERVELOCK = false
     } else {
       this.ADISDISABLE = true
+      this.RESERVELOCK = true
       this.SAVEBTNSHOW = false
     }
     this.DEPTArr = this.decodedMast[2].map((item) => {

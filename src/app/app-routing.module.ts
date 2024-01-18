@@ -59,6 +59,7 @@ import { LoginPermissionComponent } from './Diamond/Utility/login-permission/log
 import { RapCalComponent } from './Diamond/Rap/rap-cal/rap-cal.component';
 import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.component';
 import { ParcelEntryComponent } from './Diamond/Transaction/parcel-entry/parcel-entry.component';
+import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bid-data.component';
 
 
 const routes: Routes = [
@@ -128,6 +129,7 @@ const routes: Routes = [
   { path: 'RougColorAna', component: RoughColorAnaComponent, canActivate: [AuthGuard] },
   { path: 'ParcelView', component: ParcelViewComponent, canActivate: [AuthGuard] },
   { path: 'TendarWin', component: TendarWinComponent, canActivate: [AuthGuard] },
+  { path: 'ParcelBidData', component: ParcelBidDataComponent, canActivate: [AuthGuard] },
 
 ];
 

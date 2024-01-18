@@ -105,7 +105,7 @@
                   disabled [(ngModel)]="item.I_CARAT" name="Code" autocomplete="off" />
                 <input type="text"
                   style="border:1px solid black;width: 174px;height: 25px;border-right:none;border-top:none;text-align: center;font-weight: bold;"
-                  [(ngModel)]="item.RESRVE" disabled name="Code" autocomplete="off" />
+                  [(ngModel)]="item.RESRVE" [disabled]="RESERVELOCK" name="Code" autocomplete="off" />
                 <input type="text"
                   style="border:1px solid black;width: 136px;height: 25px;border-right:none;border-top:none;text-align: center;"
                   disabled name="Code" autocomplete="off" />

@@ -16,17 +16,23 @@
             <ng-option *ngFor="let dept of DETIDarr" [value]="dept.code">{{dept.code}}</ng-option>
         </ng-select> -->
 
+        <button class="btn theme-btn lot" (click)="OpenDetIdPopup()">
+        <svg class="icon icon-lot">
+          <use xlink:href="assets/symbol-defs.svg#icon-lot"></use>
+        </svg>
+      </button>
+
     <ng-select class="autoComplete" style="width: 9rem;" [items]="DETIDarr" appearance="outline" #select
-      bindLabel="code" dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID" (ngModelChange)="GETDATE()"
-      labelForId="album" placeholder="Tendar No*" [virtualScroll]="true">
-      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
-        <span>{{item.code}} || {{item.date}}</span>
-      </ng-template>
+        bindLabel="code" dropdownPosition="auto" bindValue="code" [(ngModel)]="DETID"
+        (ngModelChange)="GETDATE()" labelForId="album" placeholder="Tendar No*" [virtualScroll]="true">
+        <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+            <span>{{item.code}} || {{item.date}}</span>
+        </ng-template>
     </ng-select>
 
     <mat-form-field appearance="outline" style="width: 6rem;">
-      <mat-label>Name</mat-label>
-      <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_NAME" disabled />
+        <mat-label>Name</mat-label>
+        <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_NAME" disabled />
     </mat-form-field>
 
     <mat-form-field appearance="outline" style="width: 8rem;">
