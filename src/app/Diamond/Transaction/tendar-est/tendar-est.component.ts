@@ -125,6 +125,7 @@ export class TendarEstComponent implements OnInit {
   FLOCODE: any = "";
   FINALAMT1: any = "";
   FLOCODEDIS: boolean = false;
+  HIDEFOROTHERUSER: boolean = false;
   SRNODIS: boolean = false;
   butDisabled: any = "";
 
@@ -6404,6 +6405,11 @@ export class TendarEstComponent implements OnInit {
       this.ADISDISABLE = false;
     } else {
       this.ADISDISABLE = true;
+    }
+    if(this.decodedTkn.U_CAT === 'S'){
+      this.HIDEFOROTHERUSER = true
+    }else{
+      this.HIDEFOROTHERUSER = false
     }
     this.PER = await this._FrmOpePer.UserFrmOpePer("TendarMastComponent");
     this.ALLOWDEL = this.PER[0].DEL;

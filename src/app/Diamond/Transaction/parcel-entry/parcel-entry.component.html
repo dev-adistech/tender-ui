@@ -44,7 +44,7 @@
             <mat-label>Amount</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="AMT" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;" hidden>
             <mat-label>Pol.Crt</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="CARAT" disabled />
         </mat-form-field>
@@ -60,7 +60,7 @@
             <mat-label>Rcts</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="RCTS" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;" *ngIf="SAVEBTNSHOW">
             <mat-label>ADis</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="TDIS" [disabled]="ADISDISABLE" (ngModelChange)="TdisChange()"/>
         </mat-form-field>

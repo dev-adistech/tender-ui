@@ -129,7 +129,7 @@
       </div>
       <article class="aggrid-wrapper" style="width: 100%;">
         <div style="display: flex;overflow-x: auto;">
-          <div style="min-width: 1087px;">
+          <div style="min-width: 924px;">
             <div class="container-name" style="display: flex;">
               <mat-label style="width: 154px;border:1px solid black;border-bottom:none;border-right: none;">TENDER
                 NAME:-
@@ -637,7 +637,7 @@
                 </div>
               </div>
               <div class="deskop_footer_bid p-0" [ngClass]="{'my_class': DOCKON === true}">
-                <div class="container-name_2" style="display: grid;">
+                <div class="container-name_2" style="display: grid;" *ngIf="HIDEFOROTHERUSER">
                   <mat-label [style]="HearderBoxStyle" [ngClass]="dummay1_variable" class="final_name">Final Amount Per
                   </mat-label>
                   <textarea type="text" [style]="AreaBoxStyle" style="font-weight: bold;" [ngClass]="dummay2_variable"

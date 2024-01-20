@@ -344,7 +344,7 @@ export class ParcelEntryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.decodedTkn.U_CAT == "A" || this.decodedTkn.U_CAT == "S") {
+    if (this.decodedTkn.U_CAT == "S") {
       this.ADISDISABLE = false;
       this.SAVEBTNSHOW = true;
     } else {
