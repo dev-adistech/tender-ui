@@ -9,6 +9,6 @@ export const environment = {
 
   PORT: 6001, // default
   // PORT: 9928, // tender.peacocktech.in
-  PORT1: 3002,// default
+  PORT1: 4002,// default
 
 };

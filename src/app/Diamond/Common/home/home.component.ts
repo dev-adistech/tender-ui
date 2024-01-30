@@ -1,142 +1,159 @@
-import { HttpBackend, HttpClient } from '@angular/common/http';
-import { Component, HostListener, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { HttpBackend, HttpClient } from "@angular/common/http";
+import { Component, HostListener, OnInit } from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
 // import { PushNotificationOptions } from 'ngx-push-notifications';
 // import * as $ from "jquery";
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { version } from 'package.json';
-import { Subscription } from 'rxjs';
-import { io } from 'socket.io-client';
-import { CommonService } from 'src/app/Service/Common/common.service';
-import { DockService } from 'src/app/Service/Common/dock.service';
-import { EncrDecrService } from 'src/app/Service/Common/encr-decr.service';
-import { FooterTextService } from 'src/app/Service/Config/footer-text.service';
-import { LoginDetailService } from 'src/app/Service/Config/login-detail.service';
-import { DashboardService } from 'src/app/Service/Dashboard/dashboard.service';
-import { LoginService } from 'src/app/Service/Utility/login.service';
-import { ViewService } from 'src/app/Service/View/view.service';
-import { environment } from 'src/environments/environment';
-import { PerMastComponent } from '../../Config/per-mast/per-mast.component';
-import { UserCatComponent } from '../../Config/user-cat/user-cat.component';
-import { UserMastComponent } from '../../Config/user-mast/user-mast.component';
-import { ColMastComponent } from '../../Master/col-mast/col-mast.component';
-import { CutMastComponent } from '../../Master/cut-mast/cut-mast.component';
-import { FloMastComponent } from '../../Master/flo-mast/flo-mast.component';
-import { IncMastComponent } from '../../Master/inc-mast/inc-mast.component';
-import { QuaMastComponent } from '../../Master/qua-mast/qua-mast.component';
-import { ShpMastComponent } from '../../Master/shp-mast/shp-mast.component';
-import { SizeMastComponent } from '../../Master/size-mast/size-mast.component';
-import { ViewParaMastComponent } from '../../Master/view-para-mast/view-para-mast.component';
-import { ReportComponent } from '../../Report/report/report.component';
-import { HomeShortCuts } from '../../_helpers/functions/HomeShortCuts';
-import { DashboardComponent } from './../../Dashboard/dashboard/dashboard.component';
-import { LoginPopupComponent } from './login-popup/login-popup.component';
-import { TensionMastComponent } from '../../Master/tension-mast/tension-mast.component';
-import { MachineColMastComponent } from '../../Master/machine-col-mast/machine-col-mast.component';
-import { FloNumMastComponent } from '../../Master/flo-num-mast/flo-num-mast.component';
-import { MachineFloMastComponent } from '../../Master/machine-flo-mast/machine-flo-mast.component';
-import { MacComMastComponent } from '../../Master/mac-com-mast/mac-com-mast.component';
-import { MilkyMastComponent } from '../../Master/milky-mast/milky-mast.component';
-import { GridleMastComponent } from '../../Master/gridle-mast/gridle-mast.component';
-import { DepthMastComponent } from '../../Master/depth-mast/depth-mast.component';
-import { RatioMastComponent } from '../../Master/ratio-mast/ratio-mast.component';
-import { PricingWrkViewComponent } from '../../View/pricing-wrk-view/pricing-wrk-view.component';
-import { BVViewComponent } from '../../View/b-v-view/b-v-view.component';
-import { BidDataComponent } from '../../View/bid-data/bid-data.component';
-import { ShdMastComponent } from '../../Master/shd-mast/shd-mast.component';
-import { RefMastComponent } from '../../Master/ref-mast/ref-mast.component';
-import Swal from 'sweetalert2';
-import { PerMastService } from 'src/app/Service/Config/per-mast.service';
-import { RoughColorAnaComponent } from '../../View/rough-color-ana/rough-color-ana.component';
-import { ParcelViewComponent } from '../../View/parcel-view/parcel-view.component';
-import { GetCertiResComponent } from '../../Config/get-certi-res/get-certi-res.component';
-import { SellDaysMastComponent } from '../../Master/sell-days-mast/sell-days-mast.component';
-import { RateUpdateComponent } from '../../Config/rate-update/rate-update.component';
-import { LoginPermissionComponent } from '../../Utility/login-permission/login-permission.component';
-import { TendarWinComponent } from '../../View/tendar-win/tendar-win.component';
-import { ParcelBidDataComponent } from '../../View/parcel-bid-data/parcel-bid-data.component';
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from "ngx-toastr";
+import { version } from "package.json";
+import { Subscription, interval } from "rxjs";
+import { io } from "socket.io-client";
+import { CommonService } from "src/app/Service/Common/common.service";
+import { DockService } from "src/app/Service/Common/dock.service";
+import { EncrDecrService } from "src/app/Service/Common/encr-decr.service";
+import { FooterTextService } from "src/app/Service/Config/footer-text.service";
+import { LoginDetailService } from "src/app/Service/Config/login-detail.service";
+import { DashboardService } from "src/app/Service/Dashboard/dashboard.service";
+import { LoginService } from "src/app/Service/Utility/login.service";
+import { ViewService } from "src/app/Service/View/view.service";
+import { environment } from "src/environments/environment";
+import { PerMastComponent } from "../../Config/per-mast/per-mast.component";
+import { UserCatComponent } from "../../Config/user-cat/user-cat.component";
+import { UserMastComponent } from "../../Config/user-mast/user-mast.component";
+import { ColMastComponent } from "../../Master/col-mast/col-mast.component";
+import { CutMastComponent } from "../../Master/cut-mast/cut-mast.component";
+import { FloMastComponent } from "../../Master/flo-mast/flo-mast.component";
+import { IncMastComponent } from "../../Master/inc-mast/inc-mast.component";
+import { QuaMastComponent } from "../../Master/qua-mast/qua-mast.component";
+import { ShpMastComponent } from "../../Master/shp-mast/shp-mast.component";
+import { SizeMastComponent } from "../../Master/size-mast/size-mast.component";
+import { ViewParaMastComponent } from "../../Master/view-para-mast/view-para-mast.component";
+import { ReportComponent } from "../../Report/report/report.component";
+import { HomeShortCuts } from "../../_helpers/functions/HomeShortCuts";
+import { DashboardComponent } from "./../../Dashboard/dashboard/dashboard.component";
+import { LoginPopupComponent } from "./login-popup/login-popup.component";
+import { TensionMastComponent } from "../../Master/tension-mast/tension-mast.component";
+import { MachineColMastComponent } from "../../Master/machine-col-mast/machine-col-mast.component";
+import { FloNumMastComponent } from "../../Master/flo-num-mast/flo-num-mast.component";
+import { MachineFloMastComponent } from "../../Master/machine-flo-mast/machine-flo-mast.component";
+import { MacComMastComponent } from "../../Master/mac-com-mast/mac-com-mast.component";
+import { MilkyMastComponent } from "../../Master/milky-mast/milky-mast.component";
+import { GridleMastComponent } from "../../Master/gridle-mast/gridle-mast.component";
+import { DepthMastComponent } from "../../Master/depth-mast/depth-mast.component";
+import { RatioMastComponent } from "../../Master/ratio-mast/ratio-mast.component";
+import { PricingWrkViewComponent } from "../../View/pricing-wrk-view/pricing-wrk-view.component";
+import { BVViewComponent } from "../../View/b-v-view/b-v-view.component";
+import { BidDataComponent } from "../../View/bid-data/bid-data.component";
+import { ShdMastComponent } from "../../Master/shd-mast/shd-mast.component";
+import { RefMastComponent } from "../../Master/ref-mast/ref-mast.component";
+import Swal from "sweetalert2";
+import { PerMastService } from "src/app/Service/Config/per-mast.service";
+import { RoughColorAnaComponent } from "../../View/rough-color-ana/rough-color-ana.component";
+import { ParcelViewComponent } from "../../View/parcel-view/parcel-view.component";
+import { GetCertiResComponent } from "../../Config/get-certi-res/get-certi-res.component";
+import { SellDaysMastComponent } from "../../Master/sell-days-mast/sell-days-mast.component";
+import { RateUpdateComponent } from "../../Config/rate-update/rate-update.component";
+import { LoginPermissionComponent } from "../../Utility/login-permission/login-permission.component";
+import { TendarWinComponent } from "../../View/tendar-win/tendar-win.component";
+import { ParcelBidDataComponent } from "../../View/parcel-bid-data/parcel-bid-data.component";
+import { take } from "rxjs/operators";
 
 declare function tabs(params: any): any;
 declare var $: any;
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: "app-home",
+  templateUrl: "./home.component.html",
+  styleUrls: ["./home.component.css"],
 })
-
 export class HomeComponent implements OnInit {
+  decodedMast = JSON.parse(
+    this.EncrDecrServ.get(localStorage.getItem("unfam1"))
+  );
 
   private socket: any;
   public socketData: any;
   public version: string = version;
-  public url = environment.BaseUrl
-  public port = environment.PORT
-  public port1 = environment.PORT1
+  public url = environment.BaseUrl;
+  public port = environment.PORT;
+  public port1 = environment.PORT1;
 
-  FOOTERMSG: any = '';
+  FOOTERMSG: any = "";
   SLIDSHOW: boolean = false;
   currentImage: string;
   currentIndex: number = 0;
-  images: any = []
+  images: any = [];
 
   clickEventsubscription: Subscription;
 
-  @HostListener('window:beforeunload', ['$event'])
+  @HostListener("window:beforeunload", ["$event"])
   onWindowClose(event: any): void {
     this.LoginDetailUpdate();
   }
 
-  @HostListener('window:keydown', ['$event'])
+  @HostListener("window:keydown", ["$event"])
   handleKeyDown(event: KeyboardEvent) {
-    this.homeShortCut.handleKeyDown(event)
-   
+    this.homeShortCut.handleKeyDown(event);
   }
 
-  menus: string[] = ['.dashboard-menu', '.master-menu', '.transaction-menu', '.view-menu', '.pricing-menu', '.config-menu', '.report-menu']
-  buttons: string[] = ['.dashboard-btn', '.master-btn', '.transaction-btn', '.view-btn', '.pricing-btn', '.config-btn', '.report-btn']
-  
+  menus: string[] = [
+    ".dashboard-menu",
+    ".master-menu",
+    ".transaction-menu",
+    ".view-menu",
+    ".pricing-menu",
+    ".config-menu",
+    ".report-menu",
+  ];
+  buttons: string[] = [
+    ".dashboard-btn",
+    ".master-btn",
+    ".transaction-btn",
+    ".view-btn",
+    ".pricing-btn",
+    ".config-btn",
+    ".report-btn",
+  ];
 
   decodeHelper = new JwtHelperService();
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem("token"));
 
   tabs = [];
   docks = [];
-  FormPermissionArray = []
-  MenuPermissionArray = []
+  FormPermissionArray = [];
+  MenuPermissionArray = [];
   ComponentName: any = {};
 
   selected = new FormControl(0);
 
-  USER_NAME: any = '';
+  USER_NAME: any = "";
 
-  masterRough: Boolean
-  masterMachine: Boolean
-  masterParameter: Boolean
-  masterEmp: Boolean
-  transactionInner: Boolean
-  transactionAverageEnt: Boolean
-  transactionQC: Boolean
-  transcationGrading: Boolean
-  transactionPointer: Boolean
-  viewPointer: Boolean
-  viewInner: Boolean
-  viewGranding: Boolean
-  pricing: Boolean
+  masterRough: Boolean;
+  masterMachine: Boolean;
+  masterParameter: Boolean;
+  masterEmp: Boolean;
+  transactionInner: Boolean;
+  transactionAverageEnt: Boolean;
+  transactionQC: Boolean;
+  transcationGrading: Boolean;
+  transactionPointer: Boolean;
+  viewPointer: Boolean;
+  viewInner: Boolean;
+  viewGranding: Boolean;
+  pricing: Boolean;
   // reportPointer: Boolean
-  configUser: Boolean
-  configPersmission: Boolean
-  configUtility: Boolean
+  configUser: Boolean;
+  configPersmission: Boolean;
+  configUtility: Boolean;
 
   OpenPasswordChange: Boolean = false;
-  NEWPASS: any = ''
-  CNFPASS: any = ''
+  NEWPASS: any = "";
+  CNFPASS: any = "";
 
-  RAPBUTTON:boolean = false
+  RAPBUTTON: boolean = false;
   constructor(
     public toastr: ToastrService,
     public spinner: NgxSpinnerService,
@@ -153,206 +170,373 @@ export class HomeComponent implements OnInit {
     public dialog: MatDialog,
     public homeShortCut: HomeShortCuts,
     public commonServ: CommonService,
-    private PerMastServ: PerMastService,
-    // private _pushNotificationService: PushNotificationService
+    private PerMastServ: PerMastService // private _pushNotificationService: PushNotificationService
   ) {
     this.socket = io(`${this.url}:${this.port1}`, {
-      path: '/socket.io',
+      path: "/socket.io",
       withCredentials: true,
-      transports: ['websocket', 'polling'],
+      transports: ["websocket", "polling"],
       secure: true,
-    }
+    });
+    this.clickEventsubscription = this.DashboardServ.getClickEvent().subscribe(
+      (res) => {}
     );
-    this.clickEventsubscription = this.DashboardServ.getClickEvent().subscribe((res) => {
+    this.SendFistTime();
+    // let Data = this.decodedMast[31]
+    // this.FooterTextServ.SendNotification({ MSG: Data }).subscribe((Res) => {
+    //   try {
+    //   } catch (error) {
+    //     this.toastr.warning('Cannot send notification.')
+    //     this.toastr.error(error)
+    //   }
+    // })
+  }
+  SendFistTime() {
+    interval(1000)
+      .pipe(take(1))
+      .subscribe(() => {
+        const Data = this.decodedMast[31];
+        if (Data.length > 0) {
+          this.FooterTextServ.SendNotification({ MSG: Data }).subscribe(
+            (Res) => {
+            }
+          );
+        }
+      });
+  }
+
+  sendNotificationsEvery30Minutes() {
+    interval(30 * 60 * 1000).subscribe(() => {
+      this.DashboardServ.FillAllExpTendar({}).then((FillRes) => {
+        try {
+          if (FillRes.success == true) {
+            if (FillRes.data.length > 0) {
+              this.FooterTextServ.SendNotification({
+                MSG: FillRes.data,
+              }).subscribe(
+                (Res) => {
+                },
+                (error) => {
+                  this.toastr.warning("Cannot send notification.");
+                  this.toastr.error(error.message || "Unknown error occurred.");
+                }
+              );
+            }
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      });
     });
   }
 
   async ngOnInit() {
-    this.spinner.hide()
-    if(this.decodedTkn.U_CAT === 'S'){
-      this.RAPBUTTON = true
-    }else {
-      this.RAPBUTTON = false
+    this.spinner.hide();
+    this.sendNotificationsEvery30Minutes();
+    this.socket.on("DaimondPending", (data: any) => {
+      this.socketData = data.MSG;
+      this.openChildWindow();
+    });
+
+    if (this.decodedTkn.U_CAT === "S") {
+      this.RAPBUTTON = true;
+    } else {
+      this.RAPBUTTON = false;
     }
     this.USER_NAME = this.decodedTkn.UserId;
-    this.FillPermissions()
-    this.loadScript('./../../../../assets/easyui/jquery.min.js');
-    this.loadScript('./../../../../assets/easyui/jquery.easyui.min.js');
+    this.FillPermissions();
+    this.loadScript("./../../../../assets/easyui/jquery.min.js");
+    this.loadScript("./../../../../assets/easyui/jquery.easyui.min.js");
     setTimeout(() => {
-      var count = $('#dynamicTabs').tabs('tabs').length;
+      var count = $("#dynamicTabs").tabs("tabs").length;
       for (var i = count - 1; i >= 0; i--) {
-        $('#dynamicTabs').tabs('close', i);
+        $("#dynamicTabs").tabs("close", i);
       }
     }, 700);
-    // to disable right click
-    window.addEventListener('contextmenu', function (e) {
-      // do something here...
-      e.preventDefault();
-    }, false);
+    window.addEventListener(
+      "contextmenu",
+      function (e) {
+        e.preventDefault();
+      },
+      false
+    );
 
-    await this.FillAllMaster()
+    await this.FillAllMaster();
 
-    this.HideSubMenu()
+    this.HideSubMenu();
+  }
 
+  async openChildWindow() {
+    var dimensions = "width=500,height=500";
+    let data = "";
+    data = this.socketData;
+    const windows = window.open("", "child_window", dimensions);
+    const windows1 = window.open("", "child_window1", dimensions);
+    if (!this.windowopen) {
+      windows1.close();
+      for (let i = 0; i < data.length; i++) {
+        let Time = "";
+        await this.ViewServ.getRemainingTimeForMessage(
+          data[i]["TEXP_DATETIME"]
+        ).then((time) => {
+          Time = time;
+        });
 
+        windows.document.write(
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Company Code: ${data[i]["COMP_CODE"]} Company Name: ${data[i]["COMP_NAME"]} Tendar Name: ${data[i]["T_NAME"]} Tendar Number: ${data[i]["DETID"]}</p>`
+        );
+        windows.document.write(
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Tendar Date: ${this.DateFormat(
+            data[i]["T_DATE"]
+          )} Expiry: ${this.DateTimeFormat(
+            data[i]["TEXP_DATETIME"]
+          )} Remaining: ${Time}</p>`
+        );
+        windows.document.write(`<hr>`);
+      }
+      windows.open("", "child_window", dimensions);
+      this.windowopen = !this.windowopen;
+    } else {
+      windows.close();
+      for (let i = 0; i < data.length; i++) {
+        let Time = "";
+        await this.ViewServ.getRemainingTimeForMessage(
+          data[i]["TEXP_DATETIME"]
+        ).then((time) => {
+          Time = time;
+        });
+
+        windows1.document.write(
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Company Code: ${data[i]["COMP_CODE"]} Company Name: ${data[i]["COMP_NAME"]} Tendar Name: ${data[i]["T_NAME"]} Tendar Number: ${data[i]["DETID"]}</p>`
+        );
+        windows1.document.write(
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Tendar Date: ${this.DateFormat(
+            data[i]["T_DATE"]
+          )} Expiry: ${this.DateTimeFormat(
+            data[i]["TEXP_DATETIME"]
+          )} Remaining: ${Time}</p>`
+        );
+        windows1.document.write(`<hr>`);
+      }
+      windows1.open("", "child_window", dimensions);
+      this.windowopen = !this.windowopen;
+    }
   }
 
   windowopen: boolean = false;
 
+  DateTimeFormat(params) {
+    if (params) {
+      if (params.includes("T")) {
+        let Data = params.split("T")[0];
+        let Time = params.split("T")[1].slice(0, 5);
 
+        return `${Data}-${Time}`;
+      } else {
+        return params;
+      }
+    } else {
+      return "";
+    }
+  }
+  DateFormat(params) {
+    if (params) {
+      if (params.includes("T")) {
+        let Data = params.split("T")[0];
+        let Time = params.split("T")[1].slice(0, 5);
+
+        return `${Data}`;
+      } else {
+        return params;
+      }
+    } else {
+      return "";
+    }
+  }
   HideSubMenu() {
-    if (this.CheckFormPermission('ShpMastComponent') ||
-      this.CheckFormPermission('ColMastComponent') ||
-      this.CheckFormPermission('QuaMastComponent') ||
-      this.CheckFormPermission('CutMastComponent') ||
-      this.CheckFormPermission('FloMastComponent') ||
-      this.CheckFormPermission('SizeMastComponent') ||
-      this.CheckFormPermission('RapLabMastComponent') ||
-      this.CheckFormPermission('ViewParaMastComponent')||
-      this.CheckFormPermission('FloNumMastComponent')||
-      this.CheckFormPermission('MilkyMastComponent')||
-      this.CheckFormPermission('GridleMastComponent')||
-      this.CheckFormPermission('DepthMastComponent')||
-      this.CheckFormPermission('RatioMastComponent')||
-      this.CheckFormPermission('ShdMastComponent')||
-      this.CheckFormPermission('RefMastComponent')||
-      this.CheckFormPermission('SellDaysMastComponent')||
-      this.CheckFormPermission('TensionMastComponent')) {
+    if (
+      this.CheckFormPermission("ShpMastComponent") ||
+      this.CheckFormPermission("ColMastComponent") ||
+      this.CheckFormPermission("QuaMastComponent") ||
+      this.CheckFormPermission("CutMastComponent") ||
+      this.CheckFormPermission("FloMastComponent") ||
+      this.CheckFormPermission("SizeMastComponent") ||
+      this.CheckFormPermission("RapLabMastComponent") ||
+      this.CheckFormPermission("ViewParaMastComponent") ||
+      this.CheckFormPermission("FloNumMastComponent") ||
+      this.CheckFormPermission("MilkyMastComponent") ||
+      this.CheckFormPermission("GridleMastComponent") ||
+      this.CheckFormPermission("DepthMastComponent") ||
+      this.CheckFormPermission("RatioMastComponent") ||
+      this.CheckFormPermission("ShdMastComponent") ||
+      this.CheckFormPermission("RefMastComponent") ||
+      this.CheckFormPermission("SellDaysMastComponent") ||
+      this.CheckFormPermission("TensionMastComponent")
+    ) {
       this.masterParameter = true;
     } else {
       this.masterParameter = false;
     }
 
-    if (this.CheckFormPermission('MachineColMastComponent')||
-      this.CheckFormPermission('MacComMastComponent')||
-      this.CheckFormPermission('MachineFloMastComponent')
-    ){
+    if (
+      this.CheckFormPermission("MachineColMastComponent") ||
+      this.CheckFormPermission("MacComMastComponent") ||
+      this.CheckFormPermission("MachineFloMastComponent")
+    ) {
       this.masterMachine = true;
-    } else{
+    } else {
       this.masterMachine = false;
     }
 
-    if (this.CheckFormPermission('TendarEstComponent') ||
-     this.CheckFormPermission('RapCalComponent') 
-    ||this.CheckFormPermission('TendarComComponent') 
-    ||this.CheckFormPermission('LotMappingComponent') 
-    ||this.CheckFormPermission('ParcelEntryComponent') 
-  || this.CheckFormPermission('TendarMastComponent')) {
+    if (
+      this.CheckFormPermission("TendarEstComponent") ||
+      this.CheckFormPermission("RapCalComponent") ||
+      this.CheckFormPermission("TendarComComponent") ||
+      this.CheckFormPermission("LotMappingComponent") ||
+      this.CheckFormPermission("ExpiryDateComponent") ||
+      this.CheckFormPermission("ParcelEntryComponent") ||
+      this.CheckFormPermission("TendarMastComponent")
+    ) {
       this.transactionPointer = true;
     } else {
       this.transactionPointer = false;
     }
 
-    if (this.CheckFormPermission('RapOrgComponent') ||
-      this.CheckFormPermission('RapMastComponent') || this.CheckMenuPermission('RapCutDiscComponent') ||
-      this.CheckFormPermission('RapFloDiscComponent') ||
-      this.CheckFormPermission('RapIncDiscComponent') ||
-      this.CheckFormPermission('RapParamDiscComponent')) {
+    if (
+      this.CheckFormPermission("RapOrgComponent") ||
+      this.CheckFormPermission("RapMastComponent") ||
+      this.CheckMenuPermission("RapCutDiscComponent") ||
+      this.CheckFormPermission("RapFloDiscComponent") ||
+      this.CheckFormPermission("RapIncDiscComponent") ||
+      this.CheckFormPermission("RapParamDiscComponent")
+    ) {
       this.pricing = true;
     } else {
       this.pricing = false;
     }
 
-    if (this.CheckFormPermission('UserCatComponent') || this.CheckFormPermission('UserMastComponent')) {
+    if (
+      this.CheckFormPermission("UserCatComponent") ||
+      this.CheckFormPermission("UserMastComponent")
+    ) {
       this.configUser = true;
     } else {
       this.configUser = false;
     }
 
-    if (this.CheckFormPermission('PerMastComponent') || this.CheckFormPermission('LoginPermissionComponent')) {
+    if (
+      this.CheckFormPermission("PerMastComponent") ||
+      this.CheckFormPermission("LoginPermissionComponent")
+    ) {
       this.configPersmission = true;
     } else {
       this.configPersmission = false;
     }
-    if (this.CheckFormPermission('GetCertiResComponent') || this.CheckFormPermission('RateUpdateComponent')) {
+    if (
+      this.CheckFormPermission("GetCertiResComponent") ||
+      this.CheckFormPermission("RateUpdateComponent")
+    ) {
       this.configUtility = true;
     } else {
       this.configUtility = false;
     }
 
-    if (this.CheckFormPermission('PricingWrkViewComponent') 
-    ||this.CheckFormPermission('BVViewComponent') 
-    ||this.CheckFormPermission('RoughColorAnaComponent') 
-    ||this.CheckFormPermission('ParcelViewComponent') 
-    ||this.CheckFormPermission('TendarWinComponent') 
-    ||this.CheckFormPermission('ParcelBidDataComponent') 
-    ||this.CheckFormPermission('BidDataComponent') ) {
+    if (
+      this.CheckFormPermission("PricingWrkViewComponent") ||
+      this.CheckFormPermission("BVViewComponent") ||
+      this.CheckFormPermission("RoughColorAnaComponent") ||
+      this.CheckFormPermission("ParcelViewComponent") ||
+      this.CheckFormPermission("TendarWinComponent") ||
+      this.CheckFormPermission("ParcelBidDataComponent") ||
+      this.CheckFormPermission("BidDataComponent")
+    ) {
       this.viewPointer = true;
     } else {
       this.viewPointer = false;
     }
-
   }
 
   FillPermissions() {
-    this.LoginServ.UserFrmPer({ USER_NAME: this.decodedTkn.UserId }).then(res => {
-      try {
-        if (res.success == true) {
+    this.LoginServ.UserFrmPer({ USER_NAME: this.decodedTkn.UserId }).then(
+      (res) => {
+        try {
+          if (res.success == true) {
+            if (
+              res.data.length !== 1 &&
+              this.decodedTkn.PROC_CODE == 1 &&
+              this.decodedTkn.DEPT_CODE == "POI"
+            ) {
+              const DresPrdtype = {
+                Res: res.data[1],
+                // DRes: res
+              };
+              const dialogRef = this.dialog.open(LoginPopupComponent, {
+                panelClass: "app-login-popup",
+                autoFocus: false,
+                minWidth: "10vw",
+                width: "50%",
+                height: "50%",
+                data: DresPrdtype,
+                disableClose: true,
+              });
 
-          if (res.data.length !== 1 && this.decodedTkn.PROC_CODE == 1 && this.decodedTkn.DEPT_CODE == 'POI') {
-
-            const DresPrdtype = {
-              Res: res.data[1],
-              // DRes: res
+              $("#Close").click();
+              dialogRef.afterClosed().subscribe((result) => {
+                if (!DresPrdtype.Res || DresPrdtype.Res.trim() === "") {
+                  dialogRef.close();
+                }
+              });
             }
-            const dialogRef = this.dialog.open(LoginPopupComponent, {
-              panelClass: "app-login-popup",
-              autoFocus: false,
-              minWidth: "10vw",
-              width: "50%",
-              height: "50%",
-              data: DresPrdtype,
-              disableClose: true
-            })
+            this.FormPermissionArray = res.data[0].map((item) => {
+              return item.FORM_NAME;
+            });
 
-            $("#Close").click()
-            dialogRef.afterClosed().subscribe((result) => {
-              if (!DresPrdtype.Res || DresPrdtype.Res.trim() === "") {
-                dialogRef.close();
-              }
-            })
-          }
-          this.FormPermissionArray = res.data[0].map(item => {
-            return item.FORM_NAME
-          });
+            if (this.decodedTkn.U_CAT == "S" || this.decodedTkn.U_CAT == "SA") {
+              this.FormPermissionArray = this.FormPermissionArray;
+            } else {
+              this.FormPermissionArray = this.FormPermissionArray.filter(
+                (x) =>
+                  x != "RptMastComponent" &&
+                  x != "UserCatComponent" &&
+                  x != "UserMastComponent" &&
+                  x != "RptParaMastComponent"
+              );
+            }
 
-          if (this.decodedTkn.U_CAT == "S" || this.decodedTkn.U_CAT == 'SA') {
-            this.FormPermissionArray = this.FormPermissionArray
+            this.MenuPermissionArray = res.data[0].map((item) => {
+              return item.FORM_GROUP;
+            });
+
+            this.MenuPermissionArray = this.MenuPermissionArray.filter(
+              (element, i) => i === this.MenuPermissionArray.indexOf(element)
+            );
           } else {
-
-            this.FormPermissionArray = this.FormPermissionArray.filter((x) => x != 'RptMastComponent' && x != 'UserCatComponent' && x != 'UserMastComponent' && x != 'RptParaMastComponent')
+            this.spinner.hide();
+            this.toastr.warning(
+              "Something gone wrong while getting page permissions."
+            );
           }
-
-          this.MenuPermissionArray = res.data[0].map(item => {
-            return item.FORM_GROUP
-          });
-
-          this.MenuPermissionArray = this.MenuPermissionArray.filter((element, i) => i === this.MenuPermissionArray.indexOf(element))
-
-        } else {
+        } catch (error) {
           this.spinner.hide();
-          this.toastr.warning('Something gone wrong while getting page permissions.');
+          this.toastr.error(error);
         }
-      } catch (error) {
-        this.spinner.hide();
-        this.toastr.error(error);
       }
-    });
+    );
   }
 
   CheckMenuPermission(e: any): boolean {
-    if (this.MenuPermissionArray.filter(x => x == e).length == 0) {
-      return false
+    if (this.MenuPermissionArray.filter((x) => x == e).length == 0) {
+      return false;
     } else {
-      return true
+      return true;
     }
   }
 
   CheckFormPermission(e: any): boolean {
-    if (this.FormPermissionArray.filter(x => x == e).length == 0) {
-      return false
+    if (this.FormPermissionArray.filter((x) => x == e).length == 0) {
+      return false;
     } else {
-      return true
+      return true;
     }
   }
 
@@ -361,20 +545,19 @@ export class HomeComponent implements OnInit {
       try {
         if (FillRes.success == true) {
           var encrypted = this.EncrDecrServ.set(JSON.stringify(FillRes.data));
-          localStorage.removeItem('unfam1')
-          localStorage.setItem('unfam1', encrypted)
+          localStorage.removeItem("unfam1");
+          localStorage.setItem("unfam1", encrypted);
         } else {
-          this.toastr.warning('Something went wrong whie FillAllMaster.')
+          this.toastr.warning("Something went wrong whie FillAllMaster.");
         }
       } catch (error) {
-        this.toastr.error(error)
+        this.toastr.error(error);
       }
-    })
+    });
   }
 
   async AddTab(FormName: string) {
-
-    this.HideMenu()
+    this.HideMenu();
 
     switch (FormName) {
       case "Permission Master":
@@ -482,17 +665,17 @@ export class HomeComponent implements OnInit {
     }
 
     let OpenTab;
-    OpenTab = this.tabs.find(Form => Form.label == FormName);
+    OpenTab = this.tabs.find((Form) => Form.label == FormName);
 
     if (OpenTab == undefined) {
       let Obj1 = {
         label: FormName,
-        component: this.ComponentName
+        component: this.ComponentName,
       };
       this.tabs.push(Obj1);
       this.selected.setValue(this.tabs.length - 1);
     } else {
-      const position = this.tabs.findIndex(PageName => {
+      const position = this.tabs.findIndex((PageName) => {
         return PageName.label == FormName;
       });
       this.selected.setValue(position);
@@ -504,66 +687,69 @@ export class HomeComponent implements OnInit {
   }
 
   PASSWORDCHANGE() {
-    if (this.NEWPASS != '' && this.CNFPASS != '') {
+    if (this.NEWPASS != "" && this.CNFPASS != "") {
       if (this.NEWPASS == this.CNFPASS) {
         let PObj = {
           USERID: this.decodedTkn.UserId,
-          U_PASS: this.NEWPASS
-        }
+          U_PASS: this.NEWPASS,
+        };
         this.commonServ.ChangePassword(PObj).subscribe((PRes) => {
           if (PRes.success == 1) {
-            this.toastr.success("Password Update Successfully")
-            this.NEWPASS = ''
-            this.CNFPASS = ''
+            this.toastr.success("Password Update Successfully");
+            this.NEWPASS = "";
+            this.CNFPASS = "";
           } else {
-            this.toastr.warning(PRes.data)
-            this.NEWPASS = ''
-            this.CNFPASS = ''
+            this.toastr.warning(PRes.data);
+            this.NEWPASS = "";
+            this.CNFPASS = "";
           }
-        })
-
+        });
       } else {
-        this.toastr.warning(`Password doesn't Match`)
+        this.toastr.warning(`Password doesn't Match`);
       }
     } else {
-      this.toastr.warning('Enter Password')
+      this.toastr.warning("Enter Password");
     }
   }
 
   nextEnter(event, e) {
-    e.focus()
+    e.focus();
   }
 
   OpenNewTab(appRoutName, FormName) {
-    if (localStorage.getItem(appRoutName) && appRoutName != '/NewInnPrcIss') {
-      this.toastr.warning(FormName + ' Tab already opened.')
-      return
+    if (localStorage.getItem(appRoutName) && appRoutName != "/NewInnPrcIss") {
+      this.toastr.warning(FormName + " Tab already opened.");
+      return;
     }
 
-    localStorage.setItem(appRoutName, 'true')
-    localStorage.setItem('_temptoken', sessionStorage.getItem('token'))
+    localStorage.setItem(appRoutName, "true");
+    localStorage.setItem("_temptoken", sessionStorage.getItem("token"));
     const url = this.router.serializeUrl(
       this.router.createUrlTree([appRoutName])
     );
 
-    window.open(url, '_blank');
+    window.open(url, "_blank");
   }
 
   Logout() {
-    sessionStorage.removeItem('token')
-    sessionStorage.clear()
+    sessionStorage.removeItem("token");
+    sessionStorage.clear();
     this.LoginDetailUpdate();
-    location.reload()
+    location.reload();
   }
 
   LoginDetailUpdate() {
-    this.LoginDetailServ.LoginDetailUpdate({ USERID: this.decodedTkn.UserId, IP: window.location.hostname, TYPE: 'Logout' }).subscribe(LogDetRes => {
+    this.LoginDetailServ.LoginDetailUpdate({
+      USERID: this.decodedTkn.UserId,
+      IP: window.location.hostname,
+      TYPE: "Logout",
+    }).subscribe((LogDetRes) => {
       try {
         if (LogDetRes.success == true) {
           this.spinner.hide();
         } else {
           this.spinner.hide();
-          this.toastr.warning('Something gone wrong while logging out.');
+          this.toastr.warning("Something gone wrong while logging out.");
         }
       } catch (error) {
         this.spinner.hide();
@@ -572,93 +758,109 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  RapUpdate(){
+  RapUpdate() {
     Swal.fire({
-        title:"Are you sure you want to Update Rap ?",
-        icon: "question",
-        cancelButtonText: "No",
-        showCancelButton: true,
-        showConfirmButton: true,
-        confirmButtonText: "Yes",
-      }).then((result) => {
-        if (result.value) { 
-          this.spinner.show()
-          this.PerMastServ.RapTrf({}).subscribe((UserIPRes) => {
-            try {
-              if (UserIPRes.success == true) {
-                this.spinner.hide();
-                this.toastr.success('Rap Update Successfully')
-              } else {
-                this.spinner.hide()
-                this.toastr.warning('Something Want Wrong to Update Rap')
-              }
-            } catch (error) {
-              this.spinner.hide()
-              this.toastr.error(error)
+      title: "Are you sure you want to Update Rap ?",
+      icon: "question",
+      cancelButtonText: "No",
+      showCancelButton: true,
+      showConfirmButton: true,
+      confirmButtonText: "Yes",
+    }).then((result) => {
+      if (result.value) {
+        this.spinner.show();
+        this.PerMastServ.RapTrf({}).subscribe((UserIPRes) => {
+          try {
+            if (UserIPRes.success == true) {
+              this.spinner.hide();
+              this.toastr.success("Rap Update Successfully");
+            } else {
+              this.spinner.hide();
+              this.toastr.warning("Something Want Wrong to Update Rap");
             }
-          })
-        }
-      })
+          } catch (error) {
+            this.spinner.hide();
+            this.toastr.error(error);
+          }
+        });
+      }
+    });
   }
 
   ReportName(e: any) {
-    localStorage.setItem('Report Tab', e)
+    localStorage.setItem("Report Tab", e);
   }
 
   ShowMenu(MenuName: string, ButtonName: string) {
-    this.ToggleClasses([...this.menus], MenuName, 'active', 'active')
-    this.ToggleClasses([...this.buttons], ButtonName, 'active-btn', 'active-btn')
+    this.ToggleClasses([...this.menus], MenuName, "active", "active");
+    this.ToggleClasses(
+      [...this.buttons],
+      ButtonName,
+      "active-btn",
+      "active-btn"
+    );
   }
 
   HideMenu() {
-    this.ToggleClasses([...this.menus], '', '', 'active')
-    this.ToggleClasses([...this.buttons], '', '', 'active-btn')
+    this.ToggleClasses([...this.menus], "", "", "active");
+    this.ToggleClasses([...this.buttons], "", "", "active-btn");
   }
 
-
-  ToggleClasses(items: string[], classToMatch: string, classToAdd: string, classToRemove: string) {
-    let activeMenu: string = ''
+  ToggleClasses(
+    items: string[],
+    classToMatch: string,
+    classToAdd: string,
+    classToRemove: string
+  ) {
+    let activeMenu: string = "";
     const menuIndex = items.indexOf(classToMatch);
-    if (menuIndex > -1) activeMenu = items.splice(menuIndex, 1).toString()
-    $(activeMenu).toggleClass(classToAdd)
-    for (let i in items) $(items[i]).removeClass(classToRemove)
+    if (menuIndex > -1) activeMenu = items.splice(menuIndex, 1).toString();
+    $(activeMenu).toggleClass(classToAdd);
+    for (let i in items) $(items[i]).removeClass(classToRemove);
   }
 
   BgImage() {
     const BgImage = `url: ('http://${this.url}:${this.port}/images/bg/background.jpg')`;
-    document.documentElement.style.setProperty('--bgUrl', BgImage);
+    document.documentElement.style.setProperty("--bgUrl", BgImage);
   }
 
   onTabChanged(event) {
-    const tabIndex = event.index
+    const tabIndex = event.index;
     if (tabIndex >= 0) {
-      const tabLabel = this.tabs[tabIndex].label
+      const tabLabel = this.tabs[tabIndex].label;
       this.ViewServ.sendTabChangedEvent(tabLabel);
     }
   }
 
   addiFrameTabs(title, url) {
-    url = window.location.origin + url + '?random=' + (new Date()).getTime() + Math.floor(Math.random() * 1000000)
-    if ($('#dynamicTabs').tabs('exists', title)) {
-      $('#dynamicTabs').tabs('select', title);
+    url =
+      window.location.origin +
+      url +
+      "?random=" +
+      new Date().getTime() +
+      Math.floor(Math.random() * 1000000);
+    if ($("#dynamicTabs").tabs("exists", title)) {
+      $("#dynamicTabs").tabs("select", title);
     } else {
-      var content = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:98%;"></iframe>';
-      $('#dynamicTabs').tabs('add', {
+      var content =
+        '<iframe scrolling="auto" frameborder="0"  src="' +
+        url +
+        '" style="width:100%;height:98%;"></iframe>';
+      $("#dynamicTabs").tabs("add", {
         title: title,
         content: content,
-        closable: true
+        closable: true,
       });
     }
   }
 
   loadScript(url: string) {
     const body = <HTMLDivElement>document.body;
-    const script = document.createElement('script');
-    script.innerHTML = '';
+    const script = document.createElement("script");
+    script.innerHTML = "";
     script.src = url;
     script.async = false;
     script.defer = true;
     body.appendChild(script);
   }
-
 }

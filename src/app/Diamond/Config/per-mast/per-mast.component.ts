@@ -86,6 +86,7 @@ export class PerMastComponent implements OnInit {
     { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarEstComponent', DESCR: 'Tendar Estimation' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'RapCalComponent', DESCR: 'Rap Calc' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'LotMappingComponent', DESCR: 'Lot Mapping' },
+    { FORM_GROUP: 'Transaction', FORM_NAME: 'ExpiryDateComponent', DESCR: 'Expiry Date' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'ParcelEntryComponent', DESCR: 'Parcel Entry' },
 
     { FORM_GROUP: 'View', FORM_NAME: 'PricingWrkViewComponent', DESCR: 'Pricing Work' },

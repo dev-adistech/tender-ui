@@ -23,7 +23,7 @@ export class FooterTextService {
   }
 
   SendNotification(Data: any): Observable<any> {
-    return this.http.post<any>('send_mybasket', Data)
+    return this.http.post<any>('DaimondPending', Data)
   }
 
 }

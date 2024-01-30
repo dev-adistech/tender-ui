@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,5 +43,9 @@ export class LoginService {
     // });
 
     return this.http.post<any>('Login/UserFrmPer', Data).toPromise()
+  }
+
+  SendNotification(Data: any): Observable<any> {
+    return this.http.post<any>('send_mybasket', Data)
   }
 }

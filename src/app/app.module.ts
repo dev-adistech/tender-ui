@@ -90,7 +90,8 @@ import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.compone
 import { StoneDetailViewComponent } from "./Diamond/View/stone-detail-view/stone-detail-view.component";
 import { StoneidPopupComponent } from './Diamond/View/pricing-wrk-view/stoneid-popup/stoneid-popup.component';
 import { ParcelEntryComponent } from './Diamond/Transaction/parcel-entry/parcel-entry.component';
-import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bid-data.component'
+import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bid-data.component';
+import { ExpiryDateComponent } from './Diamond/Transaction/expiry-date/expiry-date.component'
 
 
 @NgModule({
@@ -166,7 +167,8 @@ import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bi
 		TendarWinComponent,
 		StoneidPopupComponent,
 		ParcelEntryComponent,
-		ParcelBidDataComponent
+		ParcelBidDataComponent,
+		ExpiryDateComponent
 	],
 	imports: [
 		BrowserModule,

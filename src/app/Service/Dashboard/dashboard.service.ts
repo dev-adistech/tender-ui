@@ -26,6 +26,9 @@ export class DashboardService {
   async FillAllMaster(Data: any) {
     return this.http.post<any>('Dashboard/FillAllMaster', Data).toPromise()
   }
+  async FillAllExpTendar(Data: any) {
+    return this.http.post<any>('Dashboard/FillAllExpTendar', Data).toPromise()
+  }
 
   DashStockFill(Data: any): Observable<any> {
     return this.http.post<any>('Dashboard/DashStockFill', Data)

@@ -48,6 +48,10 @@ export class AuthInterceptor implements HttpInterceptor {
       req = req.clone({
         url: `http://${this.url}:${this.port1}/${APIURLTail}`
       })
+    } else if (APIURLTail == 'DaimondPending') {
+      req = req.clone({
+        url: `http://${this.url}:${this.port1}/${APIURLTail}`
+      })
     }
     else {
       req = req.clone({

@@ -5100,6 +5100,8 @@ export class TendarEstComponent implements OnInit {
     this.TendarEstServ.TendarPrdDetDock({
       COMP_CODE: this.COMP_CODE,
       DETID: this.DETID,
+      IUSER: this.decodedTkn.UserId,
+      CAT: this.decodedTkn.U_CAT
     }).subscribe((FillRes) => {
       try {
         if (FillRes.success == true) {

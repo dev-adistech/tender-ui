@@ -39,6 +39,16 @@
         <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
       </svg>
     </button>
+    <mat-form-field appearance="outline" style="width: 8rem;">
+      <mat-label>Date</mat-label>
+      <input matInput type="text" style="font-weight: bold;" name="Code" autocomplete="off" [(ngModel)]="TEXP_DATETIME" disabled />
+    </mat-form-field>
+    <div class='line'>
+    <mat-form-field appearance="outline" style="width: 15rem;">
+      <mat-label>Remaining Time</mat-label>
+      <input matInput  class='pop-outin' style="color: #ff0000a3 !important;font-weight: bold;"type="text" name="Code" autocomplete="off" [(ngModel)]="R_TIME" disabled />
+    </mat-form-field>
+  </div>
   </div>
 
 </div>

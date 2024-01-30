@@ -60,6 +60,7 @@ import { RapCalComponent } from './Diamond/Rap/rap-cal/rap-cal.component';
 import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.component';
 import { ParcelEntryComponent } from './Diamond/Transaction/parcel-entry/parcel-entry.component';
 import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bid-data.component';
+import { ExpiryDateComponent } from './Diamond/Transaction/expiry-date/expiry-date.component';
 
 
 const routes: Routes = [
@@ -109,6 +110,7 @@ const routes: Routes = [
   { path: 'TenCom', component: TendarComComponent, canActivate: [AuthGuard] },
   { path: 'TenMast', component: TendarMastComponent, canActivate: [AuthGuard] },
   { path: 'LotMap', component: LotMappingComponent, canActivate: [AuthGuard] },
+  { path: 'ExpDate', component: ExpiryDateComponent, canActivate: [AuthGuard] },
   { path: 'ParcelEnt', component: ParcelEntryComponent, canActivate: [AuthGuard] },
 
   //config
