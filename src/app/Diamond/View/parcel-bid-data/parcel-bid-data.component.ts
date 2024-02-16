@@ -148,7 +148,7 @@ export class ParcelBidDataComponent implements OnInit {
 
   FillViewPara() {
     this.ViewParaMastServ.ViewParaFill({
-      FORMNAME: "BidDataView",
+      FORMNAME: "ParcelBidDataView",
     }).subscribe((VPRes) => {
       try {
         if (VPRes.success == 1) {

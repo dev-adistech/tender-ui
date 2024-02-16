@@ -58,6 +58,7 @@ export class ParcelEntryComponent implements OnInit {
   RAPNAME: any = [];
   ML_NAME: any = [];
 
+  HIDEPOL: boolean = false;
   disabledata: boolean = false;
   ADISDISABLE: boolean = true;
   SAVEBTNSHOW: boolean = true;
@@ -156,6 +157,8 @@ export class ParcelEntryComponent implements OnInit {
   ROWData1: any[] = [];
 
   I_CARAT: any = "";
+  RTOP: any = "";
+  SIZE: any = "";
   AMT: any = "";
   CARAT: any = "";
   RATE: any = "";
@@ -347,8 +350,10 @@ export class ParcelEntryComponent implements OnInit {
     if (this.decodedTkn.U_CAT == "S") {
       this.ADISDISABLE = false;
       this.SAVEBTNSHOW = true;
+      this.HIDEPOL = true;
     } else {
       this.ADISDISABLE = true;
+      this.HIDEPOL = false;
       this.SAVEBTNSHOW = false;
     }
     this.DEPTArr = this.decodedMast[2].map((item) => {
@@ -4410,6 +4415,7 @@ export class ParcelEntryComponent implements OnInit {
   }
 
   LoadGridData() {
+    this.SIZE = ''
     let FillObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
       DETID: this.DETID ? this.DETID : 0,
@@ -4431,6 +4437,12 @@ export class ParcelEntryComponent implements OnInit {
           }
           this.CARAT = FillRes.data[2][0]["CARAT"];
           this.I_CARAT = FillRes.data[2][0]["I_CARAT"];
+          if(FillRes.data[2][0]["RTOP"]){
+            this.RTOP = FillRes.data[2][0]["RTOP"].toFixed(2);
+          }
+          if(FillRes.data[2][0]["SIZE"]){
+          this.SIZE = FillRes.data[2][0]["SIZE"].toFixed(2);
+          }
           this.RATE = FillRes.data[2][0]["RATE"];
           if (FillRes.data[2][0]["RCTS"]) {
             this.RCTS = FillRes.data[2][0]["RCTS"].toFixed(0);
@@ -5444,12 +5456,14 @@ export class ParcelEntryComponent implements OnInit {
           this.CARAT = NewCrt.toFixed(2);
           this.RATE = (this.AMT / this.CARAT).toFixed(2);
           this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
+          this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
         } else {
           let NewValue = (this.TDIS / 100) * NewAmt;
           let FinalValue = NewAmt + NewValue;
           this.AMT = FinalValue.toFixed(0);
           this.RATE = (this.AMT / this.CARAT).toFixed(2);
           this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
+          this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
         }
       } catch (error) {
         console.log(error);
@@ -5589,6 +5603,7 @@ export class ParcelEntryComponent implements OnInit {
 
     this.RATE = (this.AMT / this.CARAT).toFixed(2);
     this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
+    this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
   }
 
   TdisChange() {
@@ -5606,6 +5621,7 @@ export class ParcelEntryComponent implements OnInit {
 
     this.RATE = (this.AMT / this.CARAT).toFixed(2);
     this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
+    this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
   }
 
   TbaleColColor(params, colDefField) {

@@ -197,6 +197,9 @@ export class TendarWinComponent implements OnInit {
                       if (params.colDef.headerName == "USER3") {
                         return "cell-span1";
                       }
+                      if (params.colDef.headerName == "Commnet") {
+                        return "cell-span1";
+                      }
                     }
                   },
                 });
@@ -744,6 +747,45 @@ export class TendarWinComponent implements OnInit {
         }
       }
     }
+    if (SubData.length != 0 && params.colDef.headerName == "Commnet") {
+      if (params.node.rowIndex == 0) {
+        let previousIndex =
+          params.node.rowIndex != 0
+            ? params.node.rowIndex - 1
+            : params.node.rowIndex;
+        if (params.data.BVCOMMENT == SubData[params.node.rowIndex].BVCOMMENT) {
+          let mergeIndex = 0;
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.BVCOMMENT == SubData[i].BVCOMMENT && params.data.BVCOMMENT) {
+              mergeIndex += 1;
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      } else {
+        let previousIndex =
+          params.node.rowIndex != 0
+            ? params.node.rowIndex - 1
+            : params.node.rowIndex;
+        if (params.data.BVCOMMENT != SubData[previousIndex].BVCOMMENT) {
+          let mergeIndex = 0;
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (params.data.BVCOMMENT == SubData[i].BVCOMMENT && params.data.BVCOMMENT) {
+              mergeIndex += 1;
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      }
+    }
   }
 
   DateFormat(params) {
@@ -1019,7 +1061,7 @@ export class TendarWinComponent implements OnInit {
     var mapForm = document.createElement("form");
     mapForm.target = "_blank";
     mapForm.method = "POST";
-    mapForm.action = `https://${this.url}:${this.port}/api/View/TendarWinSheet`;
+    mapForm.action = `http://${this.url}:${this.port}/api/View/TendarWinSheet`;
 
     let obj = {
       DataRow: JSON.stringify(rowData),

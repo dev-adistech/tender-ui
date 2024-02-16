@@ -80,6 +80,7 @@ export class PerMastComponent implements OnInit {
     { FORM_GROUP: 'Master', FORM_NAME: 'ShdMastComponent', DESCR: 'Shade Master' },
     { FORM_GROUP: 'Master', FORM_NAME: 'RefMastComponent', DESCR: 'Reflection Master' },
     { FORM_GROUP: 'Master', FORM_NAME: 'SellDaysMastComponent', DESCR: 'Sell Days Master' },
+    { FORM_GROUP: 'Master', FORM_NAME: 'ModelMastComponent', DESCR: 'Model Master' },
 
     { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarComComponent', DESCR: 'Tendar Company' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'TendarMastComponent', DESCR: 'Tendar Master' },
@@ -88,6 +89,7 @@ export class PerMastComponent implements OnInit {
     { FORM_GROUP: 'Transaction', FORM_NAME: 'LotMappingComponent', DESCR: 'Lot Mapping' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'ExpiryDateComponent', DESCR: 'Expiry Date' },
     { FORM_GROUP: 'Transaction', FORM_NAME: 'ParcelEntryComponent', DESCR: 'Parcel Entry' },
+    { FORM_GROUP: 'Transaction', FORM_NAME: 'AssortEntComponent', DESCR: 'Assort Entry' },
 
     { FORM_GROUP: 'View', FORM_NAME: 'PricingWrkViewComponent', DESCR: 'Pricing Work' },
     { FORM_GROUP: 'View', FORM_NAME: 'BVViewComponent', DESCR: 'B V' },

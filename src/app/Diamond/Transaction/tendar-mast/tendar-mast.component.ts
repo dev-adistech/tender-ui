@@ -131,6 +131,7 @@ export class TendarMastComponent implements OnInit {
   T_DATE: any = null;
   ISACTIVE: boolean = false;
   ISMIX: boolean = false;
+  ISASSORT: boolean = false;
 
   ALLOWINS: boolean = false;
   ALLOWDEL: boolean = false;
@@ -314,18 +315,32 @@ export class TendarMastComponent implements OnInit {
         },
       },
       {
+        headerName: "Assort",
+        field: "ISASSORT",
+        cellStyle: { "text-align": "center" },
+        headerClass: "text-center",
+        width: 65,
+        cellRenderer: (params) => {
+          if (params.data.ISASSORT == true) {
+            return '<input type="checkbox" data-action-type="ASSORT" checked  disabled>';
+          } else {
+            return '<input type="checkbox" data-action-type="ASSORT" disabled>';
+          }
+        },
+      },
+      {
         headerName: "Tendar Pcs",
         field: "T_PCS",
         cellStyle: { "text-align": "right" },
         headerClass: "text-center",
-        width: 110,
+        width: 82,
       },
       {
         headerName: "Tendar Crt",
         field: "T_CARAT",
         cellStyle: { "text-align": "right" },
         headerClass: "text-center",
-        width: 110,
+        width: 88,
       },
     ];
     this.defaultColDef = {
@@ -423,6 +438,18 @@ export class TendarMastComponent implements OnInit {
   }
 
   MixChange() {
+    if (this.ISMIX) {
+      this.FieldHide = true;
+    } else {
+      this.FieldHide = false;
+    }
+  }
+  AssotChange(){
+    if(this.ISASSORT){
+      this.ISMIX = true
+    }else{
+      this.ISMIX = false
+    }
     if (this.ISMIX) {
       this.FieldHide = true;
     } else {
@@ -993,6 +1020,13 @@ export class TendarMastComponent implements OnInit {
       return;
     }
 
+    if(this.ISASSORT){
+      if(!this.ISMIX){
+        this.toastr.warning("Select A Mix Tick")
+        return
+      }
+    }
+
     if (this.ISMIX) {
       if (!this.T_PCS) {
         this.toastr.warning("enter Valid Tendar Pcs");
@@ -1014,6 +1048,7 @@ export class TendarMastComponent implements OnInit {
       T_NAME: this.T_NAME,
       ISACTIVE: this.ISACTIVE ? this.ISACTIVE : false,
       ISMIX: this.ISMIX ? this.ISMIX : false,
+      ISASSORT: this.ISASSORT ? this.ISASSORT : false,
       T_PCS: this.T_PCS ? this.T_PCS : 0,
       T_CARAT: this.T_CARAT ? this.T_CARAT : 0,
     };
@@ -1567,6 +1602,7 @@ export class TendarMastComponent implements OnInit {
           (this.DETID = eve.data.DETID ? eve.data.DETID : 0);
         this.ISACTIVE = eve.data.ISACTIVE ? eve.data.ISACTIVE : false;
         this.ISMIX = eve.data.ISMIX ? eve.data.ISMIX : false;
+        this.ISASSORT = eve.data.ISASSORT ? eve.data.ISASSORT : false;
         this.T_CARAT = eve.data.T_CARAT ? eve.data.T_CARAT : 0;
         this.T_PCS = eve.data.T_PCS ? eve.data.T_PCS : 0;
         if (eve.data.ISMIX) {

@@ -92,6 +92,9 @@ import { StoneidPopupComponent } from './Diamond/View/pricing-wrk-view/stoneid-p
 import { ParcelEntryComponent } from './Diamond/Transaction/parcel-entry/parcel-entry.component';
 import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bid-data.component';
 import { ExpiryDateComponent } from './Diamond/Transaction/expiry-date/expiry-date.component'
+import { FooterDialogComponent } from "./Diamond/Config/footer-dialog.component";
+import { AssortEntComponent } from './Diamond/Transaction/assort-ent/assort-ent.component';
+import { ModelMastComponent } from './Diamond/Master/model-mast/model-mast.component';
 
 
 @NgModule({
@@ -168,7 +171,10 @@ import { ExpiryDateComponent } from './Diamond/Transaction/expiry-date/expiry-da
 		StoneidPopupComponent,
 		ParcelEntryComponent,
 		ParcelBidDataComponent,
-		ExpiryDateComponent
+		ExpiryDateComponent,
+		FooterDialogComponent,
+		AssortEntComponent,
+		ModelMastComponent,
 	],
 	imports: [
 		BrowserModule,

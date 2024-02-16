@@ -108,6 +108,13 @@
                 Sell Days
               </li>
             </div>
+            <div class="sub-menu__vert">
+              <li *ngIf="CheckFormPermission('ModelMastComponent')"
+                (click)="addiFrameTabs('Model Master', '/ModelMast')">
+                <img src="../../../../assets/img/Master/model.png" alt="" />
+                Model
+              </li>
+            </div>
           </div>
           <p class="sub-menu__section-name">Parameter</p>
         </div>
@@ -179,6 +186,13 @@
                 <img src="../../../../assets/img/Transaction/expiry.png" alt="" />
                 Expiry Date
               </li>
+              </div>
+              <div class="sub-menu__vert">
+                <li *ngIf="CheckFormPermission('AssortEntComponent')"
+                  (click)="addiFrameTabs('Assort Entry', '/AssortEnt')">
+                  <img src="../../../../assets/img/Transaction/assort.png" alt="" />
+                  Assort Entry
+                </li>
               </div>
           </div>
           <p class="sub-menu__section-name">Pointer</p>

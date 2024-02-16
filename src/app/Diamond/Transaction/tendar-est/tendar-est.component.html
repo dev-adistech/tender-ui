@@ -209,7 +209,7 @@
                     <!-- <input type="text" style="border:1px solid black;width: 63px;height: 25px;border-right:none;border-top:none;position: relative" name="Code" autocomplete="off" /> -->
                     <select
                       style="border:1px solid black;width: 107px;height: 25px;border-right:none;border-top:none;position: relative;text-align: center;"
-                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="TENSION" [disabled]="FLOCODEDIS">
+                      name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="TENSION" [disabled]="FLOCODEDIS" [ngStyle]="{'background-color': TensionColor(TENSION)}">
                       <option *ngFor="let cl of filteredTension | async" [ngValue]="cl.code">
                         {{ cl.name }}
                       </option>

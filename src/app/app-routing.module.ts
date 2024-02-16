@@ -61,6 +61,8 @@ import { TendarWinComponent } from './Diamond/View/tendar-win/tendar-win.compone
 import { ParcelEntryComponent } from './Diamond/Transaction/parcel-entry/parcel-entry.component';
 import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bid-data.component';
 import { ExpiryDateComponent } from './Diamond/Transaction/expiry-date/expiry-date.component';
+import { AssortEntComponent } from './Diamond/Transaction/assort-ent/assort-ent.component';
+import { ModelMastComponent } from './Diamond/Master/model-mast/model-mast.component';
 
 
 const routes: Routes = [
@@ -105,6 +107,7 @@ const routes: Routes = [
   { path: 'ShdMast', component: ShdMastComponent, canActivate: [AuthGuard] },
   { path: 'RefMast', component: RefMastComponent, canActivate: [AuthGuard] },
   { path: 'SellDaysMast', component: SellDaysMastComponent, canActivate: [AuthGuard] },
+  { path: 'ModelMast', component: ModelMastComponent, canActivate: [AuthGuard] },
 
   // Transaction
   { path: 'TenCom', component: TendarComComponent, canActivate: [AuthGuard] },
@@ -112,6 +115,7 @@ const routes: Routes = [
   { path: 'LotMap', component: LotMappingComponent, canActivate: [AuthGuard] },
   { path: 'ExpDate', component: ExpiryDateComponent, canActivate: [AuthGuard] },
   { path: 'ParcelEnt', component: ParcelEntryComponent, canActivate: [AuthGuard] },
+  { path: 'AssortEnt', component: AssortEntComponent, canActivate: [AuthGuard] },
 
   //config
   { path: 'UserCat', component: UserCatComponent, canActivate: [AuthGuard] },

@@ -1,0 +1,477 @@
+<div>
+<table class="table-primary assortMain" style="width: 56%; display: block;margin-top: 0.5%;margin-left: 0.5%;background-color: darkgray;">
+    <tr>
+        <th>
+            <input type="text" value="COMP CODE" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Tendar No" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Pcs" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Carat" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Size" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Rou.Avg" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Amount" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="No.Pkt" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData();">
+                <svg class="icon icon-show">
+                  <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
+                </svg>
+              </button>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <select name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="COMP_CODE"
+                (change)="GETNAME();GETDETID()" style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+                <option *ngFor="let cl of filteredDept | async " [ngValue]="cl.code">
+                    {{ cl.name }}
+                </option>
+            </select>
+        </td>
+        <td style="width: 16%;">
+            <select name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="DETID" (change)="GETDATE()"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+                <option *ngFor="let cl of filteredDetId | async " [ngValue]="cl.code">
+                    {{ cl.code }} || {{cl.date}}
+                </option>
+            </select>
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="T_PCS" class="tenderTxt" (change)="SIZECalc()"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="T_CARAT" class="tenderTxt" (change)="SIZECalc()"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="T_SIZE" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="T_AVG" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="T_AMT" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="T_NOPKT" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <th>
+            <button class="btn theme-btn" matTooltip='Save' matTooltipClass="custom-tooltip" (click)="Save();">
+                <svg class="icon icon-save">
+                  <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+                </svg>
+              </button>
+        </th>
+    </tr>
+    <tr>
+        <th>
+            <input type="text" value="Rough Feel" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Surat Prd" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Mine Quality" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Model" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Avg Color" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Avg Clarity" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th style="width: 13%;">
+            <input type="text" value="Center Black%" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Mix Tinge%" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Avg Tension" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <input type="number" [(ngModel)]="R_FEEL" class="tenderTxt"
+            style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="number" [(ngModel)]="S_PRD" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="M_QUA" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <select name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="M_CODE"
+            style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+            <option *ngFor="let cl of filteredModel | async " [ngValue]="cl.code">
+                {{ cl.name }}
+            </option>
+        </select>
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="A_COLOR" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="A_CLA" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="number" [(ngModel)]="C_BLACK" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="number" [(ngModel)]="M_TINGE" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="number" [(ngModel)]="A_TENSION" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+    </tr>
+</table>
+<cdk-virtual-scroll-viewport itemSize="300" class="example-viewport" >
+    <ng-container *cdkVirtualFor="let item of rowData">
+<table class="table-primary assortMain" style="width: 56%; display: block;margin-top: 0.5%;margin-left: 0.5%;">
+    <tr>
+        <th>
+            <input type="text" value="Sr.No" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+
+        <th>
+            <input type="text" value="Avg Size" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+
+        <th>
+            <input type="text" value="Pcs" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+
+        <th>
+            <input type="text" value="Rou.Crt" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+
+        <th>
+            <input type="text" value="Rou.Avg" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Amount" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <input type="text" value="Rou(%)" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+
+        <th>
+            <input type="text" value="Machine Color" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
+            <button class="btn theme-btn" matTooltip='Save' matTooltipClass="custom-tooltip" (click)="SaveGrid(item);">
+                <svg class="icon icon-save">
+                  <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+                </svg>
+              </button>
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <input type="text" [(ngModel)]="item.DETNO" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </td>
+
+        <td>
+            <input type="text" [(ngModel)]="item.SIZE" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </td>
+
+        <td>
+            <input type="text" [(ngModel)]="item.I_PCS" class="tenderTxt" (change)="PcsChange(item)"
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="item.I_CARAT" class="tenderTxt" (change)="PcsChange(item)"
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </td>
+
+        <td>
+            <input type="text" [(ngModel)]="item.RAVG" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </td>
+
+        <td>
+            <input type="text" [(ngModel)]="item.AMT" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </td>
+
+        <td>
+            <input type="text" [(ngModel)]="item.RTOP" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </td>
+
+        <td>
+            <mat-checkbox class="example-margin" style="margin-left: 40%; display: flex;position: static;text-align: center;height: 31px;"
+            [(ngModel)]="item.ISMC_COL"></mat-checkbox>
+        </td>
+    </tr>
+</table>
+
+<div>
+    <table style="width: 100%;margin-top: 1%;">
+        <tr>
+            <ng-container *ngFor="let colDef of columnDefs">
+                <th *ngIf="!colDef.hide" [ngStyle]="{ 'width': colDef.width + 'px'}">
+                    {{colDef.headerName}}
+                </th>
+            </ng-container>
+        </tr>
+        <ng-container *ngFor="let tableData of item.GRID_DATA">
+            <tr [ngStyle]="{ 'background-color': tableData['PTAG'] == 'Total' || tableData['ISCOL'] == 1 ? '#c0ffc0' : '' }"
+                >
+                <ng-container *ngFor="let colDef of columnDefs">
+                    <td *ngIf="!colDef.hide" [ngStyle]="{'width': colDef.width + 'px'}"
+                        [ngStyle]="{ 'width': colDef.width + 'px'}">
+
+                        <ng-container *ngIf="colDef.FORMAT == 'DateFormat'">
+                            {{TableDateFormat(tableData[colDef.field])}}
+                        </ng-container>
+
+                        <ng-container *ngIf="colDef.FORMAT == 'TimeFormat'">
+                            {{TableTimeFormat(tableData[colDef.field])}}
+                        </ng-container>
+
+                        <ng-container *ngIf="colDef.FORMAT == '#0'">
+                            {{TabIntFormat(tableData[colDef.field])}}
+                        </ng-container>
+
+                        <ng-container *ngIf="colDef.FORMAT == '#0.00'">
+                            {{TabTwoFloatFormat(tableData[colDef.field])}}
+                        </ng-container>
+
+                        <ng-container *ngIf="colDef.FORMAT == '#0.000'">
+                            {{TableThreeFloatFormat(tableData[colDef.field])}}
+                        </ng-container>
+
+                        <ng-container *ngIf="colDef.FORMAT == 'StringFormat'">
+                            {{TableStringFormat(tableData[colDef.field])}}
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'S_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                                <option *ngFor="let shp of S_CODE" [value]="shp.code">{{shp.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'CT_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                                <option *ngFor="let ct of CT_NAME" [value]="ct.code">{{ct.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'LB_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                             >
+                                <option *ngFor="let lab of LB_NAME" [value]="lab.code">{{lab.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'TC_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let col of C_NAME" [value]="col.code">{{col.name}}</option>
+                            </select>
+                        </ng-container>
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'FC_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let col of C_NAME" [value]="col.code">{{col.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'FQ_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let qua of Q_NAME" [value]="qua.code">{{qua.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'TQ_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let qua of Q_NAME" [value]="qua.code">{{qua.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'IN_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let inName of IN_NAME" [value]="inName.code">{{inName.name}}
+                                </option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'FL_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let fl of FL_NAME" [value]="fl.code">{{fl.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'ML_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                                <option *ngFor="let mlk of ML_NAME" [value]="mlk.code">{{mlk.name}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'SH_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let shd of SHD_NAME" [value]="shd.code">{{shd.name}}
+                                </option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'REF_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let ref of REF_NAME" [value]="ref.code">{{ref.name}}
+                                </option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'RAPTYPE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let rap of RAPNAME" [value]="rap.code">{{rap.code}}</option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'DEP_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            >
+                                <option *ngFor="let dep of DEP_NAME" [value]="dep.code">{{dep.code}}
+                                </option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'RAT_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            
+                                >
+                                <option *ngFor="let rat of RAT_NAME" [value]="rat.code">{{rat.code}}
+                                </option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'GRD_CODE' && tableData['PTAG'] != 'Total'">
+                            <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            
+                                >
+                                <option *ngFor="let grd of GRD_NAME" [value]="grd.code">{{grd.code}}
+                                </option>
+                            </select>
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'Editable' && colDef.field == 'CARAT' && tableData['PTAG'] != 'Total' ">
+                            <input type="text" [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            
+                                (change)="findRapTabe(tableData, item)"
+                                >
+                        </ng-container>
+
+                        <ng-container
+                            *ngIf="colDef.FORMAT == 'Editable' && colDef.field == 'CARAT' && tableData['PTAG'] == 'Total' ">
+                            {{TabTwoFloatFormat(tableData[colDef.field])}}
+                        </ng-container>
+                    </td>
+                </ng-container>
+            </tr>
+        </ng-container>
+    </table>
+</div>
+</ng-container>
+</cdk-virtual-scroll-viewport>
+</div>
+<ngx-spinner>
+    <p style="color: white;">Loading...</p>
+</ngx-spinner>

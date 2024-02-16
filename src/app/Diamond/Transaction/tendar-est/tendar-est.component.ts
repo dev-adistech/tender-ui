@@ -2333,6 +2333,8 @@ export class TendarEstComponent implements OnInit {
         template += "</select>";
         return template;
       }
+    }else{
+      return params.data.LB_CODE
     }
   }
   IncFill(params) {
@@ -8000,6 +8002,11 @@ export class TendarEstComponent implements OnInit {
       return "#8db6fc";
     } else if (CODE == 5) {
       return "#aac0e6";
+    }
+  }
+  TensionColor(CODE) {
+    if (CODE == "T3" || CODE == 'T4') {
+      return "#ff6363";
     }
   }
 

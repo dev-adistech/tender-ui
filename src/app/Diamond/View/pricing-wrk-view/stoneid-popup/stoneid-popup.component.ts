@@ -7,6 +7,7 @@ import { ConverterFunctions } from 'src/app/Diamond/_helpers/functions/Converter
 import { GridFunctions } from 'src/app/Diamond/_helpers/functions/GridFunctions';
 import { EncrDecrService } from 'src/app/Service/Common/encr-decr.service';
 import { StoneDetailViewComponent } from '../../stone-detail-view/stone-detail-view.component';
+import { DatePipe } from '@angular/common';
 declare function tabs(params: any): any;
 declare var $: any
 
@@ -39,6 +40,7 @@ export class StoneidPopupComponent implements OnInit {
     private EncrDecrServ: EncrDecrService,
     private _convFunction: ConverterFunctions,
     public dialog: MatDialog,
+    private datepipe: DatePipe,
     private _mdr: MatDialogRef<StoneidPopupComponent>,
     @Inject(MAT_DIALOG_DATA) public dataMain: any
   ) { 
@@ -84,11 +86,19 @@ export class StoneidPopupComponent implements OnInit {
 				field: "SDATE",
 				cellStyle: { "text-align": "center" },
 				headerClass: "text-center",
-				width:56
+        cellRenderer: this.DateFormat.bind(this),
+				width:82
 			},
 			{
 				headerName: "Day Diff ",
 				field: "DAYDIFF",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+				width:78
+			},
+			{
+				headerName: "Lab",
+				field: "CR_NAME",
 				cellStyle: { "text-align": "center" },
 				headerClass: "text-center",
 				width:78
@@ -99,6 +109,7 @@ export class StoneidPopupComponent implements OnInit {
       resizable: true,
       sortable: true,
       filter: true,
+      suppressMenu: true,
       filterParams: {
         suppressMiniFilter: false,
         resetButton: true,
@@ -116,6 +127,14 @@ export class StoneidPopupComponent implements OnInit {
       enableSorting: false,
       enableFilter: false,
       context: { thisComponent: this },
+    }
+  }
+
+  DateFormat(params) {
+    if (params.value) {
+      return this.datepipe.transform(params.value, "dd-MM-yyyy");
+    } else {
+      return "";
     }
   }
 

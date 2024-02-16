@@ -9,13 +9,23 @@ export class AssMastService {
 
   constructor(private http: HttpClient) { }
 
-  AssMastFill(Data: any): Observable<any> {
-    return this.http.post<any>('AssMast/AssMastFill', Data)
+  TendarAssMstSave(Data: any): Observable<any> {
+    return this.http.post<any>('AssMast/TendarAssMstSave', Data)
   }
-  AssMastSave(Data: any): Observable<any> {
-    return this.http.post<any>('AssMast/AssMastSave', Data)
+
+  TendarAssEntFill(Data: any): Observable<any> {
+    return this.http.post<any>('AssMast/TendarAssEntFill', Data)
   }
-  AssMastDelete(Data: any): Observable<any> {
-    return this.http.post<any>('AssMast/AssMastDelete', Data)
+
+  TendarAssPrdSave(Data: any): Observable<any> {
+    return this.http.post<any>('AssMast/TendarAssPrdSave', Data)
+  }
+
+  TendarAssTrnSave(Data: any): Observable<any> {
+    return this.http.post<any>('AssMast/TendarAssTrnSave', Data)
+  }
+
+  async FindRapAss(Data: any) {
+    return this.http.post<any>('AssMast/FindRapAss', Data).toPromise()
   }
 }

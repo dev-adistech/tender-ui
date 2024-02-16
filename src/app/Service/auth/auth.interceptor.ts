@@ -50,7 +50,7 @@ export class AuthInterceptor implements HttpInterceptor {
       })
     } else if (APIURLTail == 'DaimondPending') {
       req = req.clone({
-        url: `http://${this.url}:${this.port1}/${APIURLTail}`
+        url: `https://ws.narola.in/send_tender_daimond_pending`
       })
     }
     else {

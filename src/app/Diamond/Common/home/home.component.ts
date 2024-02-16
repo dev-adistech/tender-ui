@@ -60,6 +60,8 @@ import { LoginPermissionComponent } from "../../Utility/login-permission/login-p
 import { TendarWinComponent } from "../../View/tendar-win/tendar-win.component";
 import { ParcelBidDataComponent } from "../../View/parcel-bid-data/parcel-bid-data.component";
 import { take } from "rxjs/operators";
+import { FooterDialogComponent } from "../../Config/footer-dialog.component";
+import { ModelMastComponent } from "../../Master/model-mast/model-mast.component";
 
 declare function tabs(params: any): any;
 declare var $: any;
@@ -70,10 +72,6 @@ declare var $: any;
   styleUrls: ["./home.component.css"],
 })
 export class HomeComponent implements OnInit {
-  decodedMast = JSON.parse(
-    this.EncrDecrServ.get(localStorage.getItem("unfam1"))
-  );
-
   private socket: any;
   public socketData: any;
   public version: string = version;
@@ -154,6 +152,7 @@ export class HomeComponent implements OnInit {
   CNFPASS: any = "";
 
   RAPBUTTON: boolean = false;
+  decodedMast: any = [];
   constructor(
     public toastr: ToastrService,
     public spinner: NgxSpinnerService,
@@ -172,7 +171,7 @@ export class HomeComponent implements OnInit {
     public commonServ: CommonService,
     private PerMastServ: PerMastService // private _pushNotificationService: PushNotificationService
   ) {
-    this.socket = io(`${this.url}:${this.port1}`, {
+    this.socket = io(`https://ws.narola.in`, {
       path: "/socket.io",
       withCredentials: true,
       transports: ["websocket", "polling"],
@@ -181,7 +180,9 @@ export class HomeComponent implements OnInit {
     this.clickEventsubscription = this.DashboardServ.getClickEvent().subscribe(
       (res) => {}
     );
-    this.SendFistTime();
+    if (environment.BaseUrl === "api.tender.peacocktech.in") {
+      this.SendFistTime();
+    }
     // let Data = this.decodedMast[31]
     // this.FooterTextServ.SendNotification({ MSG: Data }).subscribe((Res) => {
     //   try {
@@ -197,8 +198,13 @@ export class HomeComponent implements OnInit {
       .subscribe(() => {
         const Data = this.decodedMast[31];
         if (Data.length > 0) {
-          this.FooterTextServ.SendNotification({ MSG: Data }).subscribe(
-            (Res) => {
+          this.FooterTextServ.SendNotification({
+            MSG: Data,
+          }).subscribe(
+            (Res) => {},
+            (error) => {
+              this.toastr.warning("Cannot send notification.");
+              this.toastr.error(error.message || "Unknown error occurred.");
             }
           );
         }
@@ -214,8 +220,7 @@ export class HomeComponent implements OnInit {
               this.FooterTextServ.SendNotification({
                 MSG: FillRes.data,
               }).subscribe(
-                (Res) => {
-                },
+                (Res) => {},
                 (error) => {
                   this.toastr.warning("Cannot send notification.");
                   this.toastr.error(error.message || "Unknown error occurred.");
@@ -232,10 +237,18 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit() {
     this.spinner.hide();
-    this.sendNotificationsEvery30Minutes();
-    this.socket.on("DaimondPending", (data: any) => {
-      this.socketData = data.MSG;
-      this.openChildWindow();
+    if (environment.BaseUrl === "api.tender.peacocktech.in") {
+      this.sendNotificationsEvery30Minutes();
+    }
+    this.socket.on("receive_tender_daimond_pending", (data: any) => {
+      if (
+        (this.decodedTkn.U_CAT === "S" || this.decodedTkn.U_CAT === "A") &&
+        environment.BaseUrl === "api.tender.peacocktech.in"
+      ) {
+        this.socketData = data.MSG;
+        this.openChildWindow();
+        this.showDialog();
+      }
     });
 
     if (this.decodedTkn.U_CAT === "S") {
@@ -266,6 +279,17 @@ export class HomeComponent implements OnInit {
     this.HideSubMenu();
   }
 
+  async showDialog() {
+    const PRF = this.dialog.open(FooterDialogComponent, {
+      width: "50%",
+      height: "auto",
+      data: {},
+      disableClose: true,
+    });
+    $("#Close").click();
+    PRF.afterClosed().subscribe((result) => {});
+  }
+
   async openChildWindow() {
     var dimensions = "width=500,height=500";
     let data = "";
@@ -283,10 +307,10 @@ export class HomeComponent implements OnInit {
         });
 
         windows.document.write(
-          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Company Code: ${data[i]["COMP_CODE"]} Company Name: ${data[i]["COMP_NAME"]} Tendar Name: ${data[i]["T_NAME"]} Tendar Number: ${data[i]["DETID"]}</p>`
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center;color:#ff6969">Company Code: ${data[i]["COMP_CODE"]} Company Name: ${data[i]["COMP_NAME"]} Tendar Name: ${data[i]["T_NAME"]} Tendar Number: ${data[i]["DETID"]}</p>`
         );
         windows.document.write(
-          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Tendar Date: ${this.DateFormat(
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center;color:#ff6969">Tendar Date: ${this.DateFormat(
             data[i]["T_DATE"]
           )} Expiry: ${this.DateTimeFormat(
             data[i]["TEXP_DATETIME"]
@@ -307,10 +331,10 @@ export class HomeComponent implements OnInit {
         });
 
         windows1.document.write(
-          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Company Code: ${data[i]["COMP_CODE"]} Company Name: ${data[i]["COMP_NAME"]} Tendar Name: ${data[i]["T_NAME"]} Tendar Number: ${data[i]["DETID"]}</p>`
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center;color:#ff6969">Company Code: ${data[i]["COMP_CODE"]} Company Name: ${data[i]["COMP_NAME"]} Tendar Name: ${data[i]["T_NAME"]} Tendar Number: ${data[i]["DETID"]}</p>`
         );
         windows1.document.write(
-          `<p style="font-size: 1rem; font-family: monospace; text-align:center; ">Tendar Date: ${this.DateFormat(
+          `<p style="font-size: 1rem; font-family: monospace; text-align:center; color:#ff6969">Tendar Date: ${this.DateFormat(
             data[i]["T_DATE"]
           )} Expiry: ${this.DateTimeFormat(
             data[i]["TEXP_DATETIME"]
@@ -371,6 +395,7 @@ export class HomeComponent implements OnInit {
       this.CheckFormPermission("ShdMastComponent") ||
       this.CheckFormPermission("RefMastComponent") ||
       this.CheckFormPermission("SellDaysMastComponent") ||
+      this.CheckFormPermission("ModelMastComponent") ||
       this.CheckFormPermission("TensionMastComponent")
     ) {
       this.masterParameter = true;
@@ -395,7 +420,8 @@ export class HomeComponent implements OnInit {
       this.CheckFormPermission("LotMappingComponent") ||
       this.CheckFormPermission("ExpiryDateComponent") ||
       this.CheckFormPermission("ParcelEntryComponent") ||
-      this.CheckFormPermission("TendarMastComponent")
+      this.CheckFormPermission("TendarMastComponent") ||
+      this.CheckFormPermission("AssortEntComponent")
     ) {
       this.transactionPointer = true;
     } else {
@@ -547,6 +573,10 @@ export class HomeComponent implements OnInit {
           var encrypted = this.EncrDecrServ.set(JSON.stringify(FillRes.data));
           localStorage.removeItem("unfam1");
           localStorage.setItem("unfam1", encrypted);
+
+          this.decodedMast = JSON.parse(
+            this.EncrDecrServ.get(localStorage.getItem("unfam1"))
+          );
         } else {
           this.toastr.warning("Something went wrong whie FillAllMaster.");
         }
@@ -640,6 +670,9 @@ export class HomeComponent implements OnInit {
         break;
       case "Sell Days Master":
         this.ComponentName = SellDaysMastComponent;
+        break;
+      case "Model Master":
+        this.ComponentName = ModelMastComponent;
         break;
       case "Pricing Work":
         this.ComponentName = PricingWrkViewComponent;

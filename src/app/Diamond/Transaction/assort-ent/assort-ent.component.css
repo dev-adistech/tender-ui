@@ -1,0 +1,49 @@
+th,tr,td{
+    border: 1px solid black;
+}
+.assortMain{
+    width: 40%;
+}
+.tenderTxt{
+    width: 100%;
+}
+.tenderSelect{
+    width: 100%;
+}
+
+select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+}
+
+select::-ms-expand {
+	display: none;
+}
+
+input[type=text]:focus {
+    outline: none !important;
+    outline-style: none !important;
+    box-shadow: none !important;
+    border-color: black !important;
+}
+
+.tenderSelect:focus {
+	outline: none !important;
+  outline-style: none !important;
+  box-shadow: none !important;
+  border-color: black !important;
+  /* border-radius:0px !important ; */
+  }
+.tenderTxt:focus {
+	outline: none !important;
+  outline-style: none !important;
+  box-shadow: none !important;
+  border-color: black !important;
+  /* border-radius:0px !important ; */
+  }
+
+  .example-viewport {
+    height: calc(100vh - 60px);
+    width: 100%;
+    /* border: 1px solid #ddd; */
+  }

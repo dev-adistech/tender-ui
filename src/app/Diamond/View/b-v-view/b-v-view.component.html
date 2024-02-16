@@ -49,6 +49,10 @@
       <input matInput  class='pop-outin' style="color: #ff0000a3 !important;font-weight: bold;"type="text" name="Code" autocomplete="off" [(ngModel)]="R_TIME" disabled />
     </mat-form-field>
   </div>
+  <mat-form-field appearance="outline" style="width: 6rem;">
+    <mat-label>Pcs</mat-label>
+    <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="PCS" disabled />
+  </mat-form-field>
   </div>
 
 </div>
@@ -130,7 +134,7 @@
                   disabled name="Code" autocomplete="off" />
                 <select
                   style="border: 1px solid black; text-align: center; height: 25px; width: 95px;border-top: none;position: relative;"
-                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.FL_CODE" disabled>
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.FL_CODE" disabled [ngStyle]="{'background-color': FloColColor(item.FL_CODE)}">
                   <option *ngFor="let cl of filteredSzs | async " [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -141,7 +145,7 @@
 
                 <select
                   style="border:1px solid black;width: 108px; height: 25px;border-right:none;border-top:none;position: relative;text-align: center;"
-                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.T_CODE" disabled>
+                  name="name" autocomplete="off" class="tenderSelect" [(ngModel)]="item.T_CODE" disabled [ngStyle]="{'background-color': TensionColor(item.T_CODE)}">
                   <option *ngFor="let cl of filteredTension | async " [ngValue]="cl.code">
                     {{ cl.name }}
                   </option>
@@ -599,6 +603,10 @@
                     <select [(ngModel)]="tableData[colDef.field]"[disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">   
                       <option *ngFor="let lab of LB_NAME"  [value]="lab.code" >{{lab.name}}</option>  
                     </select>  
+                  </ng-container>
+
+                  <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'LB_CODE' && tableData['PTAG'] === 'Total'">
+                    {{tableData[colDef.field]}}
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'C_CODE' && tableData['PTAG'] != 'Total'">

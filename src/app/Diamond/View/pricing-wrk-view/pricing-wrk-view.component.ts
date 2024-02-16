@@ -1036,7 +1036,7 @@ export class PricingWrkViewComponent implements OnInit {
             const dialogRef = this.dialog.open(StoneidPopupComponent, {
               panelClass: "marker-acc-view-det-dialog",
               autoFocus: false,
-              width: "34%",
+              width: "38%",
               height: "calc(100vh - 16%)",
               disableClose: true,
               data: DresPrdtype

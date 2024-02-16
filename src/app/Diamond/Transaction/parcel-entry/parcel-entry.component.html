@@ -29,7 +29,7 @@
 
         <mat-form-field appearance="outline" style="width: 8rem;">
             <mat-label>Date</mat-label>
-            <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" #fdate onfocus="this.select();" />
+            <input matInput [matDatepicker]="ID1" [(ngModel)]="T_DATE" #fdate onfocus="this.select();" disabled />
             <mat-datepicker-toggle matSuffix [for]="ID1" disabled (click)="ID1.open()"></mat-datepicker-toggle>
             <mat-datepicker disabled  #ID1></mat-datepicker>
         </mat-form-field>
@@ -40,31 +40,41 @@
             </svg>
         </button>
 
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 5rem;font-weight: bold;">
             <mat-label>Amount</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="AMT" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;" hidden>
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" *ngIf="HIDEPOL">
             <mat-label>Pol.Crt</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="CARAT" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;">
             <mat-label>Rou.Crt</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="I_CARAT" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;" hidden>
+
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" *ngIf="SAVEBTNSHOW">
+            <mat-label>Size</mat-label>
+            <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="SIZE" disabled />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;">
+            <mat-label>Rou(%)</mat-label>
+            <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="RTOP" disabled />
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" hidden>
             <mat-label>Rate</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="RATE" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;">
             <mat-label>Rcts</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="RCTS" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;" *ngIf="SAVEBTNSHOW">
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" *ngIf="SAVEBTNSHOW">
             <mat-label>ADis</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="TDIS" [disabled]="ADISDISABLE" (ngModelChange)="TdisChange()"/>
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 6rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;">
             <mat-label>Resrve</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="TRESRVE" [disabled]="ADISDISABLE"/>
         </mat-form-field>

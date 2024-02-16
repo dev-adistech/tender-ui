@@ -154,6 +154,7 @@ export class BVViewComponent implements OnInit {
   T_NAME: any = "";
   T_DATE: any = null;
   TEXP_DATETIME: any = null;
+  PCS: any = '';
   R_TIME: any = null;
   rowData: any[] = [Array(1).fill(0)];
   GRIDROw: any[] = [];
@@ -1807,6 +1808,24 @@ export class BVViewComponent implements OnInit {
         this.toastr.error(error);
       }
     });
+  }
+
+  FloColColor(CODE) {
+    if (CODE == 2) {
+      return "#78f587";
+    } else if (CODE == 3) {
+      return "#ffff9e";
+    } else if (CODE == 4) {
+      return "#8db6fc";
+    } else if (CODE == 5) {
+      return "#aac0e6";
+    }
+  }
+
+  TensionColor(CODE) {
+    if (CODE == "T3" || CODE == "T4") {
+      return "#ff6363";
+    }
   }
 
   ColColor(params) {
@@ -4390,9 +4409,11 @@ export class BVViewComponent implements OnInit {
   }
 
   LoadGridData() {
-    this.R_TIME = null
-    if(this.subscriptionTimer){
-    this.subscriptionTimer.unsubscribe()
+    this.R_TIME = null;
+    this.TEXP_DATETIME = null;
+    this.PCS=''
+    if (this.subscriptionTimer) {
+      this.subscriptionTimer.unsubscribe();
     }
     let FillObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
@@ -4404,6 +4425,9 @@ export class BVViewComponent implements OnInit {
         if (FillRes.success == true) {
           this.tableRepeatCount = Array(FillRes.data[0].length).fill(0);
           this.rowData = FillRes.data[0];
+          if (FillRes.data[0][0].PCS) {
+              this.PCS = FillRes.data[0][0].PCS
+          }
           if (FillRes.data[0][0].TEXP_DATETIME) {
             this.TEXP_DATETIME = this.DateTimeFormat(
               FillRes.data[0][0].TEXP_DATETIME
@@ -4717,7 +4741,6 @@ export class BVViewComponent implements OnInit {
           if (result.value) {
           } else {
             eve.data.MPER = 0;
-            // this.gridApi1.refreshCells({force:true})
           }
         });
       }
@@ -5095,6 +5118,7 @@ export class BVViewComponent implements OnInit {
       try {
         if (SaveRes.success == true) {
           this.spinner.hide();
+          this.LoadGridData()
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -5171,7 +5195,7 @@ export class BVViewComponent implements OnInit {
   }
 
   trackByFn(index, item) {
-    return index; // or item.id
+    return index;
   }
 
   TableDateFormat(value) {
@@ -5432,7 +5456,6 @@ export class BVViewComponent implements OnInit {
               }
             }
           }
-          // this.gridApi1.refreshCells({force:true})
         }
       });
     }
