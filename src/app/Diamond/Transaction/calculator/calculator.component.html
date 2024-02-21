@@ -1,0 +1,191 @@
+<section class="form-container" style="width: 30%;" *ngIf="HIDECALCULATOR">
+    <article class="fields-wrapper">
+        <p class="TextP">Calculator</p>
+    </article>
+
+    <div style="display: flex;gap: 0.5rem;">
+        <div class="glass-light" style="display: grid;width: 24%;">
+            <img src="./../../../../assets/img/Daimond.png" style="width: 27.55px;height: 28.8px;margin-left: 27px;">
+            <input style="width: 100%;" matInput [(ngModel)]="CARAT" type="text" name="Code" autocomplete="off"
+                (click)="onInputFieldClick('CARAT')" (ngModelChange)="Findrap()" />
+            <p style="margin-left: 31px;">CT</p>
+        </div>
+        <div class="glass-light">
+            <select id="ColorField" style="margin-top: 45%;" [(ngModel)]="S_CODE" (ngModelChange)="GetName();Findrap()">
+                <option *ngFor="let shp of Shaps" [value]="shp.code">{{shp.name}}</option>
+            </select>
+        </div>
+        <div class="glass-light">
+            <select id="ColorField" style="margin-top: 54%;" [(ngModel)]="C_CODE" (ngModelChange)="GetColorName();Findrap()">
+                <option *ngFor="let col of Colors" [value]="col.code">{{col.name}}</option>
+            </select>
+        </div>
+        <div class="glass-light">
+            <select id="ColorField" style="margin-top: 50%;" [(ngModel)]="Q_CODE" (ngModelChange)="GetQuaName();Findrap()">
+                <option *ngFor="let qua of QuaArr" [value]="qua.code">{{qua.name}}</option>
+            </select>
+        </div>
+    </div>
+
+    <div style="display: flex;gap: 0.5rem;">
+        <div class="glass-light">
+            <p>Rap %</p>
+            <select id="ColorField" (click)="onInputFieldClick($event.target)" [(ngModel)]="RAP"
+                (click)="onInputFieldClick('RAP')" (ngModelChange)="ValueChange()" >
+                <option *ngFor="let shp of RapArr" [value]="shp.code">{{shp.code}}</option>
+            </select>
+        </div>
+        <div class="glass-light" style="display: grid;gap: 0.3rem;">
+            <p>Your Price,$</p>
+            <div style="display: -webkit-inline-box;">
+                <input style="width: 54%;" matInput [(ngModel)]="YCT" type="text" name="Code" autocomplete="off"
+                    disabled />
+                <p>/CT</p>
+            </div>
+            <div style="display: -webkit-inline-box;">
+                <input style="width: 54%;" matInput [(ngModel)]="YTTL" type="text" name="Code" autocomplete="off"
+                    disabled />
+                <p>TTL</p>
+            </div>
+        </div>
+        <div class="glass-light" style="display: grid;gap: 0.3rem;">
+            <p>List Price,$</p>
+            <div style="display: -webkit-inline-box;">
+                <input style="width: 54%;" matInput [(ngModel)]="LCT" disabled type="text" name="Code"
+                    autocomplete="off" />
+                <p>/CT</p>
+            </div>
+            <div style="display: -webkit-inline-box;">
+                <input style="width: 54%;" matInput [(ngModel)]="LTTL" disabled type="text" name="Code"
+                    autocomplete="off" />
+                <p>TTL</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="calculator">
+        <div class="buttons">
+            <div class="leftPanel">
+                <div class="numbers">
+                    <div class="numbers" (click)="onButtonClick('7')">7</div>
+                    <div class="numbers" (click)="onButtonClick('8')">8</div>
+                    <div class="numbers" (click)="onButtonClick('9')">9</div>
+                </div>
+                <div class="numbers">
+                    <div class="numbers" (click)="onButtonClick('4')">4</div>
+                    <div class="numbers" (click)="onButtonClick('5')">5</div>
+                    <div class="numbers" (click)="onButtonClick('6')">6</div>
+                </div>
+                <div class="numbers">
+                    <div class="numbers" (click)="onButtonClick('1')">1</div>
+                    <div class="numbers" (click)="onButtonClick('2')">2</div>
+                    <div class="numbers" (click)="onButtonClick('3')">3</div>
+                </div>
+                <div class="numbers">
+                    <div class="numbers" (click)="onButtonClick('0')">0</div>
+                    <div class="numbers" (click)="onButtonClick('.')">.</div>
+                    <div id="clear" (click)="onButtonClick('C')">C</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 d-flex">
+        <img class="m-2" src="./../../../../assets/img/home.png" style="width: 27.55px;height: 28.8px;"
+            (click)="CalculatorShow()">
+        <img class="m-2" src="./../../../../assets/img/Daimond.png" style="width: 27.55px;height: 28.8px;"
+            (click)="DaiMondShow()">
+        </div>
+    </div>
+    <div class="col-lg-6">
+        
+    </div>
+</section>
+<section class="form-container" style="width: 30%;" *ngIf="DaimondHide">
+    <article class="fields-wrapper">
+        <p class="TextP">Compare / Recut</p>
+    </article>
+    <div class="row w-100">
+        <div class="col-lg-6" style="background-color: #d0f5f7;">
+            <div style="display: flex;gap: 0.5rem;">
+                <p style="font-weight: bold;">Diamond 1</p>
+            </div>
+            <div class="row w-100">
+                <div class="col-lg-6" style="gap: 1.5rem;">
+                    <p>Shape</p>
+                    <p>Size</p>
+                    <p>Color</p>
+                    <p>Clarity</p>
+                    <p>Rap%</p>
+                    <p>$/CT</p>
+                    <p>$Total</p>
+                </div>
+                <div class="col-lg-6" style="gap: 1.5rem;">
+                    <p style="font-weight: bold;">{{S_NAME}}</p>
+                    <p style="font-weight: bold;">{{CARAT}} CT</p>
+                    <p style="font-weight: bold;">{{C_NAME}}</p>
+                    <p style="font-weight: bold;">{{Q_NAME}}</p>
+                    <p style="font-weight: bold;">{{RAP}}%</p>
+                    <p style="font-weight: bold;">{{YCT}}</p>
+                    <p style="font-weight: bold;">{{YTTL}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div style="display: flex;gap: 0.5rem;">
+                <p style="font-weight: bold;">Diamond 2</p>
+            </div>
+            <div style="gap: 1.5rem;">
+            <select class="mb-2" style="width: 100%;" [(ngModel)]="DS_CODE" (ngModelChange)="FindrapDaimond()">
+                <option *ngFor="let shp of Shaps" [value]="shp.code">{{shp.name}}</option>
+            </select>
+            <div class="row mb-2 align-items-center">
+                <div class="col-lg-10">
+                    <input style="width: 100%;" matInput [(ngModel)]="DCARAT" type="text" name="Code"
+                        autocomplete="off" (ngModelChange)="FindrapDaimond()" />
+                </div>
+                <div class="col-lg-2">
+                    <p class="m-0">CT</p>
+                </div>
+            </div>
+            <select class="mb-2" style="width: 100%;" [(ngModel)]="DC_CODE" (ngModelChange)="FindrapDaimond()">
+                <option *ngFor="let shp of Colors" [value]="shp.code">{{shp.name}}</option>
+            </select>
+            <select class="mb-2" style="width: 100%;" [(ngModel)]="DQ_CODE" (ngModelChange)="FindrapDaimond()">
+                <option *ngFor="let shp of QuaArr" [value]="shp.code">{{shp.name}}</option>
+            </select>
+            <select class="mb-2" style="width: 100%;" [(ngModel)]="DRAP" (ngModelChange)="FindDaimondDiff()">
+                <option *ngFor="let shp of RapArr" [value]="shp.code">{{shp.code}}</option>
+            </select>
+            <input class="mb-2" style="width: 100%;" disabled matInput [(ngModel)]="DCT" type="text" name="Code"
+            autocomplete="off" />
+            <input class="mb-2" style="width: 100%;" disabled matInput [(ngModel)]="DTotal" type="text" name="Code"
+            autocomplete="off" />
+        </div>
+        </div>
+    </div>
+    <article class="fields-wrapper">
+        <p>Diffrence</p>
+    </article>
+    <div class="row w-100">
+        <div class="col-lg-6">
+            <p class="mb-0">$/CT</p>
+            <input class="DiffClas" matInput disabled [(ngModel)]="DIFFCT" type="text" name="Code" autocomplete="off"/>
+        </div>
+        <div class="col-lg-6">
+            <p class="mb-0">Total</p>
+            <input class="DiffClas" matInput disabled [(ngModel)]="DIFFTotal" type="text" name="Code" autocomplete="off"/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 d-flex">
+        <img class="m-2" src="./../../../../assets/img/home.png" style="width: 27.55px;height: 28.8px"
+            (click)="CalculatorShow()">
+        <img class="m-2" src="./../../../../assets/img/Daimond.png"  style="width: 27.55px;height: 28.8px"
+            (click)="DaiMondShow()">
+        </div>
+    </div>
+    <div class="col-lg-6">
+
+    </div>
+</section>

@@ -1,25 +1,24 @@
-import { DatePipe } from '@angular/common';
-import { Component, ElementRef, OnInit } from '@angular/core';
-import { NgxSpinnerService } from 'ngx-spinner';
-import { ToastrService } from 'ngx-toastr';
-import { EncrDecrService } from 'src/app/Service/Common/encr-decr.service';
-import { TendatMastService } from 'src/app/Service/Transaction/tendat-mast.service';
-import Swal from 'sweetalert2';
-import { ConverterFunctions } from '../../_helpers/functions/ConverterFunctions';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
-import { FormControl } from '@angular/forms';
-import { AssMastService } from 'src/app/Service/Master/ass-mast.service';
-import { ViewParaMastService } from 'src/app/Service/Master/view-para-mast.service';
+import { DatePipe } from "@angular/common";
+import { Component, ElementRef, OnInit } from "@angular/core";
+import { NgxSpinnerService } from "ngx-spinner";
+import { ToastrService } from "ngx-toastr";
+import { EncrDecrService } from "src/app/Service/Common/encr-decr.service";
+import { TendatMastService } from "src/app/Service/Transaction/tendat-mast.service";
+import Swal from "sweetalert2";
+import { ConverterFunctions } from "../../_helpers/functions/ConverterFunctions";
+import { JwtHelperService } from "@auth0/angular-jwt";
+import { Observable } from "rxjs";
+import { map, startWith } from "rxjs/operators";
+import { FormControl } from "@angular/forms";
+import { AssMastService } from "src/app/Service/Master/ass-mast.service";
+import { ViewParaMastService } from "src/app/Service/Master/view-para-mast.service";
 
 @Component({
-  selector: 'app-assort-ent',
-  templateUrl: './assort-ent.component.html',
-  styleUrls: ['./assort-ent.component.css']
+  selector: "app-assort-ent",
+  templateUrl: "./assort-ent.component.html",
+  styleUrls: ["./assort-ent.component.css"],
 })
 export class AssortEntComponent implements OnInit {
-
   decodeHelper = new JwtHelperService();
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem("token"));
   decodedMast = JSON.parse(
@@ -31,7 +30,7 @@ export class AssortEntComponent implements OnInit {
   DeptControl: FormControl;
   COMP_CODE: any = "";
   COMP_NAME: any = "";
-  
+
   DetIdControl: FormControl;
   filteredDetId: Observable<any[]>;
   DETIDarr: any = [];
@@ -39,26 +38,26 @@ export class AssortEntComponent implements OnInit {
   T_NAME: any = "";
   T_DATE: any = null;
 
-  T_PCS:any=''
-  T_CARAT:any=''
-  T_SIZE:any=''
-  T_AVG:any=''
-  T_AMT:any=''
-  T_NOPKT:any=''
+  T_PCS: any = "";
+  T_CARAT: any = "";
+  T_SIZE: any = "";
+  T_AVG: any = "";
+  T_AMT: any = "";
+  T_NOPKT: any = "";
 
   ModelControl: FormControl;
   filteredModel: Observable<any[]>;
   Modelarr: any = [];
   M_CODE: any = "";
 
-  R_FEEL:any='';
-  S_PRD:any='';
-  M_QUA:any='';
-  A_COLOR:any='';
-  A_CLA:any='';
-  C_BLACK:any='';
-  M_TINGE:any='';
-  A_TENSION:any='';
+  R_FEEL: any = "";
+  S_PRD: any = "";
+  M_QUA: any = "";
+  A_COLOR: any = "";
+  A_CLA: any = "";
+  C_BLACK: any = "";
+  M_TINGE: any = "";
+  A_TENSION: any = "";
 
   rowData: any[] = [Array(1).fill(0)];
 
@@ -102,8 +101,8 @@ export class AssortEntComponent implements OnInit {
     private _convFunction: ConverterFunctions,
     private datePipe: DatePipe,
     private AssortMastServ: AssMastService,
-    private ViewParaMastServ: ViewParaMastService,
-  ) { 
+    private ViewParaMastServ: ViewParaMastService
+  ) {
     this.DeptControl = new FormControl();
     this.DetIdControl = new FormControl();
     this.ModelControl = new FormControl();
@@ -152,13 +151,12 @@ export class AssortEntComponent implements OnInit {
     this.RAPNAME = this.decodedMast[27].map((item) => {
       return { code: item.RAPTYPE };
     });
-    this.FillViewPara()
+    this.FillViewPara();
     this.USERID = this.decodedTkn.UserId;
     this.USERCat = this.decodedTkn.U_CAT;
   }
 
   ngOnInit() {
-
     let Depts = this.decodedMast[2].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
@@ -192,9 +190,21 @@ export class AssortEntComponent implements OnInit {
     this.DETID = "";
     this.T_DATE = null;
     this.T_NAME = "";
-    this.T_PCS = '';
-    this.T_CARAT='';
-    this.T_SIZE='';
+    this.T_PCS = "";
+    this.T_CARAT = "";
+    this.T_SIZE = "";
+    this.T_AMT = "";
+    this.T_AVG = "";
+    this.T_NOPKT = "";
+    this.R_FEEL = "";
+    this.S_PRD = "";
+    this.M_CODE = "";
+    this.M_QUA = "";
+    this.A_CLA = "";
+    this.A_COLOR = "";
+    this.C_BLACK = "";
+    this.M_TINGE = "";
+    this.A_TENSION = "";
     this.DETIDarr = [];
     this.TendarMastser.TendarMastFill({ COMP_CODE: this.COMP_CODE }).subscribe(
       (FillRes) => {
@@ -208,15 +218,15 @@ export class AssortEntComponent implements OnInit {
                   code: item.DETID,
                   date: this.datePipe.transform(item.T_DATE, "yyyy-MM-dd"),
                   name: item.T_NAME,
-                  pcs:item.T_PCS,
-                  carat:item.T_CARAT
+                  pcs: item.T_PCS,
+                  carat: item.T_CARAT,
                 };
               });
 
-              this.filteredDetId = this.DetIdControl.valueChanges.pipe(
-                startWith(""),
-                map((value) => this._filterDetId(value))
-              );
+            this.filteredDetId = this.DetIdControl.valueChanges.pipe(
+              startWith(""),
+              map((value) => this._filterDetId(value))
+            );
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -236,7 +246,7 @@ export class AssortEntComponent implements OnInit {
   private _filterDetId(value: string): any[] {
     return this.DETIDarr.filter((sz) => sz.name);
   }
-  
+
   GETNAME() {
     if (this.COMP_CODE) {
       if (this.DEPTArr.filter((x) => x.code == this.COMP_CODE).length != 0) {
@@ -306,41 +316,41 @@ export class AssortEntComponent implements OnInit {
     }
   }
 
-  LoadGridData(){
+  LoadGridData() {
     let SaveObj = {
-      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:"",
-      DETID:this.DETID,
-    }
+      COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
+      DETID: this.DETID,
+    };
     this.spinner.show();
     this.AssortMastServ.TendarAssEntFill(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
           this.spinner.hide();
-          this.T_PCS = SaveRes.data[0][0].I_PCS
-          this.T_CARAT =SaveRes.data[0][0].I_CARAT
-          this.T_NOPKT = SaveRes.data[0][0].N_PCS
-          this.R_FEEL = SaveRes.data[0][0].ROU_FEEL
-          this.S_PRD = SaveRes.data[0][0].ST_PRD
-          this.M_QUA = SaveRes.data[0][0].M_QUALITY
-          this.M_CODE = SaveRes.data[0][0].MODEL
-          this.A_COLOR = SaveRes.data[0][0].AVG_COLOR
-          this.A_CLA = SaveRes.data[0][0].AVG_QUALITY
-          this.C_BLACK = SaveRes.data[0][0].CNT_BLK
-          this.M_TINGE = SaveRes.data[0][0].MIX_TIN
-          this.A_TENSION = SaveRes.data[0][0].AVG_TEN
-          if(SaveRes.data[0][0].TAMT){
-            this.T_AMT = SaveRes.data[0][0].TAMT.toFixed(2)
-          }else{
-            this.T_AMT = SaveRes.data[0][0].TAMT
+          this.T_PCS = SaveRes.data[0][0].I_PCS;
+          this.T_CARAT = SaveRes.data[0][0].I_CARAT;
+          this.T_NOPKT = SaveRes.data[0][0].N_PCS;
+          this.R_FEEL = SaveRes.data[0][0].ROU_FEEL;
+          this.S_PRD = SaveRes.data[0][0].ST_PRD;
+          this.M_QUA = SaveRes.data[0][0].M_QUALITY;
+          this.M_CODE = SaveRes.data[0][0].MODEL;
+          this.A_COLOR = SaveRes.data[0][0].AVG_COLOR;
+          this.A_CLA = SaveRes.data[0][0].AVG_QUALITY;
+          this.C_BLACK = SaveRes.data[0][0].CNT_BLK;
+          this.M_TINGE = SaveRes.data[0][0].MIX_TIN;
+          this.A_TENSION = SaveRes.data[0][0].AVG_TEN;
+          if (SaveRes.data[0][0].TAMT) {
+            this.T_AMT = SaveRes.data[0][0].TAMT.toFixed(2);
+          } else {
+            this.T_AMT = SaveRes.data[0][0].TAMT;
           }
-          if(SaveRes.data[0][0].RAVG){
-            this.T_AVG = SaveRes.data[0][0].RAVG.toFixed(2)
-          }else{
-            this.T_AVG = SaveRes.data[0][0].RAVG
+          if (SaveRes.data[0][0].RAVG) {
+            this.T_AVG = SaveRes.data[0][0].RAVG.toFixed(2);
+          } else {
+            this.T_AVG = SaveRes.data[0][0].RAVG;
           }
 
-          this.rowData = SaveRes.data[1]
-          this.NewRowData = SaveRes.data[2]
+          this.rowData = SaveRes.data[1];
+          this.NewRowData = SaveRes.data[2];
 
           for (let i = 0; i < this.rowData.length; i++) {
             this.rowData[i].GRID_DATA = this.GetRowData(
@@ -425,6 +435,8 @@ export class AssortEntComponent implements OnInit {
                 width: VPRes.data[i].COLWIDTH,
                 FORMAT: VPRes.data[i].FORMAT,
                 LOCK: VPRes.data[i].LOCK,
+                align: VPRes.data[i].CELLALIGN,
+                Headersalign:VPRes.data[i].HEADERALIGN,
                 cellStyle: {
                   "text-align": VPRes.data[i].CELLALIGN,
                   "background-color": VPRes.data[i].BACKCOLOR,
@@ -484,31 +496,31 @@ export class AssortEntComponent implements OnInit {
     });
   }
 
-  Save(){
+  Save() {
     let SaveObj = {
-      COMP_CODE:this.COMP_CODE ? this.COMP_CODE:"",
-      DETID:this.DETID,
-      I_PCS:this.T_PCS,
-      I_CARAT:this.T_CARAT,
-      N_PCS:this.T_NOPKT,
-      IUSER:this.decodedTkn.UserId,
-      ROU_FEEL:this.R_FEEL,
-      ST_PRD:this.S_PRD,
-      M_QUALITY:this.M_QUA,
-      MODEL:this.M_CODE,
-      AVG_COLOR:this.A_COLOR,
-      AVG_QUALITY:this.A_CLA,
-      CNT_BLK:this.C_BLACK,
-      MIX_TIN:this.M_TINGE,
-      AVG_TEN:this.A_TENSION
-    }
+      COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
+      DETID: this.DETID,
+      I_PCS: this.T_PCS,
+      I_CARAT: this.T_CARAT,
+      N_PCS: this.T_NOPKT,
+      IUSER: this.decodedTkn.UserId,
+      ROU_FEEL: this.R_FEEL,
+      ST_PRD: this.S_PRD,
+      M_QUALITY: this.M_QUA,
+      MODEL: this.M_CODE,
+      AVG_COLOR: this.A_COLOR,
+      AVG_QUALITY: this.A_CLA,
+      CNT_BLK: this.C_BLACK,
+      MIX_TIN: this.M_TINGE,
+      AVG_TEN: this.A_TENSION,
+    };
     this.spinner.show();
     this.AssortMastServ.TendarAssMstSave(SaveObj).subscribe((SaveRes) => {
       try {
         if (SaveRes.success == true) {
           this.spinner.hide();
-          this.toastr.success("Save Sucesfully")
-          this.LoadGridData()
+          this.toastr.success("Save Sucesfully");
+          this.LoadGridData();
         } else {
           this.spinner.hide();
           Swal.fire({
@@ -527,15 +539,35 @@ export class AssortEntComponent implements OnInit {
   }
 
   GETDATE() {
-    this.T_PCS = ''
-		this.T_CARAT = ''
-		this.T_SIZE = ''
+    this.T_PCS = "";
+    this.T_CARAT = "";
+    this.T_SIZE = "";
+    this.T_DATE = null;
+    this.T_NAME = "";
+    this.T_PCS = "";
+    this.T_CARAT = "";
+    this.T_SIZE = "";
+    this.T_AMT = "";
+    this.T_AVG = "";
+    this.T_NOPKT = "";
+    this.R_FEEL = "";
+    this.S_PRD = "";
+    this.M_CODE = "";
+    this.M_QUA = "";
+    this.A_CLA = "";
+    this.A_COLOR = "";
+    this.C_BLACK = "";
+    this.M_TINGE = "";
+    this.A_TENSION = "";
+    this.rowData=[Array(1).fill(0)];
     if (this.COMP_CODE) {
       if (this.DEPTArr.filter((x) => x.code == this.COMP_CODE).length != 0) {
         this.T_DATE = this.DETIDarr.filter((x) => x.code == this.DETID)[0].date;
         this.T_PCS = this.DETIDarr.filter((x) => x.code == this.DETID)[0].pcs;
-        this.T_CARAT = this.DETIDarr.filter((x) => x.code == this.DETID)[0].carat;
-        this.T_SIZE = (this.T_CARAT/this.T_PCS).toFixed(2)
+        this.T_CARAT = this.DETIDarr.filter(
+          (x) => x.code == this.DETID
+        )[0].carat;
+        this.T_SIZE = (this.T_CARAT / this.T_PCS).toFixed(2);
       } else {
         this.DETID = "";
       }
@@ -547,8 +579,8 @@ export class AssortEntComponent implements OnInit {
     }
   }
 
-  SIZECalc(){
-    this.T_SIZE = (this.T_CARAT/this.T_PCS).toFixed(2)
+  SIZECalc() {
+    this.T_SIZE = (this.T_CARAT / this.T_PCS).toFixed(2);
   }
 
   NumberFormat(params) {
@@ -648,7 +680,6 @@ export class AssortEntComponent implements OnInit {
   }
 
   findRapTabe(tableRow, Item) {
-
     if (!tableRow.S_CODE) {
       return;
     }
@@ -695,19 +726,19 @@ export class AssortEntComponent implements OnInit {
     };
     this.AssortMastServ.FindRapAss(RapObj).then((RapRes) => {
       try {
-        if(RapRes.success == 1){
+        if (RapRes.success == 1) {
           let gridCaratSum = Item.GRID_DATA.filter(
             (item) => item.PTAG != "Total"
           ).reduce((acc, val) => {
             return acc + (val.CARAT ? parseFloat(val.CARAT) : 0);
           }, 0);
-  
+
           gridCaratSum = Item.GRID_DATA.filter(
             (item) => item.PTAG != "Total"
           ).reduce((acc, val) => {
             return acc + (val.CARAT ? parseFloat(val.CARAT) : 0);
           }, 0);
-  
+
           for (let i = 0; i < this.rowData.length; i++) {
             if (this.rowData[i].DETNO == Item.DETNO) {
               for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
@@ -722,7 +753,7 @@ export class AssortEntComponent implements OnInit {
               }
             }
           }
-  
+
           for (let i = 0; i < this.rowData.length; i++) {
             if (this.rowData[i].DETNO == Item.DETNO) {
               for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
@@ -746,9 +777,9 @@ export class AssortEntComponent implements OnInit {
               }
             }
           }
-  
+
           let NewAmtSum = 0;
-          let CaratSum = 0
+          let CaratSum = 0;
           for (let i = 0; i < this.rowData.length; i++) {
             for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
               if (
@@ -775,7 +806,7 @@ export class AssortEntComponent implements OnInit {
                 this.rowData[i].GRID_DATA[j].RATE = FinalValue;
                 this.rowData[i].GRID_DATA[j].AMT = NewSum;
                 NewAmtSum += this.rowData[i].GRID_DATA[j].AMT;
-                if(this.rowData[i].GRID_DATA[j].CARAT){
+                if (this.rowData[i].GRID_DATA[j].CARAT) {
                   CaratSum += parseFloat(this.rowData[i].GRID_DATA[j].CARAT);
                 }
               }
@@ -800,32 +831,39 @@ export class AssortEntComponent implements OnInit {
               }
             }
           }
-          Item.RAVG = (NewAmtSum/parseFloat(Item.SIZE)).toFixed(2)
-          Item.AMT = (parseFloat(Item.I_CARAT)*parseFloat(Item.RAVG)).toFixed(2)
-          Item.RTOP = ((CaratSum/parseFloat(Item.SIZE))*100).toFixed(2)
+          Item.RAVG = (NewAmtSum / parseFloat(Item.SIZE)).toFixed(2);
+          Item.AMT = (parseFloat(Item.I_CARAT) * parseFloat(Item.RAVG)).toFixed(
+            2
+          );
+          Item.RTOP = ((CaratSum / parseFloat(Item.SIZE)) * 100).toFixed(2);
 
-          let OrapSum=0
-          for(let i=0;i<Item.GRID_DATA.length;i++){
-            if(Item.GRID_DATA[i].ORAP && Item.GRID_DATA[i].PTAG !== 'Total' && Item.GRID_DATA[i].CARAT){
-            let OrapMulti = 0
-            OrapMulti = Item.GRID_DATA[i].ORAP*parseFloat(Item.GRID_DATA[i].CARAT)
-            OrapSum += OrapMulti
+          let OrapSum = 0;
+          for (let i = 0; i < Item.GRID_DATA.length; i++) {
+            if (
+              Item.GRID_DATA[i].ORAP &&
+              Item.GRID_DATA[i].PTAG !== "Total" &&
+              Item.GRID_DATA[i].CARAT
+            ) {
+              let OrapMulti = 0;
+              OrapMulti =
+                Item.GRID_DATA[i].ORAP * parseFloat(Item.GRID_DATA[i].CARAT);
+              OrapSum += OrapMulti;
             }
           }
-          for(let i=0;i<Item.GRID_DATA.length;i++){
-            if(Item.GRID_DATA[i].PTAG == 'Total'){
-              Item.GRID_DATA[i].ORAP = OrapSum/Item.GRID_DATA[i].CARAT
-              Item.GRID_DATA[i].PER = 100-((Item.GRID_DATA[i].RATE*100)/Item.GRID_DATA[i].ORAP)
+          for (let i = 0; i < Item.GRID_DATA.length; i++) {
+            if (Item.GRID_DATA[i].PTAG == "Total") {
+              Item.GRID_DATA[i].ORAP = OrapSum / Item.GRID_DATA[i].CARAT;
+              Item.GRID_DATA[i].PER =
+                100 - (Item.GRID_DATA[i].RATE * 100) / Item.GRID_DATA[i].ORAP;
             }
           }
-          let MainAmtSum=0
-          for(let i=0;i<this.rowData.length;i++){
-            MainAmtSum += parseFloat(this.rowData[i].AMT)
+          let MainAmtSum = 0;
+          for (let i = 0; i < this.rowData.length; i++) {
+            MainAmtSum += parseFloat(this.rowData[i].AMT);
           }
-          this.T_AMT = MainAmtSum
-          this.T_AVG = (this.T_AMT/this.T_CARAT).toFixed(2)
-        }else{
-
+          this.T_AMT = MainAmtSum;
+          this.T_AVG = (this.T_AMT / this.T_CARAT).toFixed(2);
+        } else {
         }
       } catch (error) {
         console.log(error);
@@ -834,27 +872,32 @@ export class AssortEntComponent implements OnInit {
     });
   }
 
-  PcsChange(item){
-    item.SIZE = (parseFloat(item.I_CARAT)/parseFloat(item.I_PCS)).toFixed(2)
+  PcsChange(item) {
+    item.SIZE = (parseFloat(item.I_CARAT) / parseFloat(item.I_PCS)).toFixed(2);
   }
-  SaveGrid(item){
-    let SubData = []
+  SaveGrid(item) {
+    let SubData = [];
 
-    for(let i=0;i<item.GRID_DATA.length;i++){
-      if(item.GRID_DATA[i].PTAG !== 'Total'){
-        SubData.push(item.GRID_DATA[i])
+    for (let i = 0; i < item.GRID_DATA.length; i++) {
+      if (item.GRID_DATA[i].PTAG !== "Total") {
+        SubData.push(item.GRID_DATA[i]);
       }
     }
-    
 
+    if(!item.I_PCS){
+      return this.toastr.warning("Enter Pcs")
+    }
+    if(!item.I_CARAT){
+      return this.toastr.warning("Enter Rough Carat")
+    }
     let saveOBJ = {
       COMP_CODE: this.COMP_CODE,
       DETID: this.DETID,
-      DETNO:item.DETNO,
-      I_PCS:item.I_PCS,
-      I_CARAT:item.I_CARAT,
-      IUSER:this.decodedTkn.UserId,
-      ISMC_COL:item.ISMC_COL
+      DETNO: item.DETNO,
+      I_PCS: item.I_PCS,
+      I_CARAT: item.I_CARAT,
+      IUSER: this.decodedTkn.UserId,
+      ISMC_COL: item.ISMC_COL,
     };
     this.AssortMastServ.TendarAssTrnSave(saveOBJ).subscribe((SaveRes) => {
       try {

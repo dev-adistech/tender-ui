@@ -2,7 +2,7 @@
     <article class="fields-wrapper">
       <mat-form-field appearance="outline">
         <mat-label>Code *</mat-label>
-        <input matInput type="number" [ngModel]="M_CODE" name="Code" autocomplete="off"
+        <input matInput type="text" [ngModel]="M_CODE" name="Code" autocomplete="off"
           [ngModelOptions]="{ updateOn: 'blur' }" (ngModelChange)="M_CODE = $event" autofocus />
       </mat-form-field>
       <mat-form-field appearance="outline">

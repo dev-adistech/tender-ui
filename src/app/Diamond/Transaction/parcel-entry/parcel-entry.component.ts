@@ -18,6 +18,7 @@ import { BvViewDetComponent } from "../../View/b-v-view/bv-view-det/bv-view-det.
 import { map, startWith } from "rxjs/operators";
 import PerfectScrollbar from "perfect-scrollbar";
 import { ParcelEntService } from "src/app/Service/Transaction/parcel-ent.service";
+import { GridFunctions } from "../../_helpers/functions/GridFunctions";
 declare let $: any;
 @Component({
   selector: "app-parcel-entry",
@@ -184,6 +185,77 @@ export class ParcelEntryComponent implements OnInit {
   USERCat: any = "";
   TRESRVE: any = "";
 
+  ProposalHide: boolean = false;
+
+  public columnDefsShape;
+  public gridApiShape;
+  public pinnedBottomRowDataShape;
+  public gridColumnApiShape;
+  public defaultColDefShape;
+  public gridOptionsShape;
+  ShapeRowData: any[] = [];
+
+  public columnDefsSize;
+  public gridApiSize;
+  public pinnedBottomRowDataSize;
+  public gridColumnApiSize;
+  public defaultColDefSize;
+  public gridOptionsSize;
+  SizeRowData: any[] = [];
+  
+  public columnDefsColor;
+  public gridApiColor;
+  public gridColumnApiColor;
+  public defaultColDefColor;
+  public gridOptionsColor;
+  public pinnedBottomRowDataColor;
+  ColorRowData: any[] = [];
+  
+  public columnDefsQua;
+  public gridApiQua;
+  public gridColumnApiQua;
+  public defaultColDefQua;
+  public gridOptionsQua;
+  public pinnedBottomRowDataQua;
+  QuaRowData: any[] = [];
+  
+  public columnDefsShd;
+  public gridApiShd;
+  public gridColumnApiShd;
+  public defaultColDefShd;
+  public gridOptionsShd;
+  public pinnedBottomRowDataShd;
+  ShdRowData: any[] = [];
+  
+  public columnDefsCut;
+  public gridApiCut;
+  public gridColumnApiCut;
+  public defaultColDefCut;
+  public gridOptionsCut;
+  public pinnedBottomRowDataCut;
+  CutRowData: any[] = [];
+  
+  public columnDefsFlo;
+  public gridApiFlo;
+  public gridColumnApiFlo;
+  public defaultColDefFlo;
+  public gridOptionsFlo;
+  public pinnedBottomRowDataFlo;
+  FloRowData: any[] = [];
+
+  public columnDefsInc;
+  public gridApiInc;
+  public gridColumnApiInc;
+  public defaultColDefInc;
+  public gridOptionsInc;
+  public pinnedBottomRowDataInc;
+  IncRowData: any[] = [];
+
+  public getRowStyleDock;
+
+  
+  FooterKeyShape = ["NAME", "CARAT", "PCS", "RATE", "AMT"];
+
   constructor(
     private EncrDecrServ: EncrDecrService,
     private toastr: ToastrService,
@@ -196,6 +268,7 @@ export class ParcelEntryComponent implements OnInit {
     private datePipe: DatePipe,
     private TendarEstServ: TendarEstService,
     private dialog: MatDialog,
+    private _gridFunction: GridFunctions,
     private ParcelEntServ: ParcelEntService
   ) {
     this.szControl = new FormControl();
@@ -236,6 +309,462 @@ export class ParcelEntryComponent implements OnInit {
     this.FillViewPara();
     this.USERID = this.decodedTkn.UserId;
     this.USERCat = this.decodedTkn.U_CAT;
+
+    this.getRowStyleDock = function (params) {
+      if (params.data) {
+        if (params.node.rowPinned === "bottom") {
+          return { background: "#FFE0C0", "font-weight": "bold" };
+        }
+      }
+    };
+
+    let columnDefs = [];
+    columnDefs.push({
+      headerName: "Shape Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+        {
+          headerName: "Shape",
+          field: "NAME",
+          cellStyle: { "text-align": "left" },
+          headerClass: "text-center",
+          width: 64,
+        },
+        {
+          headerName: "Weight",
+          field: "CARAT",
+          cellStyle: { "text-align": "right" },
+          headerClass: "text-center",
+          width: 49,
+        },
+        {
+          headerName: "Pcs",
+          field: "PCS",
+          cellStyle: { "text-align": "right" },
+          headerClass: "text-center",
+          width: 30,
+        },
+        {
+          headerName: "Carat%",
+          field: "RATE",
+          cellStyle: { "text-align": "center" },
+          headerClass: "text-center",
+          width: 64,
+        },
+        {
+          headerName: "Price%",
+          field: "AMT",
+          cellStyle: { "text-align": "center" },
+          headerClass: "text-center",
+          width: 68,
+        },
+      ],
+    });
+    this.columnDefsShape = columnDefs;
+
+    let columnDefsSize = [];
+    columnDefsSize.push({
+      headerName: "Size Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+        {
+          headerName: "Size",
+          field: "NAME",
+          cellStyle: { "text-align": "right" },
+          headerClass: "text-center",
+          width: 75,
+        },
+        {
+          headerName: "Weight",
+          field: "CARAT",
+          cellStyle: { "text-align": "right" },
+          headerClass: "text-center",
+          width: 49,
+        },
+        {
+          headerName: "Pcs",
+          field: "PCS",
+          cellStyle: { "text-align": "right" },
+          headerClass: "text-center",
+          width: 30,
+        },
+        {
+          headerName: "Carat%",
+          field: "RATE",
+          cellStyle: { "text-align": "center" },
+          headerClass: "text-center",
+          width: 60,
+        },
+        {
+          headerName: "Price%",
+          field: "AMT",
+          cellStyle: { "text-align": "center" },
+          headerClass: "text-center",
+          width: 61,
+        },
+      ],
+    });
+    this.columnDefsSize = columnDefsSize;
+
+    let columnDefsColor = [];
+    columnDefsColor.push({
+      headerName: "Color Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Color",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:42
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:30
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:60
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+		]
+  })
+  this.columnDefsColor = columnDefsColor
+
+    let columnDefsQua = [];
+    columnDefsQua.push({
+      headerName: "Clarity Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Qua",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:42
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:30
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:60
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+		]
+  })
+  this.columnDefsQua = columnDefsQua
+
+    let columnDefsShd = [];
+    columnDefsShd.push({
+      headerName: "Shade Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Shade",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:51
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsShd = columnDefsShd
+
+    let columnDefsCut = [];
+    columnDefsCut.push({
+      headerName: "Cut Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Cut",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:51
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsCut = columnDefsCut
+
+    let columnDefsFlo = [];
+    columnDefsFlo.push({
+      headerName: "Fluorescence Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Flo",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:51
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsFlo = columnDefsFlo
+
+    let columnDefsInc = [];
+    columnDefsInc.push({
+      headerName: "Inclusion Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Inc",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:65
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsInc = columnDefsInc
+
+    this.defaultColDefShape = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+      suppressMenu: true,
+    };
+    this.defaultColDefSize = {
+      resizable: true,
+      sortable: true,
+      filter: true,
+      suppressMenu: true,
+    };
+    this.defaultColDefColor = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefQua = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefShd = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefCut = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefFlo = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefInc = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+  }
+
+  onGridReadyShape(params) {
+    this.gridApiShape = params.api;
+    this.gridColumnApiShape = params.columnApi;
+  }
+  onGridReadySize(params) {
+    this.gridApiSize = params.api;
+    this.gridColumnApiSize = params.columnApi;
+  }
+
+  onGridReadyColor(params) {
+    this.gridApiColor = params.api;
+    this.gridColumnApiColor = params.columnApi;
+  }
+
+  onGridReadyQua(params) {
+    this.gridApiQua = params.api;
+    this.gridColumnApiQua = params.columnApi;
+  }
+
+  onGridReadyShd(params) {
+    this.gridApiShd = params.api;
+    this.gridColumnApiShd = params.columnApi;
+  }
+
+  onGridReadyCut(params) {
+    this.gridApiCut = params.api;
+    this.gridColumnApiCut = params.columnApi;
+  }
+
+  onGridReadyFlo(params) {
+    this.gridApiFlo = params.api;
+    this.gridColumnApiFlo = params.columnApi;
+  }
+
+  onGridReadyInc(params) {
+    this.gridApiInc = params.api;
+    this.gridColumnApiInc = params.columnApi;
   }
 
   SAVEBTNDISABLE(eve) {
@@ -4415,7 +4944,7 @@ export class ParcelEntryComponent implements OnInit {
   }
 
   LoadGridData() {
-    this.SIZE = ''
+    this.SIZE = "";
     let FillObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
       DETID: this.DETID ? this.DETID : 0,
@@ -4430,6 +4959,48 @@ export class ParcelEntryComponent implements OnInit {
           this.rowData = FillRes.data[0];
           this.NewRowData = FillRes.data[1];
 
+          this.ShapeRowData = FillRes.data[3];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataShape = this._gridFunction.footerCal(
+            FillRes.data[3]
+          );
+
+          this.SizeRowData = FillRes.data[4];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataSize = this._gridFunction.footerCal(
+            FillRes.data[4]
+          );
+          this.ColorRowData = FillRes.data[5];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataColor = this._gridFunction.footerCal(
+            FillRes.data[5]
+          );
+          this.QuaRowData = FillRes.data[6];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataQua = this._gridFunction.footerCal(
+            FillRes.data[6]
+          );
+          this.ShdRowData = FillRes.data[7];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataShd = this._gridFunction.footerCal(
+            FillRes.data[7]
+          );
+          this.CutRowData = FillRes.data[8];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataCut = this._gridFunction.footerCal(
+            FillRes.data[8]
+          );
+          this.FloRowData = FillRes.data[9];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataFlo = this._gridFunction.footerCal(
+            FillRes.data[9]
+          );
+          this.IncRowData = FillRes.data[10];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataInc = this._gridFunction.footerCal(
+            FillRes.data[10]
+          );
+
           if (FillRes.data[2][0]["AMT"]) {
             this.AMT = FillRes.data[2][0]["AMT"].toFixed(0);
           } else {
@@ -4437,11 +5008,11 @@ export class ParcelEntryComponent implements OnInit {
           }
           this.CARAT = FillRes.data[2][0]["CARAT"];
           this.I_CARAT = FillRes.data[2][0]["I_CARAT"];
-          if(FillRes.data[2][0]["RTOP"]){
+          if (FillRes.data[2][0]["RTOP"]) {
             this.RTOP = FillRes.data[2][0]["RTOP"].toFixed(2);
           }
-          if(FillRes.data[2][0]["SIZE"]){
-          this.SIZE = FillRes.data[2][0]["SIZE"].toFixed(2);
+          if (FillRes.data[2][0]["SIZE"]) {
+            this.SIZE = FillRes.data[2][0]["SIZE"].toFixed(2);
           }
           this.RATE = FillRes.data[2][0]["RATE"];
           if (FillRes.data[2][0]["RCTS"]) {
@@ -4498,6 +5069,13 @@ export class ParcelEntryComponent implements OnInit {
         this.toastr.error(error);
       }
     });
+  }
+
+  Proposal() {
+    this.ProposalHide = true;
+  }
+  CloseProposal() {
+    this.ProposalHide = false;
   }
 
   GetRowData(DetId, Srno, Comp, data) {
@@ -5139,7 +5717,7 @@ export class ParcelEntryComponent implements OnInit {
       UUSER3: item.UUSER3 ? item.UUSER3 : "",
       BVCOMMENT: item.BVCOMMENT ? item.BVCOMMENT : "",
       I_CARAT: item.I_CARAT ? item.I_CARAT : 0,
-      ISBV: this.decodedTkn.UserId === 'DN' ? 1 : item.ISBV,
+      ISBV: this.decodedTkn.UserId === "DN" ? 1 : item.ISBV,
     };
     this.spinner.show();
     this.ParcelEntServ.TendarResParcelSave(saveOBJ1).subscribe((SaveRes) => {
@@ -5456,14 +6034,14 @@ export class ParcelEntryComponent implements OnInit {
           this.CARAT = NewCrt.toFixed(2);
           this.RATE = (this.AMT / this.CARAT).toFixed(2);
           this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
-          this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
+          this.RTOP = ((this.CARAT / this.I_CARAT) * 100).toFixed(2);
         } else {
           let NewValue = (this.TDIS / 100) * NewAmt;
           let FinalValue = NewAmt + NewValue;
           this.AMT = FinalValue.toFixed(0);
           this.RATE = (this.AMT / this.CARAT).toFixed(2);
           this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
-          this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
+          this.RTOP = ((this.CARAT / this.I_CARAT) * 100).toFixed(2);
         }
       } catch (error) {
         console.log(error);
@@ -5603,7 +6181,7 @@ export class ParcelEntryComponent implements OnInit {
 
     this.RATE = (this.AMT / this.CARAT).toFixed(2);
     this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
-    this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
+    this.RTOP = ((this.CARAT / this.I_CARAT) * 100).toFixed(2);
   }
 
   TdisChange() {
@@ -5621,7 +6199,7 @@ export class ParcelEntryComponent implements OnInit {
 
     this.RATE = (this.AMT / this.CARAT).toFixed(2);
     this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
-    this.RTOP = ((this.CARAT / this.I_CARAT)*100).toFixed(2);
+    this.RTOP = ((this.CARAT / this.I_CARAT) * 100).toFixed(2);
   }
 
   TbaleColColor(params, colDefField) {

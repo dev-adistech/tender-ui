@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from "@angular/core";
+import { Component, ElementRef, OnInit, ViewChild } from "@angular/core";
 import { FormControl } from "@angular/forms";
 import { JwtHelperService } from "@auth0/angular-jwt";
 import { NgxSpinnerService } from "ngx-spinner";
@@ -18,6 +18,7 @@ import { MatDialog } from "@angular/material/dialog";
 import { BvViewDetComponent } from "./bv-view-det/bv-view-det.component";
 import { convertToObject } from "typescript";
 import { StoneidPopupComponent } from "../pricing-wrk-view/stoneid-popup/stoneid-popup.component";
+import { MatAutocompleteTrigger } from "@angular/material/autocomplete";
 declare let $: any;
 
 @Component({
@@ -26,6 +27,10 @@ declare let $: any;
   styleUrls: ["./b-v-view.component.css"],
 })
 export class BVViewComponent implements OnInit {
+
+  @ViewChild("ShapeDrop", { read: MatAutocompleteTrigger })
+  matTriggerShape: MatAutocompleteTrigger;
+
   decodeHelper = new JwtHelperService();
   decodedTkn = this.decodeHelper.decodeToken(sessionStorage.getItem("token"));
   decodedMast = JSON.parse(
@@ -177,6 +182,8 @@ export class BVViewComponent implements OnInit {
   RESERVELOCK: boolean = false;
 
   USERID: any = "";
+
+  
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -5638,5 +5645,9 @@ export class BVViewComponent implements OnInit {
         }
       });
     }
+  }
+  nextenter(id: any) {
+    $("#" + id).focus();
+    $("#" + id).select();
   }
 }

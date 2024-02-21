@@ -266,7 +266,16 @@
     <table style="width: 100%;margin-top: 1%;">
         <tr>
             <ng-container *ngFor="let colDef of columnDefs">
-                <th *ngIf="!colDef.hide" [ngStyle]="{ 'width': colDef.width + 'px'}">
+                <th *ngIf="!colDef.hide && colDef.headerName != 'Col' && colDef.headerName != 'Qua' && colDef.headerName !== 'TCol' && colDef.headerName !== 'TQua'" 
+                [ngStyle]="{ 'width': colDef.width + 'px','text-align':colDef.Headersalign}">
+                    {{colDef.headerName}}
+                </th>
+                <th *ngIf="!colDef.hide && colDef.headerName == 'Col' && colDef.headerName !== 'TCol'" colspan="2" 
+                [ngStyle]="{ 'width': colDef.width + 'px','text-align':colDef.Headersalign}">
+                    {{colDef.headerName}}
+                </th>
+                <th *ngIf="!colDef.hide && colDef.headerName == 'Qua' && colDef.headerName !== 'TQua'" colspan="2" 
+                [ngStyle]="{ 'width': colDef.width + 'px','text-align':colDef.Headersalign}">
                     {{colDef.headerName}}
                 </th>
             </ng-container>
@@ -276,7 +285,7 @@
                 >
                 <ng-container *ngFor="let colDef of columnDefs">
                     <td *ngIf="!colDef.hide" [ngStyle]="{'width': colDef.width + 'px'}"
-                        [ngStyle]="{ 'width': colDef.width + 'px'}">
+                        [ngStyle]="{ 'width': colDef.width + 'px','text-align':colDef.align}">
 
                         <ng-container *ngIf="colDef.FORMAT == 'DateFormat'">
                             {{TableDateFormat(tableData[colDef.field])}}
@@ -305,7 +314,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'S_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}">
                                 <option *ngFor="let shp of S_CODE" [value]="shp.code">{{shp.name}}</option>
                             </select>
                         </ng-container>
@@ -313,7 +322,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'CT_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}">
                                 <option *ngFor="let ct of CT_NAME" [value]="ct.code">{{ct.name}}</option>
                             </select>
                         </ng-container>
@@ -321,7 +330,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'LB_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                              >
                                 <option *ngFor="let lab of LB_NAME" [value]="lab.code">{{lab.name}}</option>
                             </select>
@@ -330,7 +339,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'TC_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let col of C_NAME" [value]="col.code">{{col.name}}</option>
                             </select>
@@ -338,7 +347,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'FC_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let col of C_NAME" [value]="col.code">{{col.name}}</option>
                             </select>
@@ -347,7 +356,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'FQ_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let qua of Q_NAME" [value]="qua.code">{{qua.name}}</option>
                             </select>
@@ -356,7 +365,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'TQ_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let qua of Q_NAME" [value]="qua.code">{{qua.name}}</option>
                             </select>
@@ -365,7 +374,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'IN_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let inName of IN_NAME" [value]="inName.code">{{inName.name}}
                                 </option>
@@ -375,7 +384,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'FL_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let fl of FL_NAME" [value]="fl.code">{{fl.name}}</option>
                             </select>
@@ -384,7 +393,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'ML_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}">
                                 <option *ngFor="let mlk of ML_NAME" [value]="mlk.code">{{mlk.name}}</option>
                             </select>
                         </ng-container>
@@ -392,7 +401,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'SH_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let shd of SHD_NAME" [value]="shd.code">{{shd.name}}
                                 </option>
@@ -402,7 +411,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'REF_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let ref of REF_NAME" [value]="ref.code">{{ref.name}}
                                 </option>
@@ -412,7 +421,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'RAPTYPE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let rap of RAPNAME" [value]="rap.code">{{rap.code}}</option>
                             </select>
@@ -421,7 +430,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'DEP_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             >
                                 <option *ngFor="let dep of DEP_NAME" [value]="dep.code">{{dep.code}}
                                 </option>
@@ -431,7 +440,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'RAT_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             
                                 >
                                 <option *ngFor="let rat of RAT_NAME" [value]="rat.code">{{rat.code}}
@@ -442,7 +451,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'GRD_CODE' && tableData['PTAG'] != 'Total'">
                             <select [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             
                                 >
                                 <option *ngFor="let grd of GRD_NAME" [value]="grd.code">{{grd.code}}
@@ -453,7 +462,7 @@
                         <ng-container
                             *ngIf="colDef.FORMAT == 'Editable' && colDef.field == 'CARAT' && tableData['PTAG'] != 'Total' ">
                             <input type="text" [(ngModel)]="tableData[colDef.field]" (change)="findRapTabe(tableData, item)"
-                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}"
+                            [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px','text-align':colDef.align}"
                             
                                 (change)="findRapTabe(tableData, item)"
                                 >

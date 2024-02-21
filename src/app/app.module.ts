@@ -95,6 +95,7 @@ import { ExpiryDateComponent } from './Diamond/Transaction/expiry-date/expiry-da
 import { FooterDialogComponent } from "./Diamond/Config/footer-dialog.component";
 import { AssortEntComponent } from './Diamond/Transaction/assort-ent/assort-ent.component';
 import { ModelMastComponent } from './Diamond/Master/model-mast/model-mast.component';
+import { CalculatorComponent } from './Diamond/Transaction/calculator/calculator.component';
 
 
 @NgModule({
@@ -175,6 +176,7 @@ import { ModelMastComponent } from './Diamond/Master/model-mast/model-mast.compo
 		FooterDialogComponent,
 		AssortEntComponent,
 		ModelMastComponent,
+		CalculatorComponent,
 	],
 	imports: [
 		BrowserModule,

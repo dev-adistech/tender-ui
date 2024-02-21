@@ -370,6 +370,11 @@
     <div class="navigation-end">
       <div class="version">{{ version }}</div>
       <div class="navigation-btn__grp">
+        <button class="btn" matTooltip="Calculator " matTooltipClass="custom-tooltip"
+        *ngIf="CheckFormPermission('CalculatorComponent')" (click)="addiFrameTabs('Calculator','/CalCulator')">
+        <img src="./../../../../assets/img/Transaction/CalclulaterSmilple.png" style="width: 27.55px;height: 28.8px;">
+      </button>
+        
         <button class="btn" (click)="RapUpdate()" *ngIf="RAPBUTTON">
           <svg class="icon icon-update icn-btn" matTooltip='Rap Update'>
             <use xlink:href="assets/symbol-defs.svg#icon-update"></use>

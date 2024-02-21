@@ -63,6 +63,7 @@ import { ParcelBidDataComponent } from './Diamond/View/parcel-bid-data/parcel-bi
 import { ExpiryDateComponent } from './Diamond/Transaction/expiry-date/expiry-date.component';
 import { AssortEntComponent } from './Diamond/Transaction/assort-ent/assort-ent.component';
 import { ModelMastComponent } from './Diamond/Master/model-mast/model-mast.component';
+import { CalculatorComponent } from './Diamond/Transaction/calculator/calculator.component';
 
 
 const routes: Routes = [
@@ -82,6 +83,7 @@ const routes: Routes = [
   { path: 'RapFloDisc', component: RapFloDiscComponent, canActivate: [AuthGuard] },
   { path: 'RapIncDisc', component: RapIncDiscComponent, canActivate: [AuthGuard] },
   { path: 'TendEst', component: TendarEstComponent, canActivate: [AuthGuard] },
+  { path: 'CalCulator', component: CalculatorComponent, canActivate: [AuthGuard] },
   { path: 'RapCal', component: RapCalComponent, canActivate: [AuthGuard] },
 
 

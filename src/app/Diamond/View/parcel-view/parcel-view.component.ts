@@ -48,6 +48,64 @@ export class ParcelViewComponent implements OnInit {
   public defaultColDef1;
   public gridOptions1;
 
+  public columnDefsShape;
+  public gridApiShape;
+  public pinnedBottomRowDataShape;
+  public gridColumnApiShape;
+  public defaultColDefShape;
+  public gridOptionsShape;
+
+  FooterKeyShape = ['NAME','CARAT','PCS','RATE', 'AMT'];
+
+  public columnDefsSize;
+  public gridApiSize;
+  public pinnedBottomRowDataSize;
+  public gridColumnApiSize;
+  public defaultColDefSize;
+  public gridOptionsSize;
+
+  public columnDefsColor;
+  public gridApiColor;
+  public gridColumnApiColor;
+  public defaultColDefColor;
+  public gridOptionsColor;
+  public pinnedBottomRowDataColor;
+
+  public columnDefsQua;
+  public gridApiQua;
+  public gridColumnApiQua;
+  public defaultColDefQua;
+  public gridOptionsQua;
+  public pinnedBottomRowDataQua;
+
+  public columnDefsShd;
+  public gridApiShd;
+  public gridColumnApiShd;
+  public defaultColDefShd;
+  public gridOptionsShd;
+  public pinnedBottomRowDataShd;
+
+  public columnDefsCut;
+  public gridApiCut;
+  public gridColumnApiCut;
+  public defaultColDefCut;
+  public gridOptionsCut;
+  public pinnedBottomRowDataCut;
+
+  public columnDefsFlo;
+  public gridApiFlo;
+  public gridColumnApiFlo;
+  public defaultColDefFlo;
+  public gridOptionsFlo;
+  public pinnedBottomRowDataFlo;
+
+  public columnDefsInc;
+  public gridApiInc;
+  public gridColumnApiInc;
+  public defaultColDefInc;
+  public gridOptionsInc;
+  public pinnedBottomRowDataInc;
+
   GridDataForMapping: any[] = [];
 
   F_DATE: any = "";
@@ -156,6 +214,415 @@ export class ParcelViewComponent implements OnInit {
     };
     this.FillViewPara();
     this.FillViewPara1();
+
+    let columnDefs = [];
+    columnDefs.push({
+      headerName: "Shape Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Shape",
+				field: "NAME",
+				cellStyle: { "text-align": "left" },
+				headerClass: "text-center",
+        width:64
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:30
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:64
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:68
+			},
+		]
+  })
+  this.columnDefsShape = columnDefs
+
+    let columnDefs3 = [];
+    columnDefs3.push({
+      headerName: "Size Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Size",
+				field: "NAME",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:75
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:30
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:60
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:61
+			},
+		]
+  })
+  this.columnDefsSize = columnDefs3
+
+    let columnDefsColor = [];
+    columnDefsColor.push({
+      headerName: "Color Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Color",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:42
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:30
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:60
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+		]
+  })
+  this.columnDefsColor = columnDefsColor
+
+    let columnDefsQua = [];
+    columnDefsQua.push({
+      headerName: "Clarity Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Qua",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:42
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:30
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:60
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+		]
+  })
+  this.columnDefsQua = columnDefsQua
+
+    let columnDefsShd = [];
+    columnDefsShd.push({
+      headerName: "Shade Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Shade",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:51
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsShd = columnDefsShd
+
+    let columnDefsCut = [];
+    columnDefsCut.push({
+      headerName: "Cut Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Cut",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:51
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsCut = columnDefsCut
+
+    let columnDefsFlo = [];
+    columnDefsFlo.push({
+      headerName: "Fluorescence Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Flo",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:51
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsFlo = columnDefsFlo
+
+    let columnDefsInc = [];
+    columnDefsInc.push({
+      headerName: "Inclusion Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Inc",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:65
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsInc = columnDefsInc
+
+		this.defaultColDefShape = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefSize = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefColor = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefQua = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefShd = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefCut = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefFlo = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefInc = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
   }
 
   DateFormat(params) {
@@ -286,6 +753,47 @@ export class ParcelViewComponent implements OnInit {
           this.pinnedBottomRowData = this._gridFunction.footerCal(
             FillRes.data[1]
           );
+          this.gridApiShape.setRowData(FillRes.data[2])
+
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataShape = this._gridFunction.footerCal(
+            FillRes.data[2]
+          );
+          this.gridApiSize.setRowData(FillRes.data[3])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataSize = this._gridFunction.footerCal(
+            FillRes.data[3]
+          );
+          this.gridApiColor.setRowData(FillRes.data[4])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataColor = this._gridFunction.footerCal(
+            FillRes.data[4]
+          );
+          this.gridApiQua.setRowData(FillRes.data[5])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataQua = this._gridFunction.footerCal(
+            FillRes.data[5]
+          );
+          this.gridApiShd.setRowData(FillRes.data[6])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataShd = this._gridFunction.footerCal(
+            FillRes.data[6]
+          );
+          this.gridApiCut.setRowData(FillRes.data[7])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataCut = this._gridFunction.footerCal(
+            FillRes.data[7]
+          );
+          this.gridApiFlo.setRowData(FillRes.data[8])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataFlo = this._gridFunction.footerCal(
+            FillRes.data[8]
+          );
+          this.gridApiInc.setRowData(FillRes.data[9])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataInc = this._gridFunction.footerCal(
+            FillRes.data[9]
+          );
 
           if (FillRes.data[1][0]["AMT"]) {
             this.AMT = FillRes.data[1][0]["AMT"].toFixed(0);
@@ -373,6 +881,7 @@ export class ParcelViewComponent implements OnInit {
       DETID: 0,
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
     };
+    this.spinner.show()
     this.ViewServ.ParcelWrkDisp(NewObj).subscribe((FillRes) => {
       try {
         if (FillRes.success == true) {
@@ -382,6 +891,48 @@ export class ParcelViewComponent implements OnInit {
           this.pinnedBottomRowData = this._gridFunction.footerCal(
             FillRes.data[1]
           );
+          this.gridApiShape.setRowData(FillRes.data[2])
+          
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataShape = this._gridFunction.footerCal(
+            FillRes.data[2]
+          );
+          this.gridApiSize.setRowData(FillRes.data[3])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataSize = this._gridFunction.footerCal(
+            FillRes.data[3]
+          );
+          this.gridApiColor.setRowData(FillRes.data[4])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataColor = this._gridFunction.footerCal(
+            FillRes.data[4]
+          );
+          this.gridApiQua.setRowData(FillRes.data[5])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataQua = this._gridFunction.footerCal(
+            FillRes.data[5]
+          );
+          this.gridApiShd.setRowData(FillRes.data[6])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataShd = this._gridFunction.footerCal(
+            FillRes.data[6]
+          );
+          this.gridApiCut.setRowData(FillRes.data[7])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataCut = this._gridFunction.footerCal(
+            FillRes.data[7]
+          );
+          this.gridApiFlo.setRowData(FillRes.data[8])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataFlo = this._gridFunction.footerCal(
+            FillRes.data[8]
+          );
+          this.gridApiInc.setRowData(FillRes.data[9])
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataInc = this._gridFunction.footerCal(
+            FillRes.data[9]
+          );
+
           if (FillRes.data[1][0]["AMT"]) {
             this.AMT = FillRes.data[1][0]["AMT"].toFixed(0);
           } else {
@@ -433,6 +984,44 @@ export class ParcelViewComponent implements OnInit {
   onGridReady1(params) {
     this.gridApi1 = params.api;
     this.gridColumnApi1 = params.columnApi;
+  }
+  onGridReadyShape(params) {
+    this.gridApiShape = params.api;
+    this.gridColumnApiShape = params.columnApi;
+  }
+
+  onGridReadySize(params) {
+    this.gridApiSize = params.api;
+    this.gridColumnApiSize = params.columnApi;
+  }
+  onGridReadyColor(params) {
+    this.gridApiColor = params.api;
+    this.gridColumnApiColor = params.columnApi;
+  }
+
+  onGridReadyQua(params) {
+    this.gridApiQua = params.api;
+    this.gridColumnApiQua = params.columnApi;
+  }
+
+  onGridReadyShd(params) {
+    this.gridApiShd = params.api;
+    this.gridColumnApiShd = params.columnApi;
+  }
+
+  onGridReadyCut(params) {
+    this.gridApiCut = params.api;
+    this.gridColumnApiCut = params.columnApi;
+  }
+
+  onGridReadyFlo(params) {
+    this.gridApiFlo = params.api;
+    this.gridColumnApiFlo = params.columnApi;
+  }
+
+  onGridReadyInc(params) {
+    this.gridApiInc = params.api;
+    this.gridColumnApiInc = params.columnApi;
   }
 
   FillViewPara() {
@@ -995,7 +1584,6 @@ export class ParcelViewComponent implements OnInit {
   }
 
   LoadGridData() {
-    this.spinner.show();
     this.ViewServ.ParcelgWrk({
       F_DATE: this.F_DATE
         ? this.datepipe.transform(this.F_DATE, "dd-MM-yyyy")
@@ -1012,7 +1600,6 @@ export class ParcelViewComponent implements OnInit {
     }).subscribe((FillRes) => {
       try {
         if (FillRes.success == true) {
-          this.spinner.hide();
           this.GRIDDATA = FillRes.data;
           this._gridFunction.FooterKey = this.FooterKey1;
           this.pinnedBottomRowDatadock = this._gridFunction.footerCal(

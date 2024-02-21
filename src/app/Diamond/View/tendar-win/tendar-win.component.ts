@@ -1061,7 +1061,7 @@ export class TendarWinComponent implements OnInit {
     var mapForm = document.createElement("form");
     mapForm.target = "_blank";
     mapForm.method = "POST";
-    mapForm.action = `http://${this.url}:${this.port}/api/View/TendarWinSheet`;
+    mapForm.action = `https://${this.url}:${this.port}/api/View/TendarWinSheet`;
 
     let obj = {
       DataRow: JSON.stringify(rowData),

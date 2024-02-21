@@ -588,19 +588,21 @@
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'S_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select #ShapeDrop [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" 
+                    (keydown.enter)="nextenter('CutDropDown')"
+                    (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let shp of S_CODE"  [value]="shp.code" >{{shp.name}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'CT_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="CutDropDown" (keydown.enter)="nextenter('CaratField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let ct of CT_NAME"  [value]="ct.code" >{{ct.name}}</option>  
                     </select>  
                   </ng-container>
                 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'LB_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]"[disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">   
+                    <select id="LabField" (keydown.enter)="nextenter('ColorField')" [(ngModel)]="tableData[colDef.field]"[disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">   
                       <option *ngFor="let lab of LB_NAME"  [value]="lab.code" >{{lab.name}}</option>  
                     </select>  
                   </ng-container>
@@ -610,75 +612,75 @@
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'C_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="ColorField" (keydown.enter)="nextenter('QuaField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let col of C_NAME"  [value]="col.code" >{{col.name}}</option>  
                     </select>  
                   </ng-container>
 
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'Q_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="QuaField" (keydown.enter)="nextenter('IncField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let qua of Q_NAME"  [value]="qua.code" >{{qua.name}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'IN_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="IncField" (keydown.enter)="nextenter('FloField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let inName of IN_NAME"  [value]="inName.code" >{{inName.name}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'FL_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="FloField" (keydown.enter)="nextenter('MilkyField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let fl of FL_NAME"  [value]="fl.code" >{{fl.name}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'ML_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="MilkyField" (keydown.enter)="nextenter('ShdField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let mlk of ML_NAME"  [value]="mlk.code" >{{mlk.name}}</option>  
                     </select>  
                   </ng-container>
                   
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'SH_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="ShdField" (keydown.enter)="nextenter('RefField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let shd of SHD_NAME"  [value]="shd.code" >{{shd.name}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'REF_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="RefField" (keydown.enter)="nextenter('RapTypeField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let ref of REF_NAME"  [value]="ref.code" >{{ref.name}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'RAPTYPE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="RapTypeField" (keydown.enter)="nextenter('DepthField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let rap of RAPNAME"  [value]="rap.code" >{{rap.code}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'DEP_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="DepthField" (keydown.enter)="nextenter('RatioField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let dep of DEP_NAME"  [value]="dep.code" >{{dep.code}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'RAT_CODE' && tableData['PTAG'] != 'Total'">
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="RatioField" (keydown.enter)="nextenter('GrdField')" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let rat of RAT_NAME"  [value]="rat.code" >{{rat.code}}</option>  
                     </select>  
                   </ng-container>
 
                   <ng-container *ngIf="colDef.FORMAT == 'DropDown' && colDef.field == 'GRD_CODE' && tableData['PTAG'] != 'Total'"> 
-                    <select [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
+                    <select id="GrdField"  [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">  
                       <option *ngFor="let grd of GRD_NAME"  [value]="grd.code" >{{grd.code}}</option>  
                     </select>  
                   </ng-container>
 
 
                   <ng-container *ngIf="colDef.LOCK == false && colDef.FORMAT == 'Editable' && colDef.field == 'CARAT' && tableData['PTAG'] != 'Total' " >
-                    <input type="text" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
+                    <input id="CaratField" (keydown.enter)="nextenter('LabField')" type="text" [(ngModel)]="tableData[colDef.field]" [disabled]="USERID != 'ADMIN' && USERID != 'DN'" (change)="findRapTabe(tableData, item)" [ngStyle]="{'background-color': TbaleColColor(tableData, colDef.field), 'width': colDef.width + 'px'}">
                   </ng-container>
 
                   
