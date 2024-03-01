@@ -13,7 +13,8 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Tendar Number *</mat-label>
-        <input matInput type="number" name="Code" #TNumber (keydown.enter)="nextenter('','Tname')" autocomplete="off" [(ngModel)]="DETID" (blur)="BlurTendar()"  [formControl]="Tendar" />
+        <input matInput type="number" name="Code" #TNumber (keydown.enter)="nextenter('','Tname')" autocomplete="off" [(ngModel)]="DETID" 
+        (blur)="BlurTendar()"  [formControl]="Tendar" />
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Tendar Name *</mat-label>
@@ -30,36 +31,41 @@
       <mat-checkbox class="example-margin" [(ngModel)]="ISACTIVE"> Active</mat-checkbox>
       <mat-checkbox class="example-margin" [(ngModel)]="ISMIX" (ngModelChange)="MixChange()"> Mix</mat-checkbox>
       <mat-checkbox class="example-margin" [(ngModel)]="ISASSORT" (ngModelChange)="AssotChange()">Assort</mat-checkbox>
-
-      <article class="btn-wrapper">
-        <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' id="save1" (keydown.enter)="nextenter('','Tname')" matTooltipClass="custom-tooltip" (click)="Save()">
-          <!-- <i class="icon-save mat-icon"></i> -->
-          <svg class="icon icon-save">
-            <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
-          </svg>
-        </button>
-        <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="Clear()">
-          <!-- <i class="icon-clear mat-icon"></i> -->
-          <svg class="icon icon-clear">
-            <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
-          </svg>
-        </button>
-      </article>
     </article>
-    <article class="fields-wrapper" *ngIf="FieldHide">
-        <mat-form-field appearance="outline">
+    <article class="fields-wrapper">
+        <mat-form-field appearance="outline" *ngIf="CatWiseHide">
+          <mat-label>Discount</mat-label>
+          <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="D_DIS"/>
+        </mat-form-field>
+        <mat-form-field appearance="outline" *ngIf="FieldHide">
           <mat-label>Tendar Pcs*</mat-label>
           <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_PCS"/>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field appearance="outline" *ngIf="FieldHide">
           <mat-label>Tendar Crt *</mat-label>
           <input matInput type="text"  name="Code" autocomplete="off" [(ngModel)]="T_CARAT"/>
         </mat-form-field>
+        <article class="btn-wrapper">
+          <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' id="save1" (keydown.enter)="nextenter('','Tname')" 
+          matTooltipClass="custom-tooltip" (click)="Save()">
+            <!-- <i class="icon-save mat-icon"></i> -->
+            <svg class="icon icon-save">
+              <use xlink:href="assets/symbol-defs.svg#icon-save"></use>
+            </svg>
+          </button>
+          <button class="btn theme-btn" matTooltip='Clear' matTooltipClass="custom-tooltip" (click)="Clear()">
+            <!-- <i class="icon-clear mat-icon"></i> -->
+            <svg class="icon icon-clear">
+              <use xlink:href="assets/symbol-defs.svg#icon-clear"></use>
+            </svg>
+          </button>
+        </article>
     </article>
     <article class="aggrid-wrapper">
       <ag-grid-angular [style]="agGridStyles" class="ag-theme-alpine select-color" [defaultColDef]="defaultColDef"
         [columnDefs]="columnDefs" (gridReady)="onGridReady($event)" [animateRows]="true"
-        (rowClicked)='onGridRowClicked($event)' (cellClicked)="onCellDoubleClicked($event);GetSrno($event)">
+        (rowClicked)='onGridRowClicked($event)' (cellClicked)="onCellDoubleClicked($event);GetSrno($event)"
+        [gridOptions]="gridOptions">
       </ag-grid-angular>
     </article>
     <article class="password-wrapper">

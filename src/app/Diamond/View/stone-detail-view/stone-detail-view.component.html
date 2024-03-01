@@ -406,7 +406,7 @@
                 *ngIf="disPlay=='video'">
                 <div class="stn_vdeo">
                   <div *ngIf="StoneDetail.VideoPath">
-                    <iframe [src]="videoUrl" class="det_vdeo" scrolling="no" id="videoUrl"></iframe>
+                    <iframe [src]="videoUrl.changingThisBreaksApplicationSecurity" class="det_vdeo" scrolling="no" id="videoUrl"></iframe>
                   </div>
                 </div>
               </div>

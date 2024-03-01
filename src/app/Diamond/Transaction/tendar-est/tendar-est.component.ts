@@ -51,6 +51,7 @@ export class TendarEstComponent implements OnInit {
   ISBV: boolean = false;
   T_DATE: any = null;
   BUTTONHIDE: boolean = true;
+  UTYPEDIS: boolean = true;
   BUTTONSHOW: boolean = false;
   BVDATA: any = [];
 
@@ -151,6 +152,7 @@ export class TendarEstComponent implements OnInit {
   UUSER3: any = "";
 
   BVCOMMENT: any = "";
+  U_TYPE: any = "";
 
   FloControl: FormControl;
   FLONO: any = [];
@@ -359,6 +361,7 @@ export class TendarEstComponent implements OnInit {
         this.UUSER2 = MakHistoryData[0][0].UUSER2;
         this.UUSER3 = MakHistoryData[0][0].UUSER3;
         this.BVCOMMENT = MakHistoryData[0][0].BVCOMMENT;
+        this.U_TYPE = MakHistoryData[0][0].U_TYPE;
         this.FINAL2 = MakHistoryData[0][0].FFLAT2;
         this.FINALME = MakHistoryData[0][0].FMED;
         this.FINALHE = MakHistoryData[0][0].FHIGH;
@@ -431,6 +434,11 @@ export class TendarEstComponent implements OnInit {
       });
       this.BUTTONHIDE = false;
       this.BUTTONSHOW = true;
+      if(!this.U_TYPE){
+        this.UTYPEDIS = false
+      }else{
+        this.UTYPEDIS = true
+      }
     }
 
     localStorage.removeItem("TendarEstComponent");
@@ -541,21 +549,63 @@ export class TendarEstComponent implements OnInit {
                 },
               });
             } else {
-              temp.push({
-                headerName: VPRes.data[i].DISPNAME,
-                headerClass: VPRes.data[i].HEADERALIGN,
-                field: VPRes.data[i].FIELDNAME,
-                width: VPRes.data[i].COLWIDTH,
-                cellStyle: {
-                  "text-align": VPRes.data[i].CELLALIGN,
-                  "background-color": VPRes.data[i].BACKCOLOR,
-                  color: VPRes.data[i].FONTCOLOR,
-                  "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
-                },
-                resizable: VPRes.data[i].ISRESIZE,
-                hide: VPRes.data[i].DISP == false ? true : false,
-                suppressMenu: true,
-              });
+              if (
+                this.decodedTkn.U_CAT === "S" &&
+                (VPRes.data[i].FIELDNAME === "ORAP" ||
+                  VPRes.data[i].FIELDNAME === "RATE" ||
+                  VPRes.data[i].FIELDNAME === "PER" ||
+                  VPRes.data[i].FIELDNAME === "AMT" ||
+                  VPRes.data[i].FIELDNAME == "MPER")
+              ) {
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide:false,
+                  suppressMenu: true,
+                });
+              }else if(this.decodedTkn.U_CAT === "S" &&
+              (VPRes.data[i].FIELDNAME === "D_DIS" || VPRes.data[i].FIELDNAME === "DRATE" ||VPRes.data[i].FIELDNAME === 'DAMT')){
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: true,
+                  suppressMenu: true,
+                });
+              }else{
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: VPRes.data[i].DISP == false ? true : false,
+                  suppressMenu: true,
+                });
+              }
             }
             if (VPRes.data[i].FIELDNAME == "S_NAME") {
               temp[i].cellRenderer = this.ShapeFill.bind(this);
@@ -2333,8 +2383,8 @@ export class TendarEstComponent implements OnInit {
         template += "</select>";
         return template;
       }
-    }else{
-      return params.data.LB_CODE
+    } else {
+      return params.data.LB_CODE;
     }
   }
   IncFill(params) {
@@ -4593,6 +4643,7 @@ export class TendarEstComponent implements OnInit {
           this.FINAL1 = FillRes.data[0][0].FFLAT1;
           this.UUSER1 = FillRes.data[0][0].UUSER1;
           this.BVCOMMENT = FillRes.data[0][0].BVCOMMENT;
+          this.U_TYPE = FillRes.data[0][0].U_TYPE;
           this.UUSER2 = FillRes.data[0][0].UUSER2;
           this.UUSER3 = FillRes.data[0][0].UUSER3;
           this.FINAL2 = FillRes.data[0][0].FFLAT2;
@@ -4638,6 +4689,11 @@ export class TendarEstComponent implements OnInit {
           this.gridApi1.forEachNode(function (rowNode, index) {
             newdata.push(rowNode.data);
           });
+          if(!this.U_TYPE){
+            this.UTYPEDIS = false
+          }else{
+            this.UTYPEDIS = true
+          }
 
           this.disabledata = false;
           for (let i = 0; i < newdata.length; i++) {
@@ -5103,7 +5159,7 @@ export class TendarEstComponent implements OnInit {
       COMP_CODE: this.COMP_CODE,
       DETID: this.DETID,
       IUSER: this.decodedTkn.UserId,
-      CAT: this.decodedTkn.U_CAT
+      CAT: this.decodedTkn.U_CAT,
     }).subscribe((FillRes) => {
       try {
         if (FillRes.success == true) {
@@ -6092,15 +6148,20 @@ export class TendarEstComponent implements OnInit {
 
             let NewBid = this.FINALAMT / this.PKTWEIGHT;
             this.FINALBID = NewBid.toFixed(2);
+
+            params.data.DRATE =
+              params.data.RATE - (params.data.RATE * parseFloat(params.data.D_DIS)) / 100;
+            params.data.DAMT = params.data.DRATE * params.data.CARAT;
+
             let TotalSumAmt = 0;
-            let TotalSumRate = 0;
+            let TotalSumDAmt = 0;
             for (let i = 0; i < FinalGrid.length; i++) {
               if (
                 FinalGrid[i].PLANNO === params.data.PLANNO &&
                 FinalGrid[i].PTAG !== "Total"
               ) {
                 TotalSumAmt += FinalGrid[i].AMT;
-                TotalSumRate += FinalGrid[i].RATE;
+                TotalSumDAmt += FinalGrid[i].DAMT;
               }
             }
             for (let i = 0; i < FinalGrid.length; i++) {
@@ -6109,7 +6170,9 @@ export class TendarEstComponent implements OnInit {
                 FinalGrid[i].PTAG === "Total"
               ) {
                 FinalGrid[i].AMT = TotalSumAmt;
+                FinalGrid[i].DAMT = TotalSumDAmt;
                 FinalGrid[i].RATE = TotalSumAmt / FinalGrid[i].CARAT;
+                FinalGrid[i].DRATE = TotalSumDAmt / FinalGrid[i].CARAT;
               }
             }
             this.gridApi1.refreshCells({ force: true });
@@ -6255,6 +6318,7 @@ export class TendarEstComponent implements OnInit {
       UUSER2: this.UUSER2 ? this.UUSER2 : "",
       UUSER3: this.UUSER3 ? this.UUSER3 : "",
       BVCOMMENT: this.BVCOMMENT ? this.BVCOMMENT : "",
+      U_TYPE: this.U_TYPE ? this.U_TYPE : "",
       ISBV: this.BUTTONHIDE == false ? 1 : 0,
     };
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
@@ -6410,10 +6474,10 @@ export class TendarEstComponent implements OnInit {
     } else {
       this.ADISDISABLE = true;
     }
-    if(this.decodedTkn.U_CAT === 'S'){
-      this.HIDEFOROTHERUSER = true
-    }else{
-      this.HIDEFOROTHERUSER = false
+    if (this.decodedTkn.U_CAT === "S") {
+      this.HIDEFOROTHERUSER = true;
+    } else {
+      this.HIDEFOROTHERUSER = false;
     }
     this.PER = await this._FrmOpePer.UserFrmOpePer("TendarMastComponent");
     this.ALLOWDEL = this.PER[0].DEL;
@@ -8005,7 +8069,7 @@ export class TendarEstComponent implements OnInit {
     }
   }
   TensionColor(CODE) {
-    if (CODE == "T3" || CODE == 'T4') {
+    if (CODE == "T3" || CODE == "T4") {
       return "#ff6363";
     }
   }
@@ -8310,15 +8374,26 @@ export class TendarEstComponent implements OnInit {
           let NewBid = this.FINALAMT / this.PKTWEIGHT;
           this.FINALBID = NewBid.toFixed(2);
 
+          for (let i = 0; i < _GridRowData.length; i++) {
+            if (
+              _GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) &&
+              _GridRowData[i].PTAG == RapObj.PTAG
+            ) {
+              _GridRowData[i].DRATE = _GridRowData[i].RATE - (_GridRowData[i].RATE * parseFloat(_GridRowData[i].D_DIS)) / 100;
+              _GridRowData[i].DAMT =
+                _GridRowData[i].DRATE * _GridRowData[i].CARAT;
+            }
+          }
+
           let TotalSumAmt = 0;
-          let TotalSumRate = 0;
+          let TotalSumDAmt = 0;
           for (let i = 0; i < _GridRowData.length; i++) {
             if (
               _GridRowData[i].PLANNO === parseInt(RapObj.PLANNO) &&
               _GridRowData[i].PTAG !== "Total"
             ) {
               TotalSumAmt += _GridRowData[i].AMT;
-              TotalSumRate += _GridRowData[i].RATE;
+              TotalSumDAmt += _GridRowData[i].DAMT;
             }
           }
           for (let i = 0; i < _GridRowData.length; i++) {
@@ -8327,7 +8402,9 @@ export class TendarEstComponent implements OnInit {
               _GridRowData[i].PTAG === "Total"
             ) {
               _GridRowData[i].AMT = TotalSumAmt;
+              _GridRowData[i].DAMT = TotalSumDAmt;
               _GridRowData[i].RATE = TotalSumAmt / _GridRowData[i].CARAT;
+              _GridRowData[i].DRATE = TotalSumDAmt / _GridRowData[i].CARAT;
             }
           }
 
@@ -8388,6 +8465,7 @@ export class TendarEstComponent implements OnInit {
     this.UUSER2 = "";
     this.UUSER3 = "";
     this.BVCOMMENT = "";
+    this.U_TYPE = "";
     this.gridApi1.setRowData();
   }
 
@@ -8466,6 +8544,13 @@ export class TendarEstComponent implements OnInit {
             this.ADIS = FillRes.data[0][0].ADIS;
             this.ISBV = FillRes.data[0][0].ISBV;
             this.BVCOMMENT = FillRes.data[0][0].BVCOMMENT;
+            this.U_TYPE = FillRes.data[0][0].U_TYPE;
+
+            if(!this.U_TYPE){
+              this.UTYPEDIS = false
+            }else{
+              this.UTYPEDIS = true
+            }
 
             this.gridApi1.setRowData(FillRes.data[1]);
             this.GridTempData = FillRes.data[1];

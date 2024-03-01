@@ -54,57 +54,73 @@ export class ParcelViewComponent implements OnInit {
   public gridColumnApiShape;
   public defaultColDefShape;
   public gridOptionsShape;
-
+  ShapeRowData: any[] = [];
+  
   FooterKeyShape = ['NAME','CARAT','PCS','RATE', 'AMT'];
-
+  
   public columnDefsSize;
   public gridApiSize;
   public pinnedBottomRowDataSize;
   public gridColumnApiSize;
   public defaultColDefSize;
   public gridOptionsSize;
-
+  SizeRowData: any[] = [];
+  
   public columnDefsColor;
   public gridApiColor;
   public gridColumnApiColor;
   public defaultColDefColor;
   public gridOptionsColor;
   public pinnedBottomRowDataColor;
-
+  ColorRowData: any[] = [];
+  
   public columnDefsQua;
   public gridApiQua;
   public gridColumnApiQua;
   public defaultColDefQua;
   public gridOptionsQua;
   public pinnedBottomRowDataQua;
-
+  QuaRowData: any[] = [];
+  
   public columnDefsShd;
   public gridApiShd;
   public gridColumnApiShd;
   public defaultColDefShd;
   public gridOptionsShd;
   public pinnedBottomRowDataShd;
-
+  ShdRowData: any[] = [];
+  
   public columnDefsCut;
   public gridApiCut;
   public gridColumnApiCut;
   public defaultColDefCut;
   public gridOptionsCut;
   public pinnedBottomRowDataCut;
-
+  CutRowData: any[] = [];
+  
   public columnDefsFlo;
   public gridApiFlo;
   public gridColumnApiFlo;
   public defaultColDefFlo;
   public gridOptionsFlo;
   public pinnedBottomRowDataFlo;
-
+  FloRowData: any[] = [];
+  
   public columnDefsInc;
   public gridApiInc;
   public gridColumnApiInc;
   public defaultColDefInc;
   public gridOptionsInc;
   public pinnedBottomRowDataInc;
+  IncRowData: any[] = [];
+  
+  public columnDefsLab;
+  public gridApiLab;
+  public gridColumnApiLab;
+  public defaultColDefLab;
+  public gridOptionsLab;
+  public pinnedBottomRowDataLab;
+  LabRowData: any[] = [];
 
   GridDataForMapping: any[] = [];
 
@@ -126,6 +142,33 @@ export class ParcelViewComponent implements OnInit {
   T_CARAT: any = "";
 
   DEPTArr: any = [];
+  MonthArr: any = [
+    {code:1,name:'January'},
+    {code:2,name:'February'},
+    {code:3,name:'March'},
+    {code:4,name:'April'},
+    {code:5,name:'May'},
+    {code:6,name:'June'},
+    {code:7,name:'July'},
+    {code:8,name:'August'},
+    {code:9,name:'September'},
+    {code:10,name:'October'},
+    {code:11,name:'November'},
+    {code:12,name:'December'},
+  ];
+  YearArr: any = [
+    {code:2023},
+    {code:2024},
+    {code:2025},
+    {code:2026},
+    {code:2027},
+    {code:2028},
+    {code:2029},
+    {code:2030},
+    {code:2031},
+  ];
+  MM: any = "";
+  YYYY: any = "";
   COMP_CODE: any = "";
   COMP_NAME: any = "";
 
@@ -155,11 +198,14 @@ export class ParcelViewComponent implements OnInit {
   TDIS: any = "";
   RCTS: any = "";
   TRESRVE: any = "";
+  T_PCS: any = "";
 
   HIDEPOL: boolean = false;
   disabledata: boolean = false;
   ADISDISABLE: boolean = true;
   SAVEBTNSHOW: boolean = true;
+
+  ProposalHide: boolean = false;
 
   constructor(
     public dialog: MatDialog,
@@ -575,6 +621,51 @@ export class ParcelViewComponent implements OnInit {
   })
   this.columnDefsInc = columnDefsInc
 
+    let columnDefsLab = [];
+    columnDefsLab.push({
+      headerName: "Lab Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Lab",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:65
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsLab = columnDefsLab
+
 		this.defaultColDefShape = {
 			resizable: true,
 			sortable: true,
@@ -618,6 +709,12 @@ export class ParcelViewComponent implements OnInit {
       suppressMenu: true,
 		}
 		this.defaultColDefInc = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
+		this.defaultColDefLab = {
 			resizable: true,
 			sortable: true,
 			filter: true,
@@ -729,20 +826,31 @@ export class ParcelViewComponent implements OnInit {
     }
   }
 
+  Proposal() {
+    this.ProposalHide = true;
+  }
+  CloseProposal() {
+    this.ProposalHide = false;
+  }
+
   onCellDoubleClick(eve) {
     this.DockData = eve.data;
+    this.NewClear()
     let NewObj = {
       T_DATE: eve.data.T_DATE,
       F_DATE: eve.data.T_DATE,
       S_CODE: this.S_CODE ? this.S_CODE : "",
       C_CODE: this.C_CODE ? this.C_CODE : "",
       Q_CODE: this.Q_CODE ? this.Q_CODE : "",
+      MM: this.MM ? this.MM : 0,
+      YY: this.YYYY ? this.YYYY : 2024,
       F_CARAT: this.F_CARAT ? this.F_CARAT : 0,
       T_CARAT: this.T_CARAT ? this.T_CARAT : 0,
       COMP_CODE: eve.data.COMP_CODE ? eve.data.COMP_CODE : "",
       DETID: eve.data.DETID ? eve.data.DETID : 0,
     };
     this.GRIDON = false;
+    this.spinner.show()
     this.ViewServ.ParcelWrkDisp(NewObj).subscribe((FillRes) => {
       try {
         if (FillRes.success == true) {
@@ -753,46 +861,50 @@ export class ParcelViewComponent implements OnInit {
           this.pinnedBottomRowData = this._gridFunction.footerCal(
             FillRes.data[1]
           );
-          this.gridApiShape.setRowData(FillRes.data[2])
-
+          this.ShapeRowData = FillRes.data[2]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataShape = this._gridFunction.footerCal(
             FillRes.data[2]
           );
-          this.gridApiSize.setRowData(FillRes.data[3])
+          this.SizeRowData = FillRes.data[3]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataSize = this._gridFunction.footerCal(
             FillRes.data[3]
           );
-          this.gridApiColor.setRowData(FillRes.data[4])
+          this.ColorRowData = FillRes.data[4]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataColor = this._gridFunction.footerCal(
             FillRes.data[4]
           );
-          this.gridApiQua.setRowData(FillRes.data[5])
+          this.QuaRowData = FillRes.data[5]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataQua = this._gridFunction.footerCal(
             FillRes.data[5]
           );
-          this.gridApiShd.setRowData(FillRes.data[6])
+          this.ShdRowData = FillRes.data[6]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataShd = this._gridFunction.footerCal(
             FillRes.data[6]
           );
-          this.gridApiCut.setRowData(FillRes.data[7])
+          this.CutRowData = FillRes.data[7]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataCut = this._gridFunction.footerCal(
             FillRes.data[7]
           );
-          this.gridApiFlo.setRowData(FillRes.data[8])
+          this.FloRowData = FillRes.data[8]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataFlo = this._gridFunction.footerCal(
             FillRes.data[8]
           );
-          this.gridApiInc.setRowData(FillRes.data[9])
+          this.IncRowData = FillRes.data[9]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataInc = this._gridFunction.footerCal(
             FillRes.data[9]
+          );
+          this.LabRowData = FillRes.data[10]
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataLab = this._gridFunction.footerCal(
+            FillRes.data[10]
           );
 
           if (FillRes.data[1][0]["AMT"]) {
@@ -816,6 +928,7 @@ export class ParcelViewComponent implements OnInit {
           }
           this.TDIS = FillRes.data[1][0]["TDIS"];
           this.TRESRVE = FillRes.data[1][0]["TRESRVE"];
+          this.T_PCS = FillRes.data[1][0]["SRNO"];
 
           const agBodyViewport: HTMLElement =
             this.elementRef.nativeElement.querySelector(".ag-body-viewport");
@@ -866,18 +979,17 @@ export class ParcelViewComponent implements OnInit {
   }
 
   LoadGridData1() {
+    this.NewClear()
     let NewObj = {
-      F_DATE: this.F_DATE
-        ? this.datepipe.transform(this.F_DATE, "yyyy-MM-dd")
-        : null,
-      T_DATE: this.T_DATE
-        ? this.datepipe.transform(this.T_DATE, "yyyy-MM-dd")
-        : null,
+      F_DATE: this.F_DATE ? this.datepipe.transform(this.F_DATE, "yyyy-MM-dd") : null,
+      T_DATE: this.T_DATE ? this.datepipe.transform(this.T_DATE, "yyyy-MM-dd") : null,
       S_CODE: this.S_CODE ? this.S_CODE : "",
       C_CODE: this.C_CODE ? this.C_CODE : "",
       Q_CODE: this.Q_CODE ? this.Q_CODE : "",
       F_CARAT: this.F_CARAT ? this.F_CARAT : 0,
       T_CARAT: this.T_CARAT ? this.T_CARAT : 0,
+      MM: this.MM ? this.MM : 0,
+      YY: this.YYYY ? this.YYYY : 2024,
       DETID: 0,
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
     };
@@ -891,46 +1003,50 @@ export class ParcelViewComponent implements OnInit {
           this.pinnedBottomRowData = this._gridFunction.footerCal(
             FillRes.data[1]
           );
-          this.gridApiShape.setRowData(FillRes.data[2])
-          
+          this.ShapeRowData = FillRes.data[2]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataShape = this._gridFunction.footerCal(
             FillRes.data[2]
           );
-          this.gridApiSize.setRowData(FillRes.data[3])
+          this.SizeRowData = FillRes.data[3]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataSize = this._gridFunction.footerCal(
             FillRes.data[3]
           );
-          this.gridApiColor.setRowData(FillRes.data[4])
+          this.ColorRowData = FillRes.data[4]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataColor = this._gridFunction.footerCal(
             FillRes.data[4]
           );
-          this.gridApiQua.setRowData(FillRes.data[5])
+          this.QuaRowData = FillRes.data[5]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataQua = this._gridFunction.footerCal(
             FillRes.data[5]
           );
-          this.gridApiShd.setRowData(FillRes.data[6])
+          this.ShdRowData = FillRes.data[6]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataShd = this._gridFunction.footerCal(
             FillRes.data[6]
           );
-          this.gridApiCut.setRowData(FillRes.data[7])
+          this.CutRowData = FillRes.data[7]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataCut = this._gridFunction.footerCal(
             FillRes.data[7]
           );
-          this.gridApiFlo.setRowData(FillRes.data[8])
+          this.FloRowData = FillRes.data[8]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataFlo = this._gridFunction.footerCal(
             FillRes.data[8]
           );
-          this.gridApiInc.setRowData(FillRes.data[9])
+          this.IncRowData = FillRes.data[9]
           this._gridFunction.FooterKey = this.FooterKeyShape;
           this.pinnedBottomRowDataInc = this._gridFunction.footerCal(
             FillRes.data[9]
+          );
+          this.LabRowData = FillRes.data[10]
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataLab = this._gridFunction.footerCal(
+            FillRes.data[10]
           );
 
           if (FillRes.data[1][0]["AMT"]) {
@@ -954,6 +1070,7 @@ export class ParcelViewComponent implements OnInit {
           }
           this.TDIS = FillRes.data[1][0]["TDIS"];
           this.TRESRVE = FillRes.data[1][0]["TRESRVE"];
+          this.T_PCS = FillRes.data[1][0]["SRNO"];
           
           const agBodyViewport: HTMLElement =
             this.elementRef.nativeElement.querySelector(".ag-body-viewport");
@@ -1022,6 +1139,10 @@ export class ParcelViewComponent implements OnInit {
   onGridReadyInc(params) {
     this.gridApiInc = params.api;
     this.gridColumnApiInc = params.columnApi;
+  }
+  onGridReadyLab(params) {
+    this.gridApiLab = params.api;
+    this.gridColumnApiLab = params.columnApi;
   }
 
   FillViewPara() {
@@ -1572,6 +1693,19 @@ export class ParcelViewComponent implements OnInit {
     });
   }
 
+  NewClear(){
+    this.AMT=''
+    this.CARAT=''
+    this.I_CARAT=''
+    this.SIZE=''
+    this.RTOP=''
+    this.RATE=''
+    this.RCTS =''
+    this.TDIS = ''
+    this.TRESRVE=''
+    this.T_PCS = ''
+  }
+
   Clear() {
     this.F_DATE = null;
     this.T_DATE = null;
@@ -1585,17 +1719,15 @@ export class ParcelViewComponent implements OnInit {
 
   LoadGridData() {
     this.ViewServ.ParcelgWrk({
-      F_DATE: this.F_DATE
-        ? this.datepipe.transform(this.F_DATE, "dd-MM-yyyy")
-        : null,
-      T_DATE: this.T_DATE
-        ? this.datepipe.transform(this.T_DATE, "dd-MM-yyyy")
-        : null,
+      F_DATE: this.F_DATE ? this.datepipe.transform(this.F_DATE, "yyyy-MM-dd") : null,
+      T_DATE: this.T_DATE ? this.datepipe.transform(this.T_DATE, "yyyy-MM-dd") : null,
       S_CODE: this.S_CODE ? this.S_CODE : "",
       C_CODE: this.C_CODE ? this.C_CODE : "",
       Q_CODE: this.Q_CODE ? this.Q_CODE : "",
       F_CARAT: this.F_CARAT ? this.F_CARAT : 0,
       T_CARAT: this.T_CARAT ? this.T_CARAT : 0,
+      MM: this.MM ? this.MM : 0,
+      YY: this.YYYY ? this.YYYY : 2024,
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
     }).subscribe((FillRes) => {
       try {

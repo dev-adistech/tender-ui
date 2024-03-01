@@ -5,6 +5,11 @@
         Get Certi Result
       </h1>
 
+      <mat-radio-group [(ngModel)]="TYPE" class="radio-border">
+        <mat-radio-button class="radio-btn" value="CERTI">Certi</mat-radio-button>
+        <mat-radio-button class="radio-btn" value="SELL">Sell</mat-radio-button>
+      </mat-radio-group>
+
       <div class="lot-transfer__lot--popup">
         <button class="btn theme-btn " matTooltip='Lot' (click)="OpenLotPopup()">
           <svg class="icon icon-lot">

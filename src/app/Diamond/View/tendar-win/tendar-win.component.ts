@@ -14,6 +14,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 import { TendatMastService } from "src/app/Service/Transaction/tendat-mast.service";
 import { environment } from "src/environments/environment";
 import { ListboxComponent } from "../../Common/listbox/listbox.component";
+import { FrmOpePer } from "../../_helpers/frm-ope-per";
 declare let $: any;
 @Component({
   selector: "app-tendar-win",
@@ -60,6 +61,14 @@ export class TendarWinComponent implements OnInit {
   ExcelData: any = "";
   HeaderData: any = "";
 
+  ALLOWINS: boolean = false;
+  ALLOWDEL: boolean = false;
+  ALLOWUPD: boolean = false;
+  PASS: any = "";
+  PER = [];
+  hide = true;
+  PASSWORD: any = "";
+
   constructor(
     public dialog: MatDialog,
     private EncrDecrServ: EncrDecrService,
@@ -70,6 +79,7 @@ export class TendarWinComponent implements OnInit {
     private _convFunction: ConverterFunctions,
     private toastr: ToastrService,
     private TendarMastser: TendatMastService,
+    private _FrmOpePer: FrmOpePer,
     private datePipe: DatePipe,
     private ViewParaMastServ: ViewParaMastService
   ) {
@@ -101,7 +111,13 @@ export class TendarWinComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    this.PER = await this._FrmOpePer.UserFrmOpePer("TendarWinComponent");
+    this.ALLOWDEL = this.PER[0].DEL;
+    this.ALLOWINS = this.PER[0].INS;
+    this.ALLOWUPD = this.PER[0].UPD;
+    this.PASS = this.PER[0].PASS;
+
     this.DEPTArr = this.decodedMast[2].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
@@ -251,6 +267,20 @@ export class TendarWinComponent implements OnInit {
         }
       }
     );
+  }
+
+  CHANGEPASSWORD() {
+    if (!this.PASS) return;
+    if (this.PASSWORD === this.PASS) {
+      this.gridOptions.columnApi.setColumnVisible('ORAP', true);
+      this.gridOptions.columnApi.setColumnVisible('DIS', true);
+      this.gridApi.redrawRows();
+    } else {
+      this.gridOptions.columnApi.setColumnVisible('ORAP', false);
+      this.gridOptions.columnApi.setColumnVisible('DIS', false);
+      this.gridApi.redrawRows();
+    }
+    this.gridApi.redrawRows();
   }
 
   rowSpy(params) {
@@ -756,7 +786,10 @@ export class TendarWinComponent implements OnInit {
         if (params.data.BVCOMMENT == SubData[params.node.rowIndex].BVCOMMENT) {
           let mergeIndex = 0;
           for (let i = params.node.rowIndex; i < SubData.length; i++) {
-            if (params.data.BVCOMMENT == SubData[i].BVCOMMENT && params.data.BVCOMMENT) {
+            if (
+              params.data.BVCOMMENT == SubData[i].BVCOMMENT &&
+              params.data.BVCOMMENT
+            ) {
               mergeIndex += 1;
             } else {
               break;
@@ -774,7 +807,10 @@ export class TendarWinComponent implements OnInit {
         if (params.data.BVCOMMENT != SubData[previousIndex].BVCOMMENT) {
           let mergeIndex = 0;
           for (let i = params.node.rowIndex; i < SubData.length; i++) {
-            if (params.data.BVCOMMENT == SubData[i].BVCOMMENT && params.data.BVCOMMENT) {
+            if (
+              params.data.BVCOMMENT == SubData[i].BVCOMMENT &&
+              params.data.BVCOMMENT
+            ) {
               mergeIndex += 1;
             } else {
               break;
@@ -843,9 +879,14 @@ export class TendarWinComponent implements OnInit {
     this.I_CARAT = "";
     let FillObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
-      DETID: this.DETID ? this.DETID : '',
-      F_DATE: this.F_DATE ? this.datePipe.transform(this.F_DATE,'yyyy-MM-dd'):null,
-      T_DATE: this.T_DATE ? this.datePipe.transform(this.T_DATE,'yyyy-MM-dd'):null,
+      DETID: this.DETID ? this.DETID : "",
+      F_DATE: this.F_DATE
+        ? this.datePipe.transform(this.F_DATE, "yyyy-MM-dd")
+        : null,
+      T_DATE: this.T_DATE
+        ? this.datePipe.transform(this.T_DATE, "yyyy-MM-dd")
+        : null,
+      ISPASS: this.PASS === this.PASSWORD ? 1 : 0,
     };
     this.spinner.show();
     this.ViewServ.TenderWin(FillObj).subscribe((FillRes) => {
@@ -870,59 +911,59 @@ export class TendarWinComponent implements OnInit {
           this.gridApi.forEachNode(function (rowNode, index) {
             SubData.push(rowNode.data);
           });
-          let ValueOfTamount = 0
-          let SumOfTamount = 0
+          let ValueOfTamount = 0;
+          let SumOfTamount = 0;
 
-          let ValueOfPay = 0
-          let SumOfPay = 0
+          let ValueOfPay = 0;
+          let SumOfPay = 0;
 
-          let ValueOfPayPer = 0
-          let SumOfPayPer = 0
+          let ValueOfPayPer = 0;
+          let SumOfPayPer = 0;
 
-          let ValueOfPer = 0
-          let SumOfPer = 0
+          let ValueOfPer = 0;
+          let SumOfPer = 0;
 
-          let ValueOfLab = 0
-          let SumOfLab = 0
-          let SumOfSrno = 0
-          for(let i=0;i<SubData.length;i++){
-            if(ValueOfTamount !== SubData[i].MAMT){
-              ValueOfTamount = SubData[i].MAMT
-              SumOfTamount += SubData[i].MAMT
-              SumOfSrno += 1
+          let ValueOfLab = 0;
+          let SumOfLab = 0;
+          let SumOfSrno = 0;
+          for (let i = 0; i < SubData.length; i++) {
+            if (ValueOfTamount !== SubData[i].MAMT) {
+              ValueOfTamount = SubData[i].MAMT;
+              SumOfTamount += SubData[i].MAMT;
+              SumOfSrno += 1;
             }
 
-            if(ValueOfPay !== SubData[i].FAMT){
-              ValueOfPay = SubData[i].FAMT
-              SumOfPay += SubData[i].FAMT
+            if (ValueOfPay !== SubData[i].FAMT) {
+              ValueOfPay = SubData[i].FAMT;
+              SumOfPay += SubData[i].FAMT;
             }
 
-            if(ValueOfPayPer !== SubData[i].FBID){
-              ValueOfPayPer = SubData[i].FBID
-              SumOfPayPer += SubData[i].FBID
+            if (ValueOfPayPer !== SubData[i].FBID) {
+              ValueOfPayPer = SubData[i].FBID;
+              SumOfPayPer += SubData[i].FBID;
             }
 
-            if(ValueOfPayPer !== SubData[i].FBID){
-              ValueOfPayPer = SubData[i].FBID
-              SumOfPayPer += SubData[i].FBID
+            if (ValueOfPayPer !== SubData[i].FBID) {
+              ValueOfPayPer = SubData[i].FBID;
+              SumOfPayPer += SubData[i].FBID;
             }
 
-            if(ValueOfPer !== SubData[i].PER){
-              ValueOfPer = SubData[i].PER
-              SumOfPer += SubData[i].PER
+            if (ValueOfPer !== SubData[i].PER) {
+              ValueOfPer = SubData[i].PER;
+              SumOfPer += SubData[i].PER;
             }
 
-            if(ValueOfLab !== SubData[i].PERPAY){
-              ValueOfLab = SubData[i].PERPAY
-              SumOfLab += SubData[i].PERPAY
+            if (ValueOfLab !== SubData[i].PERPAY) {
+              ValueOfLab = SubData[i].PERPAY;
+              SumOfLab += SubData[i].PERPAY;
             }
           }
-          this.pinnedBottomRowData[0].MAMT = SumOfTamount.toFixed(2)
-          this.pinnedBottomRowData[0].FAMT = SumOfPay.toFixed(2)
-          this.pinnedBottomRowData[0].FBID = FillRes.data[1][0]["PCRT"]
-          this.pinnedBottomRowData[0].PER = SumOfPer.toFixed(2)
-          this.pinnedBottomRowData[0].PERPAY = SumOfLab.toFixed(2)
-          this.pinnedBottomRowData[0].SRNO = SumOfSrno
+          this.pinnedBottomRowData[0].MAMT = SumOfTamount.toFixed(2);
+          this.pinnedBottomRowData[0].FAMT = SumOfPay.toFixed(2);
+          this.pinnedBottomRowData[0].FBID = FillRes.data[1][0]["PCRT"];
+          this.pinnedBottomRowData[0].PER = SumOfPer.toFixed(2);
+          this.pinnedBottomRowData[0].PERPAY = SumOfLab.toFixed(2);
+          this.pinnedBottomRowData[0].SRNO = SumOfSrno;
 
           const agBodyViewport: HTMLElement =
             this.elementRef.nativeElement.querySelector(".ag-body-viewport");
@@ -1061,7 +1102,11 @@ export class TendarWinComponent implements OnInit {
     var mapForm = document.createElement("form");
     mapForm.target = "_blank";
     mapForm.method = "POST";
-    mapForm.action = `https://${this.url}:${this.port}/api/View/TendarWinSheet`;
+    if (this.PASS === this.PASSWORD) {
+      mapForm.action = `https://${this.url}:${this.port}/api/View/TendarWinSheet`;
+    } else {
+      mapForm.action = `https://${this.url}:${this.port}/api/View/TendarWinSheetUnmatch`;
+    }
 
     let obj = {
       DataRow: JSON.stringify(rowData),
@@ -1082,10 +1127,14 @@ export class TendarWinComponent implements OnInit {
     mapForm.submit();
   }
   OpenDetIdPopup() {
-    const PRF = this.dialog.open(ListboxComponent, { width: '30%', data: { arr: this.DETIDarr, CODE: this.DETID, TYPE: 'DETID' }, panelClass: 'ListboxDialog' })
+    const PRF = this.dialog.open(ListboxComponent, {
+      width: "30%",
+      data: { arr: this.DETIDarr, CODE: this.DETID, TYPE: "DETID" },
+      panelClass: "ListboxDialog",
+    });
     $("#Close").click();
-    PRF.afterClosed().subscribe(result => {
-      this.DETID = result
+    PRF.afterClosed().subscribe((result) => {
+      this.DETID = result;
     });
   }
 }

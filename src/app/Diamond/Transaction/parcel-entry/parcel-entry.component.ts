@@ -161,6 +161,8 @@ export class ParcelEntryComponent implements OnInit {
   RTOP: any = "";
   SIZE: any = "";
   AMT: any = "";
+  DAMT: any = "";
+  DRCTS: any = "";
   CARAT: any = "";
   RATE: any = "";
   TDIS: any = "";
@@ -184,6 +186,7 @@ export class ParcelEntryComponent implements OnInit {
   USERID: any = "";
   USERCat: any = "";
   TRESRVE: any = "";
+  T_PCS: any = "";
 
   ProposalHide: boolean = false;
 
@@ -250,6 +253,14 @@ export class ParcelEntryComponent implements OnInit {
   public gridOptionsInc;
   public pinnedBottomRowDataInc;
   IncRowData: any[] = [];
+
+  public columnDefsLab;
+  public gridApiLab;
+  public gridColumnApiLab;
+  public defaultColDefLab;
+  public gridOptionsLab;
+  public pinnedBottomRowDataLab;
+  LabRowData: any[] = [];
 
   public getRowStyleDock;
 
@@ -343,7 +354,7 @@ export class ParcelEntryComponent implements OnInit {
           field: "PCS",
           cellStyle: { "text-align": "right" },
           headerClass: "text-center",
-          width: 30,
+          width: 34,
         },
         {
           headerName: "Carat%",
@@ -388,7 +399,7 @@ export class ParcelEntryComponent implements OnInit {
           field: "PCS",
           cellStyle: { "text-align": "right" },
           headerClass: "text-center",
-          width: 30,
+          width: 34,
         },
         {
           headerName: "Carat%",
@@ -433,7 +444,7 @@ export class ParcelEntryComponent implements OnInit {
 				field: "PCS",
 				cellStyle: { "text-align": "right" },
 				headerClass: "text-center",
-        width:30
+        width:34
 			},
 			{
 				headerName: "Carat%",
@@ -478,7 +489,7 @@ export class ParcelEntryComponent implements OnInit {
 				field: "PCS",
 				cellStyle: { "text-align": "right" },
 				headerClass: "text-center",
-        width:30
+        width:34
 			},
 			{
 				headerName: "Carat%",
@@ -678,6 +689,51 @@ export class ParcelEntryComponent implements OnInit {
   })
   this.columnDefsInc = columnDefsInc
 
+    let columnDefsLab = [];
+    columnDefsLab.push({
+      headerName: "Lab Proposal",
+      headerClass: "header-align-center",
+      width: 30,
+      children: [
+			{
+				headerName: "Lab",
+				field: "NAME",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:65
+			},
+			{
+				headerName: "Weight",
+				field: "CARAT",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:49
+			},
+			{
+				headerName: "Pcs",
+				field: "PCS",
+				cellStyle: { "text-align": "right" },
+				headerClass: "text-center",
+        width:34
+			},
+			{
+				headerName: "Carat%",
+				field: "RATE",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:67
+			},
+			{
+				headerName: "Price%",
+				field: "AMT",
+				cellStyle: { "text-align": "center" },
+				headerClass: "text-center",
+        width:74
+			},
+		]
+  })
+  this.columnDefsLab = columnDefsLab
+
     this.defaultColDefShape = {
       resizable: true,
       sortable: true,
@@ -726,6 +782,12 @@ export class ParcelEntryComponent implements OnInit {
 			filter: true,
       suppressMenu: true,
 		}
+		this.defaultColDefLab = {
+			resizable: true,
+			sortable: true,
+			filter: true,
+      suppressMenu: true,
+		}
   }
 
   onGridReadyShape(params) {
@@ -765,6 +827,10 @@ export class ParcelEntryComponent implements OnInit {
   onGridReadyInc(params) {
     this.gridApiInc = params.api;
     this.gridColumnApiInc = params.columnApi;
+  }
+  onGridReadyLab(params) {
+    this.gridApiLab = params.api;
+    this.gridColumnApiLab = params.columnApi;
   }
 
   SAVEBTNDISABLE(eve) {
@@ -2245,23 +2311,69 @@ export class ParcelEntryComponent implements OnInit {
                 },
               });
             } else {
-              temp.push({
-                headerName: VPRes.data[i].DISPNAME,
-                headerClass: VPRes.data[i].HEADERALIGN,
-                field: VPRes.data[i].FIELDNAME,
-                width: VPRes.data[i].COLWIDTH,
-                FORMAT: VPRes.data[i].FORMAT,
+              if (
+                op.decodedTkn.U_CAT === "S" &&
+                (VPRes.data[i].FIELDNAME === "ORAP" ||
+                  VPRes.data[i].FIELDNAME === "RATE" ||
+                  VPRes.data[i].FIELDNAME === "PER" ||
+                  VPRes.data[i].FIELDNAME === "AMT" ||
+                  VPRes.data[i].FIELDNAME == "MPER")
+              ) {
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
                 LOCK: VPRes.data[i].LOCK,
-                cellStyle: {
-                  "text-align": VPRes.data[i].CELLALIGN,
-                  "background-color": VPRes.data[i].BACKCOLOR,
-                  color: VPRes.data[i].FONTCOLOR,
-                  "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
-                },
-                resizable: VPRes.data[i].ISRESIZE,
-                hide: VPRes.data[i].DISP == false ? true : false,
-                suppressMenu: true,
-              });
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide:false,
+                  suppressMenu: true,
+                });
+              }else if(op.decodedTkn.U_CAT === "S" &&
+              (VPRes.data[i].FIELDNAME === "D_DIS" || VPRes.data[i].FIELDNAME === "DRATE" ||VPRes.data[i].FIELDNAME === 'DAMT')){
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: true,
+                  suppressMenu: true,
+                });
+              }else{
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: VPRes.data[i].DISP == false ? true : false,
+                  suppressMenu: true,
+                });
+              }
             }
             if (VPRes.data[i].FIELDNAME == "S_NAME") {
               temp[i].cellRenderer = this.ShapeFill.bind(this);
@@ -5000,6 +5112,11 @@ export class ParcelEntryComponent implements OnInit {
           this.pinnedBottomRowDataInc = this._gridFunction.footerCal(
             FillRes.data[10]
           );
+          this.LabRowData = FillRes.data[11];
+          this._gridFunction.FooterKey = this.FooterKeyShape;
+          this.pinnedBottomRowDataLab = this._gridFunction.footerCal(
+            FillRes.data[11]
+          );
 
           if (FillRes.data[2][0]["AMT"]) {
             this.AMT = FillRes.data[2][0]["AMT"].toFixed(0);
@@ -5008,6 +5125,8 @@ export class ParcelEntryComponent implements OnInit {
           }
           this.CARAT = FillRes.data[2][0]["CARAT"];
           this.I_CARAT = FillRes.data[2][0]["I_CARAT"];
+          this.DRCTS = FillRes.data[2][0]["DRCTS"];
+          this.DAMT = FillRes.data[2][0]["DAMT"];
           if (FillRes.data[2][0]["RTOP"]) {
             this.RTOP = FillRes.data[2][0]["RTOP"].toFixed(2);
           }
@@ -5022,6 +5141,7 @@ export class ParcelEntryComponent implements OnInit {
           }
           this.TDIS = FillRes.data[2][0]["TDIS"];
           this.TRESRVE = FillRes.data[2][0]["TRESRVE"];
+          this.T_PCS = FillRes.data[2][0]["T_PCS"];
 
           this.spinner.show();
           for (let i = 0; i < this.rowData.length; i++) {
@@ -5954,14 +6074,10 @@ export class ParcelEntryComponent implements OnInit {
                 this.rowData[i].GRID_DATA[j].ORAP = RapRes.data[0][0].AMT;
                 this.rowData[i].GRID_DATA[j].RATE = RapRes.data[1][0][""];
                 this.rowData[i].GRID_DATA[j].RTYPE = RapRes.data[2][0][""];
-                this.rowData[i].GRID_DATA[j].AMT =
-                  this.rowData[i].GRID_DATA[j].RATE *
-                  this.rowData[i].GRID_DATA[j].CARAT;
-                this.rowData[i].GRID_DATA[j].PER =
-                  100 -
-                  (this.rowData[i].GRID_DATA[j].RATE /
-                    this.rowData[i].GRID_DATA[j].ORAP) *
-                    100;
+                this.rowData[i].GRID_DATA[j].AMT = this.rowData[i].GRID_DATA[j].RATE * this.rowData[i].GRID_DATA[j].CARAT;
+                this.rowData[i].GRID_DATA[j].DRATE =this.rowData[i].GRID_DATA[j].RATE - (this.rowData[i].GRID_DATA[j].RATE * parseFloat(this.rowData[i].GRID_DATA[j].D_DIS)) / 100;
+                this.rowData[i].GRID_DATA[j].DAMT = this.rowData[i].GRID_DATA[j].DRATE * this.rowData[i].GRID_DATA[j].CARAT;
+                this.rowData[i].GRID_DATA[j].PER =100 -(this.rowData[i].GRID_DATA[j].RATE /  this.rowData[i].GRID_DATA[j].ORAP) *  100;
                 break;
               }
             }
@@ -5969,6 +6085,7 @@ export class ParcelEntryComponent implements OnInit {
         }
 
         let NewAmtSum = 0;
+        let NewAmtDSum = 0;
         for (let i = 0; i < this.rowData.length; i++) {
           for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
             if (
@@ -5995,6 +6112,7 @@ export class ParcelEntryComponent implements OnInit {
               this.rowData[i].GRID_DATA[j].RATE = FinalValue;
               this.rowData[i].GRID_DATA[j].AMT = NewSum;
               NewAmtSum += this.rowData[i].GRID_DATA[j].AMT;
+              NewAmtDSum += this.rowData[i].GRID_DATA[j].DAMT;
             }
           }
         }
@@ -6006,8 +6124,8 @@ export class ParcelEntryComponent implements OnInit {
               this.rowData[i].GRID_DATA[j].PTAG == "Total"
             ) {
               this.rowData[i].GRID_DATA[j].AMT = NewAmtSum;
-              this.rowData[i].GRID_DATA[j].RATE =
-                NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT;
+              this.rowData[i].GRID_DATA[j].RATE =NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT;
+              this.rowData[i].GRID_DATA[j].DRATE = NewAmtDSum / this.rowData[i].GRID_DATA[j].CARAT;
               let FINAL = (this.rowData[i].ADIS / 100) * NewAmtSum;
               ADISDIS = NewAmtSum + FINAL;
               this.rowData[i].FAMT = ADISDIS.toFixed(2);
@@ -6031,16 +6149,20 @@ export class ParcelEntryComponent implements OnInit {
         }
         if (!this.TDIS) {
           this.AMT = NewAmt.toFixed(0);
+          this.DAMT = NewAmt.toFixed(0);
           this.CARAT = NewCrt.toFixed(2);
           this.RATE = (this.AMT / this.CARAT).toFixed(2);
           this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
+          this.DRCTS = (this.DAMT / this.I_CARAT).toFixed(0);
           this.RTOP = ((this.CARAT / this.I_CARAT) * 100).toFixed(2);
         } else {
           let NewValue = (this.TDIS / 100) * NewAmt;
           let FinalValue = NewAmt + NewValue;
           this.AMT = FinalValue.toFixed(0);
+          this.DAMT = NewAmt.toFixed(0);
           this.RATE = (this.AMT / this.CARAT).toFixed(2);
           this.RCTS = (this.AMT / this.I_CARAT).toFixed(0);
+          this.DRCTS = (this.DAMT / this.I_CARAT).toFixed(0);
           this.RTOP = ((this.CARAT / this.I_CARAT) * 100).toFixed(2);
         }
       } catch (error) {

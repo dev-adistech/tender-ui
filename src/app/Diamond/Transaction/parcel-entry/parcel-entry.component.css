@@ -893,7 +893,7 @@ tr:nth-child(even) {
   position: absolute;
 	height: 80vh;
 	width: 100vw;
-
+  margin-top: -3%;
 	display: grid;
 	place-items: center;
 }

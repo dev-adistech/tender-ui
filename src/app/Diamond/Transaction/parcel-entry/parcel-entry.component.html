@@ -45,9 +45,13 @@
                 (click)="Proposal()">
         </button>
 
-        <mat-form-field appearance="outline" style="width: 5rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 5rem;font-weight: bold;" *ngIf="HIDEPOL">
             <mat-label>Amount</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="AMT" disabled />
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 5rem;font-weight: bold;" *ngIf="!HIDEPOL">
+            <mat-label>DAmount</mat-label>
+            <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="DAMT" disabled />
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" *ngIf="HIDEPOL">
             <mat-label>Pol.Crt</mat-label>
@@ -71,9 +75,13 @@
             <mat-label>Rate</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="RATE" disabled />
         </mat-form-field>
-        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;">
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" *ngIf="HIDEPOL">
             <mat-label>Rcts</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="RCTS" disabled />
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" *ngIf="!HIDEPOL">
+            <mat-label>D.Rcts</mat-label>
+            <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="DRCTS" disabled />
         </mat-form-field>
         <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;" *ngIf="SAVEBTNSHOW">
             <mat-label>ADis</mat-label>
@@ -83,6 +91,10 @@
         <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;">
             <mat-label>Resrve</mat-label>
             <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="TRESRVE" [disabled]="ADISDISABLE" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" style="width: 4rem;font-weight: bold;">
+            <mat-label>Pcs</mat-label>
+            <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="T_PCS" disabled />
         </mat-form-field>
 
         <button class="btn theme-btn mr-2 ml-auto" matTooltip='Save' matTooltipClass="custom-tooltip"
@@ -166,6 +178,16 @@
                     [gridOptions]="gridOptionsInc" [rowMultiSelectWithClick]="true" [suppressRowClickSelection]="true"
                     [pinnedBottomRowData]="pinnedBottomRowDataInc" [getRowStyle]="getRowStyleDock" [rowData]="IncRowData"
                     (gridReady)="onGridReadyInc($event)" [suppressRowTransform]="true" [suppressMenuHide]="false">
+                  </ag-grid-angular>
+                </div>
+            </article>
+            <article class="aggrid-wrapper" style="width: 100%;display: flex;">
+                <div class="memo-ent-grid prc-view-grid  newGrid">
+                    <ag-grid-angular style="margin-left: 15px;width: calc(18vw); height: calc(100vh - 71vh);"
+                    class="ag-theme-alpine" [defaultColDef]="defaultColDefLab" [columnDefs]="columnDefsLab"
+                    [pinnedBottomRowData]="pinnedBottomRowDataLab" [getRowStyle]="getRowStyleDock" [rowData]="LabRowData"
+                    [gridOptions]="gridOptionsLab" [rowMultiSelectWithClick]="true" [suppressRowClickSelection]="true"
+                    (gridReady)="onGridReadyLab($event)" [suppressRowTransform]="true" [suppressMenuHide]="false">
                   </ag-grid-angular>
                 </div>
             </article>

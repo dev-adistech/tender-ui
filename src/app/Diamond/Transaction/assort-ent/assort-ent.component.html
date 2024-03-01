@@ -34,6 +34,10 @@
                 style="display: flex;position: static;text-align: center;height: 31px;">
         </th>
         <th>
+            <input type="text" value="Kati.Weight" class="tenderTxt" disabled
+                style="display: flex;position: static;text-align: center;height: 31px;">
+        </th>
+        <th>
             <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData();">
                 <svg class="icon icon-show">
                   <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
@@ -80,6 +84,10 @@
         </td>
         <td>
             <input type="text" [(ngModel)]="T_NOPKT" class="tenderTxt"
+                style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
+        </td>
+        <td>
+            <input type="text" [(ngModel)]="K_CARAT" class="tenderTxt" disabled
                 style="display: flex;position: static;text-align: center;height: 31px;background: #e4e4e4;">
         </td>
         <th>

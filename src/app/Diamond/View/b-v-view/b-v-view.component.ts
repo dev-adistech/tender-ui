@@ -1697,23 +1697,69 @@ export class BVViewComponent implements OnInit {
                 },
               });
             } else {
-              temp.push({
-                headerName: VPRes.data[i].DISPNAME,
-                headerClass: VPRes.data[i].HEADERALIGN,
-                field: VPRes.data[i].FIELDNAME,
-                width: VPRes.data[i].COLWIDTH,
-                FORMAT: VPRes.data[i].FORMAT,
+              if (
+                op.decodedTkn.U_CAT === "S" &&
+                (VPRes.data[i].FIELDNAME === "ORAP" ||
+                  VPRes.data[i].FIELDNAME === "RATE" ||
+                  VPRes.data[i].FIELDNAME === "PER" ||
+                  VPRes.data[i].FIELDNAME === "AMT" ||
+                  VPRes.data[i].FIELDNAME == "MPER")
+              ) {
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
                 LOCK: VPRes.data[i].LOCK,
-                cellStyle: {
-                  "text-align": VPRes.data[i].CELLALIGN,
-                  "background-color": VPRes.data[i].BACKCOLOR,
-                  color: VPRes.data[i].FONTCOLOR,
-                  "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
-                },
-                resizable: VPRes.data[i].ISRESIZE,
-                hide: VPRes.data[i].DISP == false ? true : false,
-                suppressMenu: true,
-              });
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide:false,
+                  suppressMenu: true,
+                });
+              }else if(op.decodedTkn.U_CAT === "S" &&
+              (VPRes.data[i].FIELDNAME === "D_DIS" || VPRes.data[i].FIELDNAME === "DRATE" ||VPRes.data[i].FIELDNAME === 'DAMT')){
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: true,
+                  suppressMenu: true,
+                });
+              }else{
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: VPRes.data[i].DISP == false ? true : false,
+                  suppressMenu: true,
+                });
+              }
             }
             if (VPRes.data[i].FIELDNAME == "S_NAME") {
               temp[i].cellRenderer = this.ShapeFill.bind(this);
@@ -5119,6 +5165,7 @@ export class BVViewComponent implements OnInit {
       UUSER3: item.UUSER3 ? item.UUSER3 : "",
       BVCOMMENT: item.BVCOMMENT ? item.BVCOMMENT : "",
       ISBV: 1,
+      U_TYPE: item.U_TYPE ? item.U_TYPE:'',
     };
     this.spinner.show();
     this.TendarEstServ.TendarResSave(saveOBJ1).subscribe((SaveRes) => {
@@ -5200,7 +5247,6 @@ export class BVViewComponent implements OnInit {
       }
     });
   }
-
   trackByFn(index, item) {
     return index;
   }

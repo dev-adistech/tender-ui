@@ -128,6 +128,7 @@ export class TendarMastComponent implements OnInit {
   T_NAME: any = "";
   T_CARAT: any = "";
   T_PCS: any = "";
+  D_DIS: any = "";
   T_DATE: any = null;
   ISACTIVE: boolean = false;
   ISMIX: boolean = false;
@@ -194,6 +195,7 @@ export class TendarMastComponent implements OnInit {
   public gridApi;
   public gridColumnApi;
   public defaultColDef;
+  public gridOptions;
 
   public columnDefs1;
   public gridApi1;
@@ -214,6 +216,7 @@ export class TendarMastComponent implements OnInit {
   SRNOForm: FormControl;
 
   FieldHide: boolean = false;
+  CatWiseHide: boolean = false;
 
   constructor(
     private EncrDecrServ: EncrDecrService,
@@ -262,28 +265,28 @@ export class TendarMastComponent implements OnInit {
           return a;
         },
         headerClass: "text-center",
-        width: 96,
+        width: 77,
       },
       {
         headerName: "Tendar Number",
         field: "DETID",
         cellStyle: { "text-align": "right" },
         headerClass: "text-center",
-        width: 113,
+        width: 91,
       },
       {
         headerName: "Tendar Name",
         field: "T_NAME",
         cellStyle: { "text-align": "right" },
         headerClass: "text-center",
-        width: 110,
+        width: 79,
       },
       {
         headerName: "Tendar Date",
         field: "T_DATE",
         cellStyle: { "text-align": "center" },
         headerClass: "text-center",
-        width: 150,
+        width: 79,
         cellRenderer: this.DateFormat.bind(this),
       },
       {
@@ -291,7 +294,7 @@ export class TendarMastComponent implements OnInit {
         field: "ISACTIVE",
         cellStyle: { "text-align": "center" },
         headerClass: "text-center",
-        width: 65,
+        width: 43,
         cellRenderer: (params) => {
           if (params.data.ISACTIVE == true) {
             return '<input type="checkbox" data-action-type="COVER" checked  disabled>';
@@ -305,7 +308,7 @@ export class TendarMastComponent implements OnInit {
         field: "ISMIX",
         cellStyle: { "text-align": "center" },
         headerClass: "text-center",
-        width: 65,
+        width: 37,
         cellRenderer: (params) => {
           if (params.data.ISMIX == true) {
             return '<input type="checkbox" data-action-type="MIX" checked  disabled>';
@@ -319,7 +322,7 @@ export class TendarMastComponent implements OnInit {
         field: "ISASSORT",
         cellStyle: { "text-align": "center" },
         headerClass: "text-center",
-        width: 65,
+        width: 46,
         cellRenderer: (params) => {
           if (params.data.ISASSORT == true) {
             return '<input type="checkbox" data-action-type="ASSORT" checked  disabled>';
@@ -333,20 +336,28 @@ export class TendarMastComponent implements OnInit {
         field: "T_PCS",
         cellStyle: { "text-align": "right" },
         headerClass: "text-center",
-        width: 82,
+        width: 66,
       },
       {
         headerName: "Tendar Crt",
         field: "T_CARAT",
         cellStyle: { "text-align": "right" },
         headerClass: "text-center",
-        width: 88,
+        width: 68,
+      },
+      {
+        headerName: "Discount",
+        field: "D_DIS",
+        cellStyle: { "text-align": "right" },
+        headerClass: "text-center",
+        width: 57,
       },
     ];
     this.defaultColDef = {
       resizable: true,
       sortable: true,
       filter: true,
+      suppressMenu: true,
     };
 
     this.columnDefs1 = [
@@ -426,6 +437,9 @@ export class TendarMastComponent implements OnInit {
       enableSorting: false,
       enableFilter: false,
       context: { thisComponent: this },
+    };
+    this.gridOptions = {
+      columnDefs: this.columnDefs,
     };
   }
 
@@ -537,6 +551,14 @@ export class TendarMastComponent implements OnInit {
       startWith(""),
       map((value) => this._Tensionfilter(value))
     );
+
+    if(this.decodedTkn.U_CAT === 'S'){
+      this.CatWiseHide = true
+      this.gridOptions.columnApi.setColumnVisible('D_DIS', true);
+    }else{
+      this.CatWiseHide = false
+      this.gridOptions.columnApi.setColumnVisible('D_DIS', false);
+    }
   }
 
   private _filter(value: string): any[] {
@@ -726,6 +748,7 @@ export class TendarMastComponent implements OnInit {
     this.T_PCS = 0;
     this.T_CARAT = 0;
     this.FieldHide = false;
+    this.D_DIS=0
     this.Tendar.enable();
   }
 
@@ -1011,12 +1034,13 @@ export class TendarMastComponent implements OnInit {
       return;
     }
 
-    if (!this.T_DATE) {
-      this.toastr.warning("enter Valid DATE");
-      return;
-    }
     if (!this.T_NAME) {
       this.toastr.warning("enter Valid Tendar Name");
+      return;
+    }
+
+    if (!this.T_DATE) {
+      this.toastr.warning("enter Valid DATE");
       return;
     }
 
@@ -1051,6 +1075,7 @@ export class TendarMastComponent implements OnInit {
       ISASSORT: this.ISASSORT ? this.ISASSORT : false,
       T_PCS: this.T_PCS ? this.T_PCS : 0,
       T_CARAT: this.T_CARAT ? this.T_CARAT : 0,
+      D_DIS: this.D_DIS ? this.D_DIS : 0,
     };
 
     this.spinner.show();
@@ -1071,8 +1096,10 @@ export class TendarMastComponent implements OnInit {
           this.ISACTIVE = false;
           this.T_NAME = "";
           this.ISMIX = false;
+          this.ISASSORT = false;
           this.T_PCS = 0
           this.T_CARAT = 0
+          this.D_DIS = 0
           this.FieldHide = false
 
           for (let i = 0; i < SubData.length; i++) {
@@ -1080,6 +1107,14 @@ export class TendarMastComponent implements OnInit {
               this.T_DATE = SubData[i].T_DATE;
               this.ISACTIVE = SubData[i].ISACTIVE;
               this.T_NAME = SubData[i].T_NAME;
+              this.ISASSORT = SubData[i].ISASSORT;
+              this.D_DIS = SubData[i].D_DIS;
+              this.ISMIX = SubData[i].ISMIX;
+              if(SubData[i].ISMIX == true){
+                this.FieldHide = true
+              }
+              this.T_PCS = SubData[i].T_PCS
+              this.T_CARAT = SubData[i].T_CARAT
             }
           }
           setTimeout(() => {
@@ -1528,7 +1563,7 @@ export class TendarMastComponent implements OnInit {
               return previousValue + currentValue;
             });
             this.agGridWidth = 200 + this.agGridWidth;
-            this.agGridStyles = `width:134vh; height: 70vh`;
+            this.agGridStyles = `width:130vh; height: 70vh`;
           } else {
             this.spinner.hide();
             Swal.fire({
@@ -1605,6 +1640,7 @@ export class TendarMastComponent implements OnInit {
         this.ISASSORT = eve.data.ISASSORT ? eve.data.ISASSORT : false;
         this.T_CARAT = eve.data.T_CARAT ? eve.data.T_CARAT : 0;
         this.T_PCS = eve.data.T_PCS ? eve.data.T_PCS : 0;
+        this.D_DIS = eve.data.D_DIS ? eve.data.D_DIS : 0;
         if (eve.data.ISMIX) {
           this.FieldHide = true;
         } else {

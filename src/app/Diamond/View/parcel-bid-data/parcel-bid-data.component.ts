@@ -277,7 +277,7 @@ export class ParcelBidDataComponent implements OnInit {
   LoadGridData(){
     let FillObj ={
       COMP_CODE:this.COMP_CODE ? this.COMP_CODE:'',
-      DETID:this.DETID ? this.DETID:0
+      DETID:this.DETID ? this.DETID:'',
     }
     this.spinner.show();
     this.ViewServ.ParcelBidDataView(FillObj).subscribe(

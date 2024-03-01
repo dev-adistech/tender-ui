@@ -44,6 +44,7 @@ export class AssortEntComponent implements OnInit {
   T_AVG: any = "";
   T_AMT: any = "";
   T_NOPKT: any = "";
+  K_CARAT: any = "";
 
   ModelControl: FormControl;
   filteredModel: Observable<any[]>;
@@ -196,6 +197,7 @@ export class AssortEntComponent implements OnInit {
     this.T_AMT = "";
     this.T_AVG = "";
     this.T_NOPKT = "";
+    this.K_CARAT = "";
     this.R_FEEL = "";
     this.S_PRD = "";
     this.M_CODE = "";
@@ -329,6 +331,7 @@ export class AssortEntComponent implements OnInit {
           this.T_PCS = SaveRes.data[0][0].I_PCS;
           this.T_CARAT = SaveRes.data[0][0].I_CARAT;
           this.T_NOPKT = SaveRes.data[0][0].N_PCS;
+          this.K_CARAT = SaveRes.data[0][0].K_CARAT;
           this.R_FEEL = SaveRes.data[0][0].ROU_FEEL;
           this.S_PRD = SaveRes.data[0][0].ST_PRD;
           this.M_QUA = SaveRes.data[0][0].M_QUALITY;
@@ -428,25 +431,75 @@ export class AssortEntComponent implements OnInit {
                 },
               });
             } else {
-              temp.push({
-                headerName: VPRes.data[i].DISPNAME,
-                headerClass: VPRes.data[i].HEADERALIGN,
-                field: VPRes.data[i].FIELDNAME,
-                width: VPRes.data[i].COLWIDTH,
-                FORMAT: VPRes.data[i].FORMAT,
+              if (
+                op.decodedTkn.U_CAT === "S" &&
+                (VPRes.data[i].FIELDNAME === "ORAP" ||
+                  VPRes.data[i].FIELDNAME === "RATE" ||
+                  VPRes.data[i].FIELDNAME === "PER" ||
+                  VPRes.data[i].FIELDNAME === "AMT" ||
+                  VPRes.data[i].FIELDNAME == "MPER")
+              ) {
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
                 LOCK: VPRes.data[i].LOCK,
                 align: VPRes.data[i].CELLALIGN,
                 Headersalign:VPRes.data[i].HEADERALIGN,
-                cellStyle: {
-                  "text-align": VPRes.data[i].CELLALIGN,
-                  "background-color": VPRes.data[i].BACKCOLOR,
-                  color: VPRes.data[i].FONTCOLOR,
-                  "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
-                },
-                resizable: VPRes.data[i].ISRESIZE,
-                hide: VPRes.data[i].DISP == false ? true : false,
-                suppressMenu: true,
-              });
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide:false,
+                  suppressMenu: true,
+                });
+              }else if(op.decodedTkn.U_CAT === "S" &&
+              (VPRes.data[i].FIELDNAME === "D_DIS" || VPRes.data[i].FIELDNAME === "DRATE" ||VPRes.data[i].FIELDNAME === 'DAMT')){
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
+                align: VPRes.data[i].CELLALIGN,
+                Headersalign:VPRes.data[i].HEADERALIGN,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: true,
+                  suppressMenu: true,
+                });
+              }else{
+                temp.push({
+                  headerName: VPRes.data[i].DISPNAME,
+                  headerClass: VPRes.data[i].HEADERALIGN,
+                  field: VPRes.data[i].FIELDNAME,
+                  width: VPRes.data[i].COLWIDTH,
+                  FORMAT: VPRes.data[i].FORMAT,
+                LOCK: VPRes.data[i].LOCK,
+                align: VPRes.data[i].CELLALIGN,
+                Headersalign:VPRes.data[i].HEADERALIGN,
+                  cellStyle: {
+                    "text-align": VPRes.data[i].CELLALIGN,
+                    "background-color": VPRes.data[i].BACKCOLOR,
+                    color: VPRes.data[i].FONTCOLOR,
+                    "font-weight": VPRes.data[i].ISBOLD === true ? "bold" : "",
+                  },
+                  resizable: VPRes.data[i].ISRESIZE,
+                  hide: VPRes.data[i].DISP == false ? true : false,
+                  suppressMenu: true,
+                });
+              }
             }
 
             if (i == 0) {
@@ -550,6 +603,7 @@ export class AssortEntComponent implements OnInit {
     this.T_AMT = "";
     this.T_AVG = "";
     this.T_NOPKT = "";
+    this.K_CARAT = "";
     this.R_FEEL = "";
     this.S_PRD = "";
     this.M_CODE = "";
@@ -765,8 +819,10 @@ export class AssortEntComponent implements OnInit {
                   this.rowData[i].GRID_DATA[j].RATE = RapRes.data[1][0][""];
                   this.rowData[i].GRID_DATA[j].RTYPE = RapRes.data[2][0][""];
                   this.rowData[i].GRID_DATA[j].AMT =
-                    this.rowData[i].GRID_DATA[j].RATE *
-                    this.rowData[i].GRID_DATA[j].CARAT;
+                  this.rowData[i].GRID_DATA[j].RATE *
+                  this.rowData[i].GRID_DATA[j].CARAT;
+                  this.rowData[i].GRID_DATA[j].DRATE =this.rowData[i].GRID_DATA[j].RATE - (this.rowData[i].GRID_DATA[j].RATE * parseFloat(this.rowData[i].GRID_DATA[j].D_DIS)) / 100;
+                  this.rowData[i].GRID_DATA[j].DAMT = this.rowData[i].GRID_DATA[j].DRATE * this.rowData[i].GRID_DATA[j].CARAT;
                   this.rowData[i].GRID_DATA[j].PER =
                     100 -
                     (this.rowData[i].GRID_DATA[j].RATE /
@@ -777,8 +833,8 @@ export class AssortEntComponent implements OnInit {
               }
             }
           }
-
           let NewAmtSum = 0;
+          let NewAmtDSum = 0;
           let CaratSum = 0;
           for (let i = 0; i < this.rowData.length; i++) {
             for (let j = 0; j < this.rowData[i].GRID_DATA.length; j++) {
@@ -806,6 +862,7 @@ export class AssortEntComponent implements OnInit {
                 this.rowData[i].GRID_DATA[j].RATE = FinalValue;
                 this.rowData[i].GRID_DATA[j].AMT = NewSum;
                 NewAmtSum += this.rowData[i].GRID_DATA[j].AMT;
+                NewAmtDSum += this.rowData[i].GRID_DATA[j].DAMT;
                 if (this.rowData[i].GRID_DATA[j].CARAT) {
                   CaratSum += parseFloat(this.rowData[i].GRID_DATA[j].CARAT);
                 }
@@ -820,8 +877,9 @@ export class AssortEntComponent implements OnInit {
                 this.rowData[i].GRID_DATA[j].PTAG == "Total"
               ) {
                 this.rowData[i].GRID_DATA[j].AMT = NewAmtSum;
-                this.rowData[i].GRID_DATA[j].RATE =
-                  NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT;
+                this.rowData[i].GRID_DATA[j].DAMT = NewAmtDSum
+                this.rowData[i].GRID_DATA[j].RATE =NewAmtSum / this.rowData[i].GRID_DATA[j].CARAT;
+                this.rowData[i].GRID_DATA[j].DRATE = NewAmtDSum / this.rowData[i].GRID_DATA[j].CARAT;
                 let FINAL = (this.rowData[i].ADIS / 100) * NewAmtSum;
                 ADISDIS = NewAmtSum + FINAL;
                 this.rowData[i].FAMT = ADISDIS.toFixed(2);
@@ -874,6 +932,11 @@ export class AssortEntComponent implements OnInit {
 
   PcsChange(item) {
     item.SIZE = (parseFloat(item.I_CARAT) / parseFloat(item.I_PCS)).toFixed(2);
+    let NewWeight =0
+    for(let i=0;i<this.rowData.length;i++){
+      NewWeight += parseFloat(this.rowData[i].I_CARAT)
+    }
+    this.K_CARAT = NewWeight
   }
   SaveGrid(item) {
     let SubData = [];

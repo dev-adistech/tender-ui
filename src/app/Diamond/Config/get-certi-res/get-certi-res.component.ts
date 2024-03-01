@@ -19,6 +19,7 @@ export interface LOTInt {
 export class GetCertiResComponent implements OnInit {
 
   L_CODE:any=''
+  TYPE:any='CERTI'
   LOTs: LOTInt[] = [];
 
   constructor(
@@ -89,7 +90,8 @@ export class GetCertiResComponent implements OnInit {
               COLORNAME:SubData[i].COLORNAME ? SubData[i].COLORNAME:'',
               SDATE:SubData[i].SDATE ? SubData[i].SDATE:null,
               CR_NAME:SubData[i].CR_NAME ? SubData[i].CR_NAME:'',
-              GI_DATE:SubData[i].GI_DATE ? SubData[i].GI_DATE:null
+              GI_DATE:SubData[i].GI_DATE ? SubData[i].GI_DATE:null,
+              TYPE: this.TYPE
             };
             PerArr.push(SaveObj);
           }
@@ -98,6 +100,7 @@ export class GetCertiResComponent implements OnInit {
               if(SaveRes.success == true){
                 this.spinner.hide()
                 this.toastr.success("Save successfully")
+                if(this.TYPE === 'SELL'){
                 this.GetCeriServ.GetStonId({TYPE:'GET'}).subscribe((FillRes) => {
                   try {
                     if (FillRes.success == true) {
@@ -140,6 +143,7 @@ export class GetCertiResComponent implements OnInit {
                   } catch (error) {
                   }
                 })
+              }
               }else{
                 this.spinner.hide();
                 Swal.fire({

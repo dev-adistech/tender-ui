@@ -72,7 +72,10 @@
                 <mat-label>PCTS</mat-label>
                 <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="PCRT" disabled />
             </mat-form-field>
-
+            <mat-form-field class='mt-2 password' appearance="outline">
+                <input type="password" matInput name="Password" autocomplete="off" [(ngModel)]="PASSWORD"
+                  (ngModelChange)="CHANGEPASSWORD();" />
+              </mat-form-field>
             <article class="btn-wrapper">
                 <button class="btn theme-btn mr-2 ml-auto" matTooltip='Excel' matTooltipClass="custom-tooltip"
                     (click)="Excel()">
