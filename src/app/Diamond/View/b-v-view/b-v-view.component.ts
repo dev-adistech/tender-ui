@@ -158,6 +158,7 @@ export class BVViewComponent implements OnInit {
   DETID: any = "";
   T_NAME: any = "";
   T_DATE: any = null;
+  SRNO: any = "";
   TEXP_DATETIME: any = null;
   PCS: any = '';
   R_TIME: any = null;
@@ -4471,6 +4472,7 @@ export class BVViewComponent implements OnInit {
     let FillObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
       DETID: this.DETID ? this.DETID : 0,
+      SRNO: this.SRNO ? this.SRNO : 0,
     };
     this.spinner.show();
     this.ViewServ.BVView(FillObj).subscribe((FillRes) => {

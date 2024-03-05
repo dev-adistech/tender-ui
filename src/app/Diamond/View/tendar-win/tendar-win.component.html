@@ -92,7 +92,7 @@
                     [defaultColDef]="defaultColDef" [columnDefs]="columnDefs" [gridOptions]="gridOptions"
                     [suppressMenuHide]="false" [rowMultiSelectWithClick]="true"
                     [getContextMenuItems]="getContextMenuItems" [suppressRowClickSelection]="true"
-                    [getRowStyle]="getRowStyle" [pinnedBottomRowData]="pinnedBottomRowData"
+                    [getRowStyle]="getRowStyle" [pinnedBottomRowData]="pinnedBottomRowData" (rowClicked)='onGridRowClicked($event)'
                     (gridReady)="onGridReady($event)" [suppressRowTransform]="true" [suppressMenuHide]="false">
                 </ag-grid-angular>
             </div>

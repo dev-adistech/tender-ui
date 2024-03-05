@@ -66,6 +66,10 @@ export class ViewService {
     return this.http.post<any>('View/StoneidSellDet', Data)
   }
 
+  TenderWinCommentSave(Data: any): Observable<any> {
+    return this.http.post<any>('View/TenderWinCommentSave', Data)
+  }
+
   getRemainingTime(params:any): Observable<string> {
     return interval(1000).pipe(
       map(() => this.calculateRemainingTime(params))

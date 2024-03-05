@@ -157,6 +157,41 @@ export class TendarWinComponent implements OnInit {
               let tempData = [];
 
               for (let j = 0; j < GroupData[i].Data.length; j++) {
+                if(GroupData[i].Data[j].FIELDNAME === "WINCOMMENT"){
+                  tempData.push({
+                    headerName: GroupData[i].Data[j].DISPNAME,
+                    headerClass: GroupData[i].Data[j].HEADERALIGN,
+                    field: GroupData[i].Data[j].FIELDNAME,
+                    width: GroupData[i].Data[j].COLWIDTH,
+                    cellStyle: {
+                      "text-align": GroupData[i].Data[j].CELLALIGN,
+                      "background-color": GroupData[i].Data[j].BACKCOLOR,
+                      color: GroupData[i].Data[j].FONTCOLOR,
+                      "font-weight":
+                        GroupData[i].Data[j].ISBOLD === true ? "bold" : "",
+                    },
+                    resizable: GroupData[i].Data[j].ISRESIZE,
+                    GROUPKEY: GroupData[i].Data[j].GROUPKEY,
+                    hide: GroupData[i].Data[j].DISP == false ? true : false,
+                    pinned: GroupData[i].Data[j].ISFREEZE == true ? "left" : null,
+                    suppressMenu: true,
+                    editable: (params: any) => {
+                        if (this.PASS == this.PASSWORD) {
+                          return true
+                        } else {
+                          return false;
+                        }
+                    },
+                    rowSpan: this.rowSpy.bind(this),
+                    cellClass: function (params) {
+                      if (params.node.rowPinned != "bottom") {
+                        if (params.colDef.field == "WINCOMMENT") {
+                          return "cell-span1";
+                        }
+                      }
+                    },
+                  });
+                }else{
                 tempData.push({
                   headerName: GroupData[i].Data[j].DISPNAME,
                   headerClass: GroupData[i].Data[j].HEADERALIGN,
@@ -219,11 +254,9 @@ export class TendarWinComponent implements OnInit {
                     }
                   },
                 });
+              }
 
-                if (
-                  GroupData[i].Data[j].FIELDNAME === "I_CARAT" ||
-                  GroupData[i].Data[j].FIELDNAME === "SRNO"
-                ) {
+                if (GroupData[i].Data[j].FIELDNAME === "I_CARAT" || GroupData[i].Data[j].FIELDNAME === "SRNO") {
                   this.FooterKey.push(GroupData[i].Data[j].FIELDNAME);
                 }
                 if (GroupData[i].Data[j].FORMAT == "#0") {
@@ -252,7 +285,36 @@ export class TendarWinComponent implements OnInit {
               tempData = [];
               ViewParaRowData.push(jsonData);
             }
-
+            let op = this
+            ViewParaRowData.unshift({
+              headerName: "Action",
+              headerClass: "header-align-center",
+              width: 50,
+              children: [
+                {
+                  headerName: 'Action',
+                  field: 'Action',
+                  width: 50,
+                  resizable: true,
+                  suppressMenu:true,
+                  cellRenderer: function (params) {
+                    let a = '<span class="det_val">'
+                    if (op.PASSWORD) {
+      
+                      if (op.PASSWORD == op.PASS) {
+                        if (op.ALLOWDEL) {
+                          if (params.node.rowPinned != "bottom") {
+                          a = a + '<svg class="grid-icon icon-save" data-action-type="SaveData" > <use data-action-type="SaveData" xlink: href = "assets/symbol-defs.svg#icon-save" > </use> </svg>'
+                          }
+                        }
+                      }
+                    }
+                    a = a + "</span>"
+                    return a
+                  },
+                },
+              ]
+            })
             this.columnDefs = ViewParaRowData;
           } else {
             Swal.fire({
@@ -267,6 +329,33 @@ export class TendarWinComponent implements OnInit {
         }
       }
     );
+  }
+
+  onGridRowClicked(eve){
+    let actionType = eve.event.target.getAttribute("data-action-type")
+    if (actionType == 'SaveData') {
+      let SaveObj ={
+        COMP_CODE:eve.data.COMP_CODE ? eve.data.COMP_CODE:"",
+        DETID:eve.data.DETID ? eve.data.DETID:0,
+        SRNO:eve.data.SRNO ? eve.data.SRNO:0,
+        WINCOMMENT:eve.data.WINCOMMENT ? eve.data.WINCOMMENT:"",
+      }
+      this.ViewServ.TenderWinCommentSave(SaveObj).subscribe((SaveRes) => {
+        try {
+          if (SaveRes.success == true) {
+            this.spinner.hide()
+            this.toastr.success("Save Sucessfully")
+          }else{
+            this.spinner.hide()
+            this.toastr.warning(SaveRes.data)
+          }
+        }catch(err){
+          this.spinner.hide()
+          this.toastr.error(err)
+        }
+      })
+
+    }
   }
 
   CHANGEPASSWORD() {
@@ -810,6 +899,47 @@ export class TendarWinComponent implements OnInit {
             if (
               params.data.BVCOMMENT == SubData[i].BVCOMMENT &&
               params.data.BVCOMMENT
+            ) {
+              mergeIndex += 1;
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      }
+    }
+    if (SubData.length != 0 && params.colDef.field == "WINCOMMENT") {
+      if (params.node.rowIndex == 0) {
+        if (params.data.WINCOMMENT == SubData[params.node.rowIndex].WINCOMMENT) {
+          let mergeIndex = 0;
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (
+              params.data.WINCOMMENT == SubData[i].WINCOMMENT &&
+              params.data.WINCOMMENT
+            ) {
+              mergeIndex += 1;
+            } else {
+              break;
+            }
+          }
+          return mergeIndex;
+        } else {
+          return 0;
+        }
+      } else {
+        let previousIndex =
+          params.node.rowIndex != 0
+            ? params.node.rowIndex - 1
+            : params.node.rowIndex;
+        if (params.data.WINCOMMENT != SubData[previousIndex].WINCOMMENT) {
+          let mergeIndex = 0;
+          for (let i = params.node.rowIndex; i < SubData.length; i++) {
+            if (
+              params.data.WINCOMMENT == SubData[i].WINCOMMENT &&
+              params.data.WINCOMMENT
             ) {
               mergeIndex += 1;
             } else {

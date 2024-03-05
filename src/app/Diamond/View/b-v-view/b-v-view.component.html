@@ -34,6 +34,11 @@
       <mat-datepicker #ID1></mat-datepicker>
     </mat-form-field>
 
+    <mat-form-field appearance="outline" style="width: 6rem;">
+      <mat-label>Srno</mat-label>
+      <input matInput type="text" name="Srno" autocomplete="off" [(ngModel)]="SRNO" />
+    </mat-form-field>
+
     <button class="btn theme-btn" matTooltip='Show' matTooltipClass="custom-tooltip" (click)="LoadGridData();">
       <svg class="icon icon-show">
         <use xlink:href="assets/symbol-defs.svg#icon-show"></use>
