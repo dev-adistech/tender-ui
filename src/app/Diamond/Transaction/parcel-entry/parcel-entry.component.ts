@@ -728,7 +728,7 @@ export class ParcelEntryComponent implements OnInit {
 				field: "AMT",
 				cellStyle: { "text-align": "center" },
 				headerClass: "text-center",
-        width:74
+        width:70
 			},
 		]
   })

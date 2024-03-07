@@ -280,14 +280,22 @@ export class HomeComponent implements OnInit {
   }
 
   async showDialog() {
-    const PRF = this.dialog.open(FooterDialogComponent, {
-      width: "50%",
-      height: "auto",
-      data: {},
-      disableClose: true,
+    this.DashboardServ.FillAllExpTendar({}).then(async (FillRes) => {
+      try {
+        if (FillRes.success == true) {
+          if (FillRes.data.length > 0) {
+            const PRF = this.dialog.open(FooterDialogComponent, {
+              width: "50%",
+              height: "auto",
+              data: {},
+              disableClose: true,
+            });
+            $("#Close").click();
+            PRF.afterClosed().subscribe((result) => {});
+          }
+        }
+      } catch (err) {}
     });
-    $("#Close").click();
-    PRF.afterClosed().subscribe((result) => {});
   }
 
   async openChildWindow() {
