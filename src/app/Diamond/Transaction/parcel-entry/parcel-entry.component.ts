@@ -951,7 +951,7 @@ export class ParcelEntryComponent implements OnInit {
       this.HIDEPOL = false;
       this.SAVEBTNSHOW = false;
     }
-    this.DEPTArr = this.decodedMast[2].map((item) => {
+    this.DEPTArr = this.decodedMast[34].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
 

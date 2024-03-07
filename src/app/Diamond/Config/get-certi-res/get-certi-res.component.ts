@@ -61,7 +61,8 @@ export class GetCertiResComponent implements OnInit {
       LSRNOLIST:'',
       L_CODE:this.L_CODE ? this.L_CODE:'',
       LSRNO:0,
-      LTAG:''
+      LTAG:'',
+      TYPE:this.TYPE ? this.TYPE:''
     }
     this.spinner.show()
     this.GetCeriServ.LabResultGet(Obj).subscribe((FillRes) => {

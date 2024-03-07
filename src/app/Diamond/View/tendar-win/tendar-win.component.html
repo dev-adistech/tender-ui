@@ -2,11 +2,18 @@
     <section class="form-container"
         style="width: calc(100% - 26px); place-content: baseline; display: flex; flex-direction: column;">
         <article class="fields-wrapper" style="max-width:calc(100vw - 4vw);">
-            <ng-select class="autoComplete" placeholder="Company Code" style="width: 7rem;" appearance="outline"
+            <!-- <ng-select class="autoComplete" placeholder="Company Code" style="width: 7rem;" appearance="outline"
                 autocomplete="off" [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID()">
                 <ng-option *ngFor="let dept of DEPTArr" [value]="dept.code">{{dept.code}}</ng-option>
-            </ng-select>
+            </ng-select> -->
 
+            <ng-select class="autoComplete" [items]="DEPTArr" appearance="outline" #select bindLabel="code"
+      dropdownPosition="auto" bindValue="code" [(ngModel)]="COMP_CODE" (ngModelChange)="GETNAME();GETDETID()"
+      labelForId="album" placeholder="Company Code*" [virtualScroll]="true">
+      <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
+        <span>{{item.name}} || {{item.code}}</span>
+      </ng-template>
+    </ng-select>
             <mat-form-field appearance="outline" style="width: calc(100rem - 94rem);">
                 <mat-label>Name</mat-label>
                 <input matInput type="text" name="Code" autocomplete="off" [(ngModel)]="COMP_NAME" disabled />

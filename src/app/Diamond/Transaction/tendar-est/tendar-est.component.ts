@@ -6566,7 +6566,7 @@ export class TendarEstComponent implements OnInit {
       return { code: item.T_CODE, name: item.T_NAME };
     });
     this.TenArr = [[{ code: 0, name: "---" }, ...Tension_arr]];
-    this.DEPTArr = this.decodedMast[2].map((item) => {
+    this.DEPTArr = this.decodedMast[33].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
 

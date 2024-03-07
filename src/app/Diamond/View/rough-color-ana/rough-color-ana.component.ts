@@ -156,7 +156,7 @@ export class RoughColorAnaComponent implements OnInit {
     this.Comment = this.decodedMast[20].map(item => {
       return {code: item.MCOM_NAME, name:item.MCOM_NAME.toString(),}
     });
-    this.DEPTArr = this.decodedMast[2].map((item) => {
+    this.DEPTArr = this.decodedMast[33].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
     this.Labs = this.decodedMast[28].map((item) => {

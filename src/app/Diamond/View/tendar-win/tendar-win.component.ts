@@ -118,7 +118,7 @@ export class TendarWinComponent implements OnInit {
     this.ALLOWUPD = this.PER[0].UPD;
     this.PASS = this.PER[0].PASS;
 
-    this.DEPTArr = this.decodedMast[2].map((item) => {
+    this.DEPTArr = this.decodedMast[33].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
   }

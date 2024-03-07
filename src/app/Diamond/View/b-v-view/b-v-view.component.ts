@@ -319,7 +319,7 @@ export class BVViewComponent implements OnInit {
       this.RESERVELOCK = true;
       this.SAVEBTNSHOW = false;
     }
-    this.DEPTArr = this.decodedMast[2].map((item) => {
+    this.DEPTArr = this.decodedMast[33].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
 

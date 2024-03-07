@@ -36,7 +36,7 @@
 
       <ng-select class="autoComplete" [items]="YearArr" appearance="outline" #select bindLabel="code"
         dropdownPosition="auto" bindValue="code" [(ngModel)]="YYYY" labelForId="album"
-        placeholder="Month" [virtualScroll]="true">
+        placeholder="Year" [virtualScroll]="true">
         <ng-template ng-option-tmp let-item="item" let-search="searchTerm">
           <span>{{item.code}}</span>
         </ng-template>

@@ -158,7 +158,7 @@ export class AssortEntComponent implements OnInit {
   }
 
   ngOnInit() {
-    let Depts = this.decodedMast[2].map((item) => {
+    let Depts = this.decodedMast[34].map((item) => {
       return { code: item.COMP_CODE, name: item.COMP_NAME };
     });
     this.DEPTArr = [{ code: 0, name: "---" }, ...Depts];
