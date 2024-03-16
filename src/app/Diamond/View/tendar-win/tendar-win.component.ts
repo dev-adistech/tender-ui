@@ -1010,12 +1010,8 @@ export class TendarWinComponent implements OnInit {
     let FillObj = {
       COMP_CODE: this.COMP_CODE ? this.COMP_CODE : "",
       DETID: this.DETID ? this.DETID : "",
-      F_DATE: this.F_DATE
-        ? this.datePipe.transform(this.F_DATE, "yyyy-MM-dd")
-        : null,
-      T_DATE: this.T_DATE
-        ? this.datePipe.transform(this.T_DATE, "yyyy-MM-dd")
-        : null,
+      F_DATE: this.F_DATE ? this.datePipe.transform(this.F_DATE, "yyyy-MM-dd"): null,
+      T_DATE: this.T_DATE ? this.datePipe.transform(this.T_DATE, "yyyy-MM-dd"): null,
       ISPASS: this.PASS === this.PASSWORD ? 1 : 0,
     };
     this.spinner.show();
@@ -1188,7 +1184,7 @@ export class TendarWinComponent implements OnInit {
               .map((item) => {
                 return {
                   code: item.DETID,
-                  date: item.T_DATE,
+                  date: this.datePipe.transform(item.T_DATE,'yyyy-MM-dd'),
                   name: item.T_NAME,
                 };
               });

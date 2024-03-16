@@ -1021,51 +1021,80 @@ export class ParcelEntryComponent implements OnInit {
       map((value) => this._Tensionfilter(value))
     );
 
-    this.S_CODE = this.decodedMast[15].map((item) => {
+    let Shapscodearr = this.decodedMast[15].map((item) => {
       return { code: item.S_CODE, name: item.S_NAME };
     });
-    this.C_NAME = this.decodedMast[12].map((item) => {
+
+    this.S_CODE = [{ code: '', name: "---" }, ...Shapscodearr];
+    // this.S_CODE = this.decodedMast[15].map((item) => {
+    //   return { code: item.S_CODE, name: item.S_NAME };
+    // });
+
+    let ColorArr = this.decodedMast[12].map((item) => {
       return { code: item.C_CODE, name: item.C_NAME };
     });
+    this.C_NAME = [{code:0,name:'---'},...ColorArr]
 
-    this.Q_NAME = this.decodedMast[5].map((item) => {
+    let QuaArr = this.decodedMast[5].map((item) => {
       return { code: item.Q_CODE, name: item.Q_NAME };
     });
-    this.CT_NAME = this.decodedMast[3].map((item) => {
+
+    this.Q_NAME = [{code:0,name:'---'},...QuaArr]
+
+    let CutArr = this.decodedMast[3].map((item) => {
       return { code: item.CT_CODE, name: item.CT_NAME };
     });
-    this.FL_NAME = this.decodedMast[7].map((item) => {
+    this.CT_NAME = [{code:0,name:'---'},...CutArr]
+
+    let FloArr = this.decodedMast[7].map((item) => {
       return { code: item.FL_CODE, name: item.FL_NAME };
     });
-    this.LB_NAME = this.decodedMast[4].map((item) => {
+    this.FL_NAME = [{code:0,name:'---'},...FloArr]
+
+    let LabArr = this.decodedMast[4].map((item) => {
       return { code: item.LAB_CODE, name: item.LAB_NAME };
     });
-    this.IN_NAME = this.decodedMast[6].map((item) => {
+    this.LB_NAME = [{code:'',name:'---'},...LabArr]
+
+    let IncArr = this.decodedMast[6].map((item) => {
       return { code: item.IN_CODE, name: item.IN_NAME };
     });
-    this.ML_NAME = this.decodedMast[24].map((item) => {
+    this.IN_NAME = [{code:0,name:'---'},...IncArr]
+
+    let MilkyArr = this.decodedMast[24].map((item) => {
       return { code: item.ML_CODE, name: item.ML_NAME };
     });
-    this.SHD_NAME = this.decodedMast[25].map((item) => {
+    this.ML_NAME = [{code:0,name:'---'},...MilkyArr]
+
+    let ShadeArr = this.decodedMast[25].map((item) => {
       return { code: item.SH_CODE, name: item.SH_NAME };
     });
+    this.SHD_NAME = [{code:0,name:'---'},...ShadeArr]
 
-    this.REF_NAME = this.decodedMast[26].map((item) => {
+    let RefArr = this.decodedMast[26].map((item) => {
       return { code: item.REF_CODE, name: item.REF_NAME };
     });
-    this.DEP_NAME = this.decodedMast[21].map((item) => {
+    this.REF_NAME = [{code:0,name:'---'},...RefArr]
+    
+    let DepArr= this.decodedMast[21].map((item) => {
       return { code: item.DEP_CODE };
     });
-    this.GRD_NAME = this.decodedMast[22].map((item) => {
+    this.DEP_NAME =[{code:0},...DepArr]
+
+    let GrdArr = this.decodedMast[22].map((item) => {
       return { code: item.GRD_CODE };
     });
-    this.RAT_NAME = this.decodedMast[23].map((item) => {
+    this.GRD_NAME =[{code:0},...GrdArr]
+
+    let RatioArr = this.decodedMast[23].map((item) => {
       return { code: item.RAT_CODE };
     });
+    this.RAT_NAME = [{code:0},...RatioArr]
 
-    this.RAPNAME = this.decodedMast[27].map((item) => {
+    let RapNameArr = this.decodedMast[27].map((item) => {
       return { code: item.RAPTYPE };
     });
+    this.RAPNAME = [{code:''},...RapNameArr]
 
     let op = this;
 
@@ -5738,48 +5767,48 @@ export class ParcelEntryComponent implements OnInit {
     for (let i = 0; i < SubData.length; i++) {
       if (
         SubData[i].S_CODE ||
-        SubData[i].C_CODE ||
-        SubData[i].Q_CODE ||
+        parseInt(SubData[i].C_CODE) ||
+        parseInt(SubData[i].Q_CODE) ||
         parseFloat(SubData[i].CARAT) ||
         SubData[i].LB_CODE
       ) {
         if (
           !SubData[i].S_CODE ||
-          !SubData[i].C_CODE ||
-          !SubData[i].Q_CODE ||
+          !parseInt(SubData[i].C_CODE) ||
+          !parseInt(SubData[i].Q_CODE) ||
           !parseFloat(SubData[i].CARAT) ||
-          !SubData[i].CT_CODE ||
-          !SubData[i].FL_CODE ||
+          !parseInt(SubData[i].CT_CODE) ||
+          !parseInt(SubData[i].FL_CODE) ||
           !SubData[i].LB_CODE ||
-          !SubData[i].IN_CODE ||
-          !SubData[i].ML_CODE ||
-          !SubData[i].SH_CODE ||
+          !parseInt(SubData[i].IN_CODE) ||
+          !parseInt(SubData[i].ML_CODE) ||
+          !parseInt(SubData[i].SH_CODE) ||
           !SubData[i].RAPTYPE ||
-          !SubData[i].REF_CODE
+          !parseInt(SubData[i].REF_CODE)
         ) {
           if (!SubData[i].S_CODE) {
             ConditionArray.push("Shape");
-          } else if (!SubData[i].C_CODE) {
+          } else if (!parseInt(SubData[i].C_CODE)) {
             ConditionArray.push("Color");
-          } else if (!SubData[i].Q_CODE) {
+          } else if (!parseInt(SubData[i].Q_CODE)) {
             ConditionArray.push("Clarity");
           } else if (!parseFloat(SubData[i].CARAT)) {
             ConditionArray.push("Carat");
-          } else if (!SubData[i].CT_CODE) {
+          } else if (!parseInt(SubData[i].CT_CODE)) {
             ConditionArray.push("Cut");
-          } else if (!SubData[i].FL_CODE) {
+          } else if (!parseInt(SubData[i].FL_CODE)) {
             ConditionArray.push("Fluorescence");
           } else if (!SubData[i].LB_CODE) {
             ConditionArray.push("Lab");
-          } else if (!SubData[i].IN_CODE) {
+          } else if (!parseInt(SubData[i].IN_CODE)) {
             ConditionArray.push("Inclusion");
-          } else if (!SubData[i].ML_CODE) {
+          } else if (!parseInt(SubData[i].ML_CODE)) {
             ConditionArray.push("Milky");
-          } else if (!SubData[i].SH_CODE) {
+          } else if (!parseInt(SubData[i].SH_CODE)) {
             ConditionArray.push("Shades");
           } else if (!SubData[i].RAPTYPE) {
             ConditionArray.push("Raptype");
-          } else if (!SubData[i].REF_CODE) {
+          } else if (!parseInt(SubData[i].REF_CODE)) {
             ConditionArray.push("Reflection");
           }
           return this.toastr.warning(ConditionArray[0] + " " + "is  Missing");
@@ -6380,7 +6409,7 @@ export class ParcelEntryComponent implements OnInit {
   }
 
   DbClick(eve) {
-    if (eve.ISCOL == 1) {
+    if (eve.ISCOL == 1 && this.decodedTkn.U_CAT === "S") {
       this.ViewServ.StoneidSellDet({
         S_NAME: eve.S_CODE ? eve.S_CODE : "",
         C_NAME: eve.C_CODE ? eve.C_CODE : "",

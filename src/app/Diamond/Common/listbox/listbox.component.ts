@@ -338,7 +338,7 @@ export class ListboxComponent implements OnInit {
       };
     }else if (data.TYPE == 'DETID') {
       this.valdata = data.arr.map((item) => {
-        return { code: item.code, name: item.name, CKB: this.userExists(item.code) }
+        return { code: item.code,date:item.date ,name: item.name, CKB: this.userExists(item.code) }
       })
 
       this.columnDefs = [
@@ -354,13 +354,22 @@ export class ListboxComponent implements OnInit {
           headerName: "CODE",
           field: "code",
           cellStyle: { "text-align": "center" },
-          headerClass: "text-center"
+          headerClass: "text-center",
+          width: 60
         },
         {
           headerName: "NAME",
           field: "name",
           cellStyle: { "text-align": "center" },
-          headerClass: "text-center"
+          headerClass: "text-center",
+          width: 150
+        },
+        {
+          headerName: "Date",
+          field: "date",
+          cellStyle: { "text-align": "center" },
+          headerClass: "text-center",
+          width: 86
         },
       ];
       this.rowSelection = "multiple";
@@ -584,7 +593,7 @@ export class ListboxComponent implements OnInit {
       })
     } else if (this.TYPE == 'DETID') {
       this.valdata = this.valdata.map((item) => {
-        return { code: item.code, name: item.name.toString(), CKB: item.CKB }
+        return { code: item.code,date:item.date ,name: item.name.toString(), CKB: item.CKB }
       })
     } else if (this.TYPE == 'COMPOP') {
       this.valdata = this.valdata.map((item) => {
@@ -610,7 +619,9 @@ export class ListboxComponent implements OnInit {
     let gridFilter = this.gridApi.getFilterModel()
     this.gridApi.setRowData(this.valdata);
     this.gridApi.setFilterModel(gridFilter);
-    this.gridApi.sizeColumnsToFit();
+    if(this.TYPE !== "DETID"){
+      this.gridApi.sizeColumnsToFit();
+    }
     this.gridApi.forEachNode(function (node) {
       node.setSelected(node.data.CKB === true);
     });

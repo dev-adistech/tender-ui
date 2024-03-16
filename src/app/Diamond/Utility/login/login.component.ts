@@ -115,9 +115,15 @@ export class LoginComponent implements OnInit {
     		try {
     			if (LoginRes.success == true) {
     				this.spinner.hide()
-    				this.OtpForm = true
-    				this.token = LoginRes.data;
-    				this.onOTPSubmit()
+            this.token = LoginRes.data;
+            if(environment.BaseUrl === "api.tender.peacocktech.in"){
+              this.OtpForm = true
+              this.onOTPSubmit()
+            }else{
+              sessionStorage.setItem("token", this.token);
+              sessionStorage.setItem("barcode", "");
+              window.location.href = window.location.origin + "/dashboard";
+            }
     			} else if (LoginRes.success == 2) {
     				this.spinner.hide()
     				this.toastr.warning("Not Found")

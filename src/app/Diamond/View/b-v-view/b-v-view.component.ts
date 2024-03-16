@@ -5653,7 +5653,7 @@ export class BVViewComponent implements OnInit {
   }
 
   DbClick(eve) {
-    if (eve.ISCOL == 1) {
+    if (eve.ISCOL == 1 && this.decodedTkn.U_CAT === "S") {
       this.ViewServ.StoneidSellDet({
         S_NAME: eve.S_CODE ? eve.S_CODE : "",
         C_NAME: eve.C_CODE ? eve.C_CODE : "",
