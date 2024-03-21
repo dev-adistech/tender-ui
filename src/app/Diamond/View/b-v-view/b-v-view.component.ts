@@ -1931,6 +1931,8 @@ export class BVViewComponent implements OnInit {
         return { background: "#C4A484" };
       } else if (params.data.SH_CODE == 3) {
         return { background: "#d9c6b4" };
+      } else if (params.data.SH_CODE == 4) {
+        return { background: "#a3988e" };
       } else if (params.data.SH_CODE == 7) {
         return { background: "#acfaa5" };
       }
@@ -5303,6 +5305,9 @@ export class BVViewComponent implements OnInit {
   }
 
   findRapTabe(tableRow, Item) {
+
+    let NewCarat = parseFloat(tableRow.CARAT)/Item.I_CARAT
+    tableRow.SIZE = (NewCarat*100).toFixed(2)
     if (!tableRow.S_CODE) {
       return;
     }
@@ -5386,8 +5391,9 @@ export class BVViewComponent implements OnInit {
                 this.rowData[i].GRID_DATA[j].PTAG == "Total" &&
                 this.rowData[i].GRID_DATA[j].PLANNO == tableRow.PLANNO
               ) {
-                this.rowData[i].GRID_DATA[j].CARAT =
-                  parseFloat(gridCaratSum).toFixed(2);
+                this.rowData[i].GRID_DATA[j].CARAT = parseFloat(gridCaratSum).toFixed(2);
+                let NewSize = this.rowData[i].GRID_DATA[j].CARAT/Item.I_CARAT
+                this.rowData[i].GRID_DATA[j].SIZE = (NewSize*100).toFixed(2)
                 break;
               }
             }

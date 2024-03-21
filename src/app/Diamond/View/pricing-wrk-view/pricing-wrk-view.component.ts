@@ -592,6 +592,8 @@ export class PricingWrkViewComponent implements OnInit {
         return { background: "#C4A484" };
       } else if (params.data.SH_NAME == "L-BRN") {
         return { background: "#d9c6b4" };
+      } else if (params.data.SH_NAME == "D-BRN") {
+        return { background: "#a3988e" };
       } else if (params.data.SH_NAME == "MIX-T") {
         return { background: "#acfaa5" };
       }

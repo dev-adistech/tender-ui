@@ -757,6 +757,8 @@ export class TendarEstComponent implements OnInit {
         return { background: "#C4A484" };
       } else if (params.data.SH_CODE == 3) {
         return { background: "#d9c6b4" };
+      } else if (params.data.SH_CODE == 4) {
+        return { background: "#a3988e" };
       } else if (params.data.SH_CODE == 7) {
         return { background: "#acfaa5" };
       }
@@ -5513,6 +5515,9 @@ export class TendarEstComponent implements OnInit {
   }
 
   async FindRap(params) {
+
+    let NewSize = parseFloat(params.data.CARAT)/this.PKTWEIGHT
+    params.data.SIZE = (NewSize*100).toFixed(2)
     let _GridRowData1 = [];
     this.gridApi1.forEachNode(function (rowNode, index) {
       _GridRowData1.push(rowNode.data);
@@ -6173,6 +6178,8 @@ export class TendarEstComponent implements OnInit {
                 FinalGrid[i].DAMT = TotalSumDAmt;
                 FinalGrid[i].RATE = TotalSumAmt / FinalGrid[i].CARAT;
                 FinalGrid[i].DRATE = TotalSumDAmt / FinalGrid[i].CARAT;
+                let NewSize = parseFloat(FinalGrid[i].CARAT)/this.PKTWEIGHT
+                FinalGrid[i].SIZE = (NewSize*100).toFixed(2)
               }
             }
             this.gridApi1.refreshCells({ force: true });

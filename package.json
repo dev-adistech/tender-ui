@@ -1,6 +1,6 @@
 {
   "name": "predacon-ui",
-  "version": "14.03.2024",
+  "version": "18.03.2024",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "host": "ng s -o --host=192.168.1.150 --port=4502"
+    "host": "ng s -o --host=192.168.1.150 --port=4501"
   },
   "private": true,
   "dependencies": {
